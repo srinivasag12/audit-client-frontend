@@ -1,0 +1,230 @@
+<form name="rep.repForm" autocomplete="off">
+<div style="height: 90.5vh !important; max-height: 90.5vh !Important;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull auditscroll scroll">
+<div class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12 rep">
+	
+			<div class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 accordion-toggle1"
+				data-toggle="collapse" data-target="#rep">
+				<div class="col-xs-12 col-sm-10 col-md-12 col-lg-12 containerfull">
+					<div
+						class="caption font-blue-sharp col-xs-9 col-sm-3 col-md-3 col-lg-3 containerfull">
+						<span class="caption-subject bold uppercase pull-left">Modify Attachments</span>
+
+					</div>
+				</div>
+			</div>
+			
+			
+	
+
+<!-- <div class="auditorsec" style="text-align: center;">Modify Attachment Section</div> -->
+		<div id="rep" style="border-bottom: 1px solid #065050 !important;" class="portlet-body collapse in col-xs-12 col-sm-12 col-md-12 col-lg-12 padcontainer">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull">
+	
+		       		<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec"  style="margin-left: 460px !important;">
+							
+                                    <select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" 
+                                    	ng-model="report.auditTypeId" id="audittype"  
+                                    	ng-options="autype.auditTypeId as autype.auditTypeDesc for autype in report.audtype"
+                                    	ng-init="report.auditTypeId=0"
+                                    	ng-change="report.getReportSubType(report.auditTypeId);report.clearReports();" ng-class="{'changed':report.auditTypeId}"></select>
+                                    <label for="audittype"> Type</label>
+								
+					</div>
+							
+					<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec" style="margin-left: 20px !important;">
+							
+                                    <select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" 
+                                    	ng-model="report.auditSubTypeId" id="auditSubtype"  
+                                    	ng-options="autype.auditSubtypeId as autype.auditSubtypeDesc for autype in report.audsubtype"
+                                    	ng-init="report.auditSubTypeId=0"
+                                    	ng-change="report.getReports(report.auditSubTypeId)" ng-class="{'changed':report.auditSubTypeId}"></select>
+                                    <label for="auditSubtype">SubType</label>
+								
+					</div>
+							
+							
+		
+            </br>
+            
+            <div  class="search_table_bordered auditSearch " style="margin-top: 60px !important; display: inline-block;float: left;">
+		        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-offset-1 col-lg-10 mobilesizecontainer dataTables_wrapper no-footer"> 
+                     <div class="table-responsive "  >
+                                      <table id=" mainreportdetails" class="table table-bordered table-hover containerfull">
+                                       <thead>
+                                          <tr style="display:table;width:100%;table-layout:fixed; background: #364150;color: white;border-top-right-radius: 15px !important;border-top-left-radius: 15px !important;">
+                                          <th class="center">SL No.</th>
+                                          
+                                             
+                                             <th class="center">Report Types</th>
+                                             <th class="center" >Mandatory</th>
+                                             <th class="center" >Active</th>
+                                              <th class="center" >Updated On</th>
+                                              
+            
+                                          </tr>
+                                        </thead>
+                                       <tbody style="display:block;max-height:200px;overflow:auto">
+                                          <tr  ng-if="!rep.addNewReport ==1 " style="display:table;width:100%;table-layout:fixed;" ng-repeat="rep in report.reportData | orderBy:'attachmentTypeId'">
+                                          <td  style="text-align:center"> {{$index+1}}
+                                          
+                                          </td>
+                                              
+                                               
+                                                 <td class="center" style="max-width: 140px !Important; overflow: auto;word-break: break-all;text-transform:uppercase" ng-class="{default:!rep.fileName}">
+ 												<!-- <span ng-if="!rep.fileName  && det.auditTypeId != det.AppConstant.DMLC_TYPE_ID && ((rep.attachmentTypeId != det.AppConstant.CERTIFICATE_RPT_ATCH_ID))" ng-class="{default:!rep.fileName}" style="font-weight: 900; font-size: larger; color: #f10f0f;">*</span>  				
+ 									              <span ng-if="(!rep.fileName && rep.attachmentTypeId != det.AppConstant.CERTIFICATE_RPT_ATCH_ID && det.auditTypeId == det.AppConstant.SSP_TYPE_ID && det.auditDetail.auditSubTypeId!=det.AppConstant.SSP_DMLC_INITIAL_AUD_SUBTYPEID) || (!rep.fileName &&  det.auditTypeId == det.AppConstant.SSP_TYPE_ID && det.auditDetail.auditSubTypeId==1002  && rep.attachmentTypeId != det.AppConstant.CERTIFICATE_RPT_ATCH_ID ) || (!rep.fileName && det.auditTypeId != det.AppConstant.DMLC_TYPE_ID && rep.attachmentTypeId != det.AppConstant.CERTIFICATE_RPT_ATCH_ID && det.auditTypeId != det.AppConstant.SSP_TYPE_ID) " ng-class="{default:!rep.fileName}" style="font-weight: 900; font-size: larger; color: #f10f0f;">*</span> 
+                                                -->
+                                                 <span>{{rep.attachmentTypeDesc}}</span>
+                                             <!-- <span ng-if="rep.otherType" style="text-align:center">({{rep.otherType}}) 
+                                                 				</span>  --> 
+                                                 </td>
+                                             <td class="center">
+                                                  
+                         						<select class="col-xs-2 col-sm-2 col-md-2 col-lg-2 txt-input"
+                         						ng-model="rep.mandatory"  ng-change="report.mandatoryOrStatus(rep.attachmentTypeId);"
+                         						id="mandatoryId"  ng-options="type.id as type.value for type in  report.yesOrNoOptions" ng-class="{'changed':report.mandtory}"> </select>
+											</td>
+                                             
+                                             <td class="center">
+                                                    <select class="col-xs-2 col-sm-2 col-md-2 col-lg-2 txt-input" 
+                         							ng-model="rep.activeStatus"  
+                         							id="activeId"  ng-options="type.id as type.value for type in  report.yesOrNoOptions" ng-change="report.mandatoryOrStatus(rep.attachmentTypeId);" ng-class="{'changed':report.activeStatus}"> </select>
+											</td>
+                                              
+                                              <td class="center">
+                                                    {{rep.lastUpdatedDateVal}}
+                                              </td>
+                                              
+                                             <!--  <td  class="center"> 
+                                                    <div ng-if="rep.showUpdateFlag && rep.showUpdateFlag==1"  class="col-xs-12 col-sm-12 col-md-12 col-lg-offset-9 col-lg-3" style="margin-left:0px !important;margin-right:0px !important;">
+														<button style="padding:1px 6px !important;width:34px !important;" class="buttontrash btn btn-info btnclass" ng-click="report.updateReport(rep);">
+				 										<i class="fa fa-edit" aria-hidden="true" title="Edit"></i>
+														</button>
+													</div>
+                                              </td> -->
+                                              
+                                             
+            
+                                          </tr>	 		
+                                          <!-- <tr >	 <td class="center">
+                                                    <div  class="center" style="max-width: 100px !Important; overflow: auto;">
+                                                    
+                                               		<label  style="padding:1px 6px !important;width:34px !important;" class="buttontrash btn btn-info btnclass"
+                                               		 	ng-disabled="" 
+                                               		 	ng-click="report.addNewAttachment();" >
+       													<i class="fa fa-paperclip" aria-hidden="true" title="Attachments"></i>
+    												</label>
+                                                 </div>
+                                              </td> </tr>	 --> 
+                                      </tbody>
+                        	</table>
+                      </div>
+                   </div>
+                 </div>
+              
+         
+               
+                 
+                 <div  class="{{report.addReports  ? 'search_table_bordered reportDetails' : '' }}"	>
+                 <div   class="col-xs-12 col-sm-12 col-md-12 col-lg-offset-1 col-lg-10 mobilesizecontainer dataTables_wrapper no-footer"> 
+                     <div class="table-responsive " >
+                                      <table  id="newreportdetails" class="table table-bordered table-hover containerfull">
+                                       <thead>
+                                          <tr style="display:table;width:100%;table-layout:fixed;border-top-right-radius: 15px !important;border-top-left-radius: 15px !important;">
+                                          <th class="center" ></th>
+                                          
+                                             
+                                             <th class="center"></th>
+                                             <th class="center" ></th>
+                                             <th class="center" ></th>
+                                              <th class="center"></th>
+                                               
+            
+                                          </tr>
+                                        </thead>
+                                       <tbody  style="display:block;max-height:200px;overflow:auto;">
+                                          <tr ng-if="rep.addNewReport ==1" style="display:table;width:100%;table-layout:fixed;" ng-repeat="rep in report.reportData | orderBy:'attachmentTypeId'">
+                                         <td  style="text-align:center"> 
+                                          
+                                          </td> 
+                                              
+                                               
+                                                 <td  class="center" style="max-width: 140px !Important; overflow: auto;text-transform:uppercase" ng-class="{default:!rep.fileName}">
+ 												<!-- <span ng-if="!rep.fileName  && det.auditTypeId != det.AppConstant.DMLC_TYPE_ID && ((rep.attachmentTypeId != det.AppConstant.CERTIFICATE_RPT_ATCH_ID))" ng-class="{default:!rep.fileName}" style="font-weight: 900; font-size: larger; color: #f10f0f;">*</span> 				 -->
+ 									              <!--  <span ng-if="(!rep.fileName && rep.attachmentTypeId != det.AppConstant.CERTIFICATE_RPT_ATCH_ID && det.auditTypeId == det.AppConstant.SSP_TYPE_ID && det.auditDetail.auditSubTypeId!=det.AppConstant.SSP_DMLC_INITIAL_AUD_SUBTYPEID) || (!rep.fileName &&  det.auditTypeId == det.AppConstant.SSP_TYPE_ID && det.auditDetail.auditSubTypeId==1002  && rep.attachmentTypeId != det.AppConstant.CERTIFICATE_RPT_ATCH_ID ) || (!rep.fileName && det.auditTypeId != det.AppConstant.DMLC_TYPE_ID && rep.attachmentTypeId != det.AppConstant.CERTIFICATE_RPT_ATCH_ID && det.auditTypeId != det.AppConstant.SSP_TYPE_ID) " ng-class="{default:!rep.fileName}" style="font-weight: 900; font-size: larger; color: #f10f0f;">*</span> 
+                                               --> 
+                                                <span>{{rep.attachmentTypeDesc}}</span>  
+                                             <!-- <span ng-if="rep.otherType" >({{rep.otherType}}) 
+                                                 				</span>   -->
+                                                 </td>
+                                             <td class="center" style="horizontal-align: middle !important;">
+                                                  
+                         						<select class="col-xs-2 col-sm-2 col-md-2 col-lg-2 txt-input"
+                         						ng-model="rep.mandatory"  ng-change="report.mandatoryOrStatus(rep.attachmentTypeId);"
+                         						id="mandatoryId"  ng-options="type.id as type.value for type in  report.yesOrNoOptions" ng-class="{'changed':report.mandtory}"> </select>
+											</td>
+                                             
+                                             <td class="center" >
+                                                    
+                         						<select class="col-xs-2 col-sm-2 col-md-2 col-lg-2 txt-input" 
+                         						ng-model="rep.activeStatus"  
+                         						id="activeId"  ng-options="type.id as type.value for type in  report.yesOrNoOptions" ng-change="report.mandatoryOrStatus(rep.attachmentTypeId);" ng-class="{'changed':report.activeStatus}"> </select>
+						
+				            
+                                              </td>
+                                              
+                                             <!--  <td  class="center">
+                                                    {{rep.lastUpdatedDateVal}}
+                                              </td> --> 
+                                              
+                                              <td class="center"  > 
+                                                    <div ng-if="rep.showUpdateFlag && rep.showUpdateFlag==1"  class="col-xs-12 col-sm-12 col-md-12 col-lg-offset-9 col-lg-3"   style="margin-left: 70px !important;">
+														<button style="padding:1px 6px !important;width:34px !important;" class="buttontrash btn btn-info btnclass" ng-click="report.updateReport(rep);">
+				 										<i class="fa fa-edit" aria-hidden="true" title="Edit"></i>
+														</button>
+													</div>
+                                              </td>
+                                              
+                                             
+            
+                                          </tr>	 		
+                                         
+                                      </tbody>
+                        	</table>
+                      </div>
+                   </div>
+                 </div>
+            </div>
+          
+            
+ 
+   
+            <div  class="col-xs-12 col-sm-12 col-md-12 col-lg-offset-0 tdpad col-lg-12 search audsrcpad">		
+			
+			<div  class="col-xs-4 col-sm-offset-2 col-sm-3 col-md-offset-4 col-md-2 col-lg-offset-3 col-lg-2" style="margin-left: 300px !important;">
+				<button type="button" class="effect effect btn btn-primaryclr btnsize btnclass fix-but-width font-add" ng-click="report.addNewAttachment();"><span>NEW</span></button>
+			</div>
+			
+			<div  class="col-xs-4 col-sm-offset-2 col-sm-3 col-md-offset-4 col-md-2 col-lg-offset-3 col-lg-2" style="margin-left: 10px !important;">
+				<button type="button" class="effect effect btn btn-primaryclr btnsize btnclass fix-but-width font-add" ng-disabled="!report.auditTypeId || !report.auditSubTypeId" ng-click="report.saveOrUpdateReport();"><span>SUBMIT</span></button>
+			</div>
+			
+			
+			
+			<div class="col-xs-4 col-sm-offset-0  col-sm-3 col-md-offset-0 col-md-2 col-lg-offset-0 col-lg-2" style="margin-left: 10px !important;">
+				<button type="button" class="effect effect btn btn-primaryclr btnsize btnclass fix-but-width font-clear" ng-click="report.clear();"><span>CLEAR</span></button>
+			</div>
+		
+
+            
+            
+            
+            
+            </div>
+	 	</div>  
+   </div>
+			
+		
+
+</div>
+</form>

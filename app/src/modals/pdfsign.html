@@ -1,0 +1,324 @@
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 modal fade"
+	style="padding-right: 15px !important;" data-keyboard="false"
+	data-backdrop="static">
+
+	<div
+		class=" col-xs-12 col-sm-12 col-md-12 col-lg-12 modal-dialog stampAdd">
+		<div class=" col-xs-12 col-sm-12 col-md-12 col-lg-12 modal-content">
+			<div class="modal-header">
+				<br> <label style="font-weight: bold; color: red;"
+					ng-if="pdfsign.edit.message"> * {{pdfsign.edit.message}}</label>
+				<button type="button" class="close" ng-click="pdfsign.close1()"
+					data-dismiss="modal" aria-hidden="true">�</button>
+
+			</div>
+			<div class="modal-body" id="pdf-modal-backdrop">
+
+				<div
+					class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<div id="reportHead" style="padding: 2px 2px 2px 5px !important;"
+						class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 caption-subject bold uppercase">
+
+						Upload PDF</div>
+
+					<div
+						class="portlet-body  col-xs-12 col-sm-12 col-md-12 col-lg-12 mobilesizecontainer">
+
+						<table class="table table-bordered table-hover containerfull">
+							<thead>
+								<tr>
+									<th class="center">File Upload</th>
+									<th class="center">File Name</th>
+									<th class="center">Date</th>
+									<th class="center">Total Page No.</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+
+									<td class="center"
+										style="max-width: 100px !Important; overflow: auto;"><label
+										for="file-input"
+										style="padding: 1px 6px !important; width: 34px !important;"
+										class="buttontrash btn btn-info btnclass"> <i
+											class="fa fa-paperclip" aria-hidden="true"
+											title="Attachments"></i>
+									</label> <!-- <input id="file-input" name="file-input" type="file" file-model="pdfsign.file"
+												accept="*/*" /> --> <input id="file-input" type="file"
+										file-upload="" ng-model="pdfsign.file"
+										accept="application/pdf"
+										ng-disabled="pdfsign.edit.message?true:pdfsign.fileBtn"
+										ng-change="pdfsign.SelectFile(this)"
+										class="ng-untouched ng-valid ng-not-empty ng-dirty ng-valid-parse"
+										style=""> <!-- onchange="alert(this.value); this.value=null; return false;" --></td>
+									<td class="center"
+										style="max-width: 100px !Important; overflow: auto; word-break: break-all;"
+										ng-class="default" ng-model="pdfsign.file.name">{{pdfsign.file.name}}</td>
+									<td class="center"
+										style="max-width: 100px !Important; overflow: auto; word-break: break-all;"
+										ng-class="default"><input
+										class="txt-input datePicker changed ng-pristine ng-valid ng-not-empty ng-touched" ng-change="pdfsign.changePdfDate()"
+										datepicker="" ng-model="pdfsign.signdate"
+										id="signdate" type="text" autocomplete="off"
+										placeholder="DD-MMM-YYYY" style="max-width: 150px" ng-disabled="pdfsign.auditTypeId==1007 || pdfsign.auditTypeId==1008 || pdfsign.auditTypeId==1009 || pdfsign.auditTypeId==1010 || pdfsign.auditTypeId==1011 || pdfsign.auditTypeId==1012 || pdfsign.auditTypeId==1013"></td>
+									<td class="center" ng-model="pdfsign.returnValue">{{pdfsign.returnValue}}</td>
+								</tr>
+							</tbody>
+						</table>
+
+					</div>
+				</div>
+
+				<div
+					class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12"
+					ng-if="pdfsign.submit? false : true">
+
+					<div id="reportHead"
+						class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 caption-subject bold uppercase">
+						Select page numbers & pointers</div>
+
+
+					<br>
+
+					<div
+						class="portlet-body  col-xs-12 col-sm-12 col-md-12 col-lg-12 mobilesizecontainer">
+
+						<table class="table table-bordered table-hover containerfull">
+							<thead>
+								<tr>
+									<th class="center">Enter Page No. b/w 1 to
+										{{pdfsign.returnValue}}</th>
+									<th class="center">Pointer</th>
+
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+
+									<td>
+									<div class="col-lg-12">
+										<div class=" col-md-3">
+											<input type="checkbox" class="cert-chckbox"
+												ng-model="pdfsign.checkAll" id="stampAll" ng-true-value=1
+												ng-false-value=0 name="chckAll" ng-disabled="pdfsign.submit"
+												ng-click="pdfsign.allClicked()"> <label
+												for="stampAll">All</label>
+										</div>
+										&nbsp;&nbsp;&nbsp;&nbsp;
+										<div class=" col-md-1">
+											<label style="font-size: 17px"
+												class="caption-subject bold uppercase">OR</label>
+										</div>
+										<div class=" col-md-7" style="float:right">
+											<input id='addInputNo' name='addInputNo'
+												ng-disabled="pdfsign.submit ? true : pdfsign.checkAll ? true : false "
+												ng-model="pdfsign.mInputNo" value="all"
+												placeholder="e.g. 1-5,8,11-13"
+												ng-keypress="($event.charCode==13)?pdfsign.addNoButton():return"
+												ng-blur="pdfsign.stampAllChange()"
+												class="col-xs-4 col-sm-4 col-md-4 col-lg-4 txt-input center"
+												style="width: 130px !important" />  
+												
+										</div>
+									</div>
+									</td>
+									<td
+										>
+										
+										<button type="button"
+											class="effect effect footerbutton btn btn-primaryclr font-add"
+											style="max-width: 140px"
+											ng-click="pdfsign.previewPointerButton()">Pointer Preview</button>
+											&nbsp;&nbsp;&nbsp;&nbsp;
+											<select class="center"
+										class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input ng-pristine ng-valid ng-not-empty changed ng-touched"
+										style="font-weight: 500 !Important; padding: 0px !important; height: 25px; width: 130px !important;"
+										ng-disabled="pdfsign.submit" ng-model="pdfsign.pointerDrop"
+										id="pointerDrop"
+										ng-options="type as type.num for type in pdfsign.pointerValues">
+									</select>
+									</td>
+									<!--<td>
+										 <input type="radio" class="cert-radio" ng-value="false" id="cert-radio1" value="seal"
+										ng-model="pdfsign.model.seal"
+										ng-disabled="pdfsign.submit"> <label
+										for="cert-radio1">Seal</label><input type="radio"
+										ng-model="pdfsign.ssradio" class="cert-radio" id="pdf-radio1"
+										value="sign"> <label for="pdf-radio1">Sign</label>
+
+									</td>
+									 <td>
+										<input type="radio" ng-value="false"
+										class="cert-radio" id="cert-radio2" value="sign"
+										ng-model="pdfsign.model.sign" ng-disabled="pdfsign.submit">
+										<label for="cert-radio2">Sign</label> <input type="radio"
+										ng-model="pdfsign.ssradio" class="cert-radio" id="pdf-radio2"
+										name="r2" value="seal"> <label for="pdf-radio2">Seal</label>
+									</td> -->
+									<td class="center" ng-hide = "pdfsign.auditTypeId==1005"><input type="checkbox"
+										ng-model="pdfsign.checkboxModel.sign" ng-true-value=1
+										ng-false-value=0 class="cert-chckbox" id="pdf-chckbox2"
+										name="chck2" ng-disabled="pdfsign.submit" > 
+										<label
+										for="pdf-chckbox2" ng-if = "pdfsign.auditTypeId==1006">Signature</label>
+										<label
+										for="pdf-chckbox2" ng-if = "pdfsign.auditTypeId==1004 || (pdfsign.auditTypeId >= 1007 && pdfsign.auditTypeId <= 1013)">Approved</label>
+										</td>
+										<td class="center"
+										style="max-width: 100px !Important; overflow: auto; word-break: break-all;"
+										ng-class="default" ng-hide = "pdfsign.auditTypeId==1005"><input type="checkbox" 
+										class="cert-chckbox" ng-model="pdfsign.checkboxModel.signer"
+										id="pdf-chckbox3" ng-true-value=1 ng-false-value=0
+										name="chck3" ng-disabled="pdfsign.submit"> 
+										<label
+										for="pdf-chckbox3" ng-if = "pdfsign.auditTypeId==1006">Signer</label>
+										<label
+										for="pdf-chckbox3" ng-if = "pdfsign.auditTypeId==1004 || (pdfsign.auditTypeId >= 1007 && pdfsign.auditTypeId <= 1013)">Date</label>
+										</td>
+									<td class="center"
+										style="max-width: 100px !Important; overflow: auto; word-break: break-all;"
+										ng-class="default"><input type="checkbox"
+										class="cert-chckbox" ng-model="pdfsign.checkboxModel.seal"
+										id="pdf-chckbox1" ng-true-value=1 ng-false-value=0
+										name="chck1" ng-disabled="pdfsign.submit"> <label
+										for="pdf-chckbox1">Seal</label></td>
+										
+										
+									
+									<td><button type="button"
+											class="effect effect footerbutton btn btn-primaryclr font-add"
+											ng-disabled="pdfsign.submit? true : false "
+											style="max-width: 100px" ng-click="pdfsign.addNoButton()">
+											Add</button></td>
+								</tr>
+							</tbody>
+						</table>
+						<br>
+						<div class="portlet light col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+							<div
+								class="portlet-body col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull scroll">
+								<div
+									class="col-xs-12 col-sm-12 col-md-12  col-lg-12 mobilesizecontainer">
+									<div class="table-responsive tdmar" style="overflow: auto;height: 170px;">
+
+										<table class="table table-bordered table-hover containerfull">
+											<thead>
+												<tr>  <!-- 
+													<th class="center">Sl No.</th>  -->
+													<th class="center">Page No.</th>
+													<th class="center">Pointer</th>
+													<th class="center" ng-if = "pdfsign.auditTypeId==1006 ">Signature</th>
+													<th class="center" ng-if = "pdfsign.auditTypeId==1006 ">Signer</th>
+													<th class="center" ng-if = "pdfsign.auditTypeId==1004 || (pdfsign.auditTypeId >= 1007 && pdfsign.auditTypeId <= 1013)">Approved</th>
+													<th class="center" ng-if = "pdfsign.auditTypeId==1004 || (pdfsign.auditTypeId >= 1007 && pdfsign.auditTypeId <= 1013)">Date</th>
+													<th class="center">Seal</th>
+													<th class="center">Delete</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-repeat="pdf in pdfsign.table"> <!-- 
+													<td class="center">{{pdf.index}}</td>  -->
+													<td class="center">{{pdf.pageno}}</td>
+													<td class="center">{{pdf.pointer}}</td>
+													<td class="center" ng-if = "pdfsign.auditTypeId!=1005">{{pdf.sign}}</td>
+													<td class="center" ng-if = "pdfsign.auditTypeId!=1005">{{pdf.signer}}</td>
+													<td class="center">{{pdf.seal}}</td>
+													<td class="center"><button
+															class="buttontrash btn btn-info btnclass"
+															ng-disabled="pdf.deleteBtnDis">
+															<i class="fa fa-trash-o " aria-hidden="true"
+																title="Trash"
+																data-ng-click="pdfsign.stampRemoveRow($index,pdf.deleteBtnDis)"></i>
+														</button></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 modal-footer" ng-if="pdfsign.isIhm">
+
+				<div class="col-xs-4 col-sm-12 col-md-12 col-lg-offset-1 col-lg-2">
+					<button type="button"
+						class="effect effect footerbutton btn btn-primaryclr font-add"
+						style="max-width: 130px" ng-click="pdfsign.refreshButton()"
+						ng-disabled="pdfsign.edit.message?true:false">Clear</button>
+				</div>
+
+				<div class="col-xs-4 col-sm-12 col-md-12 col-lg-2">
+					<button type="button"
+						class="effect effect footerbutton btn btn-primaryclr font-add"
+						style="max-width: 130px"
+						ng-disabled="pdfsign.uploadBtn"
+						ng-click="pdfsign.uploadButton()">Upload</button>
+				</div>
+
+				<div class="col-xs-4 col-sm-12 col-md-12 col-lg-2">
+					<button type="button"
+						class="effect effect footerbutton btn btn-primaryclr font-add"
+						ng-disabled="pdfsign.tableTrue" style="max-width: 130px"
+						ng-click="pdfsign.previewButton()">Preview</button>
+				</div>
+
+				<div class="col-xs-4 col-sm-12 col-md-12 col-lg-2">
+					<button type="button" 
+						class="effect effect footerbutton btn btn-primaryclr font-add"
+						style="max-width: 130px" ng-disabled="pdfsign.tableTrue"
+						ng-click="pdfsign.submitButton()">Save</button>
+				</div>
+
+				<div class="col-xs-4 col-sm-12 col-md-12 col-lg-2">
+					<button type="button"
+						class="effect effect footerbutton btn btn-primaryclr font-print"
+						style="max-width: 130px" ng-disabled="pdfsign.dwnBtn"
+						ng-click="pdfsign.downloadBtn()">Download</button>
+				</div>
+			</div>
+			
+			
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 modal-footer" ng-if="pdfsign.isSspDmlc">
+
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
+					<button type="button"
+						class="effect effect footerbutton btn btn-primaryclr font-add"
+						style="max-width: 130px" ng-click="pdfsign.refreshButton()"
+						ng-disabled="pdfsign.edit.message?true:false">Clear</button>
+				</div>
+
+				<div class="col-xs-4 col-sm-12 col-md-12 col-lg-2">
+					<button type="button"
+						class="effect effect footerbutton btn btn-primaryclr font-add"
+						style="max-width: 130px"
+						ng-disabled="pdfsign.uploadBtn"
+						ng-click="pdfsign.uploadButton()">Upload</button>
+				</div>
+
+				<div class="col-xs-4 col-sm-12 col-md-12 col-lg-2">
+					<button type="button"
+						class="effect effect footerbutton btn btn-primaryclr font-add"
+						ng-disabled="pdfsign.tableTrue" style="max-width: 130px"
+						ng-click="pdfsign.previewButton()">Preview</button>
+				</div>
+
+				<div class="col-xs-4 col-sm-12 col-md-12 col-lg-2">
+					<button type="button"
+						class="effect effect footerbutton btn btn-primaryclr font-print"
+						style="max-width: 130px" ng-disabled="pdfsign.dwnBtn"
+						ng-click="pdfsign.downloadBtn()">Download</button>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+
+</div>
+
+

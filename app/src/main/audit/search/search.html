@@ -1,0 +1,244 @@
+<div style="height: 90.5vh !important; max-height: 90.5vh !Important;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull auditscroll scroll">
+<div class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12 search">
+			<div class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 accordion-toggle1" data-toggle="collapse" data-target="#search">
+				<div class="caption font-blue-sharp col-xs-6 col-sm-6 col-md-2 col-lg-2">
+					<span class="caption-subject bold uppercase pull-left">Search Criteria</span>
+				</div>
+				<!-- <div ng-if="isOnline" class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-offset-4 col-lg-2 datacheck">
+						<input type="radio" name="data" ng-model="ob.local" > Local<br>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-offset-3 col-lg-2 datacheck">
+						<input type="radio" name="data" ng-model="ob.central" > Central<br>
+					</div>
+					
+				</div> -->
+				
+				
+			</div>
+			
+				<div id="search" style="border-bottom: 1px solid #065050 !important;" class="portlet-body collapse in col-xs-12 col-sm-12 col-md-12 col-lg-12 padcontainer">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull">
+			<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec">
+					
+                        <input type="text" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" 
+                        	ng-model="search.searchCriteria.vesselImoNo" id="searchimo"
+                        	ng-blur="search.validateVessel(search.searchCriteria.vesselImoNo,'IMO')"
+						 	uib-typeahead="ship as ship.vesselImoNo for ship in _.getLatestVesselImo($viewValue,search.latestCreatedImo,search.vesselData)"
+						 	typeahead-no-results="noVesselImo" custom-tooltip="{{noVesselImo}}" 
+						 	type="text" autocomplete="off" numeric max-len="7"
+						 	
+							typeahead-on-select="search.setVessel($item)" ng-class="{'changed':search.searchCriteria.vesselImoNo}"/> 
+                        <label for="searchimo">Vessel IMO No</label>
+				
+				</div>
+			    <div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec">
+					
+						<input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" 
+							ng-model="search.searchCriteria.vesselName" id="searchvslname" type="text" autocomplete="off"  
+							uib-typeahead="ship as ship.vesselName for ship in _.getVesselName($viewValue,search.vesselData) "
+							typeahead-on-select="search.setVessel($item)" alpha-numeric
+							ng-change="search.searchCriteria.vesselImoNo=''"
+							ng-blur="search.validateVessel(search.searchCriteria.vesselName,'VES')"
+							typeahead-no-results="noVesselName" custom-tooltip="{{noVesselName}}" ng-class="{'changed':search.searchCriteria.vesselName}"/> 
+						<label  for="searchvslname">Vessel Name</label>
+					
+				</div>
+				<!-- <div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec">
+								
+									<input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" 
+										ng-model="search.searchCriteria.companyImoNo" id="searchcompanyimo" 
+										uib-typeahead="company as company.companyImoNo for company in search.getCompanyImo($viewValue) "
+							            ng-blur="search.validateVessel(search.searchCriteria.companyImoNo,'COM')"
+							            typeahead-no-results="noCompanyImo" custom-tooltip="{{noCompanyImo}}" 
+							         type="text" autocomplete="off" numeric max-len="7" ng-class="{'changed':search.searchCriteria.companyImoNo}"/> 
+									<label for="searchcompanyimo">Company IMO No </label>
+							
+				</div>  -->
+				
+				
+				<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec">
+								
+									<input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" 
+										ng-model="search.searchCriteria.officialNo" id="searchofficialno" 
+										uib-typeahead="official  as official.officialNo for official in search.getOffcialId($viewValue) "
+							            typeahead-no-results="noOfficialNo" custom-tooltip="noOfficialNo" 
+							         type="text" autocomplete="off" numeric ng-class="{'changed':search.searchCriteria.officialNo}"/> 
+									<label for="searchofficialno">Official No</label>
+							
+				</div>
+				
+				
+				<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec">
+					
+					 	<input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input datePicker" datepicker ng-model="search.searchCriteria.certIssuedDate" id="searchisuedate" type="text" autocomplete="off" readonly  ng-class="{'changed':search.searchCriteria.certIssuedDate}"/>
+						
+						<label for="searchisuedate">Issue Date</label>
+				
+				</div>
+				
+							<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec">
+								
+									<input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input datePicker"  datepicker ng-model="search.searchCriteria.certExpiryDate" id="searchexpdate" type="text" autocomplete="off" readonly ng-class="{'changed':search.searchCriteria.certExpiryDate}"/> 
+								
+									<label for="searchexpdate">Expiry Date</label>
+							
+							</div>
+							<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec" ng-if="search.searchCriteria.auditSubTypeId != search.AppConstant.IHM_TYPE_ID">
+							
+									<input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" 
+										ng-model="search.searchCriteria.certificateNo"  id="searchcertificateno" 
+										type="text" autocomplete="off"  max-len="7" 
+										uib-typeahead="certNo as certNo for certNo in search.getCertificateNos($viewValue | uppercase)"
+							            ng-blur="search.validateVessel(search.searchCriteria.certificateNo,'CERT')"
+							            typeahead-no-results="noCertificateNo" custom-tooltip="{{noCertificateNo}}" 
+							        ng-class="{'changed':search.searchCriteria.certificateNo}" />
+								 	<label for="searchcertificateno">{{search.certType}} No</label>
+							</div> 
+							
+							<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec" ng-if="search.searchCriteria.auditSubTypeId == search.AppConstant.IHM_TYPE_ID">
+							
+									<input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" 
+										ng-model="search.searchCriteria.letterNo"  id="letterno" 
+										type="text" autocomplete="off"  max-len="7" 
+										uib-typeahead="letNo as letNo for letNo in search.getLetterNos($viewValue | uppercase)"
+							            ng-blur="search.validateVessel(search.searchCriteria.letterNo,'LERT')"
+							            typeahead-no-results="noLetterNo" custom-tooltip="{{noLetterNo}}" 
+							        ng-class="{'changed':search.searchCriteria.letterNo}" />
+								 	<label for="letterno">{{search.certType}} No1</label>
+							</div>
+							
+							<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec">
+							
+                                    <select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" 
+                                    	ng-model="search.searchCriteria.auditTypeId" id="audittype"  
+                                    	
+                                    	ng-options="autype.auditTypeId as autype.auditTypeDesc for autype in search.audtype"
+                                    	ng-init="search.searchCriteria.auditTypeId=0"
+                                    	ng-change="search.getAuditData(search.searchCriteria.auditTypeId)" ng-class="{'changed':search.searchCriteria.auditTypeId}"></select>
+                                    <label for="audittype">Type</label>
+								
+							</div>
+				<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec">
+				
+                         <select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" 
+                         	ng-model="search.searchCriteria.auditSubTypeId" ng-disabled="!search.searchCriteria.auditTypeId" 
+                         	id="audsubtype" ng-options="type.auditSubtypeId as type.auditSubtypeDesc for type in search.audsubtype" ng-class="{'changed':search.searchCriteria.auditSubTypeId}"></select>
+						 <label for="audsubtype">Sub Types</label>
+					
+				</div>
+				
+				<div ng-if="search.userRoleId!=search.AppConstant.IHM_MANAGER_ROLE_ID" class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec">
+                         <select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" 
+                         	ng-model="search.scopeId" ng-disabled="(search.searchCriteria.auditTypeId==1004) || (search.searchCriteria.auditTypeId==1005)" 
+                         	id="scopeId"  ng-options="type.scopeId as type.scopeName for type in search.checkScope" ng-class="{'changed':search.scopeId}"> </select>
+						 <label for="scopeId">Scope </label>
+				</div>
+				<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec">
+				
+                         <select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" 
+                         	ng-model="search.searchCriteria.auditStatusId"
+                         	id="auditStatusId" ng-options="stat.auditStatusId as stat.auditStatusDesc for stat in search.audstatus" ng-class="{'changed':search.searchCriteria.auditStatusId}"
+                         	></select>
+                         	
+						 <label for="auditStatusId">Status</label>
+					
+				</div>
+				
+				<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec">
+					
+                        <input type="text" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" 
+                        	ng-model="search.searchCriteria.auditorName" id="auditorName"
+                        	uib-typeahead="aud as aud.firstName+' '+aud.lastName for aud in search.auditorsDetail | filter:$viewValue"
+                        	ng-blur="search.validateVessel(search.searchCriteria.auditorName,'AUDITORNAME')"
+							type="text" autocomplete="off"  ng-class="{'changed':search.searchCriteria.auditorName}"/> 
+                        <label for="auditorName">By Name</label>
+				
+				</div>
+				
+				<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec">
+					
+					 <select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" 
+                         	ng-model="search.searchCriteria.auditorRole"
+                         	ng-options="role.roleId as role.roleDesc for role in search.auditorRoles"
+                         	ng-disabled="((search.userRoleId==search.AppConstant.ADMIN_ROLE_ID || search.userRoleId==search.AppConstant.MANAGER_ROLE_ID) && (search.searchCriteria.auditorName))"
+                         	id="auditorRole"  ng-class="{'changed':search.searchCriteria.auditorRole}"
+                         	></select>
+					
+                        <label for="auditorRole">By Role</label>
+				
+				</div>
+				
+					
+					</div>
+				
+				</div>
+			
+		</div>
+		
+<div  class="col-xs-12 col-sm-12 col-md-12 col-lg-offset-0 tdpad col-lg-12 search audsrcpad">		
+			
+			<div  class="col-xs-4 col-sm-offset-2 col-sm-3 col-md-offset-4 col-md-2 col-lg-offset-3 col-lg-2">
+				<button type="button" class="effect effect btn btn-primaryclr btnsize btnclass fix-but-width font-home" ng-click="search.back()">Home</button>
+			</div>
+			
+			<div class="col-xs-4 col-sm-offset-0  col-sm-3 col-md-offset-0  col-md-2 col-lg-offset-0 col-lg-2">
+				<button type="button" class="effect effect btn btn-primaryclr btnsize btnclass fix-but-width font-search" ng-click="search.search(0)">Search</button>
+			</div>
+			
+			<div class="col-xs-4 col-sm-offset-0  col-sm-3 col-md-offset-0 col-md-2 col-lg-offset-0 col-lg-2">
+				<button type="button" class="effect effect btn btn-primaryclr btnsize btnclass fix-but-width font-clear" ng-click="search.clear()">Clear</button>
+			</div>
+		
+</div>
+<!-- <div style="position:absolute !important;">
+			<div style="min-width:50px !Important;">
+				<button type="button" class="btn btn-primaryclr btnsize" ng-click="search.report('pdf')">Pdf</button>
+			</div>
+			
+			<div style="min-width:50px !Important;">
+				<button type="button" class="btn btn-primaryclr btnsize" ng-click="search.report('excel')">Excel</button>
+			</div>
+</div>	 -->
+
+
+<div ng-if="search.showBlock" class="search_table_bordered auditSearch">
+
+		<table datatable="" dt-options="search.dtOptions" dt-columns="search.dtColumns" dt-instance="search.dtInstance" class="table table-responsive datatables" ></table>
+		<nav ng-if="search.pagination" class="pagination pagination-sm pagination_position searchpagination"  >
+			<li ng-class="{ disabled : pagination.current === 0 ||  pagination.current === 1}">
+        		<a href="" ng-click="(pagination.current === 0 || pagination.current === 1)?null:search.search(0,'start')">&larrb;</a>
+    		</li>
+            <li ng-class="{ disabled : pagination.ShowPagesMax < 10 ||  search.pageInitialCount == 1}">
+        		<a href="" ng-click="(pagination.current === 0 || pagination.current === 1)?null:search.search(0,'back')">&laquo;</a>
+    		</li>
+    		<li ng-class="{ disabled : pagination.current === 0 || pagination.current === 1}">
+        		<a href="" ng-click="(pagination.current === 0 || pagination.current === 1)?null:search.search(pagination.current-2)">&lsaquo;</a>
+    		</li>
+            <li ng-repeat="n in range(pagination.ShowPagesMin,pagination.ShowPagesMax)" ng-class="{active:pagination.current===n}"> 
+            	<a href="#" ng-click="search.search(n-1)" ng-bind="n">n</a>
+            </li>
+			<!--Changed by @Ramya for Jira id -IRI-5006-->
+            <li ng-class="{ disabled : pagination.current === pagination.last}">
+        		<a href="" ng-click="(pagination.current === pagination.last)?null:search.search(pagination.current)">&rsaquo;</a>
+    		</li>
+    		<li ng-class="{ disabled :  pagination.current === pagination.last   || pagination.ShowPagesMax>pagination.totalPages}">
+        		<a href="" ng-click="(pagination.current === pagination.last || pagination.ShowPagesMax>pagination.totalPages )?null:search.search(pagination.last-1,'front')">&raquo;</a>
+    		</li>
+    		<li ng-class="{ disabled : pagination.current === pagination.last || pagination.ShowPagesMax>pagination.totalPages}">
+        		<a href="" ng-click="(pagination.current === pagination.last || pagination.ShowPagesMax>pagination.totalPages)?null:search.search(pagination.last-1,'end')">&rarrb;</a>
+    		</li>
+    		
+        </nav>
+	
+</div>
+
+<div ng-if="search.pagination" class="search_table_bordered" >
+<div class="displayCountRecords">
+	Showing {{search.from}} to {{search.to}} of {{search.total}} entries
+</div>	
+</div>
+
+
+ 
+    </div>

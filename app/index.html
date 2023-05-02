@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="central">
+<!-- BEGIN HEAD -->
+<head>
+<base href="/">
+<link href="./assets/global/img/favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
+<title data-ng-bind="'CENTRAL SYSTEM | ' + $state.current.data.pageTitle | uppercase"></title>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<meta content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0"
+	name="viewport" />
+<meta content="" name="description" />
+
+<meta content="" name="author" />
+<!-- BEGIN GLOBAL MANDATORY STYLES -->
+
+<link href="assets/plugins/loader.css" rel="stylesheet" type="text/css" />
+
+<link href="assets/plugins/font-awesome/css/font-awesome.css" rel="stylesheet">
+<link href="assets/plugins/summernote/css/summernote.css" rel="stylesheet">
+	
+<link href="assets/plugins/simple-line-icons/dist/simple-line-icons.css" rel="stylesheet" type="text/css" />
+<link href="vendor/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
+
+
+<!-- Vessel Inspection Plugin styles -->
+
+<!-- Toaster Styles -->
+<link rel="stylesheet" href="vendor/AngularJS-Toaster/toaster.css">
+
+
+
+<!-- Angular block-ui Styles -->
+<link rel="stylesheet" href="vendor/angular-block-ui/dist/angular-block-ui.css">
+<!-- DateTimePicker -->
+<link rel="stylesheet"
+	href="assets/global/css/bootstrap-datetimepicker.css">
+
+
+<!-- Ends here -->
+<link href="src/global.css" rel="stylesheet" type="text/css">
+
+<!-- END GLOBAL MANDATORY STYLES -->
+<!-- APP LEVEL CSS FILES -->
+<link href="assets/plugins/bootstrap-float-label/dist/bootstrap-float-label.css"  rel="stylesheet" type="text/css" />
+
+<link href="src/main/audit/audit.css"  rel="stylesheet" type="text/css" />
+
+<link href="src/main/audit/search/search.css"  rel="stylesheet" type="text/css" />
+
+
+
+<link href="assets/plugins/jquery.dataTables.css"  rel="stylesheet" type="text/css" />
+<link href="assets/plugins/angular-datatables.css"  rel="stylesheet" type="text/css" />
+<link href="vendor/datatables.net-responsive-dt/css/responsive.dataTables.css"  rel="stylesheet" type="text/css" />
+<link href="vendor/datatables.net-select-dt/css/select.dataTables.css"  rel="stylesheet" type="text/css" />
+
+<link href="src/main/carMaintenance/carMaintenance.css"  rel="stylesheet" type="text/css" />
+
+
+<link href="src/main/dashboard/dashboard.css"  rel="stylesheet" type="text/css" />
+
+
+<link href="src/main/login/login.css"  rel="stylesheet" type="text/css" />
+<link href="src/main/Master Maintenance/master.css"  rel="stylesheet" type="text/css" />
+<link href="src/main/userSearch/userSearch.css"  rel="stylesheet" type="text/css" />
+<link href="src/main/centralLog/centralLog.css"  rel="stylesheet" type="text/css" />
+<link href="src/main/vesselStatement/vesselStatement.css"  rel="stylesheet" type="text/css" />
+
+<link href="src/main/config/config.css"  rel="stylesheet" type="text/css" />
+
+
+<!-- ENDS HERE APP LEVEL CSS FILES -->
+<!-- BEGIN THEME STYLES -->
+<!-- DOC: To use 'rounded corners' style just load 'components-rounded.css' stylesheet instead of 'components.css' in the below style tag -->
+<link href="assets/global/css/components-rounded.css" id="style_components" rel="stylesheet" type="text/css" />
+<link href="assets/global/css/plugins.css" rel="stylesheet" type="text/css" />
+<link href="assets/layouts/layout4/css/layout.css" rel="stylesheet" type="text/css" />
+
+<link href="assets/layouts/layout4/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color" />
+<link href="assets/layouts/layout4/css/themes/darkblue.css" rel="stylesheet" type="text/css" id="style_color" />
+<link href="assets/layouts/layout4/css/custom.css" rel="stylesheet" type="text/css" />
+<link href="assets/global/css/bootstrap-xlg.css" rel="stylesheet" type="text/css" />
+<link href="vendor/ng-duallist/ngduallist.css" rel="stylesheet" type="text/css" />
+<link href="assets/plugins/intlTelInput.css" rel="stylesheet" type="text/css"/>
+	
+		<!-- jquery-ui plugins starts -->
+<link rel="stylesheet" href="assets/plugins/jquery-ui.css" />
+
+
+	
+<link id="myExCss" rel="stylesheet" type="text/css" href="./src/dynamicColorChange.css" ng-css="{ script:'local', live:true }"/>
+<link href="src/mozGlobal.css" rel="stylesheet" type="text/css">
+	<!-- jquery-ui plugins ends -->
+<!-- END THEME STYLES -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>-->
+
+<!-- <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script> -->
+ 	<!-- <script type="text/javascript" src="/CentralAuditStaging/app/src/html2canvas.js"></script> -->
+ 	
+ 	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script> 
+
+</head>
+																																		
+<body style="overflow-y:hidden !Important;" block-ui="main" id="cont" class="page-sidebar-closed-hide-logo page-content-white page-header-fixed page-sidebar-reversed page-sidebar-closed">
+	<!-- BEGIN PAGE SPINNER -->
+	
+	<div ng-spinner-bar class="loader" id="loader">
+    	 <div class="side"></div>
+    	 <div class="side"></div>
+   	 	 <div class="side"></div>
+   	 	 <div class="side"></div>
+ 	     <div class="side"></div>
+    	 <div class="side"></div>
+   		 <div class="side"></div>
+   		 <div class="side"></div>
+	</div>
+	
+		
+	<!-- END PAGE SPINNER -->
+	<div ui-view="root"></div>
+	<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+	
+	
+	<!-- BEGIN CORE JQUERY PLUGINS -->
+	<!-- JQuery -->
+	
+	<script type="text/javascript" src="assets/plugins/jquery.min.js"></script>
+	<script type="text/javascript" src="assets/plugins/jquery.easing.min.js"></script>
+	
+	<script type="text/javascript" src="vendor/jquery-ui/ui/jquery-1-7.js"></script>
+	<script type="text/javascript" src="vendor/jquery-ui/jquery-ui.js"></script>
+	
+	<!-- Bootstrap -->
+	<script type="text/javascript" src="vendor/bootstrap/dist/js/bootstrap.js"></script>
+	<!-- Bootstrap-hover-dropdowns -->
+	<script type="text/javascript" src="vendor/bootstrap-hover-dropdown/bootstrap-hover-dropdown.js"></script>
+	
+	
+
+	<!-- JQuery Datatables -->
+	<script type="text/javascript" src="vendor/datatables/media/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" src="vendor/datatables.net/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" src="vendor/datatables.net-buttons/js/dataTables.buttons.js"></script>
+	<script type="text/javascript" src="vendor/datatables.net-responsive/js/dataTables.responsive.js"></script>
+
+	<script type="text/javascript" src="vendor/datatables.net-buttons-bs/js/buttons.bootstrap.js"></script>		
+	<script type="text/javascript" src="vendor/datatables.net-buttons-jqui/js/buttons.jqueryui.js"></script>	
+	<script type="text/javascript" src="vendor/datatables.net-buttons/js/buttons.colVis.js"></script>	
+	
+	
+
+	<!-- Moment -->
+	<script type="text/javascript" src="assets/plugins/moment.js"></script>
+	
+	<!-- Bootstrap datetimepicker -->
+	<script type="text/javascript" src="assets/plugins/bootstrap-datetimepicker.js"></script>
+
+	<script src='assets/plugins/pdfmake/build/pdfmake.js'></script>
+	<script src='assets/plugins/pdfmake/build/vfs_fonts.js'></script>
+
+	<script type="text/javascript" src="assets/plugins/polyfill.js"></script>
+
+	<!-- END CORE JQUERY PLUGINS -->
+
+
+	<!-- BEGIN CORE ANGULARJS PLUGINS -->
+	<!-- AngularJS -->
+	<script type="text/javascript" src="vendor/angular/angular.js"></script>
+	
+	<script type="text/javascript" src="vendor/qrcode/lib/qrcode.min.js"></script>
+	<script type="text/javascript" src="vendor/angular-qr/angular-qr.min.js"></script>
+	
+	<!-- 
+	<script type="text/javascript" src="assets/plugins/angular.min.js"></script> -->
+	<script type="text/javascript" src="assets/plugins/angular.ngcss.min.js"></script>
+	<script type="text/javascript" src="assets/plugins/ngduallist.js"></script>
+	
+	<!-- ng caps lock on -->
+	<script type="text/javascript" src="vendor/ngCapsLock/ng-caps-lock.min.js"></script>
+	<!-- Angular datatables -->
+	<script type="text/javascript" src="vendor/angular-datatables/dist/angular-datatables.js"></script>
+
+	<script type="text/javascript" src="vendor/angular-datatables/dist/plugins/buttons/angular-datatables.buttons.js"></script>
+	
+	<!-- Angular Touch -->
+	<script type="text/javascript" src="assets/plugins/angular-touch.min.js"></script>
+	<!-- Angular UI-Router -->
+	<script type="text/javascript" src="vendor/angular-ui-router/release/angular-ui-router.js"></script>
+	<!-- Lazyload -->
+	<script type="text/javascript" src="vendor/oclazyload/dist/ocLazyLoad.js"></script>
+	
+	<!-- UI-Bootstrap-tpls -->
+	<script type="text/javascript" src="assets/plugins/ui-bootstrap-tpls.js"></script>
+	<!-- ngStorage -->
+	<script type="text/javascript" src="assets/plugins/ngStorage/ngStorage.min.js"></script>
+	
+		<!-- toaster js -->
+	<!-- <script type="text/javascript" src="assets/plugins/toaster.min.js"></script> -->
+	<script type="text/javascript" src="assets/plugins/toaster.js"></script>
+	<!-- PDF plugin -->
+
+	<!-- <script type="text/javascript"  src="assets/plugins/jspdf/dist/jspdf.min.js"></script>
+	<script type="text/javascript"  src="assets/plugins/jspdf/dist/jspdf.debug.js"></script> -->
+		
+	<!-- Angular-Cookies -->
+	<script type="text/javascript" src="vendor/angular-cookies/angular-cookies.js"></script>
+	
+	
+	
+	<!-- Angular Animate -->
+	<script type="text/javascript" src="vendor/angular-animate/angular-animate.js"></script>
+	
+	<!-- Angular ModalService -->
+	<script type="text/javascript" src="vendor/angular-modal-service/dst/angular-modal-service.js"></script>
+
+	<!-- Angular Strap -->
+	<script type="text/javascript" src="vendor/angular-strap/dist/angular-strap.js"></script>
+	
+	<!-- Angular ngResource -->
+	<script type="text/javascript" src="vendor/angular-resource/angular-resource.js"></script>
+
+	
+
+	<!-- Angular Plugins -->
+	<script type="text/javascript" src="vendor/moment/moment.js"></script>
+	<script type="text/javascript" src="vendor/angular-moment/angular-moment.js"></script>
+
+
+	<script type="text/javascript" src="vendor/sockjs-client/dist/sockjs.min.js"></script>
+	<script type="text/javascript" src="vendor/stomp-websocket/lib/stomp.min.js"></script>
+	<script type="text/javascript" src="vendor/ng-stomp/dist/ng-stomp.min.js"></script>
+	
+	
+
+	<!-- LocalStorageModule -->
+	<script type="text/javascript" src="vendor/angular-local-storage/dist/angular-local-storage.js"></script>
+	<!-- lodash -->
+	<script type="text/javascript" src="vendor/lodash/dist/lodash.js"></script>
+	<!-- under score js -->
+	<script type="text/javascript" src="vendor/underscore/underscore.js"></script>
+
+	
+	<script type="text/javascript" src="vendor/angular-block-ui/dist/angular-block-ui.js"></script>
+	
+
+	
+	
+	<script type="text/javascript" src="assets/plugins/rasterizeHTML.allinone.js"></script>
+	<!-- END CORE ANGULARJS PLUGINS -->
+	<!-- BEGIN APP LEVEL ANGULARJS SCRIPTS -->
+
+
+	<!-- html2canvas -->
+	<script type="text/javascript" src='vendor/html2canvas/build/html2canvas.min.js'></script>
+	
+	<!-- Core Modules [ Global services,factories,directives,vendor plugins ] -->
+	<!-- All Core Modules vendor dependencies are injected before module creation -->
+	<script type="text/javascript" src="src/core/core.module.js"></script>
+
+	<script type="text/javascript" src="src/htmlTemplateCache.js"></script>
+
+
+
+	<!-- Authentication Modules -->
+	<!-- Template Modules for menubar -->
+	<script type="text/javascript" src="src/template/template.module.js"></script>
+	<script type="text/javascript" src="src/template/template.controller.js"></script>
+	<!-- Ends here Template Modules for menubar -->
+
+	
+
+	<!-- audit Modules -->
+	<script type="text/javascript" src="src/main/audit/audit.module.js"></script>
+	<script type="text/javascript" src="src/main/audit/audit.route.js"></script>
+	<script type="text/javascript" src="src/main/audit/audit.controller.js"></script>
+	<script type="text/javascript" src="src/main/audit/audit.common.js"></script>
+	<script type="text/javascript" src="src/main/audit/audit.factory.js"></script>
+	<script type="text/javascript" src="src/main/audit/audit.services.js"></script>
+	<script type="text/javascript" src="src/main/audit/audit.api.js"></script>
+	<script type="text/javascript" src="src/main/audit/images.js"></script>
+
+	
+	<!-- Search Module -->
+		
+	<script type="text/javascript" src="src/main/audit/search/search.module.js"></script>
+	<script type="text/javascript" src="src/main/audit/search/search.route.js"></script>
+	<script type="text/javascript" src="src/main/audit/search/search.controller.js"></script>
+
+	<!-- End Search Module -->
+
+	<!-- Details Module -->
+		
+	<script type="text/javascript" src="src/main/audit/details/details.module.js"></script>
+	<script type="text/javascript" src="src/main/audit/details/details.route.js"></script>
+	<script type="text/javascript" src="src/main/audit/details/details.controller.js"></script>
+	<script type="text/javascript" src="src/main/audit/details/details.factory.js"></script>
+	<script type="text/javascript" src="src/main/audit/details/details.api.js"></script>
+	
+	<!-- End Details Module -->
+	
+	
+	<!-- IHM Details Module -->
+		
+	<script type="text/javascript" src="src/main/audit/detailsIhm/detailsIhm.module.js"></script>
+	<script type="text/javascript" src="src/main/audit/detailsIhm/detailsIhm.route.js"></script>
+	<script type="text/javascript" src="src/main/audit/detailsIhm/detailsIhm.controller.js"></script>
+	<script type="text/javascript" src="src/main/audit/detailsIhm/detailsIhm.factory.js"></script>
+	<script type="text/javascript" src="src/main/audit/detailsIhm/detailsIhm.api.js"></script>
+	
+	<!-- IHM End Details Module -->
+	
+	<!-- Plan Approval Details Module -->
+		
+	<script type="text/javascript" src="src/main/audit/detailsPlanApproval/detailsPlanApproval.module.js"></script>
+	<script type="text/javascript" src="src/main/audit/detailsPlanApproval/detailsPlanApproval.route.js"></script>
+	<script type="text/javascript" src="src/main/audit/detailsPlanApproval/detailsPlanApproval.controller.js"></script>
+	<script type="text/javascript" src="src/main/audit/detailsPlanApproval/detailsPlanApproval.factory.js"></script>
+	<script type="text/javascript" src="src/main/audit/detailsPlanApproval/detailsPlanApproval.api.js"></script>
+	
+	<!-- IHM End Details Module -->
+
+
+	
+	<!-- Findings Module -->
+		
+	<script type="text/javascript" src="src/main/audit/findings/findings.module.js"></script>
+	<script type="text/javascript" src="src/main/audit/findings/findings.route.js"></script>
+	<script type="text/javascript" src="src/main/audit/findings/findings.controller.js"></script>
+	<script type="text/javascript" src="src/main/audit/findings/findings.factory.js"></script>
+	<script type="text/javascript" src="src/main/audit/findings/findings.api.js"></script>
+
+	<!-- End Findings Module -->
+
+		<!-- PrevFindings Module -->
+		
+	<script type="text/javascript" src="src/main/audit/prevFindings/prevFindings.module.js"></script>
+	<script type="text/javascript" src="src/main/audit/prevFindings/prevFindings.route.js"></script>
+	<script type="text/javascript" src="src/main/audit/prevFindings/prevFindings.controller.js"></script>
+	<script type="text/javascript" src="src/main/audit/prevFindings/prevFindings.factory.js"></script>
+	<script type="text/javascript" src="src/main/audit/prevFindings/prevFindings.api.js"></script>
+
+	<!-- End PrevFindings Module -->
+	
+	<!-- dmlc finding Module for mlc -->
+		
+	<script type="text/javascript" src="src/main/audit/dmlcFindings/dmlcFindings.module.js"></script>
+	<script type="text/javascript" src="src/main/audit/dmlcFindings/dmlcFindings.route.js"></script>
+	<script type="text/javascript" src="src/main/audit/dmlcFindings/dmlcFindings.controller.js"></script>
+	<script type="text/javascript" src="src/main/audit/dmlcFindings/dmlcFindings.factory.js"></script>
+	<script type="text/javascript" src="src/main/audit/dmlcFindings/dmlcFindings.api.js"></script>
+
+	<!-- End of dmlc finding Module for mlc-->
+
+
+	
+	<!-- vesselStatement Modules -->
+	<script type="text/javascript" src="src/main/vesselStatement/vesselStatement.module.js"></script>
+	<script type="text/javascript" src="src/main/vesselStatement/vesselStatement.route.js"></script>
+	<script type="text/javascript" src="src/main/vesselStatement/vesselStatement.controller.js"></script>
+	<script type="text/javascript" src="src/main/vesselStatement/vesselStatement.factory.js"></script>
+	<script type="text/javascript" src="src/main/vesselStatement/vesselStatement.api.js"></script>
+	
+	
+	<!-- vesselStatement Modules -->
+	
+	<!-- Certificate Modules Start -->
+	<script type="text/javascript" src="src/main/certificate/certDetails/certDetails.module.js"></script>
+	<script type="text/javascript" src="src/main/certificate/certDetails/certDetails.route.js"></script>
+	<script type="text/javascript" src="src/main/certificate/certDetails/certDetails.controller.js"></script>
+	
+	<script type="text/javascript" src="src/main/certificate/certDetailsIHM/certDetailsIHM.module.js"></script>
+	<script type="text/javascript" src="src/main/certificate/certDetailsIHM/certDetailsIHM.route.js"></script>
+	<script type="text/javascript" src="src/main/certificate/certDetailsIHM/certDetailsIHM.controller.js"></script>
+	
+	<script type="text/javascript" src="src/main/certificate/certDetailsIHMExe/certDetailsIHMExe.module.js"></script>
+	<script type="text/javascript" src="src/main/certificate/certDetailsIHMExe/certDetailsIHMExe.route.js"></script>
+	<script type="text/javascript" src="src/main/certificate/certDetailsIHMExe/certDetailsIHMExe.controller.js"></script>
+	
+	<script type="text/javascript" src="src/main/certificate/certSearch/certSearch.module.js"></script>
+	<script type="text/javascript" src="src/main/certificate/certSearch/certSearch.route.js"></script>
+	<script type="text/javascript" src="src/main/certificate/certSearch/certSearch.controller.js"></script>
+	
+	<script type="text/javascript" src="src/main/certificate/certGenerate/certGenerate.module.js"></script>
+	<script type="text/javascript" src="src/main/certificate/certGenerate/certGenerate.route.js"></script>
+	<script type="text/javascript" src="src/main/certificate/certGenerate/certGenerate.controller.js"></script>
+	
+	<script type="text/javascript" src="src/main/certificate/certificate.module.js"></script>
+	<script type="text/javascript" src="src/main/certificate/certificate.route.js"></script>
+	<script type="text/javascript" src="src/main/certificate/certificate.controller.js"></script>
+	<script type="text/javascript" src="src/main/certificate/certificate.factory.js"></script>
+	<script type="text/javascript" src="src/main/certificate/certificate.api.js"></script>
+	<script type="text/javascript" src="src/main/certificate/certificate.service.js"></script>
+	
+	<!-- Certificate Modules End -->
+	
+	
+	
+
+
+
+	<!-- Car History Modules Start -->
+	<script type="text/javascript" src="src/main/carMaintenance/carDetails/carDetails.module.js"></script>
+	<script type="text/javascript" src="src/main/carMaintenance/carDetails/carDetails.route.js"></script>
+	<script type="text/javascript" src="src/main/carMaintenance/carDetails/carDetails.controller.js"></script>
+	
+	<script type="text/javascript" src="src/main/carMaintenance/carSearch/carSearch.module.js"></script>
+	<script type="text/javascript" src="src/main/carMaintenance/carSearch/carSearch.route.js"></script>
+	<script type="text/javascript" src="src/main/carMaintenance/carSearch/carSearch.controller.js"></script>
+	
+	
+	<script type="text/javascript" src="src/main/carMaintenance/carMaintenance.module.js"></script>
+	<script type="text/javascript" src="src/main/carMaintenance/carMaintenance.route.js"></script>
+	<script type="text/javascript" src="src/main/carMaintenance/carMaintenance.controller.js"></script>
+	<script type="text/javascript" src="src/main/carMaintenance/carMaintenance.factory.js"></script>
+	<script type="text/javascript" src="src/main/carMaintenance/carMaintenance.api.js"></script>
+	
+	<!-- Car History Modules End -->
+	
+
+
+
+
+	<!-- Dashboard Modules -->
+	<script type="text/javascript" src="src/main/dashboard/dashboard.module.js"></script>
+	<script type="text/javascript" src="src/main/dashboard/dashboard.route.js"></script>
+	<script type="text/javascript" src="src/main/dashboard/dashboard.controller.js"></script>
+	
+	<!-- End Dashboard Modules -->
+
+	<!-- Search Module -->
+		
+<!-- 	<script type="text/javascript" src="src/main/auditMaintenance/auditMaintenance.module.js"></script>
+	<script type="text/javascript" src="src/main/auditMaintenance/auditMaintenance.route.js"></script>
+	<script type="text/javascript" src="src/main/auditMaintenance/auditMaintenance.controller.js"></script> -->
+
+	
+
+	<!-- summer note plugins -->
+	<script type="text/javascript" src="assets/plugins/summernote/summernote.js"></script>
+	<!-- <script type="text/javascript" src="assets/plugins/summernote.min.js"></script> -->
+	<script type="text/javascript" src="vendor/angular-summernote/dist/angular-summernote.min.js"></script>
+
+	
+	
+	<script type="text/javascript" src="assets/plugins/intlTelInput.js">
+	</script>
+	<script type="text/javascript" src="vendor/intl-tel-input/build/js/utils.js">
+	</script>
+	<script type="text/javascript" src="vendor/ng-intl-tel-input/dist/ng-intl-tel-input.js">
+	</script>
+	<script type="text/javascript" src="vendor/ng-intl-tel-input/ng-intl-tel-input.module.js">
+	</script>
+	<script type="text/javascript" src="vendor/ng-intl-tel-input/ng-intl-tel-input.provider.js">
+	</script>
+	<script type="text/javascript" src="assets/plugins/ng-intl-tel-input.directive.js">
+	</script>
+	<script type="text/javascript" src="assets/plugins/ng-backstretch.js"></script>
+	<!-- End audit Modules -->
+	<!-- js sh256 -->
+	<script type="text/javascript" src="vendor/js-sha256/src/sha256.js"></script>
+	
+	<!-- Login Modules Start -->
+	<script type="text/javascript" src="src/main/login/login.module.js"></script>
+	<script type="text/javascript" src="src/main/login/login.route.js"></script>
+	<script type="text/javascript" src="src/main/login/login.controller.js"></script>
+	
+	<!-- Login Modules End -->
+	
+	
+	
+	
+	<!-- Master Maintenance Modules -->
+	<script type="text/javascript" src="src/main/Master Maintenance/master.module.js"></script>
+	<script type="text/javascript" src="src/main/Master Maintenance/master.route.js"></script>
+	<script type="text/javascript" src="src/main/Master Maintenance/master.controller.js"></script>
+	<script type="text/javascript" src="src/main/Master Maintenance/master.factory.js"></script>
+	<script type="text/javascript" src="src/main/Master Maintenance/master.api.js"></script>
+	
+	
+	<!-- Port Details Modules -->
+	 <script type="text/javascript" src="src/main/Master Maintenance/portDetails/portDetails.module.js"></script>
+	<script type="text/javascript" src="src/main/Master Maintenance/portDetails/portDetails.route.js"></script>
+	<script type="text/javascript" src="src/main/Master Maintenance/portDetails/portDetails.controller.js"></script>
+	<script type="text/javascript" src="src/main/Master Maintenance/portDetails/portDetails.factory.js"></script>
+	<script type="text/javascript" src="src/main/Master Maintenance/portDetails/portDetails.api.js"></script> 
+	<!-- End Port Details Modules -->
+	
+	<!-- user Details Modules -->
+	<script type="text/javascript" src="src/main/Master Maintenance/user/user.module.js"></script>
+	<script type="text/javascript" src="src/main/Master Maintenance/user/user.route.js"></script>
+	<script type="text/javascript" src="src/main/Master Maintenance/user/user.controller.js"></script>
+	<script type="text/javascript" src="src/main/Master Maintenance/user/user.factory.js"></script>
+	<script type="text/javascript" src="src/main/Master Maintenance/user/user.api.js"></script>
+	<!-- End User Details Modules -->
+	
+	<!-- Vessel Details  Modules -->
+	<script type="text/javascript" src="src/main/Master Maintenance/vesselDetails/vesselDetails.module.js"></script>
+	<script type="text/javascript" src="src/main/Master Maintenance/vesselDetails/vesselDetails.route.js"></script>
+	<script type="text/javascript" src="src/main/Master Maintenance/vesselDetails/vesselDetails.controller.js"></script>
+	<script type="text/javascript" src="src/main/Master Maintenance/vesselDetails/vesselDetails.factory.js"></script>
+	<script type="text/javascript" src="src/main/Master Maintenance/vesselDetails/vesselDetails.api.js"></script>
+	<!-- End Vessel Details   Modules-->
+	
+	
+	<!-- Vessel Company Details  Modules -->
+	<script type="text/javascript" src="src/main/Master Maintenance/vesselCompanyDetails/vesselCompanyDetails.module.js"></script>
+	<script type="text/javascript" src="src/main/Master Maintenance/vesselCompanyDetails/vesselCompanyDetails.route.js"></script>
+	<script type="text/javascript" src="src/main/Master Maintenance/vesselCompanyDetails/vesselCompanyDetails.controller.js"></script>
+	<script type="text/javascript" src="src/main/Master Maintenance/vesselCompanyDetails/vesselCompanyDetails.factory.js"></script>
+	<script type="text/javascript" src="src/main/Master Maintenance/vesselCompanyDetails/vesselCompanyDetails.api.js"></script>
+	<!-- End Vessel Company Details  Modules-->
+	
+	<!-- Audit Code Modules-->
+	<script type="text/javascript" src="src/main/Master Maintenance/auditCode/auditCode.module.js"></script>
+	<script type="text/javascript" src="src/main/Master Maintenance/auditCode/auditCode.route.js"></script>
+	<script type="text/javascript" src="src/main/Master Maintenance/auditCode/auditCode.controller.js"></script>
+	<script type="text/javascript" src="src/main/Master Maintenance/auditCode/auditCode.factory.js"></script>
+	<script type="text/javascript" src="src/main/Master Maintenance/auditCode/auditCode.api.js"></script>
+	<!-- End Audit Code Modules -->
+	
+	<!-- IHM_Exemption Details Modules-->
+	<script type="text/javascript" src="src/main/Master Maintenance/ihm_ExemptionDetails/ihm_ExemptionDetails.module.js"></script>
+	<script type="text/javascript" src="src/main/Master Maintenance/ihm_ExemptionDetails/ihm_ExemptionDetails.route.js"></script>
+	<script type="text/javascript" src="src/main/Master Maintenance/ihm_ExemptionDetails/ihm_ExemptionDetails.controller.js"></script>
+	<script type="text/javascript" src="src/main/Master Maintenance/ihm_ExemptionDetails/ihm_ExemptionDetails.factory.js"></script>
+	<script type="text/javascript" src="src/main/Master Maintenance/ihm_ExemptionDetails/ihm_ExemptionDetails.api.js"></script>
+	<!-- End IHM_Exemption Details Modules -->
+	
+	
+	<script type="text/javascript" src="src/main/userSearch/userSearch.module.js"></script>
+	<script type="text/javascript" src="src/main/userSearch/userSearch.route.js"></script>
+	<script type="text/javascript" src="src/main/userSearch/userSearch.controller.js"></script>
+	<script type="text/javascript" src="src/main/userSearch/userSearch.factory.js"></script>
+	<script type="text/javascript" src="src/main/userSearch/userSearch.api.js"></script>
+	
+	
+	
+	<script type="text/javascript" src="src/main/centralLog/centralLog.module.js"></script>
+	<script type="text/javascript" src="src/main/centralLog/centralLog.route.js"></script>
+	<script type="text/javascript" src="src/main/centralLog/centralLog.controller.js"></script>
+	<script type="text/javascript" src="src/main/centralLog/centralLog.factory.js"></script>
+	<script type="text/javascript" src="src/main/centralLog/centralLog.api.js"></script>
+	
+	
+	<!-- End Master Maintenance Modules -->
+
+	<!-- User Config Modules -->
+	<script type="text/javascript" src="src/main/config/config.module.js"></script>
+	<script type="text/javascript" src="src/main/config/config.route.js"></script>
+	<script type="text/javascript" src="src/main/config/config.controller.js"></script>
+	
+	
+	<!-- End User Config Modules -->
+	
+	<!-- End Search Module -->
+	<script type="text/javascript" src="src/main/support/support.module.js"></script>
+	<script type="text/javascript" src="src/main/support/support.route.js"></script>
+	<script type="text/javascript" src="src/main/support/support.controller.js"></script>
+	<script type="text/javascript" src="src/main/support/support.factory.js"></script>
+	<script type="text/javascript" src="src/main/support/support.api.js"></script>
+
+	 <!-- Support Module end -->
+	<script type="text/javascript" src="src/main/support/supportSearch/supportSearch.module.js"></script>
+	<script type="text/javascript" src="src/main/support/supportSearch/supportSearch.route.js"></script>
+	<script type="text/javascript" src="src/main/support/supportSearch/supportSearch.controller.js"></script>
+
+	 <!-- Support search Module end -->
+
+	<!-- User certificateViewer Modules -->
+	<script type="text/javascript" src="src/main/certificateViewer/certificateViewer.module.js"></script>
+	<script type="text/javascript" src="src/main/certificateViewer/certificateViewer.route.js"></script>
+	<script type="text/javascript" src="src/main/certificateViewer/certificateViewer.controller.js"></script>
+	<script type="text/javascript" src="src/main/certificateViewer/certificateViewer.factory.js"></script>
+	<script type="text/javascript" src="src/main/certificateViewer/certificateViewer.api.js"></script>
+
+	<!-- End User certificateViewer Modules -->
+	
+	
+	<!-- user Details Modules -->
+	<script type="text/javascript" src="src/main/Master Maintenance/report/report.module.js"></script>
+	<script type="text/javascript" src="src/main/Master Maintenance/report/report.route.js"></script>
+	<script type="text/javascript" src="src/main/Master Maintenance/report/report.controller.js"></script>
+	<script type="text/javascript" src="src/main/Master Maintenance/report/report.factory.js"></script>
+	<script type="text/javascript" src="src/main/Master Maintenance/report/report.api.js"></script>
+	<!-- End User Details Modules -->
+	
+	
+<!-- vesselHistory  Modules start -->
+	
+	<script type="text/javascript" src="src/main/vesselHistory/vesselHistory.module.js"></script>
+	<script type="text/javascript" src="src/main/vesselHistory/vesselHistory.route.js"></script>
+	<script type="text/javascript" src="src/main/vesselHistory/vesselHistory.controller.js"></script>
+	<script type="text/javascript" src="src/main/vesselHistory/vesselHistory.api.js"></script>
+	
+	<!-- vesselHistory Modules  end -->
+	
+
+
+	<!-- Maintenance Modules Start -->
+	<script type="text/javascript" src="src/main/auditCycle/auditCycle.module.js"></script>
+	<script type="text/javascript" src="src/main/auditCycle/auditCycle.route.js"></script>
+	<script type="text/javascript" src="src/main/auditCycle/auditCycle.controller.js"></script>
+	<script type="text/javascript" src="src/main/auditCycle/auditCycle.factory.js"></script>
+	<script type="text/javascript" src="src/main/auditCycle/auditCycle.api.js"></script>
+
+
+	<script type="text/javascript" src="src/app.module.js"></script>
+	<script type="text/javascript" src="src/app.config.js"></script>
+	<script type="text/javascript" src="src/app.factory.js"></script>
+	<script type="text/javascript" src="src/app.constants.js"></script>
+	<script type="text/javascript" src="src/app.controller.js"></script>
+	<script type="text/javascript" src="src/app.route.js"></script>
+	<script type="text/javascript" src="src/app.service.js"></script>
+	<script type="text/javascript" src="src/app.run.js"></script>
+
+
+	
+
+	<!-- Ends here Injecting all application modules -->
+	<script type="text/javascript" src="src/app.directives.js"></script>
+	<script type="text/javascript" src="src/app.api.js"></script>
+	<!-- END APP LEVEL ANGULARJS SCRIPTS -->
+	<!-- BEGIN APP LEVEL JQUERY SCRIPTS -->
+	<script type="text/javascript" src="assets/global/scripts/app.js"></script>
+	<script type="text/javascript" src="assets/layouts/layout4/scripts/layout.js"></script>
+	<script type="text/javascript" src="assets/layouts/global/scripts/quick-sidebar.js"></script>
+	<script type="text/javascript" src="assets/layouts/layout4/scripts/demo.js"></script>
+
+	<!-- END APP LEVEL JQUERY SCRIPTS -->
+ 	
+	<!-- END JAVASCRIPTS -->
+	
+</body>
+<!-- END BODY -->
+
+</html>

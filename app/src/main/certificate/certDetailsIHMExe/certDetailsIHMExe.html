@@ -1,0 +1,1034 @@
+<div class="switch-container">
+	<label class="switch" data-toggle="tooltip"
+		data-original-title="{{certDetails.lockMessage}}" tooltip
+		data-placement="left"> <input type="checkbox"
+		ng-model="certDetails.enabled"
+		ng-disabled="certDetails.disableLock"
+		ng-change="certDetails.changeCallback()" /> <span
+		class="slider round"> <i
+			class="fa fa-unlock-alt icon-unlock-position"
+			ng-if="!certDetails.enabled"></i> <i
+			class="icon-lock icon-lock-position" ng-if="certDetails.enabled"></i>
+	</span>
+	</label>
+</div>
+<qr type-number="8" class="hidden" id="qrC" correction-level="'L'"
+	size="200" text="qrString" image="true"></qr>
+<div
+	class="col-xs-12 col-sm-12 col-md-12 col-lg-12 cert containerfull auditscroll scroll qrCodeClass">
+	<form name="certDetails.CertDetailForm" autocomplete="off">
+		<div
+			class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<div
+				class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 accordion-toggle1"
+				data-toggle="collapse" data-target="#vessel">
+				<div class="col-xs-12 col-sm-10 col-md-12 col-lg-12 containerfull">
+					<div
+						class="caption font-blue-sharp col-xs-9 col-sm-3 col-md-3 col-lg-3 containerfull">
+						<span class="caption-subject bold uppercase pull-left">Vessel
+							Details</span>
+
+					</div>
+					
+					<div
+						class="caption font-blue-sharp col-xs-9 col-sm-3 col-md-3 col-lg-3 col-lg-offset-12 containerfull pull-right">
+						<span class="caption-subject bold uppercase">Certificate Status: {{certDetails.certificateDtl.activeStatus == 1 && certDetails.certificateDtl.publishStatus == 0 ? 'Generated' : (certDetails.certificateDtl.activeStatus == 1 && certDetails.certificateDtl.publishStatus == 1  ? 'Published' : '-') }}</span>
+
+					</div>
+				</div>
+			</div>
+
+			<div style="padding: 0px !Important;"
+				class="imosection  col-xs-4 col-sm-offset-5 col-sm-3 col-md-offset-3 col-md-3 col-lg-offset-5 col-lg-2">
+				<div style="padding: 0px !Important;"
+					class=" col-xs-6 col-sm-6 col-md-6 col-lg-6">
+					<!-- <label class="imolabel">IMO Number</label> -->
+					<select
+						style="font-weight: 500 !Important; padding: 0px !important; height: 20px;"
+						class="col-xs-12 col-sm-12 col-md-12 col-lg-12 imoval"
+						ng-model="certDetails.imolabelVal" id="imolabelVal"
+						placeholder="offical"
+						ng-disabled="certDetails.disableAll || certDetails.disableVsl || certDetails.releaseLock"
+						ng-options="type.reqUrl as type.imolabelValTypeDesc  for type in certDetails.imolabelValOptions"
+						ng-change="det.certificateDtl.vesselImoNo='';certDetails.vesselDataFromRmi={};certDetails.vesselCompany={}">
+					</select>
+
+				</div>
+				<div ng-if="certDetails.imolabelVal != 'vesselName'"
+					style="padding: 0px !Important;"
+					class=" col-xs-6 col-sm-6 col-md-6 col-lg-6 mob" id="divID">
+					<input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 imoval"
+						ng-model="certDetails.certificateDtl.vesselImoNo" id="veselimono"
+						name="vslImo" type="text" autocomplete="off" required
+						ng-disabled="certDetails.disableAll || certDetails.disableVsl || certDetails.releaseLock"
+						ng-keypress="certDetails.avoidWhiteSpace($event)"
+						ng-change="certDetails.imolabelVal != 'officialNumber' ? certDetails.vesselDetails(certDetails.certificateDtl.vesselImoNo,'vesselImoNo'):''"
+						ng-blur="certDetails.imolabelVal != 'officialNumber' ? certDetails.validateVessel_NULL('vesselImoNo'):certDetails.vesselDetails(certDetails.certificateDtl.vesselImoNo,'officialNumber')"
+						ng-keyup="($event.keyCode == 13 && certDetails.imolabelVal == 'officialNumber') ? certDetails.doBlur($event):null"
+						ng-class="{'changed':certDetails.certificateDtl.vesselImoNo}"
+						numeric type="text" autocomplete="off" /> <i
+						ng-if="certDetails.vesselDetail.vesselStatus == 'Active'"
+						class="fa fa-check-circle-o vessel-status-icon-position vessel-status-icon-active"
+						aria-hidden="true" data-toggle="tooltip"
+						data-original-title="{{certDetails.vesselDetail.vesselStatus}}"
+						tooltip data-placement="bottom"></i> <i
+						ng-if="certDetails.vesselDetail.vesselStatus == 'Pending'"
+						class="fa fa-clock-o vessel-status-icon-position vessel-status-icon-pending"
+						aria-hidden="true" data-toggle="tooltip"
+						data-original-title="{{certDetails.vesselDetail.vesselStatus}}"
+						tooltip data-placement="bottom"></i>
+
+				</div>
+
+				<div ng-if="certDetails.imolabelVal == 'vesselName'"
+					style="padding: 0px !Important;"
+					class=" col-xs-6 col-sm-6 col-md-6 col-lg-6 mob" id="divID">
+					<input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 imoval"
+						ng-model="certDetails.vesselName" id="vesselName" name="vslImo"
+						type="text" autocomplete="off"
+						ng-disabled="certDetails.disableAll || certDetails.disableVsl || certDetails.releaseLock"
+						ng-blur="certDetails.vesselDetails(certDetails.vesselName,'vesselName')"
+						ng-keyup="($event.keyCode == 13) ? certDetails.doBlur($event):null" />
+					<i ng-if="certDetails.vesselDetail.vesselStatus == 'Active'"
+						class="fa fa-check-circle-o vessel-status-icon-position vessel-status-icon-active"
+						aria-hidden="true" data-toggle="tooltip"
+						data-original-title="{{certDetails.vesselDetail.vesselStatus}}"
+						tooltip data-placement="bottom"></i> <i
+						ng-if="certDetails.vesselDetail.vesselStatus == 'Pending'"
+						class="fa fa-clock-o vessel-status-icon-position vessel-status-icon-pending"
+						aria-hidden="true" data-toggle="tooltip"
+						data-original-title="{{certDetails.vesselDetail.vesselStatus}}"
+						tooltip data-placement="bottom"></i>
+
+				</div>
+
+			</div>
+
+
+			<div id="vessel"
+				class="portlet-body collapse in col-xs-12 col-sm-12 col-md-12 col-lg-12 padcontainer">
+
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 txt-sec">
+
+					<input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+						ng-model="certDetails.certificateDtl.vesselName" id="vesselname"
+						type="text" autocomplete="off" data-toggle="tooltip"
+						ng-disabled="certDetails.disableAll || certDetails.disableVsl || certDetails.releaseLock"
+						data-original-title="{{certDetails.certificateDtl.vesselName}}"
+						tooltip data-placement="bottom" readonly
+						ng-class="{'changed':certDetails.certificateDtl.vesselName}" /> <label
+						for="vesselname">Vessel Name</label>
+
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 txt-sec">
+
+					<input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+						ng-model="certDetails.certificateDtl.officialNo" id="officialNo"
+						type="text" autocomplete="off" readonly
+						ng-disabled="certDetails.disableAll || certDetails.disableVsl || certDetails.releaseLock"
+						ng-class="{'changed':certDetails.certificateDtl.officialNo}" /> <label
+						for="officialNo">Official No.</label>
+
+				</div>
+
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 txt-sec">
+
+					<input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+						ng-model="certDetails.certificateDtl.vesselImoNo"
+						id="vesselnaimono" type="text" autocomplete="off"
+						data-toggle="tooltip"
+						data-original-title="{{certDetails.certificateDtl.vesselImoNo}}"
+						ng-disabled="certDetails.disableAll || certDetails.disableVsl || certDetails.releaseLock"
+						tooltip data-placement="bottom" readonly
+						ng-class="{'changed':certDetails.certificateDtl.vesselImoNo}" />
+					<label for="vesselnaimono">Vessel IMO No.</label>
+
+				</div>
+
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 txt-sec">
+
+					<input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+						ng-model="certDetails.certificateDtl.portOfRegistry"
+						id="portOfReg" type="text" autocomplete="off"
+						ng-disabled="true" ng-class="{'changed':certDetails.certificateDtl.portOfRegistry}"/>
+					<label for="portOfReg">Port of Registry</label>
+
+				</div>
+
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 txt-sec" ng-hide="true">
+
+					<input
+						class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input datePicker changed"
+						datepicker placeholder="DD-MMM-YYYY"
+						ng-disabled="certDetails.IHMDisableVesselDetails();"
+						id="dateOfReg" type="text" autocomplete="off"
+						ng-blur="certDetails.createValidation();"
+						ng-model="certDetails.certificateDtl.dateOfRegistry" /> <label
+						for="dateOfReg">Date of Registry </label>
+
+				</div>
+
+				<div class="txt-sec col-xs-12 col-sm-12 col-md-3 col-lg-2">
+
+					<input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12"
+						ng-model="certDetails.certificateDtl.vesselType" id="vesseltype"
+						type="text" autocomplete="off" readonly
+						ng-disabled="certDetails.disableAll || certDetails.disableVsl || certDetails.releaseLock"
+						ng-class="{'changed':certDetails.certificateDtl.vesselType}" /> <input
+						type="hidden" ng-model="certDetails.certificateDtl.vesselType">
+					<label for="vesseltype">Vessel Type</label>
+
+				</div>
+
+				<div class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2">
+
+					<input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12"
+						ng-model="certDetails.certificateDtl.grt"
+						ng-change="certDetails.createValidation();"
+						ng-disabled="true" 
+						id="grt" type="text" autocomplete="off" integer
+						max-len="{{certDetails.AppConstant.GRT_MAX_LEN}}"
+						ng-class="{'changed':certDetails.certificateDtl.grt}" /> <label
+						for="grt">GRT(MT)</label>
+
+				</div>
+				<div class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2">
+
+					<input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12"
+						ng-model="certDetails.certificateDtl.companyImoNo" id="companyimo"
+						type="text" readonly data-toggle="tooltip"
+						ng-disabled="certDetails.disableAll || certDetails.disableVsl || certDetails.releaseLock"
+						data-original-title="{{certDetails.certificateDtl.companyImoNo}}"
+						tooltip data-placement="bottom" autocomplete="off"
+						ng-class="{'changed':certDetails.certificateDtl.companyImoNo}" />
+					<label for="cmpnyImoNo">Company IMO No.</label>
+
+				</div>
+				<div class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2">
+
+					<input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12"
+						ng-model="certDetails.certificateDtl.vesselCompanyName"
+						id="cmpnyName" type="text" data-toggle="tooltip"
+						data-original-title="{{certDetails.certificateDtl.vesselCompanyName}}"
+						tooltip data-placement="bottom" readonly autocomplete="off"
+						ng-disabled="certDetails.disableAll || certDetails.disableVsl || certDetails.releaseLock"
+						ng-class="{'changed':certDetails.certificateDtl.vesselCompanyName}" />
+					<label for="cmpnyName">Regd Company Name</label>
+
+				</div>
+				<div class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2">
+
+					<input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12"
+						ng-model="certDetails.certificateDtl.vesselCompanyAddress"
+						id="cmpnyAddress" type="text" readonly data-toggle="tooltip"
+						data-original-title="{{certDetails.certificateDtl.vesselCompanyAddress}}"
+						tooltip data-placement="bottom" autocomplete="off"
+						ng-disabled="certDetails.disableAll || certDetails.disableVsl || certDetails.releaseLock"
+						ng-class="{'changed':certDetails.certificateDtl.vesselCompanyAddress}" />
+					<label for="cmpnyAddress">Regd Company Address</label>
+
+				</div>
+
+				<div class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2">
+
+					<input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12"
+						ng-model="certDetails.certificateDtl.certificateNo"
+						id="certificateNo" type="text" readonly data-toggle="tooltip"
+						data-original-title="{{certDetails.certificateDtl.certificateNo}}"
+						tooltip  data-placement="bottom" autocomplete="off"
+						ng-disabled="certDetails.disableAll || certDetails.disableVsl || certDetails.releaseLock"
+						ng-class="{'changed':certDetails.certificateDtl.certificateNo}" />
+					<label for="certi">Certificate No. </label>
+
+				</div>
+				
+				<div ng-if="certDetails.certificateDtl.auditTypeId == certDetails.AppConstant.IHM_TYPE_ID || certDetails.withOutAdt" 
+					 class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2">
+
+					 <input
+						class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input datePicker changed"
+						datepicker placeholder="DD-MMM-YYYY" id="keelLaidDate"
+						min-date=""
+						max-date=""
+						ng-model="certDetails.certificateDtl.keelLaidDate" type="text"
+						ng-disabled="true"
+						autocomplete="off" 
+						/> 
+						<!-- ng-class="{'changed':certDetails.certificateDtl.keelLaidDate}"
+							 Removed by sudharsan for JIRA-ID = 5449--> 
+							 <label for="keelLaidDate">Keel Laid Date</label>
+				</div>
+				
+		    	<div ng-if="certDetails.certificateDtl.auditTypeId == certDetails.AppConstant.IHM_TYPE_ID || certDetails.withOutAdt"
+					 class="txt-sec col-xs-12 col-sm-12 col-md-4 col-lg-2">
+
+					 <input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12"
+						ng-model="certDetails.certificateDtl.regOwnedImoNo"
+						ng-disabled="certDetails.disableAll || certDetails.disableVsl || certDetails.releaseLock"
+						id="regOwnedImoNo" autocomplete="off" 
+						ng-class="{'changed':certDetails.certificateDtl.regOwnedImoNo}" /> <label
+						for="grt">IMO Regd Owner ID No.</label>
+
+				</div>
+				
+			<!-- 		<div ng-if="certDetails.certificateDtl.auditTypeId == certDetails.AppConstant.IHM_TYPE_ID || certDetails.withOutAdt"
+					 class="txt-sec col-xs-12 col-sm-12 col-md-4 col-lg-2">
+
+					 <input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12"
+						ng-model="certDetails.certificateDtl.registeredCompanyName"
+						ng-disabled="certDetails.disableAll || certDetails.disableVsl || certDetails.releaseLock"
+						id="registeredCompanyName" autocomplete="off" 
+						ng-class="{'changed':certDetails.certificateDtl.registeredCompanyName}" /> <label
+						for="grt">IMO Regd Company Name.</label>
+
+				</div>
+		
+				<div ng-if="certDetails.certificateDtl.auditTypeId == certDetails.AppConstant.IHM_TYPE_ID || certDetails.withOutAdt"
+					 class="txt-sec col-xs-12 col-sm-12 col-md-4 col-lg-2">
+
+					 <input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12"
+						ng-model="certDetails.certificateDtl.registeredCompanyAddress"
+						ng-disabled="certDetails.disableAll || certDetails.disableVsl || certDetails.releaseLock"
+						id="registeredCompanyAddress" autocomplete="off" 
+						ng-class="{'changed':certDetails.certificateDtl.registeredCompanyAddress}" /> <label
+						for="grt">IMO Regd Company Address.</label>
+
+				</div>
+		 -->
+			</div>
+		</div>
+
+		<div
+			class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+			<div
+				class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 accordion-toggle1"
+				data-toggle="collapse" data-target="#vessel">
+				<div class="col-xs-12 col-sm-10 col-md-12 col-lg-12 containerfull">
+					<div
+						class="caption font-blue-sharp col-xs-9 col-sm-3 col-md-3 col-lg-3 containerfull">
+						<span class="caption-subject bold uppercase pull-left">REVIEW DETAILS
+							</span>
+
+					</div>
+				</div>
+			</div>
+
+			<div id="audit"
+				class="portlet-body collapse in col-xs-12 col-sm-12 col-md-12 col-lg-12 padcontainer">
+				
+				<div class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2">
+
+					<select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+						ng-model="certDetails.certificateDtl.auditTypeId" id="auditType"
+						ng-options="type.auditTypeId as type.auditTypeDesc for type in certDetails.auditTypeArray | filter: auditTypeFilter "
+						ng-class="{'changed':certDetails.certificateDtl.auditTypeId}"
+						ng-disabled="certDetails.disableAll || certDetails.disableVsl || certDetails.certificateDtl.auditStatusId == certDetails.AppConstant.VOID_AUDIT_STATUS || certDetails.certificateDtl.auditSummaryId  == certDetails.AppConstant.NOT_APPROVED_SUMMARY || certDetails.releaseLock"
+						ng-change="certDetails.getAuditSubType(certDetails.certificateDtl.auditTypeId)">
+						<option value="1"></option>
+					</select> <label for="auditType">Review Type</label>
+
+				</div>
+				
+				<div ng-show="certDetails.certificateDtl.auditTypeId==certDetails.AppConstant.IHM_TYPE_ID || certDetails.withOutAdt" class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2">
+
+					<select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+						ng-model="certDetails.certificateDtl.auditSubTypeId"
+						id="auditSubType"
+						ng-options="type.auditSubtypeId as type.auditSubtypeDesc  disable when (certDetails.withOutAdt && type.auditSubtypeId==1002) for type in certDetails.auditSubTypes"
+						ng-disabled="true && !certDetails.withOutAdt"
+						ng-change="certDetails.onChangeSubType()"
+						ng-class="{'changed':certDetails.certificateDtl.auditSubTypeId}">
+						<option value="1"></option>
+					</select>
+
+					<!--   <input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-model="certDetails.certificateDtl.audSubTypeDesc" id="auditSubType" type="text" autocomplete="off"  readonly ng-class="{'changed':certDetails.certificateDtl.audSubTypeDesc}"/> -->
+					<label for="auditSubType">Review Sub Type </label>
+
+				</div>
+				
+				<div ng-show="false" class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2">
+
+					<input
+						class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input datePicker changed"
+						min-date="certDetails.minAuditDate"
+						max-date="certDetails.maxAuditDate"
+						ng-model="certDetails.certificateDtl.auditDate" id="auditdate"
+						datepicker placeholder="DD-MMM-YYYY" type="text"
+						ng-blur="certDetails.certificateDtl.auditdate=certDetails.dateValidation(certDetails.certificateDtl.auditdate,'auditdate',certDetails.minCertExpireDate,certDetails.maxCertExpireDate);certDetails.createValidation();" autocomplete="off"
+						ng-disabled="certDetails.auditDisable();" />
+					<label for="auditdate">{{certDetails.auditDateForScreenType}}</label>
+				</div>
+
+				<div class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2" ng-if="(certDetails.directIntermediate && certDetails.certificateDtl.auditTypeId==1003) || (certDetails.certificateDtl.auditTypeId==1003 && certDetails.certificateDtl.auditSubTypeId!=certDetails.AppConstant.INTERIM_SUB_TYPE_ID && (certDetails.certificateDtl.certIssueId ==  certDetails.AppConstant.RE_ISSUE || certDetails.certificateDtl.certIssueId ==  certDetails.AppConstant.FULL_TERM_CERT))">
+
+					<input
+						class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input datePicker changed"
+						ng-model="certDetails.certificateDtl.dmlcIssueDate" id="dmlcIssueDate"
+						datepicker placeholder="DD-MMM-YYYY" type="text" ng-change="certDetails.checkBlankCompletion()"
+						autocomplete="off"/>
+					<label for="dmlcIssueDate">DMLC II Issue Date</label>
+				</div>
+				<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec" ng-if="(certDetails.directIntermediate && certDetails.certificateDtl.auditTypeId==1003) || (certDetails.certificateDtl.auditTypeId==1003 && certDetails.certificateDtl.auditSubTypeId!=certDetails.AppConstant.INTERIM_SUB_TYPE_ID && (certDetails.certificateDtl.certIssueId ==  certDetails.AppConstant.RE_ISSUE || certDetails.certificateDtl.certIssueId ==  certDetails.AppConstant.FULL_TERM_CERT))">
+				
+					<input type="text" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input port"
+                       		id="dmlcIssuePlace" ng-class="{'changed':certDetails.certificateDtl.dmlcIssuePlace}"
+                        	ng-model="certDetails.certificateDtl.dmlcIssuePlace" id="dmlcIssuePlace" ng-change="certDetails.checkBlankCompletion()"
+						 	type="text" uib-typeahead="port as port for port in certDetails.getPort($viewValue)"/> 
+                         <label for="dmlcIssuePlace">DMLC II Issue Location</label>
+                         
+				</div>
+
+			</div>
+
+
+		</div>
+
+		<div
+			class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<div
+				class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 accordion-toggle1"
+				data-toggle="collapse" data-target="#vessel">
+				<div class="col-xs-12 col-sm-10 col-md-12 col-lg-12 containerfull">
+					<div
+						class="caption font-blue-sharp col-xs-9 col-sm-3 col-md-3 col-lg-3 containerfull">
+						<span class="caption-subject bold uppercase pull-left">Exemption Certificate Details</span>
+
+					</div>
+				</div>
+			</div>
+
+
+
+
+			<div id="vessel"
+				class="portlet-body collapse in col-xs-12 col-sm-12 col-md-12 col-lg-12 padcontainer">
+				
+				 <div  ng-if="certDetails.certificateDtl.auditTypeId == certDetails.AppConstant.IHM_TYPE_ID && certDetails.certificateDtl.auditSubTypeId == certDetails.AppConstant.IHM_INITIAL_AUD_SUBTYPE_ID && certDetails.certificateDtl.auditSeqNo != certDetails.AppConstant.IHM_NO_AUD_CERT_AUDITSEQ" class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2">
+					<select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+						ng-model="certDetails.certificateDtl.certIssueId"
+						id="certificateType" ng-init="certValue=''"
+						ng-focus="certValue=(certDetails.certificateDtl.certIssueId+1)"
+						ng-disabled = "certDetails.IHMDisableFunc();"
+						ng-options="type.issueReasonId as type.issueReasonDesc disable when certDetails.CertTypeForIHM.indexOf(type.issueReasonId)!=-1  for type in certDetails.certificateIssuedOptions "
+						ng-change="certDetails.onChangeIssueType();"
+						ng-click="certDetails.checkCertVal(certValue,certDetails.certificateDtl.certIssueId);"
+						ng-class="{'changed':certDetails.certificateDtl.certIssueId}">
+						<option value="1"></option>
+						
+
+					</select>
+					<label for="certificateType">Certificate Issued</label>
+				</div> 
+				
+				<div class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2"  ng-if="certDetails.directIntermediate || (certDetails.certificateDtl.auditTypeId==1001 && certDetails.certificateDtl.auditSubTypeId!=certDetails.AppConstant.INTERIM_SUB_TYPE_ID && (certDetails.certificateDtl.certIssueId ==  certDetails.AppConstant.RE_ISSUE || certDetails.certificateDtl.certIssueId ==  certDetails.AppConstant.FULL_TERM_CERT)) || (certDetails.certificateDtl.auditTypeId==1002 && certDetails.certificateDtl.auditSubTypeId!=certDetails.AppConstant.INTERIM_SUB_TYPE_ID && (certDetails.certificateDtl.certIssueId ==  certDetails.AppConstant.RE_ISSUE || certDetails.certificateDtl.certIssueId ==  certDetails.AppConstant.FULL_TERM_CERT)) || (certDetails.certificateDtl.auditTypeId==1003 && certDetails.certificateDtl.auditSubTypeId!=certDetails.AppConstant.INTERIM_SUB_TYPE_ID && (certDetails.certificateDtl.certIssueId ==  certDetails.AppConstant.RE_ISSUE || certDetails.certificateDtl.certIssueId ==  certDetails.AppConstant.FULL_TERM_CERT))">
+					
+					<input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input datePicker changed" 
+						datepicker placeholder="DD-MMM-YYYY"
+						id="completionDate" ng-change="certDetails.checkBlankCompletion()" 
+						ng-model="certDetails.certificateDtl.completionDate" type="text" 
+						autocomplete="off" /> <label for="completionDate" style="font-size: 12px;">Date on which Certificate is based</label>
+				</div>
+				
+				<div  ng-if="certDetails.certificateDtl.auditTypeId == certDetails.AppConstant.IHM_TYPE_ID && certDetails.certificateDtl.auditSubTypeId == certDetails.AppConstant.IHM_AMENDMENT_AUD_SUBTYPE_ID && certDetails.certificateDtl.auditSeqNo != certDetails.AppConstant.IHM_NO_AUD_CERT_AUDITSEQ" class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2">
+					<select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+						ng-model="certDetails.certificateDtl.certIssueId"
+						id="certificateType" ng-init="certValue=''"
+						ng-focus="certValue=(certDetails.certificateDtl.certIssueId+1)"
+						ng-options="type.issueReasonId as type.issueReasonDesc disable when certDetails.CertTypeForIHM.indexOf(type.issueReasonId) != -1  for type in certDetails.certificateIssuedOptions "
+						ng-change="certDetails.onChangeIssueType();"
+						ng-disabled = "true"
+						ng-click="certDetails.checkCertVal(certValue,certDetails.certificateDtl.certIssueId);"
+						ng-class="{'changed':certDetails.certificateDtl.certIssueId}">
+						<option value="1"></option>
+						
+
+					</select>
+					<label for="certificateType">Certificate Issued</label>
+				</div> 
+				
+				 <div  ng-if="certDetails.certificateDtl.auditTypeId == certDetails.AppConstant.IHM_TYPE_ID && certDetails.certificateDtl.auditSubTypeId == certDetails.AppConstant.IHM_INITIAL_AUD_SUBTYPE_ID && certDetails.certificateDtl.auditSeqNo == certDetails.AppConstant.IHM_NO_AUD_CERT_AUDITSEQ" class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2">
+					<select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+						ng-model="certDetails.certificateDtl.certIssueId"
+						id="certificateType" ng-init="certValue=''"
+						ng-focus="certValue=(certDetails.certificateDtl.certIssueId+1)"
+						ng-options="type.issueReasonId as type.issueReasonDesc disable when  (type.issueReasonId ==1003 || type.issueReasonId ==1005 || type.issueReasonId ==1006 || type.issueReasonId ==1007 || type.issueReasonId ==1008 ) for type in certDetails.certificateIssuedOptions "
+						ng-change="certDetails.onChangeIssueType();"
+						ng-disabled ="true"
+						ng-click="certDetails.checkCertVal(certValue,certDetails.certificateDtl.certIssueId);"
+						ng-class="{'changed':certDetails.certificateDtl.certIssueId}">
+						<option value="1"></option>
+						
+
+					</select>
+					<label for="certificateType">Certificate Issued</label>
+				</div>  
+				
+				<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2" style="padding-top: 0.3%;padding-left: 0.5%;" ng-if="certDetails.certificateDtl.certIssueId == certDetails.AppConstant.RENEWAL_ENDORSED2">
+					
+				<h6 class="regul"   style="font-weight: bold ;font-size: 13px;margin-top: auto">Regulation</h6> 
+					<div  class="col-xs-12 col-sm-12 col-md-1 col-lg-1"  style="margin-right:30%">
+						<input type="radio"
+						class="certIhm-radio"
+						ng-model="certDetails.certificateDtl.renewalRegulation"
+						id="renewalRegulation118" 
+						ng-change=""
+						ng-disabled="certDetails.certificateNotPublish || certDetails.IhmFieldsDisable"
+						name="certDetails.certificateDtl.renewalRegulation" value="11.8"> 
+						<label for="renewalRegulation118"> 11.8</label>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-1 col-lg-1 ">
+						<input type="radio"
+						class="certIhm-radio"
+						ng-model="certDetails.certificateDtl.renewalRegulation"
+						id="renewalRegulation119"
+						ng-change=""
+						ng-disabled="certDetails.certificateNotPublish || certDetails.IhmFieldsDisable"
+						name="certDetails.certificateDtl.renewalRegulation" value="11.9"> 
+						<label for="renewalRegulation119">11.9</label>
+					</div>
+				
+			</div>
+					
+				<div class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2"
+					ng-show="(certDetails.certificateDtl.auditSubTypeId == certDetails.AppConstant.INTERIM_SUB_TYPE_ID) || 
+					(certDetails.certificateDtl.auditSubTypeId == certDetails.AppConstant.INITIAL_SUB_TYPE_ID)
+					|| (certDetails.certificateDtl.auditSubTypeId == certDetails.AppConstant.RENEWAL_SUB_TYPE_ID)"
+					ng-hide="(certDetails.certificateDtl.certIssueId ==  certDetails.AppConstant.RENEWAL_ENDORSED1)
+					|| (certDetails.certificateDtl.certIssueId ==  certDetails.AppConstant.RENEWAL_ENDORSED2)
+					|| (certDetails.certificateDtl.certIssueId ==  certDetails.AppConstant.EXTENSION)
+					|| (certDetails.certificateDtl.certIssueId ==  certDetails.AppConstant.INTERMEDAITE_ENDORSED)
+					|| (certDetails.certificateDtl.certIssueId ==  certDetails.AppConstant.ADDITIONAL_ENDORSED)
+					|| (certDetails.certificateDtl.certIssueId ==  certDetails.AppConstant.RE_ISSUE)">
+
+					<input
+						class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input datePicker changed"
+						datepicker placeholder="DD-MMM-YYYY"
+						ng-disabled="(certDetails.certificateDtl.auditStatusId == certDetails.AppConstant.REOPEN) || (certDetails.certificateNotPublish && certDetails.userRoleId == certDetails.AppConstant.MANAGER_ROLE_ID) || certDetails.disableAll || certDetails.disableIssue || !certDetails.certificateDtl.certIssueId || 
+						certDetails.certificateDtl.auditStatusId == certDetails.AppConstant.VOID_AUDIT_STATUS || certDetails.certificateDtl.auditSummaryId  == certDetails.AppConstant.NOT_APPROVED_SUMMARY || certDetails.releaseLock || certDetails.IhmFieldsDisable"
+						min-date="certDetails.minCertIssueDate" id="issuedate"
+						max-date="certDetails.maxCertIssueDate"
+						ng-blur="certDetails.certificateDtl.certIssueDate=certDetails.dateValidation(certDetails.certificateDtl.certIssueDate,'issuedate',certDetails.minCertIssueDate,certDetails.maxCertIssueDate);certDetails.createValidation();"
+						ng-model="certDetails.certificateDtl.certIssueDate" type="text"
+						ng-blur="certDetails.setExpireDateIHM()"
+						ng-change="certDetails.onChangeIssueExpiryDate();"
+						ng-click="certDetails.isIssueExpDateChanged();"
+						autocomplete="off" /> <label for="issuedate">Issue Date</label>
+				</div>
+ 				
+				<div class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2"
+					ng-show="certDetails.certificateDtl.certIssueId == certDetails.AppConstant.ADDITIONAL_ENDORSED">
+
+					<input
+						class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input datePicker changed"
+						datepicker placeholder="DD-MMM-YYYY"
+						ng-disabled="certDetails.endroseDateDisable();"
+						ng-model="certDetails.certificateDtl.endorsedDate"
+						min-date="certDetails.minEndorseDate"
+						max-date="certDetails.maxEndorseDate" id="endorseDate" type="text"
+						ng-blur="certDetails.certificateDtl.endorsedDate=certDetails.dateValidation(certDetails.certificateDtl.endorsedDate,'endorseDate',certDetails.minEndorseDate,certDetails.maxEndorseDate);certDetails.createValidation();"
+						autocomplete="off" /> <label for="issuedate">Endorsed
+						Date</label>
+				</div>
+
+				<div class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2"
+					ng-show="(certDetails.certificateDtl.certIssueId !=  certDetails.AppConstant.FULL_TERM_IHM &&
+					certDetails.certificateDtl.certIssueId != certDetails.AppConstant.ADDITIONAL_ENDORSED)
+					">
+
+					<input
+						class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input datePicker changed"
+						datepicker placeholder="DD-MMM-YYYY"
+						min-date="certDetails.minExtnCertIssueDate"
+						max-date="certDetails.maxExtnCertIssueDate"
+						ng-model="certDetails.certificateDtl.extendedIssueDate"
+						ng-disabled="certDetails.certificateDtl.certIssueId !=  certDetails.AppConstant.RE_ISSUE_ADMINISTRATIVE_IHM"
+						id="exteIssueDate" type="text"
+						ng-blur="certDetails.certificateDtl.extendedIssueDate=certDetails.dateValidation(certDetails.certificateDtl.extendedIssueDate,'exteIssueDate',certDetails.minExtnCertIssueDate,certDetails.maxExtnCertIssueDate);certDetails.createValidation();"
+						autocomplete="off"
+						ng-change="certDetails.setExtendedExpireDate();certDetails.onChangeIssueExpiryDate();" />
+					<label for="issuedate">{{certDetails.onchangeReissueName}}
+					</label>
+				</div>
+				<div ng-if="certDetails.certificateDtl.auditTypeId == certDetails.AppConstant.IHM_TYPE_ID" 
+					 class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2"
+					 >
+
+					 <input
+						class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input datePicker changed"
+						datepicker placeholder="DD-MM-YYYY" id="completionSurveyDate"
+						ng-model="certDetails.certificateDtl.completionSurveyDate" type=text"
+						autocomplete="off" 
+						min-date=""
+						max-date="certDetails.maxCompletionSurveyDate"
+						ng-blur="certDetails.certificateDtl.completionSurveyDate=certDetails.dateValidation(certDetails.certificateDtl.completionSurveyDate,'completionSurveyDate',min-date,max-date);"
+						ng-change ="certDetails.onChangeCompletionDate(); certDetails.completionSurveyPopup();"
+						ng-disabled="(!certDetails.leadSign && certDetails.userRoleId == certDetails.AppConstant.MANAGER_ROLE_ID) || (certDetails.certificateNotPublish && certDetails.userRoleId == certDetails.AppConstant.MANAGER_ROLE_ID) || certDetails.checkNxtAuditCreate || certDetails.disableAll || !certDetails.certificateDtl.certIssueId
+						|| certDetails.certificateDtl.auditStatusId == certDetails.AppConstant.VOID_AUDIT_STATUS || certDetails.releaseLock || certDetails.certificateDtl.certIssueId == certDetails.AppConstant.EXTENSION || certDetails.certificateDtl.certIssueId == certDetails.AppConstant.ADDITIONAL_ENDORSED 
+						|| certDetails.certificateDtl.certIssueId == certDetails.AppConstant.RENEWAL_ENDORSED1 || certDetails.certificateDtl.certIssueId == certDetails.AppConstant.RENEWAL_ENDORSED2 || certDetails.IhmFieldsDisable"
+						" /> <label for="completionSurveyDate">Completion Date of the Survey</label>
+				</div> 
+                        <!--DONT DELETE IT
+                         min-date="certDetails.minExtnCertExpireDate"
+						max-date="certDetails.maxExtnCertExpireDate" -->
+						
+				<div class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2"
+					ng-show="(certDetails.certificateDtl.certIssueId ==  certDetails.AppConstant.EXTENSION)					
+					|| (certDetails.certificateDtl.certIssueId ==  certDetails.AppConstant.RE_ISSUE) 
+					|| (certDetails.certificateDtl.certIssueId == certDetails.AppConstant.RENEWAL_ENDORSED1)
+					|| (certDetails.certificateDtl.certIssueId == certDetails.AppConstant.RENEWAL_ENDORSED2)">
+
+					<input
+						class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input datePicker changed"
+						datepicker placeholder="DD-MMM-YYYY"
+						ng-disabled="certDetails.disableExpireDate();"
+						min-date="certDetails.minExtnCertExpireDate"
+						max-date="certDetails.maxExtnCertExpireDate"
+						ng-model="certDetails.certificateDtl.extendedExpireDate"
+						id="exteExpiryDate" type="text"
+						
+						ng-change="certDetails.onChangeIssueExpiryDate();"
+						ng-blur="certDetails.certificateDtl.extendedExpireDate=certDetails.dateValidation(certDetails.certificateDtl.extendedExpireDate,'exteExpiryDate',certDetails.minExtnCertExpireDate,certDetails.maxExtnCertExpireDate);certDetails.createValidation();"
+						autocomplete="off" /> <label for="issuedate">Expiration date</label>
+				</div>
+
+						<!--DONT DELETE IT
+						 min-date="certDetails.minCertExpireDate"
+						max-date="certDetails.maxCertExpireDate" -->
+						
+				<div class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2"
+					ng-hide="(certDetails.certificateDtl.certIssueId ==  certDetails.AppConstant.EXTENSION)
+					|| (certDetails.certificateDtl.certIssueId ==  certDetails.AppConstant.RE_ISSUE)
+					|| (certDetails.certificateDtl.certIssueId == certDetails.AppConstant.RENEWAL_ENDORSED1)
+					|| (certDetails.certificateDtl.certIssueId == certDetails.AppConstant.RENEWAL_ENDORSED2)">
+
+					<input
+						class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input datePicker changed"
+						datepicker placeholder="DD-MMM-YYYY"
+						ng-disabled="(certDetails.certificateDtl.auditStatusId == certDetails.AppConstant.REOPEN) || (certDetails.certificateNotPublish && certDetails.userRoleId == certDetails.AppConstant.MANAGER_ROLE_ID) || certDetails.disableExpire || certDetails.disableAll || (certDetails.certificateDtl.certIssueId ==  certDetails.AppConstant.INTERMEDAITE_ENDORSED)
+						|| (certDetails.certificateDtl.certIssueId ==  certDetails.AppConstant.ADDITIONAL_ENDORSED) ||
+						 !certDetails.certificateDtl.certIssueId || certDetails.certificateDtl.auditStatusId == certDetails.AppConstant.VOID_AUDIT_STATUS || certDetails.certificateDtl.auditSummaryId  == certDetails.AppConstant.NOT_APPROVED_SUMMARY || certDetails.releaseLock || certDetails.IhmFieldsDisable || certDetails.certificateDtl.certExpireDate == ''"
+						min-date="certDetails.minCertExpireDate"
+						max-date="certDetails.maxCertExpireDate"
+						ng-blur="certDetails.certificateDtl.certExpireDate=certDetails.dateValidation(certDetails.certificateDtl.certExpireDate,'expirydate',certDetails.minCertExpireDate,certDetails.maxCertExpireDate);certDetails.createValidation();"
+						ng-model="certDetails.certificateDtl.certExpireDate"
+						id="expirydate" type="text"
+						ng-change="certDetails.onChangeIssueExpiryDate();"
+						ng-click="certDetails.isIssueExpDateChanged();"
+						autocomplete="off" /> <label for="issuedate">Expiry Date</label>
+				</div>
+
+
+
+				<div class="txt-sec col-xs-12 col-sm-12 coFl-md-2 col-lg-2">
+
+					<input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12"
+						ng-model="certDetails.certificateDtl.auditPlace" id="auditPlace"
+						type="text" autocomplete="off"
+						ng-class="{'changed':certDetails.certificateDtl.auditPlace}"
+						ng-disabled="certDetails.auditPlaceDisable();"
+						uib-typeahead="port as port for port in certDetails.getPort($viewValue)" />
+					<label for="auditPlace">Issued Place</label>
+
+				</div>
+				
+				<div class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2">
+
+					<input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12"
+						ng-model="certDetails.certificateDtl.issuerName" id="auditorName"
+						type="text" autocomplete="off"
+						ng-class="{'changed':certDetails.certificateDtl.issuerName}"
+						disabled /> <label for="auditorName">Reviewer Name</label>
+
+				</div>
+
+				<!-- uib-typeahead="aud as aud.firstName+' '+aud.lastName for aud in certDetails.auditorNameArray | filter:$viewValue" 
+                              typeahead-on-select="certDetails.setAudObsId($item,$index)" ng-blur="_.validateTypeAheadName(certDetails.auditorNameArray,$index,'auditorName','userId');" -->
+
+				<div class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2">
+					<select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+						ng-model="certDetails.certificateDtl.nameToPrint" id="printedName"
+						ng-change="certDetails.createValidation();"
+						ng-options="type.nameID as type.nameValue for type in certDetails.nameToPrint"
+						ng-disabled="(certDetails.certificateDtl.auditStatusId == certDetails.AppConstant.REOPEN) || (!certDetails.leadSign && certDetails.userRoleId == certDetails.AppConstant.MANAGER_ROLE_ID)|| (certDetails.certificateNotPublish && certDetails.userRoleId == certDetails.AppConstant.MANAGER_ROLE_ID) || certDetails.checkNxtAuditCreate || certDetails.disableAll || !certDetails.certificateDtl.certIssueId
+						|| (certDetails.certificateDtl.certIssueId ==  certDetails.AppConstant.EXTENSION && (certDetails.certificateDtl.auditSubTypeId == certDetails.AppConstant.INTERMEDIATE_SUB_TYPE_ID || certDetails.certificateDtl.auditSubTypeId == certDetails.AppConstant.ADDITIONAL_SUB_TYPE_ID) && certDetails.certificateDtl.publishStatus==0)
+						 ||certDetails.certificateDtl.auditStatusId == certDetails.AppConstant.VOID_AUDIT_STATUS || certDetails.certificateDtl.auditSummaryId  == certDetails.AppConstant.NOT_APPROVED_SUMMARY || certDetails.releaseLock || certDetails.certificateDtl.auditStatusId == certDetails.AppConstant.COMPLETED_AUDIT_STATUS
+						 || (certDetails.checkFullTermCertPresent == 0 && certDetails.certificateDtl.certIssueId ==  certDetails.AppConstant.EXTENSION && certDetails.userRoleId == certDetails.AppConstant.MANAGER_ROLE_ID && certDetails.certificateDtl.auditSubTypeId == certDetails.AppConstant.RENEWAL_SUB_TYPE_ID  && certDetails.certificateDtl.publishStatus==0)"
+						ng-class="{'changed':certDetails.certificateDtl.nameToPrint}"> <!-- Added by sudharsan for JIRA-ID=IRI-5435 -->
+						<option value="1"></option>
+
+					</select> <label for="printedName">Name to be Printed</label>
+				</div>
+
+				<div class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2">
+					<select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+						ng-model="certDetails.certificateDtl.signToPrint" id="signPrint"
+						ng-options="type.signID as type.signValue for type in certDetails.signToPrint"
+						ng-change="certDetails.createValidation();"
+						ng-disabled="(certDetails.certificateDtl.auditStatusId == certDetails.AppConstant.REOPEN) ||(!certDetails.leadSign && certDetails.userRoleId == certDetails.AppConstant.MANAGER_ROLE_ID) || (certDetails.certificateNotPublish && certDetails.userRoleId == certDetails.AppConstant.MANAGER_ROLE_ID) || certDetails.checkNxtAuditCreate || certDetails.disableAll || !certDetails.certificateDtl.certIssueId
+						|| (certDetails.certificateDtl.certIssueId ==  certDetails.AppConstant.EXTENSION && (certDetails.certificateDtl.auditSubTypeId == certDetails.AppConstant.INTERMEDIATE_SUB_TYPE_ID || certDetails.certificateDtl.auditSubTypeId == certDetails.AppConstant.ADDITIONAL_SUB_TYPE_ID) && certDetails.certificateDtl.publishStatus==0)
+						 || certDetails.certificateDtl.auditStatusId == certDetails.AppConstant.VOID_AUDIT_STATUS || certDetails.certificateDtl.auditSummaryId  == certDetails.AppConstant.NOT_APPROVED_SUMMARY || certDetails.releaseLock || certDetails.certificateDtl.auditStatusId == certDetails.AppConstant.COMPLETED_AUDIT_STATUS
+						 || (certDetails.checkFullTermCertPresent == 0 && certDetails.certificateDtl.certIssueId ==  certDetails.AppConstant.EXTENSION && certDetails.userRoleId == certDetails.AppConstant.MANAGER_ROLE_ID && certDetails.certificateDtl.auditSubTypeId == certDetails.AppConstant.RENEWAL_SUB_TYPE_ID  && certDetails.certificateDtl.publishStatus==0)"
+						ng-class="{'changed':certDetails.certificateDtl.signToPrint}"> <!-- Added by sudharsan for JIRA-ID=IRI-5435 -->
+						<option value="1"></option>
+
+					</select> <label for="signPrint">Sign to be Printed</label>
+				</div>
+
+				<!-- <div class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2">
+					<select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+						ng-model="certDetails.certificateDtl.verifyDone" id="verifyDone"
+						ng-options="type.verifyID as type.verifyValue for type in certDetails.verifyDone"
+						ng-change="certDetails.changedVerifyDone(certDetails.certificateDtl.verifyDone,'verifyDone')"
+						ng-disabled="certDetails.disableAll"
+						ng-class="{'changed':certDetails.certificateDtl.verifyDone}">
+						<option value="1"></option>
+
+					</select> <label for="verifyDone">Verification Already Done</label>
+				</div> -->
+
+				<div class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2"
+					ng-if="!certDetails.certificateDtl.issuerSign">
+					<button
+						style="height: 34px !important; padding: 7px 5px !important;"
+						class="col-lg-12 input-height btn btn-info btnclass sign-full-width normalMode std-hgt-sign"
+						type="button" ng-click="certDetails.attachSignature();"
+						ng-disabled="certDetails.attachmentDisable();">Attach
+						Sign</button>
+
+					<button
+						class="buttontrash btn btn-info btnclass fndattachicon mobileMode std-hgt-sign sign-fix"
+						type="button" ng-click="certDetails.attachSignature()"
+						data-toggle="tooltip" data-original-title="Attach Signature"
+						tooltip data-placement="top">
+						<i class="fa fa-hand-o-right" aria-hidden="true"></i>
+					</button>
+				</div>
+
+				<div class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2"
+					ng-if="certDetails.certificateDtl.issuerSign">
+					<input type="button"
+						style="background-image: url('data:image/png;base64,{{certDetails.certificateDtl.issuerSign}}'); background-size: 100% 100%; border: none !Important;"
+						id="issuerSign"
+						class="col-lg-12 input-height certificateSection imageset sign-full-width txt-input changed"
+						ng-disabled="certDetails.certificateDtl.auditStatusId == certDetails.AppConstant.VOID_AUDIT_STATUS || certDetails.certificateDtl.auditSummaryId  == certDetails.AppConstant.NOT_APPROVED_SUMMARY"
+						disabled /> <label for="issuerSign">Issuer Sign</label>
+				</div>
+
+				<div class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2">
+					<input
+						class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input datePicker changed"
+						datepicker placeholder="DD-MMM-YYYY"
+						ng-model="certDetails.certificateDtl.issuerSignDate" id="signDate"
+						type="text" ng-blur="certDetails.certificateDtl.issuerSignDate=certDetails.dateValidation(certDetails.certificateDtl.issuerSignDate,'signDate',certDetails.minCertExpireDate,certDetails.maxCertExpireDate);certDetails.createValidation();"
+						ng-disabled="(certDetails.certificateDtl.auditStatusId == certDetails.AppConstant.REOPEN) || (!certDetails.leadStatus && !certDetails.userRoleId == certDetails.AppConstant.MANAGER_ROLE_ID) || (certDetails.certificateNotPublish && certDetails.userRoleId == certDetails.AppConstant.MANAGER_ROLE_ID) || certDetails.disableAll || !certDetails.certificateDtl.certIssueId || !certDetails.certificateDtl.issuerSign
+						|| (certDetails.certificateDtl.certIssueId ==  certDetails.AppConstant.EXTENSION && (certDetails.certificateDtl.auditSubTypeId == certDetails.AppConstant.INTERMEDIATE_SUB_TYPE_ID || certDetails.certificateDtl.auditSubTypeId == certDetails.AppConstant.ADDITIONAL_SUB_TYPE_ID) && certDetails.certificateDtl.publishStatus==0)
+						 || certDetails.certificateDtl.auditStatusId == certDetails.AppConstant.VOID_AUDIT_STATUS || certDetails.certificateDtl.auditSummaryId  == certDetails.AppConstant.NOT_APPROVED_SUMMARY || certDetails.releaseLock || 
+						 (certDetails.checkFullTermCertPresent == 0 && certDetails.certificateDtl.certIssueId ==  certDetails.AppConstant.EXTENSION && certDetails.userRoleId == certDetails.AppConstant.MANAGER_ROLE_ID && certDetails.certificateDtl.auditSubTypeId == certDetails.AppConstant.RENEWAL_SUB_TYPE_ID  && certDetails.certificateDtl.publishStatus==0)"
+						autocomplete="off" /> <label for="issuedate">Signature
+						Date</label>
+				</div>
+
+				<div class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2"
+					ng-show="false">
+
+					<input
+						class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input datePicker changed"
+						datepicker placeholder="DD-MMM-YYYY"
+						ng-model="certDetails.certificateDtl.extendedEndorsedDate"
+						id="signDate" type="text" ng-blur="certDetails.certificateDtl.extendedEndorsedDate=certDetails.dateValidation(certDetails.certificateDtl.extendedEndorsedDate,'signDate',certDetails.minCertExpireDate,certDetails.maxCertExpireDate);certDetails.createValidation();"
+						ng-disabled="(certDetails.certificateDtl.auditStatusId == certDetails.AppConstant.REOPEN) || certDetails.disableAll || certDetails.certificateDtl.auditStatusId == certDetails.AppConstant.VOID_AUDIT_STATUS || certDetails.certificateDtl.auditSummaryId  == certDetails.AppConstant.NOT_APPROVED_SUMMARY
+						|| (certDetails.certificateDtl.certIssueId ==  certDetails.AppConstant.EXTENSION && (certDetails.certificateDtl.auditSubTypeId == certDetails.AppConstant.INTERMEDIATE_SUB_TYPE_ID || certDetails.certificateDtl.auditSubTypeId == certDetails.AppConstant.ADDITIONAL_SUB_TYPE_ID) && certDetails.certificateDtl.publishStatus==0)
+						 || certDetails.releaseLock || (certDetails.checkFullTermCertPresent == 0 && certDetails.certificateDtl.certIssueId ==  certDetails.AppConstant.EXTENSION && certDetails.userRoleId == certDetails.AppConstant.MANAGER_ROLE_ID && certDetails.certificateDtl.auditSubTypeId == certDetails.AppConstant.RENEWAL_SUB_TYPE_ID  && certDetails.certificateDtl.publishStatus==0)"
+						autocomplete="off" /> <label for="extendedEndrosed">Extended
+						Endorsed Date </label>
+				</div>
+
+				<div
+					ng-if="certDetails.certificateDtl.auditTypeId == certDetails.AppConstant.ISPS_TYPE_ID && certDetails.certificateDtl.auditSubTypeId == certDetails.AppConstant.INTERIM_SUB_TYPE_ID && certDetails.certificateDtl.certIssueId==certDetails.AppConstant.RE_ISSUE"
+					class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2">
+					<select
+						class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input changed"
+						ng-model="certDetails.certificateDtl.consecutiveId"
+						id="consecutiveId"
+						ng-options="type.consecutiveId as type.nameValue for type in certDetails.consecutive" ng-change="certDetails.checkConsective()"><!-- ng-change="certDetails.checkConsective()" -->
+						<!-- ng-disabled="(certDetails.certificateDtl.auditStatusId == certDetails.AppConstant.REOPEN) || certDetails.disableAll || !certDetails.certificateDtl.certIssueId || certDetails.certificateDtl.auditTypeId != certDetails.AppConstant.ISPS_TYPE_ID ||
+						 certDetails.certificateDtl.auditStatusId == certDetails.AppConstant.VOID_AUDIT_STATUS || certDetails.certificateDtl.auditSummaryId  == certDetails.AppConstant.NOT_APPROVED_SUMMARY || certDetails.releaseLock || certDetails.certificateDtl.auditSubTypeId != certDetails.AppConstant.INTERIM_SUB_TYPE_ID"
+						ng-class="{'changed':certDetails.certificateDtl.consecutiveId}" -->
+						
+					</select> <label for="consecutiveId">Consecutive Interim</label>
+					
+				</div>
+				
+				<div
+					ng-if="certDetails.certificateDtl.auditTypeId == certDetails.AppConstant.ISPS_TYPE_ID && certDetails.certificateDtl.auditSubTypeId == certDetails.AppConstant.INTERIM_SUB_TYPE_ID && certDetails.certificateDtl.certIssueId==certDetails.AppConstant.RE_ISSUE"
+					class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2">
+					<input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input datePicker changed"
+						datepicker placeholder="DD-MMM-YYYY"
+						id="subInterimDate" ng-change="certDetails.checkBlankCompletion()"
+						ng-model="certDetails.subInterimDate" ng-disabled="certDetails.certificateDtl.consecutiveId==1000?true:false" type="text"
+						autocomplete="off" /> <label for="subInterimDate">Issuance of First Interim Date</label>
+				</div>
+
+
+				<div
+					ng-if="certDetails.certificateDtl.certIssueId==certDetails.AppConstant.RE_ISSUE"
+					class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2">
+					<select
+						class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input changed"
+						ng-model="certDetails.certificateDtl.certReissueReason"
+						id="certReissueReason"
+						ng-options="type.reissueReasonId as type.reissueReasonDesc for type in certDetails.certificateReissueReason"
+						ng-class="{'changed':certDetails.certificateDtl.certReissueReason}"
+						ng-change="certDetails.onChangeReissueReason();">
+
+					</select> <label for="certificateType">Reissue Reason</label>
+				</div>
+				
+				<div ng-if="certDetails.certificateDtl.auditTypeId == certDetails.AppConstant.IHM_TYPE_ID"  
+				class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2">
+					<select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+						ng-model="certDetails.certificateDtl.ihmPrevReview" id="ihmPrevReview"
+						ng-change="certDetails.createValidation();"
+						ng-options="type.ihmPrevReviewID as type.ihmPrevReviewValue for type in certDetails.ihmPrevReview"
+						ng-disabled="(!certDetails.leadSign && certDetails.userRoleId == certDetails.AppConstant.MANAGER_ROLE_ID) || (certDetails.certificateNotPublish && certDetails.userRoleId == certDetails.AppConstant.MANAGER_ROLE_ID) || certDetails.checkNxtAuditCreate || certDetails.disableAll || !certDetails.certificateDtl.certIssueId
+						|| certDetails.certificateDtl.auditStatusId == certDetails.AppConstant.VOID_AUDIT_STATUS || certDetails.releaseLock || certDetails.certificateDtl.certIssueId == certDetails.AppConstant.EXTENSION || certDetails.certificateDtl.certIssueId == certDetails.AppConstant.ADDITIONAL_ENDORSED 
+						|| certDetails.certificateDtl.certIssueId == certDetails.AppConstant.RENEWAL_ENDORSED1 || certDetails.certificateDtl.certIssueId == certDetails.AppConstant.RENEWAL_ENDORSED2 || certDetails.IhmFieldsDisable"
+						ng-class="{'changed':certDetails.certificateDtl.ihmPrevReview}">
+						<option value="0"></option>
+					</select> <label for="printedName">IHM Part I review already Done</label>
+				 </div>
+				 
+
+			</div>
+			
+			
+			
+				
+		
+
+		</div>
+		
+		
+		<div  ng-if="certDetails.certificateDtl.auditTypeId == certDetails.AppConstant.IHM_TYPE_ID"
+			class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<div
+				class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 accordion-toggle1"
+				data-toggle="collapse" data-target="#vessel">
+				<div class="col-xs-12 col-sm-10 col-md-12 col-lg-12 containerfull">
+					<div
+						class="caption font-blue-sharp col-xs-9 col-sm-3 col-md-3 col-lg-3 containerfull">
+						<span class="caption-subject bold uppercase pull-left">EC DETAILS</span>
+					</div>
+				</div>
+			</div>
+			
+			<div id="" 
+				class="portlet-body collapse in col-xs-12 col-sm-12 col-md-12 col-lg-12 padcontainer" >
+				  
+				 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 txt-sec" ng-if="false">
+                        <input type="text" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+                        data-toggle="tooltip" data-original-title="{{certDetails.certificateDtl.ihmDocumentNo}}" tooltip data-placement="bottom" 
+                          ng-model="certDetails.certificateDtl.ihmDocumentNo" 
+                          id="ihmDocumentNo" autocomplete="off" 
+                         ng-disabled="(!certDetails.leadSign && certDetails.userRoleId == certDetails.AppConstant.MANAGER_ROLE_ID) || (certDetails.certificateNotPublish && certDetails.userRoleId == certDetails.AppConstant.MANAGER_ROLE_ID) || certDetails.checkNxtAuditCreate || certDetails.disableAll || !certDetails.certificateDtl.certIssueId
+						|| certDetails.certificateDtl.auditStatusId == certDetails.AppConstant.VOID_AUDIT_STATUS || certDetails.releaseLock || certDetails.certificateDtl.certIssueId == certDetails.AppConstant.EXTENSION  
+						|| certDetails.certificateDtl.certIssueId == certDetails.AppConstant.RENEWAL_ENDORSED1 || certDetails.certificateDtl.certIssueId == certDetails.AppConstant.RENEWAL_ENDORSED2 || certDetails.IhmFieldsDisable"
+                          ng-class="{'changed':certDetails.certificateDtl.ihmDocumentNo}"
+                          auditplace max-len="{{certDetails.AppConstant.AUDIT_PLACE_MAX_LEN}}"
+                          ng-pattern="/^[a-zA-Z0-9]+[^]*$/"
+                            />
+                   <label for="identyNo">IHM Part I ID/Doc No.</label>
+                </div>
+                
+                <div class="txt-sec col-xs-12 col-sm-12 col-md-3 col-lg-2" ng-if ="(certDetails.certificateDtl.publishStatus == 0 || certDetails.onChangeReissue || certDetails.certificateDtl.certificateNo == 'Initial-IHM')">
+					<select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+						ng-model="certDetails.certificateDtl.condEcGrant" id="condEcGrant"
+						ng-options="type.reasonId as type.ecGrantedReason for type in certDetails.ecGrantedReason "
+						ng-disabled="(certDetails.releaseLock || certDetails.certificateDtl.auditStatusId == certDetails.AppConstant.COMPLETED_AUDIT_STATUS)"
+						ng-class="{'changed':certDetails.certificateDtl.condEcGrant}">  <!-- Added by sudharsan for JIRA-ID=IRI-5435 -->
+						<option value="1"></option>
+					</select> <label for="condEcGrant">Condition, EC is granted</label>
+				</div>
+				
+				 <div class="txt-sec col-xs-12 col-sm-12 col-md-3 col-lg-2" ng-if = "(certDetails.certificateDtl.publishStatus == 1 && !certDetails.onChangeReissue)">
+					<select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+						ng-model="certDetails.certificateDtl.condEcGrant" id="condEcGrant"
+						ng-options="type.reasonId as type.ecGrantedReason for type in certDetails.ecGrantedReasonAll "
+						ng-disabled="true"
+						ng-class="{'changed':certDetails.certificateDtl.condEcGrant}">
+						<option value="1"></option>
+					</select> <label for="condEcGrant">Condition, EC is granted</label>
+				</div>
+				
+                <div class="txt-sec col-xs-12 col-sm-12 col-md-3 col-lg-2">
+					<select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+						ng-model="certDetails.certificateDtl.voyageEcGrant" id="voyageEcGrant"
+						ng-options="type.voyageEcGrantID as type.voyageEcGrantValue for type in certDetails.voyageEcGrant"
+						ng-disabled="( certDetails.releaseLock || certDetails.certificateDtl.certIssueId == certDetails.AppConstant.EXTENSION || certDetails.certificateDtl.certIssueId == certDetails.AppConstant.ADDITIONAL_ENDORSED 
+						|| certDetails.certificateDtl.certIssueId == certDetails.AppConstant.RENEWAL_ENDORSED1 || certDetails.certificateDtl.certIssueId == certDetails.AppConstant.RENEWAL_ENDORSED2 ||  certDetails.IhmFieldsDisable || certDetails.disableHkEu)"
+						ng-class="{'changed':certDetails.certificateDtl.voyageEcGrant}">
+						<option value="1"></option>
+
+					</select> <label for="voyageEcGrant">Voyages, EC is granted</label>
+				</div>
+				
+               
+				 </div>
+
+		</div>
+
+		<div
+			class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-if="false">
+			<div
+				class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 accordion-toggle1"
+				data-toggle="collapse" data-target="#vessel">
+				<div class="col-xs-12 col-sm-10 col-md-12 col-lg-12 containerfull">
+					<div
+						class="caption font-blue-sharp col-xs-9 col-sm-3 col-md-3 col-lg-3 containerfull">
+						<span class="caption-subject bold uppercase pull-left">Download Selected
+							Category</span>
+
+					</div>
+				</div>
+			</div>
+			
+			
+				
+			<div id="vessel"
+				class="portlet-body collapse in col-xs-12 col-sm-12 col-md-12 col-lg-12 padcontainer">
+				<div ng-if="false">
+				
+				<div class="col-xs-12 col-sm-12 col-md-1 col-lg-1"
+					style="margin-top: 10px !important;">
+
+					<input type="radio" ng-model="certDetails.certDownType"
+						class="cert-radio" id="cert-radio1" value="nor"> <label
+						for="cert-radio1">Normal</label>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-1 col-lg-1"
+					style="margin-top: 10px !important;">
+					<input type="radio" ng-model="certDetails.certDownType"
+						class="cert-radio" id="cert-radio2" name="r2" value="vol">
+					<label for="cert-radio2">Voluntary</label>
+				</div>
+				</div>
+				
+				
+				
+				
+				<div>
+				<div class="col-xs-12 col-sm-12 col-md-1 col-lg-1"
+					style="margin-top: 10px !important;" ng-if = "false"> 
+
+					<input type="checkbox"
+						class="cert-chckbox"
+						ng-model="certDetails.ihmCertModal.hk"
+						ng-disabled = "true"
+						id="cert-chckbox1" name="chck1" value="hk"> <label
+						for="cert-chckbox1">HK</label>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-1 col-lg-1"
+					style="margin-top: 10px !important;" ng-if = "false">
+					<input type="checkbox" 
+						class="cert-chckbox" 
+						ng-disabled = "true"
+						ng-model="certDetails.ihmCertModal.eu"
+						id="cert-chckbox2" name="chck2" value="eu"> <label
+						for="cert-chckbox2">EU</label>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2"
+					style="margin-top: 10px !important;">
+					<input type="checkbox"
+						ng-model="certDetails.ihmCertModal.exe"
+						ng-disabled = "true"
+						class="cert-chckbox" 
+						id="cert-chckbox3" name="chck3" value="exemp"> <label
+						for="cert-chckbox3">Exemption</label>
+				</div>
+				
+				
+				
+				</div>
+
+			</div>
+
+		</div>
+</div>
+
+</div>
+
+
+
+
+
+</div>
+
+</div>
+
+
+<img id="sealId" class="hidden"
+	ng-src="data:image/png;base64,{{certDetails.seal}}" alt="The Scream">
+<img class="hidden" id="intermediateSign"
+	ng-src="{{certDetails.intermediateSign}}" alt="The Scream">
+<img class="hidden" id="image"
+	src="../../../assets/global/img/background-logo.png" alt="The Scream">
+
+<img class="hidden" id="sa"
+	src="../../../assets/global/img/SpecialAgent.jpg" alt="The Scream">
+
+<img class="hidden" id="dc"
+	src="../../../assets/global/img/DeputyCommissioner.jpg"
+	alt="The Scream">
+<img class="hidden" id="images"
+	src="../../../assets/global/img/background-logo-black.jpg"
+	alt="The Scream">
+
+<div class="hidden" ng-repeat='sign in certDetails.signature'>
+
+	<img id="signature-{{$index}}"
+		ng-src="data:image/png;base64,{{sign[9]}}" alt="The Scream">
+</div>
+
+<img class="hidden" id="qrCodeImage" ng-src="{{certDetails.qrCodeData}}"
+	alt="The Scream">
+</form>
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 aud footerfixed">
+
+	<div class="col-xs-4 col-sm-4 col-md-2 col-lg-offset-2 col-lg-2">
+		<button type="button"
+			class="effect effect footerbutton btn btn-primaryclr font-print"
+			ng-click="certDetails.back()">{{certDetails.bckButton}}</button>
+	</div>
+	
+		<div ng-if="certDetails.certificateDtl.auditTypeId == certDetails.AppConstant.IHM_TYPE_ID"  class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
+		<button type="button"
+			class="effect effect footerbutton btn btn-primaryclr font-print"
+			ng-disabled="certDetails.generateDisableIhm();"
+			ng-click="certDetails.checkAdminGenCer()">Generate</button>
+
+	</div>
+	
+	<div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
+		<button type="button"
+			class="effect effect footerbutton btn btn-primaryclr font-print"
+			ng-disabled="certDetails.publishDisableIhm();"
+			ng-click="certDetails.validateAndPublishCert()">Publish</button>
+
+	</div>
+	
+	<div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
+		<button type="button"
+			class="effect effect footerbutton btn btn-primaryclr font-print"
+			ng-click="certDetails.downloadCertifiacte(certDetails.certificateDtl)"
+			ng-disabled="!(certDetails.certificateDtl.auditSeqNo && certDetails.certificateDtl.companyId && certDetails.certificateDtl.auditTypeId && 
+    	    			 certDetails.certificateDtl.seqNo && certDetails.certificateDtl.certificateId && certDetails.certificateDtl.certificateNo && 
+    	    			 certDetails.certificateDtl.utn) ||(certDetails.certificateDtl.getExactActiveStatus==0)">Download
+		</button>
+		<!-- || certDetails.certificateDtl.auditStatusId == certDetails.AppConstant.VOID_AUDIT_STATUS -->
+	</div>
+
+</div>
+
+</div>

@@ -1,0 +1,41 @@
+<div class="modal fade col-xs-12 col-sm-12 col-md-12 col-lg-12 auddet" data-keyboard="false" data-backdrop="static">
+	<div class="modal-dialog col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+		<div class="modal-content col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+			<div class="modal-header col-xs-12 col-sm-12 col-md-12 col-lg-12 " style="padding-bottom:0px !important;">
+                <button type="button" class="close" ng-click="his.close('Cancel')" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">{{his.pageTitle}}</h4>
+            </div>
+			<div class="modal-body col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+			   
+			   <div ng-if="his.showBlock" class="search_table_bordered auditSearch">
+			
+					<table datatable="" dt-options="his.dtOptions" dt-columns="his.dtColumns" dt-instance="his.dtInstance" class="table table-responsive datatables" ></table>
+						<nav ng-if="his.paginationn" class="pagination pagination-sm pagination_position searchpagination">
+            				<li ng-class="{ disabled : his.pagination.current === 0 || his.pagination.current === 1}">
+        						<a href="" ng-click="( his.pagination.current === 0 || his.pagination.current === 1)?null:his.search(0)">&laquo;</a>
+    						</li>
+    						<li ng-class="{ disabled : his.pagination.current === 0 || his.pagination.current === 1}">
+        						<a href="" ng-click="(his.pagination.current === 0 || his.pagination.current === 1)?null:his.search(his.pagination.current-2)">&lsaquo;</a>
+    						</li>
+            				<li ng-repeat="n in his.range(his.pagination.totalPages)" ng-class="{active:his.pagination.current===n}"> 
+            					<a href="#" ng-click="his.search(n-1)" ng-bind="n">n</a>
+            				</li>
+            				<li ng-class="{ disabled : his.pagination.current === his.pagination.last }">
+        						<a href="" ng-click="(his.pagination.current === his.pagination.last)?null:his.search(his.pagination.current)">&rsaquo;</a>
+    						</li>
+    						<li ng-class="{ disabled : his.pagination.current === his.pagination.last }">
+        						<a href="" ng-click="(his.pagination.current === his.pagination.last)?null:his.search(his.pagination.last-1)">&raquo;</a>
+    						</li>
+        				</nav>
+			
+			</div>
+						   
+			   
+		</div>
+			
+			
+			
+				
+		</div>
+	</div>
+</div>

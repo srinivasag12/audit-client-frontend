@@ -1,0 +1,85 @@
+<div style="overflow-y:hidden !important;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12  modal fade report " data-keyboard="false" data-backdrop="static">
+<form name="reportForm">
+	<div style="padding:45px !important;" class=" col-xs-12 col-sm-12 col-md-12 col-lg-12 vesselImo modal-dialog">
+		<div class=" col-xs-12 col-sm-12 col-md-12 col-lg-12 modal-content">
+			<div class="modal-header">
+				<h4>User Signature Details based on official Id</h4>
+                <button type="button" class="close" ng-click="close('Cancel')"data-dismiss="modal" aria-hidden="true">&times;</button>           
+            </div>
+			<div style="overflow-y:auto !important;max-height:65vh !important;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 " >
+	<table  class="table table-responsive">
+	
+<tr class="tr-table" >
+
+
+   <th colspan="1" class="center"></th>
+
+   <th colspan="1" class="center">SIGNER</th>
+   <th colspan="1" class="center">Signature</th>
+   <th colspan="1" class="center">Title</th>
+   <th colspan="1" class="center">Seal </th>
+   <th colspan="1" class="center">Official Id</th>
+   
+</tr>
+<tr  ng-repeat="user in uc.userList" class="tr-table">
+
+    <td align="center"><div class="form-check">
+    <input class="form-check-input" name="group100" type="radio" id="radio-{{$index}}" ng-model="user.select" ng-value="$index" ng-change="uc.setUser($index)">
+    <label class="form-check-label" for="radio-{{$index}}"></label>
+    </div>
+</td>
+<td align="center" >{{user.signer}}</td>
+<td align="center"><img style="width:200px !important; height:100px !important;background-color:white;" ng-src="data:image/png;base64,{{user.signature}}"/></td>
+<td align="center">{{user.title}}</td>
+<td align="center" ><img style="width:200px !important; height:100px !important;background-color:white;" ng-src="data:image/png;base64,{{user.seal}}"/></td>
+<td align="center">{{user.officialId}}</td>
+  </tr>
+<td ng-if="uc.dishplayToIhm" align="center"><h4> To Certify as a IHM user</h4></td>
+  
+  <tr ng-repeat="userIhm in uc.toCertifyIhm" >
+
+    <td align="center"><div class="form-check">
+    <input class="form-check-input" name="group100" type="radio" id="radio-{{$index}}" ng-model="user.selectForIhm" ng-value="$index" ng-change="uc.setUserForIhm($index)">
+    <label class="form-check-label" for="radio-{{$index}}"></label>
+    </div>
+</td>
+<td align="center" >{{userIhm.signer}} </td>
+<td align="center"><img style="width:200px !important; height:100px !important;background-color:white;" ng-src="data:image/png;base64,{{userIhm.signature}}"/></td>
+<td align="center">{{userIhm.title}}</td>
+<td align="center" ><img style="width:200px !important; height:100px !important;background-color:white;" ng-src="data:image/png;base64,{{userIhm.seal}}"/></td>
+<td align="center">{{userIhm.officialId}}</td>
+  </tr>
+  
+  
+  <td ng-if="uc.dishplayToSMC" align="center" ><h4> To Certify as a SMC user</h4></td>
+  
+  <tr ng-repeat="userSMC in uc.toCertifySMC" >
+
+    <td align="center"><div class="form-check">
+    <input class="form-check-input" name="group100" type="radio" id="radio-{{$index}}" ng-model="user.selectForSMC" ng-value="$index" ng-change="uc.setUserForSMC($index)">
+    <label class="form-check-label" for="radio-{{$index}}"></label>
+    </div>
+</td>
+<td align="center" >{{userSMC.signer}} </td>
+<td align="center"><img style="width:200px !important; height:100px !important;background-color:white;" ng-src="data:image/png;base64,{{userSMC.signature}}"/></td>
+<td align="center">{{userSMC.title}}</td>
+<td align="center" ><img style="width:200px !important; height:100px !important;background-color:white;" ng-src="data:image/png;base64,{{userSMC.seal}}"/></td>
+<td align="center">{{userSMC.officialId}}</td>
+  </tr>
+
+    
+	</table>
+
+</div>
+	<div style="margin-top:23px !important;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 but-margin">
+			 	<div class="col-xs-offset-4 col-xs-4 col-sm-12 col-md-12 col-lg-offset-8 col-lg-2" >
+					<button type="button" class="btn btnclass fix-but-width" ng-click="uc.setUserDtl()" data-dismiss="modal" aria-hidden="true">Ok</button> 
+                </div>     
+              	<div class="col-xs-4 col-sm-12 col-md-12 col-lg-2">
+					<button type="button" class="btn btnclass fix-but-width" ng-click="uc.cancel()" data-dismiss="modal" aria-hidden="true">Cancel</button>         
+              	</div> 
+</div>
+		</div>
+	</div>
+	</form>
+</div>

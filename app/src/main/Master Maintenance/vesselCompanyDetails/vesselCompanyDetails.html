@@ -1,0 +1,165 @@
+<form name="vcdetail.vesselCompanyForm" autocomplete="off">
+	<div
+		class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12 vcdetail">
+		<div
+			class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12  accordion-toggle1"
+			data-toggle="collapse" data-target="#vcdetail">
+			<div
+				class="caption font-blue-sharp col-xs-12 col-sm-12 col-md-6 col-lg-6">
+				<span class="caption-subject bold uppercase pull-left">Vessel
+					Company Details</span>
+			</div>
+
+
+		</div>
+		<div class="switch-container">
+			<label class="switch" data-toggle="tooltip"
+				data-original-title="{{vcdetail.lockMessage}}" tooltip
+				data-placement="left"> <input type="checkbox"
+				ng-model="vcdetail.enabled" ng-change="vcdetail.changeCallback()">
+				<span class="slider round">
+				 <i class="fa fa-plus-square-o icon-lock-position" ng-if="vcdetail.enabled"></i> 
+				 <i class="fa fa-pencil-square-o icon-unlock-position" ng-if="!vcdetail.enabled"></i>
+			</span>
+			</label>
+		</div>
+		<div id="vcdetail"
+			class="portlet-body collapse in col-xs-12 col-sm-12 col-md-12 col-lg-12 padcontainer">
+			<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 containerfull">
+				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 txt-sec"
+					ng-if="vcdetail.enabled==true">
+					<input max-len=7 numeric
+						class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+						ng-model="vcdetail.companyimono" id="companyimono" type="text"
+						name="cmpnyImo" ng-focus="vcdetail.toasterClear()"
+						ng-blur="vcdetail.checkCmpnyImoNo(vcdetail.companyimono)"
+						ng-class="{'changed':vcdetail.companyimono}" required /> <label
+						for="companyimono">Company IMO No.</label>
+
+				</div>
+
+
+				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 txt-sec"
+					ng-if="vcdetail.enabled==false">
+					<input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+						ng-model="vcdetail.companyimono" id="companyimono" type="text"
+						name="cmpnyImo"
+						uib-typeahead="ves as ves.companyImoNo for ves in  vcdetail.veselImo($viewValue) | limitTo:9|orderBy:'companyImoNo'"
+						ng-change="vcdetail.removeElement(vcdetail.companyimono)"
+						typeahead-on-select="vcdetail.focusSuccessive($item)"
+						ng-blur="vcdetail.validateTypeahead(vcdetail.companyimono,'IMO')"
+						max-len=7 numeric typeahead-no-results="showNoResults"
+						custom-tooltip="{{showNoResults}}"
+						ng-class="{'changed':vcdetail.companyimono}" required /> <label
+						for="companyimono">Company IMO No.</label>
+
+				</div>
+
+
+				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 txt-sec"
+					ng-if="vcdetail.enabled==true">
+					<input style="text-transform: uppercase" max-len=100 letter-spcl
+						class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+						name="cmpnyName" ng-model="vcdetail.name" id="companyname"
+						type="text" ng-class="{'changed':vcdetail.name}" required /> <label
+						for="companyname">Company Name</label>
+
+				</div>
+
+				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 txt-sec"
+					ng-if="vcdetail.enabled==false">
+					<input style="text-transform: uppercase" letter-spcl max-len=100
+						class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+						name="cmpnyName" ng-model="vcdetail.name" id="companyname"
+						type="text" ng-class="{'changed':vcdetail.name}" required /> <label
+						for="companyname">Company Name</label>
+
+				</div>
+
+
+				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 txt-sec">
+					<input letter-spcl max-len=100
+						class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+						style="text-transform: uppercase" ng-model="vcdetail.doctypeno"
+						id="doctype" type="text" name="docType"
+						ng-disabled="vcdetail.name==null && vcdetail.companyimono==null && vcdetail.docTyp"
+						ng-class="{'changed':vcdetail.doctypeno}" required /> <label
+						for="doctype">DOC Type & No.</label>
+
+				</div>
+
+				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 txt-sec">
+					<input letters-input max-len=100
+						class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+						style="text-transform: uppercase" ng-model="vcdetail.docissuer"
+						id="docissuer" type="text" name="docIssuer"
+						ng-disabled=" vcdetail.issu && vcdetail.name==null && vcdetail.companyimono==null "
+						ng-class="{'changed':vcdetail.docissuer}" required /> <label
+						for="docissuer">DOC Issuer</label>
+
+				</div>
+
+				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 txt-sec"
+					ng-if="vcdetail.enabled==true">
+					<input datepicker readonly min-date="vcdetail.today"
+						class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input datePicker"
+						ng-model="vcdetail.docexpiry" id="docexpiry" type="text"
+						name="docExpiry" ng-blur="vcdetail.docexpir(vcdetail.docexpiry)"
+						ng-disabled=" vcdetail.name==null && vcdetail.companyimono==null  "
+						ng-class="{'changed':vcdetail.docexpiry}" required /> <label
+						for="docexpiry">DOC Expiry</label>
+
+				</div>
+
+				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 txt-sec"
+					ng-if="vcdetail.enabled==false">
+					<input datepicker readonly min-date="vcdetail.today"
+						style="text-transform: uppercase"
+						class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input datePicker"
+						ng-model="vcdetail.docexpiry" id="docexpiry" type="text"
+						name="docExpiry"
+						ng-disabled=" vcdetail.name==null && vcdetail.companyimono==null  "
+						ng-class="{'changed':vcdetail.docexpiry}" required /> <label
+						for="docexpiry">DOC Expiry</label>
+
+				</div>
+
+				<div style="padding-top: 25px !important;"
+					ng-if="!vcdetail.enabled && vcdetail.companyimono.companyImoNo"
+					class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+					<a id="history"
+						ng-click="vcdetail.showHistory(vcdetail.companyimono.companyImoNo)">History</a>
+				</div>
+
+
+
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 containerfull">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-sec">
+					<textarea maximum-length max-len=150
+						style="text-transform: uppercase"
+						class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12 input-height-address"
+						ng-model="vcdetail.address" id="companyaddress" name="addres"
+						ng-disabled="vcdetail.name==null && vcdetail.companyimono==null && vcdetail.add"
+						ng-class="{'changed':vcdetail.address}" required> </textarea>
+					<label for="companyaddress">Address of Company</label>
+				</div>
+			</div>
+
+
+
+
+
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 makeCenter">
+				<div
+					class="col-xs-offset-6 col-xs-6 col-sm-offset-6 col-sm-6 col-md-offset-10 col-md-2 col-lg-offset-10 col-lg-2 masterScreenBut">
+					<button type="button"
+						class="effect effect btnclass btn btn-primaryclr fix-but-width font-create"
+						ng-disabled="!vcdetail.companyimono || !vcdetail.name || !vcdetail.doctypeno || !vcdetail.docissuer || !vcdetail.docexpiry || !vcdetail.address "
+						ng-click="vcdetail.submit(vcdetail.createedit)">{{vcdetail.createedit}}
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>

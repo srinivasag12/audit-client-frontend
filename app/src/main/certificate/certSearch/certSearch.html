@@ -1,0 +1,228 @@
+<div style="height: 90.5vh !important; max-height: 90.5vh !Important;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull auditscroll scroll">
+<div class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12 search">
+			<div class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 accordion-toggle1" data-toggle="collapse" data-target="#search">
+				<div class="caption font-blue-sharp col-xs-6 col-sm-6 col-md-2 col-lg-2">
+					<span class="caption-subject bold uppercase pull-left">Search Criteria</span>
+				</div>
+				
+				
+				
+			</div>
+			
+				<div id="search" style="border-bottom: 1px solid #065050 !important;" class="portlet-body collapse in col-xs-12 col-sm-12 col-md-12 col-lg-12 padcontainer">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull">
+				<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec">
+							
+									 <input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" 
+										ng-model="certSearch.certSearchCriteria.certificateNo"  id="searchcertificateno" 
+										type="text" autocomplete="off"  max-len="7" 
+										uib-typeahead="certNo as certNo for certNo in certSearch.getCertificateNos($viewValue |uppercase)"
+							            ng-blur="certSearch.validateVessel(certSearch.searchCriteria.certificateNo,'CERT')"
+							            typeahead-no-results="noCertificateNo" custom-tooltip="{{noCertificateNo}}"
+							        	ng-class="{'changed':certSearch.certSearchCriteria.certificateNo}" />
+								 	<label for="searchcertificateno">Certificate No</label>
+							 
+				</div>
+				
+				<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec">
+							
+						
+					  <input type="text" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" 
+                        	ng-model="certSearch.certSearchCriteria.vesselImoNo" id="searchimo"
+                        	uib-typeahead="ship as ship.vesselImoNo for ship in _.getLatestVesselImo($viewValue, certSearch.LatestAuditData,certSearch.vesselData)"
+						    ng-class="{'changed':certSearch.certSearchCriteria.vesselImoNo}"
+						    typeahead-no-results="noVesselImo" custom-tooltip="{{noVesselImo}}" 
+						 	type="text" autocomplete="off" numeric max-len="7"
+						 	ng-change="certSearch.certSearchCriteria.vesselName=''"
+						 	typeahead-on-select="certSearch.setVessel($item)"  /> 
+                        <label for="searchimo">Vessel IMO No</label>	
+							
+				</div>
+				
+				
+				<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec">
+					
+					 
+						<input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" 
+							ng-model="certSearch.certSearchCriteria.vesselName" id="searchvslname" type="text" autocomplete="off"  
+							uib-typeahead="ship as ship.vesselName for ship in _.getVesselName($viewValue,certSearch.vesselData) "
+							typeahead-on-select="certSearch.setVessel($item)" alpha-numeric
+							ng-change="certSearch.certSearchCriteria.vesselImoNo=''"
+							ng-blur="certSearch.validateVessel(certSearch.certSearchCriteria.vesselName,'VES')"
+							typeahead-no-results="noVesselName" custom-tooltip="{{noVesselName}}" ng-class="{'changed':certSearch.certSearchCriteria.vesselName}"/> 
+						<label  for="searchvslname">Vessel Name</label>
+				</div>
+				
+							
+				
+				<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec">
+							
+							<input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" 
+								ng-model="certSearch.certSearchCriteria.companyImoNo" id="searchcompanyimo" 
+								ng-class="{'changed':certSearch.certSearchCriteria.companyImoNo}"
+								uib-typeahead="company as company.companyImoNo for company in certSearch.getCompanyImo($viewValue)"
+							    ng-blur="certSearch.validateVessel(certSearch.companyImoNo,'COM')"
+							    typeahead-no-results="noCompanyImo" custom-tooltip="{{noCompanyImo}}" 
+							    type="text" autocomplete="off" numeric max-len="7"/> 
+									<label for="searchcompanyimo">Company IMO No</label>
+							</div>
+				
+				
+							<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec">
+							
+                                    <select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" 
+                                    	ng-model="certSearch.certSearchCriteria.auditTypeId" id="audittype"  
+										ng-class="{'changed':certSearch.certSearchCriteria.auditTypeId}"
+										ng-options="autype.auditTypeId as autype.auditTypeDesc for autype in certSearch.audtype"
+										ng-init="certSearch.certSearchCriteria.auditTypeId=0" 
+										ng-class="{'changed':certSearch.certSearchCriteria.auditTypeId}"
+										ng-change="certSearch.getAuditData(certSearch.certSearchCriteria.auditTypeId)" ></select>
+                                    <label for="audittype">Type</label>
+								
+							</div>
+				<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec">
+				
+                         <select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" 
+                         	ng-model="certSearch.certSearchCriteria.auditSubTypeId"  ng-class="{'changed':certSearch.certSearchCriteria.auditSubTypeId}"
+                         	ng-disabled="!certSearch.certSearchCriteria.auditTypeId" 
+                         	ng-class="{'changed':certSearch.certSearchCriteria.auditSubTypeId}"
+                         	ng-options="type.auditSubtypeId as type.auditSubtypeDesc for type in certSearch.audsubtype" 
+                         	id="audsubtype" ></select>
+						 <label for="audsubtype">Sub Type</label>
+					
+				</div>
+				
+				<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec">
+								
+										
+						<input type="text" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" 
+                        	ng-model="certSearch.certSearchCriteria.officialNo" id="searchofficialNo"
+						    ng-class="{'changed':certSearch.certSearchCriteria.officialNo}" numeric />
+						
+						 
+                        <label for="searchofficialNo">Official No</label>
+							
+							</div>
+				
+				<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec">
+					<select
+						class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input changed"
+						ng-model="certSearch.certSearchCriteria.checkCertVthAudit"
+						id="checkCertVthAudit"
+						ng-options="type.checkCertVthAudit as type.certValue for type in certSearch.checkCertifiate"
+						ng-class="{'changed':certSearch.certSearchCriteria.checkCertVthAudit}">
+
+					</select> <label style="font-size:13.5px" for="checkCertVthAudit">Certificate With Audit/Review </label>
+				</div>
+				
+				
+				<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec">
+					  <select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" 
+                                    	ng-model="certSearch.certSearchCriteria.status" id="status"  
+										ng-class="{'changed':certSearch.certSearchCriteria.status}"
+										ng-options="status1.id as status1.value for status1 in  certSearch.activeinactive"
+								
+									 ></select>
+                                    <label for="status">Certificate Status </label>
+				
+				</div>
+				
+				<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec">
+					<input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input datePicker" datepicker ng-model="certSearch.certSearchCriteria.certIssueDate" id="searchisuedate" type="text" autocomplete="off" readonly  
+					 	ng-class="{'changed':certSearch.certSearchCriteria.certIssueDate}"/>
+						<label for="searchisuedate">Certificate Issue Date </label>
+							
+				</div>
+				
+				<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec">
+					<input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input datePicker" datepicker ng-model="certSearch.certSearchCriteria.certExpireDate" id="searchcertexpiredate" type="text" autocomplete="off" readonly  
+					 	ng-class="{'changed':certSearch.certSearchCriteria.certExpireDate}"/>
+						<label for="searchexpiredate">Certificate Expiry Date </label>
+							
+				</div>
+
+				
+				
+				<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec">
+					
+						
+                        <select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" 
+                                    	ng-model="certSearch.certSearchCriteria.certificateIssuedType" id="issuedType"  
+										ng-class="{'changed':certSearch.certSearchCriteria.certificateIssuedType}"
+										ng-options="issuedType.id as issuedType.value for issuedType in  certSearch.certificateIssuedType"
+									 ></select>
+                        <label for="searchissuedType">Certificate Issued Type</label> <!-- Changed by sudharsan for JIRA-id = IRI-5469-->
+					
+				</div>
+
+			</div>
+				
+				</div>
+			
+		</div>
+		
+<div  class="col-xs-12 col-sm-12 col-md-12 col-lg-offset-0 tdpad col-lg-12 search audsrcpad">		
+			
+			<div  class="col-xs-4 col-sm-offset-2 col-sm-3 col-md-offset-4 col-md-2 col-lg-offset-3 col-lg-2">
+				<button type="button" class="effect effect btn btn-primaryclr btnsize btnclass fix-but-width font-home" ng-click="certSearch.back()">Home</button>
+			</div>
+			
+			<div class="col-xs-4 col-sm-offset-0  col-sm-3 col-md-offset-0  col-md-2 col-lg-offset-0 col-lg-2">
+				<button type="button" class="effect effect btn btn-primaryclr btnsize btnclass fix-but-width font-search" ng-click="certSearch.search(0,'search')">Search</button>
+			</div>
+			
+			<div class="col-xs-4 col-sm-offset-0  col-sm-3 col-md-offset-0 col-md-2 col-lg-offset-0 col-lg-2">
+				<button type="button" class="effect effect btn btn-primaryclr btnsize btnclass fix-but-width font-clear" ng-click="certSearch.clear()">Clear</button>
+			</div>
+		
+		
+		
+</div>
+ 
+ 
+ <div ng-if="certSearch.showBlock" class="search_table_bordered auditSearch certificateSearch">
+
+		<table datatable="" dt-options="certSearch.dtOptions" dt-columns="certSearch.dtColumns" dt-instance="certSearch.dtInstance" class="table table-responsive datatables" ></table>
+		<nav ng-if="certSearch.pagination" class="pagination pagination-sm pagination_position searchpagination">
+            <li ng-class="{ disabled : pagination.current === 0 ||  pagination.current === 1}">
+        		<a href="" ng-click="(pagination.current === 0 || pagination.current === 1)?null:!(pagination.current === 0 ||  pagination.current === 1) && certSearch.search(0,'startPage')">&larrb;</a>
+    		</li>
+    		<li ng-class="{ disabled : pagination.ShowPagesMax < 10 || certSearch.pageInitialCount == 1}">
+        		<a href="" ng-click="(pagination.current === 0 || pagination.current === 1)?null:!(pagination.ShowPagesMax < 10 || certSearch.pageInitialCount == 1) && certSearch.search(0,'backword')">&laquo;</a>
+    		</li>
+    		<li ng-class="{ disabled : pagination.current === 0 || pagination.current === 1}">
+        		<a href="" ng-click="(pagination.current === 0 || pagination.current === 1)?null:!(pagination.current === 0 || pagination.current === 1) && certSearch.search(pagination.current-2,'prev')">&lsaquo;</a>
+    		</li>
+            <li ng-repeat="n in range(pagination.ShowPagesMin,pagination.ShowPagesMax)" ng-class="{active:pagination.current===n}"> 
+            	<a href="#" ng-click="certSearch.search(n-1)" ng-bind="n">n</a>
+            </li>
+            <li ng-class="{ disabled : pagination.current === pagination.last }">
+        		<a href="" ng-click="(pagination.current === pagination.last)?null:!(pagination.current === pagination.last) && certSearch.search(pagination.current,'next')">&rsaquo;</a>
+    		</li>
+    		
+    		<li ng-class="{ disabled : pagination.ShowPagesMax < 10 || certSearch.pageInitialCount == certSearch.lastPageCount}">
+        		<a href="" ng-click="(pagination.current === pagination.last)?null:!(pagination.ShowPagesMax < 10 || certSearch.pageInitialCount == certSearch.lastPageCount) && certSearch.search(pagination.last-1,'forword')">&raquo;</a>
+    		</li>
+    		
+    		<li ng-class="{ disabled : pagination.current === pagination.last }">
+        		<a href="" ng-click="(pagination.current === pagination.last)?null:!(pagination.current === pagination.last) && certSearch.search(pagination.last-1,'endPage')">&rarrb;</a>
+    		</li>
+    		
+    	
+    		
+    		
+        </nav>
+	
+</div>
+
+ <div ng-if="certSearch.pagination" class="search_table_bordered" >
+<div class="displayCountRecords">
+	Showing {{certSearch.from}} to {{certSearch.to}} of {{certSearch.total}} entries
+</div>	
+</div>
+ 
+ 
+ 
+ 
+ 
+    </div>

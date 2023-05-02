@@ -1,0 +1,29 @@
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 modal fade"
+	data-keyboard="false" data-backdrop="static">
+	<div style="width: 600px; margin: 15vh 40vw;"
+		class="col-xs-12 col-sm-12 col-md-12 col-lg-12 modal-dialog">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 modal-content">
+			<div class="modal-header"
+				style="padding-bottom: 0px; padding-left: 0px;">
+				<button type="button" class="close" ng-click="close('Cancel')"
+					data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Email</h4>
+			</div>
+
+			<div class="modal-body tdpad">
+
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-sec">
+					<h6>From : {{email.fromMail}}</h6>
+				</div>
+
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-sec">
+					<h6>Subject : {{email.subject}}</h6>
+				</div>
+
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-sec">
+					<h6>Message : {{email.message}}</h6>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

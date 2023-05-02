@@ -1,0 +1,128 @@
+ <div style="overflow-y:hidden !important;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 modal fade report" data-keyboard="false" data-backdrop="static">
+<form name="reportForm">
+	<div class=" col-xs-12 col-sm-12 col-md-12 col-lg-12 modal-dialog">
+		<div class=" col-xs-12 col-sm-12 col-md-12 col-lg-12 modal-content">
+			<div class="modal-header" ng-if="rp.auditTypeId !=rp.AppConstant.IHM_TYPE_ID">
+                <button type="button" class="close" ng-click="closes('Cancel')" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">{{rp.auditingType}} Attachments</h4>
+            </div>
+            <div class="modal-header" ng-if="rp.auditTypeId ==rp.AppConstant.IHM_TYPE_ID">
+                <button type="button" class="close" ng-click="closes('Cancel')" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Review Attachments</h4>
+            </div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 modal-body" >
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 tdpad">
+			<div class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<div style="padding: 12px 0px 12px 0px !important;"  class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 accordion-toggle1" data-toggle="collapse" data-target="#reportattachsection">
+				<div class="caption font-blue-sharp col-lg-3">
+					
+				</div>
+				
+			</div>
+			<div id="reportattachsection" class="portlet-body col-xs-12 col-sm-12 col-md-12 col-lg-12 tdpad collapse in reportAttSection scroll">
+			
+			
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull " ng-repeat="rpt in rp.auditRptAttach  | orderBy:'seqNo'" >
+			
+			
+				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 containerfull">
+				
+				
+				
+				
+				
+				<div style="text-align: center;" class="col-xs-3 col-sm-3 col-md-3 col-lg-3 image-upload" ng-mouseenter="showToolTip()" data-original-title="Select Report Types" id="fileAttach-{{$index}}">
+					
+  								    <label for="file-input-{{$index}}"   style="padding:1px 6px !important;width:34px !important;" class="buttontrash btn btn-info btnclass">
+       									<i class="fa fa-paperclip" aria-hidden="true" title="Attachments"></i>
+    								</label>
+									<input id="file-input-{{$index}}" type="file" file-upload ng-model="rp.fileReport" accept="*/*"  ng-click="rp.clearFiles($index)" ng-change="rp.uploadReport(rpt.seqNo)" ng-disabled="rp.auditData.auditComplteLaptop==1 || rp.disableUpload || rp.carUpdateStatus"/>
+									
+									
+    								
+    			</div>
+    			
+    			<div  style="text-align: center;" class="col-xs-3 col-sm-3 col-md-3 col-lg-3 image-upload"  data-original-title="Delete Attachment" id="deleteAttach-{{$index}}"  >
+					
+  								    <label   style="padding:1px 6px !important;width:34px !important;" class="buttontrash btn btn-info btnclass"  ng-disabled="!rpt.fileName || rp.carUpdateStatus || rp.auditData.auditComplteLaptop==1 "  ng-click="rp.deleteFile(rpt.seqNo,rpt.attachmentTypeId)" > 
+       									<i class="fa fa-trash-o" aria-hidden="true" title="Attachments"></i>
+    								</label>
+									
+									
+									
+    								
+    			</div>
+    			
+    			<div  class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+					<span class="has-float-label ">						 	
+						 <input class="form-control col-xs-12 col-sm-12 col-md-12 col-lg-12 input-height" readonly ng-model="rpt.fileName" 
+								data-toggle="tooltip" data-original-title="{{rpt.fileName}}" tooltip data-placement="bottom"
+						  type="text" autocomplete="off" />  	
+					</span>
+				</div>
+				
+				
+				
+				
+				
+				<div  class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-if="rpt.attachmentTypeId != 1005">
+					<span class="has-float-label">
+						 <select style="-webkit-appearance: listbox;" id="rtypes" class="form-control col-xs-12 col-sm-12 col-md-12 col-lg-12 input-height" 
+						 	ng-model="rpt.attachmentTypeId" disabled
+						 	ng-options="rpt.attachmentTypeId as rpt.attchTypeDescAudit for rpt in rp.reportTypeArray">
+						 </select>
+						 <label for="rtypes">Types </label>
+						 
+						   <!-- <span ng-if="(!rpt.fileName &&  rpt.attachmentTypeId  != rp.AppConstant.CERTIFICATE_RPT_ATCH_ID) || ( !rpt.fileName && rp.auditTypeId  == rp.AppConstant.SSP_TYPE_ID && rp.auditSubType == rp.AppConstant.SSP_DMLC_AMENDMENT_AUD_SUBTYPEID && rpt.attachmentTypeId  != rp.AppConstant.CERTIFICATE_RPT_ATCH_ID) || (!rpt.fileName && rp.auditTypeId  !=  rp.AppConstant.DMLC_TYPE_ID  && rpt.attachmentTypeId  != rp.AppConstant.CERTIFICATE_RPT_ATCH_ID) || (!rpt.fileName && rp.auditTypeId!= rp.AppConstant.SSP_TYPE_ID && rp.auditSubType != rp.AppConstant.SSP_DMLC_INITIAL_AUD_SUBTYPEID  && rpt.attachmentTypeId  != rp.AppConstant.CERTIFICATE_RPT_ATCH_ID)" ng-class="{default:!rpt.fileName}" style="font-weight: 900; font-size: larger; color: #f10f0f; margin-left:45px !important;">*</span> -->				 
+				<span ng-if="(!rpt.fileName && rpt.mandatory==1)" ng-class="{default:!rpt.fileName}" style="font-weight: 900; font-size: larger; color: #f10f0f;margin-left:45px !important;">*</span> </span>
+				</div>
+				
+				
+				
+				<div  class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6" ng-if="rpt.attachmentTypeId === 1005">
+					<span class="has-float-label">
+						  <select style="-webkit-appearance: listbox;" id="rtypes" class="form-control col-xs-12 col-sm-12 col-md-12 col-lg-12 input-height" 
+						 	ng-model="rpt.attachmentTypeId" disabled
+						 	ng-options="rpt.attachmentTypeId as rpt.attchTypeDescAudit for rpt in rp.reportTypeArray">
+						  </select>
+						 <label for="rtypes-{{$index}}">Types</label>
+					</span>
+				</div>
+				
+				<div  class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6" ng-if="rpt.attachmentTypeId === 1005">
+					<span class="has-float-label">
+						  <input class="form-control col-xs-12 col-sm-12 col-md-12 col-lg-12 input-height" auditplace max-len="30" ng-model="rpt.otherType" id="others-{{$index}}"  type="text" autocomplete="off"  
+						 	ng-disabled="rp.disableOthers" 
+						 	>
+						
+						 <label for="rtypes-{{$index}}">Others</label>
+					</span>
+				</div>
+				
+			
+				</div>
+				
+				<div class="form-group col-xs-12 col-sm-12 col-md-8 col-lg-8">
+					<span class="has-float-label "> 
+						<textarea style="height: 82px !important;resize:none !important;" auditplace max-len="2000" class="form-control col-xs-12 col-sm-12 col-md-12 col-lg-12 descriptionhgt" ng-model="rpt.comments" id="comments" ng-disabled="rp.auditData.auditComplteLaptop==1 || rp.disableComments || !rpt.fileName || rp.carUpdateStatus" > </textarea>
+						<label  for="comments">Comments</label>
+					</span>
+				</div>
+				</div><!-- 
+					  <div class="fabAttach"    ng-click="rp.disableAdd?'':rp.addOtherAttachment();"><span>+</span> </div> -->
+			</div>
+			</div>
+					
+			</div>
+			</div>
+			<div class="modal-footer col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<div  style="margin-left: 80%;"  class="col-xs-offset-8 col-xs-4 col-sm-offset-8  col-sm-4  col-md-offset-10  col-md-2 col-lg-offset-9 col-lg-1 fabAttach"  ng-disabled="rp.carUpdateStatus || rp.auditData.auditComplteLaptop==1 " ng-click="rp.disableAdd?'':rp.addOtherAttachment();" ><span>+</span> </div>
+			<div style="float:right !important;" class="col-xs-4  col-sm-4  col-md-2 col-lg-2">
+                <button type="button"  class="btn btn-primary btnclass fix-but-width"  ng-click="saveReport('Cancel')" ng-disaled="rp.carUpdateStatus ||  rp.auditData.auditComplteLaptop==1 ">ADD</button>
+			</div>	
+			</div>
+
+		</div>
+	</div>
+	</form>
+</div>

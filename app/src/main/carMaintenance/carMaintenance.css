@@ -1,0 +1,24 @@
+.hide{
+	display:none !important;
+}
+ .carpagination > li:nth-child(1) > a{
+    border-top-left-radius: 22px;
+    border-bottom-left-radius: 22px;
+}
+.carpagination > li:last-child > a{
+    border-top-right-radius: 22px;
+    border-bottom-right-radius: 22px;
+}
+ 
+ @media (min-width: 1200px){
+.history > .searchCar{
+	  margin-left: 13.333333%;
+}}
+
+@media (max-width: 1199px) and (min-width: 992px)
+{
+	.history > .searchCar{
+	  margin-left: 7.333333%;
+}
+	
+}

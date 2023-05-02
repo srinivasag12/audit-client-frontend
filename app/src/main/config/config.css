@@ -1,0 +1,14 @@
+.fixedProfilePic{
+    width: 75.5% !important;
+    bottom: 20px;
+    left: 40px;
+}
+.fixedProfBut{
+	width:100% !important;
+	border-radius:0px !Important;
+}
+.photo-size{
+    width: 100% !important;
+    height: 200px !important;
+    background-color: white !important;
+}

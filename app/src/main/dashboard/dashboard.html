@@ -1,0 +1,1524 @@
+<div ng-if="dboard.userRoleId == 1005"
+	class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+
+	<div class="col-xs-8 col-sm-12 col-md-4  col-lg-offset-4 sec1">
+		<div ng-click="dboard.reloadScreen('LOG')" class="sec3">
+			<div
+				class="col-xs-offset-4 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-0 col-lg-10 sec2"
+				style="margin-top: 100px;">
+				<div class="sec1_1">
+					<div class="sec1_2">
+						<div class="sec1_3">
+							<img src="./assets/global/img/logimg.png"
+								style="height: 205px; width: 205px;" />
+
+						</div>
+
+						<div class="sec1_3_2">
+							<p>Tap here to dowanload IRI Log</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--<div ng-if="dboard.userRoleId == 1001 && !dboard.onlyIhm" class="col-xs-4 col-sm-4 col-md-4 col-lg-4 dashboard1 first1">
+	  	<a ng-click="dboard.laptopURL()">Tap to launch Shipboard Application</a></div>-->
+
+<!-- gendral auditor -->
+<div ng-if="dboard.userRoleId == 1001  && !dboard.onlyIhm  "
+	class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dashboard first">
+
+	<!-- 1st row 1stcolumn starts  -->
+
+	<div class="col-xs-8 col-sm-12 col-md-4  col-lg-4 sec1">
+		<div ng-click="dboard.reloadScreen('AUD_CRE')" class="sec3">
+			<div
+				class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-0 col-lg-10 sec2">
+				<div class="sec1_1">
+					<div class="sec1_2">
+						<div class="sec1_3">
+							<img src="./assets/global/img/auditcreate.jpg" class="img-ic" />
+
+						</div>
+						 <div class="sec1_3_1">
+							<p>Audit / Inspection / Review Creation</p>
+						</div>
+						<div class="sec1_3_2">
+							<p>Tap here to create an audit / inspection / review</p>
+						</div> 
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 1st row 1stcolumn ends  -->
+
+	<!-- 1st row 2ndcolumn starts  -->
+
+	<div ng-if="!dboard.ihmReviewer"
+		class="col-xs-8 col-sm-12 col-md-4 col-lg-4 sec1">
+		<div ng-click="dboard.reloadScreen('AUD_MAI')" class="sec3">
+			<div
+				class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-1 col-lg-10 sec2">
+				<div class="sec1_1">
+					<div class="sec1_2">
+						<div class="sec1_3">
+							<img src="./assets/global/img/auditmaintaintenance.png"
+								class="img-ic" />
+
+						</div>
+						<div class="sec1_3_1">
+							<p>Audit / Inspection / Review Maintenance</p>
+						</div>
+						<div class="sec1_3_2">
+							<p>Tap here to maintain an audit / inspection / review</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- for ihm authorized -->
+
+	<div ng-if="dboard.ihmReviewer"
+		class="col-xs-8 col-sm-12 col-md-4 col-lg-4 sec1">
+		<div ng-click="dboard.reloadScreen('AUD_CRE_IHM')" class="sec3">
+			<div
+				class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-0 col-lg-10 sec2">
+				<div class="sec1_1">
+					<div class="sec1_2">
+						<div class="sec1_3">
+							<img src="./assets/global/img/auditcreate.jpg" class="img-ic" />
+
+						</div>
+						<div class="sec1_3_1">
+							<p>IHM Part I Review Creation</p>
+						</div>
+						<div class="sec1_3_2">
+							<p>Tap here to create an IHM review</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 1st row 2ndcolumn ends  -->
+
+	<!-- 1st row 3rdcolumn starts  -->
+
+	<div ng-if="!dboard.ihmReviewer"
+		class="col-xs-8 col-sm-12  col-md-4 col-lg-4 sec1">
+		<div ng-click="dboard.reloadScreen('CAR_MAI')" class="sec3">
+			<div
+				class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-2 col-lg-10 sec2">
+				<div class="sec1_1">
+					<div class="sec1_2">
+						<div class="sec1_3">
+							<img src="./assets/global/img/car.png" class="img-ic" />
+
+						</div>
+						<div class="sec1_3_1">
+							<p>CAR Maintenance / History</p>
+						</div>
+						<div class="sec1_3_2">
+							<p>Tap here to maintain / record history of CAR</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- for IHM reviewer -->
+
+	<div ng-if="dboard.ihmReviewer"
+		class="col-xs-8 col-sm-12  col-md-4 col-lg-4 sec1">
+		<div ng-click="dboard.reloadScreen('AUD_MAI')" class="sec3">
+			<div
+				class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-1 col-lg-10 sec2">
+				<div class="sec1_1">
+					<div class="sec1_2">
+						<div class="sec1_3">
+							<img src="./assets/global/img/auditmaintaintenance.png"
+								class="img-ic" />
+
+						</div>
+						<div class="sec1_3_1">
+							<p>Audit / Inspection / Review Maintenance</p>
+						</div>
+						<div class="sec1_3_2">
+							<p>Tap here to maintain an audit / inspection / review</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 1st row ends  -->
+</div>
+
+
+<div ng-if="dboard.userRoleId == 1001 && !dboard.onlyIhm"
+	class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dashboard second">
+
+
+	<!-- 2ndrow 1ndcolumn starts  -->
+
+	<div ng-if="dboard.ihmReviewer"
+		class="col-xs-8 col-sm-12 col-md-4  col-lg-4 sec1">
+		<div ng-click="dboard.reloadScreen('CAR_MAI')" class="sec3">
+			<div
+				class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-2 col-lg-10 sec2">
+				<div class="sec1_1">
+					<div class="sec1_2">
+						<div class="sec1_3">
+							<img src="./assets/global/img/car.png" class="img-ic" />
+
+						</div>
+						<div class="sec1_3_1">
+							<p>CAR Maintenance / History</p>
+						</div>
+						<div class="sec1_3_2">
+							<p>Tap here to maintain / record history of CAR</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 2ndrow 1ndcolumn end(ihm authorized) -->
+
+	<div ng-if="dboard.ihmReviewer"
+		class="col-xs-8 col-sm-12 col-md-4 col-lg-4 sec1">
+		<div ng-click="dboard.reloadScreen('VES_STA')" class="sec3">
+			<div
+				class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-1 col-lg-10 sec2">
+				<div class="sec1_1">
+					<div class="sec1_2">
+						<div class="sec1_3">
+							<img src="./assets/global/img/vesselstatus.jpg" class="img-ic" />
+
+						</div>
+						<div class="sec1_3_1">
+							<p>Vessel / Status Statement</p>
+						</div>
+						<div class="sec1_3_2">
+							<p>Tap here to vessel / status statement</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- only for not ihm reviewer -->
+
+	<div ng-if="!dboard.ihmReviewer"
+		class="col-xs-8 col-sm-12 col-md-offset-0 col-md-4 col-lg-offset-2 col-lg-4 sec1">
+		<div ng-click="dboard.reloadScreen('VES_STA')" class="sec3">
+			<div
+				class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-1 col-lg-10 sec2">
+				<div class="sec1_1">
+					<div class="sec1_2">
+						<div class="sec1_3">
+							<img src="./assets/global/img/vesselstatus.jpg" class="img-ic" />
+
+						</div>
+						<div class="sec1_3_1">
+							<p>Vessel / Status Statement</p>
+						</div>
+						<div class="sec1_3_2">
+							<p>Tap here to vessel / status statement</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 3rd column -->
+	<div class="col-xs-8 col-sm-12 col-md-4  col-lg-4 sec1">
+		<div ng-click="dboard.reloadScreen('CER_GEN')" class="sec3">
+			<div
+				class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-1 col-lg-10 sec2">
+				<div class="sec1_1">
+					<div class="sec1_2">
+						<div class="sec1_3">
+							<img src="./assets/global/img/print.png" class="img-ic" />
+
+						</div>
+						<div class="sec1_3_1">
+							<p>Certificate Creation and Search</p>
+						</div>
+						<div class="sec1_3_2">
+							<p>Tap here to search / create a certificate</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+
+<!-- only ihm reviewer -->
+<div ng-if="dboard.userRoleId == 1001 && dboard.onlyIhm"
+	class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dashboard first">
+
+	<div class="col-xs-8 col-sm-12 col-md-4  col-lg-4 sec1">
+		<div ng-click="dboard.reloadScreen('AUD_CRE_IHM')" class="sec3">
+			<div
+				class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-0 col-lg-10 sec2">
+				<div class="sec1_1">
+					<div class="sec1_2">
+						<div class="sec1_3">
+							<img src="./assets/global/img/auditcreate.jpg" class="img-ic" />
+
+						</div>
+						<div class="sec1_3_1">
+							<p>Review Creation IHM</p>
+						</div>
+						<div class="sec1_3_2">
+							<p>Tap here to create an IHM review</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-xs-8 col-sm-12 col-md-4 col-lg-4 sec1">
+		<div ng-click="dboard.reloadScreen('AUD_MAI')" class="sec3">
+			<div
+				class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-1 col-lg-10 sec2">
+				<div class="sec1_1">
+					<div class="sec1_2">
+						<div class="sec1_3">
+							<img src="./assets/global/img/auditmaintaintenance.png"
+								class="img-ic" />
+
+						</div>
+						<div class="sec1_3_1">
+							<p>IHM Review Maintenance</p>
+						</div>
+						<div class="sec1_3_2">
+							<p>Tap here to maintain an review</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-xs-8 col-sm-12  col-md-4 col-lg-4 sec1">
+		<div ng-click="dboard.reloadScreen('CER_GEN')" class="sec3">
+			<div
+				class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-2 col-lg-10 sec2">
+				<div class="sec1_1">
+					<div class="sec1_2">
+						<div class="sec1_3">
+							<img src="./assets/global/img/print.png" class="img-ic" />
+
+						</div>
+
+						<div class="sec1_3_1">
+							<p>Certificate Creation and Search</p>
+						</div>
+						<div class="sec1_3_2">
+							<p>Tap here to search / create a certificate</p>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div ng-if="dboard.userRoleId == 1001 && dboard.onlyIhm"
+	class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dashboard first">
+<div  class="col-xs-8 col-sm-12 col-md-4  col-lg-4 sec1" 
+		ng-if="dboard.planApprovalReview">
+		<div ng-click="dboard.reloadScreen('AUD_CRE')" class="sec3">
+			<div
+				class="col-xs-offset-2 col-xs-8 col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-1 col-lg-10 sec2">
+				<div class="sec1_1">
+					<div class="sec1_2">
+						<div class="sec1_3">
+							<img src="./assets/global/img/auditcreate.jpg" class="img-ic" />
+
+						</div>
+						 <div class="sec1_3_1">
+							<p>Plan Approval Review Creation</p>  <!-- changed by sudharsan for JIRA-ID=5493-->
+						</div>
+						<div class="sec1_3_2">
+							<p>Tap here to create an Plan Approval review</p> <!-- changed by sudharsan for JIRA-ID=5493-->
+						</div> 
+					</div>
+				</div>  
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 	
+	
+<div ng-if="dboard.userRoleId == 1002"  class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dashboard"> 
+
+<div  class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull">	
+	 <div class="col-xs-8 col-sm-12 col-md-3 col-lg-offset-1 col-lg-3 sec1 child">
+	 <div ng-click="dboard.reloadScreen('AUD_MAI')" class="sec3">
+	 <div class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-0 col-lg-12 sec2">
+		<div class="sec1_1">	  
+			<div class="sec1_2">
+				<div class="sec1_3">
+					<img src="./assets/global/img/auditmaintaintenance.png" class="img-ic"/>
+			
+				</div>
+				<div class="sec1_3_1">
+					<p>Audit / Inspection / Review Maintenance</p>
+				</div>
+				<div class="sec1_3_2">
+					<p>Tap here for maintain an audit / review</p>
+				</div>
+			</div></div>
+		</div>
+		</div>
+	  </div>	
+	
+	 
+	 <div class="col-xs-8 col-sm-12 col-md-offset-2 col-md-3 col-lg-offset-4 col-lg-3 sec1 child" >
+	 <div ng-click="dboard.reloadScreen('MAS_MAI')"class="sec3">
+	 <div class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-0 col-lg-12 sec2">
+		<div class="sec1_1">	  
+			<div class="sec1_2">
+				<div class="sec1_3">
+					<img src="./assets/global/img/master.jpg" class="img-ic"/>
+			
+				</div>
+				<div class="sec1_3_1">
+					<p>Master Maintenance</p>
+				</div>
+				<div class="sec1_3_2">
+					<p>Tap here for master maintenance</p>
+				</div>
+			</div></div>
+		</div>
+		</div>
+	  </div>
+	  </div>
+	  
+<div style="padding-top: 50px !important;"  class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull">		  
+	  
+	  
+	  <div  class="col-xs-8 col-sm-12 col-md-3 col-lg-offset-1 col-lg-3 sec1 child">
+	 <div ng-click="dboard.reloadScreen('VES_STA')"class="sec3">
+	 <div class="col-xs-offset-2 col-xs-8 col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-0 col-lg-12  sec2">
+		<div class="sec1_1">	  
+			<div class="sec1_2">
+				<div class="sec1_3">
+					<img src="./assets/global/img/vesselstatus.jpg" class="img-ic"/>
+			
+				</div>
+				<div class="sec1_3_1">
+					<p>Vessel / Status Statement</p>
+				</div>
+				<div class="sec1_3_2">
+					<p>Tap here for vessel / status statement</p>
+				</div>
+			</div></div>
+		</div>
+		</div>
+	  </div>
+	  
+	 <div class="col-xs-8 col-sm-12 col-md-offset-2 col-md-3 col-lg-offset-4 col-lg-3 sec1 child">
+	 <div ng-click="dboard.reloadScreen('CER_SEARCH')" class="sec3">
+	 <div class="col-xs-offset-2 col-xs-8 col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-0 col-lg-12 sec2">
+		<div class="sec1_1">	  
+			<div class="sec1_2">
+				<div class="sec1_3">
+					<img src="./assets/global/img/print.png" class="img-ic"/>
+			
+				</div>
+				<div class="sec1_3_1">
+					<p>Certificate Search</p>
+				</div>
+				<div class="sec1_3_2">
+					<p>Tap here for generate an certificate</p>
+				</div>
+			</div></div>
+		</div>
+		</div>
+	  </div>
+	  
+	 </div> 
+	</div>
+
+	
+	
+	 -->
+
+
+
+
+<div ng-if="dboard.userRoleId == 1002"
+	class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dashboard first">
+
+
+	<div class="col-xs-8 col-sm-12 col-md-4  col-lg-4 sec1">
+		<div ng-click="dboard.reloadScreen('AUD_MAI')" class="sec3">
+			<div
+				class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-0 col-lg-10 sec2">
+				<div class="sec1_1">
+					<div class="sec1_2">
+						<div class="sec1_3">
+							<img src="./assets/global/img/auditmaintaintenance.png"
+								class="img-ic" />
+
+						</div>
+						<div class="sec1_3_1">
+							<p>Audit / Inspection / Review Maintenance</p>
+						</div>
+						<div class="sec1_3_2">
+							<p>Tap here to maintain an audit / inspection / review</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="col-xs-8 col-sm-12 col-md-4 col-lg-4 sec1">
+		<div ng-click="dboard.reloadScreen('MAS_MAI')" class="sec3">
+			<div
+				class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-1 col-lg-10 sec2">
+				<div class="sec1_1">
+					<div class="sec1_2">
+						<div class="sec1_3">
+							<img src="./assets/global/img/master.jpg" class="img-ic" />
+
+						</div>
+						<div class="sec1_3_1">
+							<p>Master Maintenance</p>
+						</div>
+						<div class="sec1_3_2">
+							<p>Tap here to master maintenance</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="col-xs-8 col-sm-12  col-md-4 col-lg-4 sec1">
+		<div ng-click="dboard.reloadScreen('VES_STA')" class="sec3">
+			<div
+				class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-2 col-lg-10 sec2">
+				<div class="sec1_1">
+					<div class="sec1_2">
+						<div class="sec1_3">
+							<img src="./assets/global/img/vesselstatus.jpg" class="img-ic" />
+
+						</div>
+						<div class="sec1_3_1">
+							<p>Vessel / Status Statement</p>
+						</div>
+						<div class="sec1_3_2">
+							<p>Tap here to vessel / status statement</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div ng-if="dboard.userRoleId == 1002"
+	class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dashboard second">
+
+
+
+
+
+	<div class="col-xs-8 col-sm-12 col-md-4 col-lg-4 sec1">
+		<div ng-click="dboard.reloadScreen('CER_SEARCH')" class="sec3">
+			<div
+				class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-01 col-lg-10 sec2">
+				<div class="sec1_1">
+					<div class="sec1_2">
+						<div class="sec1_3">
+							<img src="./assets/global/img/print.png" class="img-ic" />
+
+						</div>
+						<div class="sec1_3_1">
+							<p>Certificate Search</p>
+						</div>
+						<div class="sec1_3_2">
+							<p>Tap here to search / generate an certificate</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-xs-8 col-sm-12  col-md-4 col-lg-4 sec1">
+		<div ng-click="dboard.reloadScreen('CAR_MAI')" class="sec3">
+			<div
+				class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-2 col-lg-10 sec2">
+				<div class="sec1_1">
+					<div class="sec1_2">
+						<div class="sec1_3">
+							<img src="./assets/global/img/car.png" class="img-ic" />
+
+						</div>
+						<div class="sec1_3_1">
+							<p>CAR Maintenance / History</p>
+						</div>
+						<div class="sec1_3_2">
+							<p>Tap here to maintain / record history of CAR</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-xs-8 col-sm-12 col-md-4  col-lg-4 sec1">
+		<div ng-click="dboard.reloadScreen('AUD_CYC')" class="sec3">
+			<div
+				class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-2 col-lg-10 sec2">
+				<div class="sec1_1">
+					<div class="sec1_2">
+						<div class="sec1_3">
+							<img src="./assets/global/img/cycle-240.png" class="img-ic" />
+
+						</div>
+						<div class="sec1_3_1">
+							<p>Audit Cycle</p>
+						</div>
+						<div class="sec1_3_2">
+							<p>Tap here to create audit cycle</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+<div ng-if="dboard.userRoleId == 1004 && !dboard.ihmReviewer"
+	class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dashboard">
+
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull">
+		<div
+			class="col-xs-8 col-sm-12 col-md-3 col-lg-offset-1 col-lg-3 sec1 child">
+			<div ng-click="dboard.reloadScreen('AUD_MAI')" class="sec3">
+				<div
+					class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-0 col-lg-12 sec2">
+					<div class="sec1_1">
+						<div class="sec1_2">
+							<div class="sec1_3">
+								<img src="./assets/global/img/auditmaintaintenance.png"
+									class="img-ic" />
+
+							</div>
+							<div class="sec1_3_1">
+								<p>Audit / Inspection / Review Maintenance</p>
+							</div>
+							<div class="sec1_3_2">
+								<p>Tap here to maintain an audit / inspection / review</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div
+			class="col-xs-8 col-sm-12 col-md-offset-2 col-md-3 col-lg-offset-4 col-lg-3 sec1 child">
+			<div ng-click="dboard.reloadScreen('CAR_MAI')" class="sec3">
+				<div
+					class="col-xs-offset-2 col-xs-8 col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-0 col-lg-12 sec2">
+					<div class="sec1_1">
+						<div class="sec1_2">
+							<div class="sec1_3">
+								<img src="./assets/global/img/car.png" class="img-ic" />
+
+							</div>
+							<div class="sec1_3_1">
+								<p>CAR Maintenance / History</p>
+							</div>
+							<div class="sec1_3_2">
+								<p>Tap here to maintain / record history of CAR</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div style="padding-top: 50px !important;"
+		class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull">
+
+
+		<div
+			class="col-xs-8 col-sm-12 col-md-3 col-lg-offset-1 col-lg-3 sec1 child">
+			<div ng-click="dboard.reloadScreen('VES_STA')" class="sec3">
+				<div
+					class="col-xs-offset-2 col-xs-8 col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-0 col-lg-12  sec2">
+					<div class="sec1_1">
+						<div class="sec1_2">
+							<div class="sec1_3">
+								<img src="./assets/global/img/vesselstatus.jpg" class="img-ic" />
+
+							</div>
+							<div class="sec1_3_1">
+								<p>Vessel / Status Statement</p>
+							</div>
+							<div class="sec1_3_2">
+								<p>Tap here to vessel / status statement</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div
+			class="col-xs-8 col-sm-12 col-md-offset-2 col-md-3 col-lg-offset-4 col-lg-3 sec1 child">
+			<div ng-click="dboard.reloadScreen('CER_SEARCH')" class="sec3">
+				<div
+					class="col-xs-offset-2 col-xs-8 col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-0 col-lg-12 sec2">
+					<div class="sec1_1">
+						<div class="sec1_2">
+							<div class="sec1_3">
+								<img src="./assets/global/img/print.png" class="img-ic" />
+
+							</div>
+							<div class="sec1_3_1">
+								<p>Certificate Search</p>
+							</div>
+							<div class="sec1_3_2">
+								<p>Tap here to Search a certificate</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<div ng-if="dboard.userRoleId == 1004 && dboard.ihmReviewer"
+	class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dashboard">
+
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull">
+		<!-- <div class="col-xs-8 col-sm-12 col-md-3 col-lg-offset-1 col-lg-3 sec1 child">
+	 <div ng-click="dboard.reloadScreen('AUD_MAI')" class="sec3">
+	 <div class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-0 col-lg-12 sec2">
+		<div class="sec1_1">	  
+			<div class="sec1_2">
+				<div class="sec1_3">
+					<img src="./assets/global/img/auditmaintaintenance.png" class="img-ic"/>
+			
+				</div>
+				<div class="sec1_3_1">
+					<p>Audit / Inspection / Review Maintenance</p>
+				</div>
+				<div class="sec1_3_2">
+					<p>Tap here to maintain an audit / inspection / review</p>
+				</div>
+			</div></div>
+		</div>
+		</div>
+	  </div>	 -->
+
+
+
+
+		<div class="col-xs-8 col-sm-12 col-md-4 col-lg-4 sec1">
+			<div ng-click="dboard.reloadScreen('AUD_CRE_IHM')" class="sec3">
+				<div
+					class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-01 col-lg-10 sec2">
+					<div class="sec1_1">
+						<div class="sec1_2">
+							<div class="sec1_3">
+								<img src="./assets/global/img/auditcreate.jpg" class="img-ic" />
+
+							</div>
+							<div class="sec1_3_1">
+								<p>IHM Part I Review Creation</p>
+							</div>
+							<div class="sec1_3_2">
+								<p>Tap here to create an IHM review</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+
+
+		<div class="col-xs-8 col-sm-12 col-md-4 col-lg-4 sec1">
+			<div ng-click="dboard.reloadScreen('AUD_MAI')" class="sec3">
+				<div
+					class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-01 col-lg-10 sec2">
+					<div class="sec1_1">
+						<div class="sec1_2">
+							<div class="sec1_3">
+								<img src="./assets/global/img/auditmaintaintenance.png"
+									class="img-ic" />
+
+							</div>
+							<div class="sec1_3_1">
+								<p>Audit / Inspection / Review Maintenance</p>
+							</div>
+							<div class="sec1_3_2">
+								<p>Tap here to maintain an audit / inspection / review</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+<div class="col-xs-8 col-sm-12 col-md-4 col-lg-4 sec1">
+			<div ng-click="dboard.reloadScreen('CAR_MAI')" class="sec3">
+				<div
+					class="col-xs-offset-2 col-xs-8 col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-1 col-lg-10 sec2">
+					<div class="sec1_1">
+						<div class="sec1_2">
+							<div class="sec1_3">
+								<img src="./assets/global/img/car.png" class="img-ic" />
+
+							</div>
+							<div class="sec1_3_1">
+								<p>CAR Maintenance / History</p>
+							</div>
+							<div class="sec1_3_2">
+								<p>Tap here to maintain / record history of CAR</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		
+	</div>
+</div>
+
+
+<div ng-if="dboard.userRoleId == 1004 && dboard.ihmReviewer"
+	class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dashboard">
+	
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull">
+
+
+<div class="col-xs-8 col-sm-12 col-md-4  col-lg-4 sec1"
+		ng-if="dboard.planApprovalReview">
+		<div ng-click="dboard.reloadScreen('AUD_CRE_PA')" class="sec3">
+			<div
+				class="col-xs-offset-2 col-xs-8 col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-1 col-lg-10 sec2">
+				<div class="sec1_1">
+					<div class="sec1_2">
+						<div class="sec1_3">
+							<img src="./assets/global/img/auditcreate.jpg" class="img-ic" />
+
+						</div>
+						 <div class="sec1_3_1">
+							<p>Plan Approval Review Creation</p>  <!-- changed by sudharsan for JIRA-ID=5493-->
+						</div>
+						<div class="sec1_3_2">
+							<p>Tap here to create an Plan Approval review</p>  <!-- changed by sudharsan for JIRA-ID=5493-->
+						</div> 
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+		<div
+			 class="col-xs-8 col-sm-12 col-md-4 col-lg-4 sec1">
+			<div ng-click="dboard.reloadScreen('VES_STA')" class="sec3">
+				<div
+					class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-01 col-lg-10 sec2">
+					<div class="sec1_1">
+						<div class="sec1_2">
+							<div class="sec1_3">
+								<img src="./assets/global/img/vesselstatus.jpg" class="img-ic" />
+
+							</div>
+							<div class="sec1_3_1">
+								<p>Vessel / Status Statement</p>
+							</div>
+							<div class="sec1_3_2">
+								<p>Tap here to vessel / status statement</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-xs-8 col-sm-12 col-md-4 col-lg-4 sec1">
+			<div ng-click="dboard.reloadScreen('CER_SEARCH')" class="sec3">
+				<div
+					class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-01 col-lg-10 sec2">
+					<div class="sec1_1">
+						<div class="sec1_2">
+							<div class="sec1_3">
+								<img src="./assets/global/img/print.png" class="img-ic" />
+
+							</div>
+							<div class="sec1_3_1">
+								<p>Certificate Search</p>
+							</div>
+							<div class="sec1_3_2">
+								<p>Tap here to Search a certificate</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+	
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+	
+	
+	
+	
+	<div ng-if="dboard.userRoleId == 1003" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dashboard first">
+	 
+
+
+	  
+	  
+	<div  class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull">	
+	 <div class="col-xs-8 col-sm-12 col-md-3 col-lg-offset-1 col-lg-3 sec1 child">
+	 <div ng-click="dboard.reloadScreen('AUD_CRE')" class="sec3">
+	 <div class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-0 col-lg-12 sec2">
+		<div class="sec1_1">	  
+			<div class="sec1_2">
+				<div class="sec1_3">
+					<img src="./assets/global/img/auditcreate.jpg" class="img-ic"/>
+			
+				</div>
+				<div class="sec1_3_1">
+					<p>Audit / Inspection / Review Creation</p>
+				</div>
+				<div class="sec1_3_2">
+					<p>Tap here for create an audit / inspection / review</p>
+				</div>
+			</div></div>
+		</div>
+		</div>
+	  </div>	
+	
+	
+	<div class="col-xs-8 col-sm-12 col-md-offset-2 col-md-3 col-lg-offset-4 col-lg-3 sec1 child">
+	 <div ng-click="dboard.reloadScreen('AUD_MAI')" class="sec3">
+	 <div class="col-xs-offset-2 col-xs-8 col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-0 col-lg-12 sec2">
+		<div class="sec1_1">	  
+			<div class="sec1_2">
+				<div class="sec1_3">
+					<img src="./assets/global/img/auditmaintaintenance.png" class="img-ic"/>
+			
+				</div>
+				<div class="sec1_3_1">
+				<p>Audit / Inspection / Review Maintenance</p>
+				</div>
+					<div class="sec1_3_2">
+				<p>Tap here for maintain an audit / inspection / review</p>
+				</div>
+			</div></div>
+		</div>
+		</div>
+	  </div>
+	  </div>
+	  
+<div style="padding-top: 50px !important;"  class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull">		  
+	  
+	  
+	  <div  class="col-xs-8 col-sm-12 col-md-3 col-lg-offset-1 col-lg-3 sec1 child">
+	  <div ng-click="dboard.reloadScreen('CAR_MAI')" class="sec3">
+	 <div class="col-xs-offset-2 col-xs-8 col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-0 col-lg-12  sec2">
+		<div class="sec1_1">	  
+			<div class="sec1_2">
+				<div class="sec1_3">
+					<img src="./assets/global/img/car.png" class="img-ic"/>
+			
+				</div>
+				<div class="sec1_3_1">
+					<p>CAR Maintenance / History</p>
+				</div>
+				<div class="sec1_3_2">
+					<p>Tap here to maintain / record history of CAR</p>
+				</div>
+			</div></div>
+		</div>
+		</div>
+	  </div>
+	  
+	 <div class="col-xs-8 col-sm-12 col-md-offset-2 col-md-3 col-lg-offset-4 col-lg-3 sec1 child">
+	  <div ng-click="dboard.reloadScreen('VES_STA')" class="sec3">
+	 <div class="col-xs-offset-2 col-xs-8 col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-0 col-lg-12 sec2">
+		<div class="sec1_1">	  
+			<div class="sec1_2">
+				<div class="sec1_3">
+					<img src="./assets/global/img/vesselstatus.jpg" class="img-ic"/>
+			
+				</div>
+				<div class="sec1_3_1">
+					<p>Vessel / Status Statement</p>
+				</div>
+				<div class="sec1_3_2">
+					<p>Tap here for vessel / status statement</p>
+				</div>
+			</div></div>
+		</div>
+		</div>
+	  </div>
+	  
+	 
+</div>
+	 
+
+
+
+
+</div>
+	
+ -->
+
+
+
+<div ng-if="dboard.userRoleId == 1003"
+	class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dashboard first">
+
+
+	<div class="col-xs-8 col-sm-12 col-md-4  col-lg-4 sec1">
+		<div ng-click="dboard.reloadScreen('AUD_CREATE_SEARCH')" class="sec3">
+			<div
+				class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-0 col-lg-10 sec2">
+				<div class="sec1_1">
+					<div class="sec1_2">
+						<div class="sec1_3">
+							<img src="./assets/global/img/auditcreate.jpg" class="img-ic" />
+
+						</div>
+						<div class="sec1_3_1">
+							<p>Audit / Inspection / Review Creation and Search</p>
+						</div>
+						<div class="sec1_3_2">
+							<p>Tap here to create and search an audit / inspection /
+								review</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="col-xs-8 col-sm-12 col-md-4 col-lg-4 sec1"
+		ng-show="dboard.userRoleId!=1003">
+		<div ng-click="dboard.reloadScreen('CER_GEN')" class="sec3">
+			<div
+				class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-01 col-lg-10 sec2">
+				<div class="sec1_1">
+					<div class="sec1_2">
+						<div class="sec1_3">
+							<img src="./assets/global/img/print.png" class="img-ic" />
+
+						</div>
+						<div class="sec1_3_1">
+							<p>Certificate Creation and Search</p>
+						</div>
+						<div class="sec1_3_2">
+							<p>Tap here to search / Create a certificate</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="col-xs-8 col-sm-12 col-md-4 col-lg-4 sec1"
+		ng-show="dboard.userRoleId==1003 && dboard.userRoleId!=1002">
+		<div ng-click="dboard.reloadScreen('CER_SEARCH')" class="sec3">
+			<div
+				class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-01 col-lg-10 sec2">
+				<div class="sec1_1">
+					<div class="sec1_2">
+						<div class="sec1_3">
+							<img src="./assets/global/img/print.png" class="img-ic" />
+
+						</div>
+						<div class="sec1_3_1">
+							<p>Certificate Generate / Search</p>
+						</div>
+						<div class="sec1_3_2">
+							<p>Tap here to generate / search an certificate</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+
+
+	<div class="col-xs-8 col-sm-12  col-md-4 col-lg-4 sec1">
+		<div ng-click="dboard.reloadScreen('CAR_MAI')" class="sec3">
+			<div
+				class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-2 col-lg-10 sec2">
+				<div class="sec1_1">
+					<div class="sec1_2">
+						<div class="sec1_3">
+							<img src="./assets/global/img/car.png" class="img-ic" />
+
+						</div>
+						<div class="sec1_3_1">
+							<p>CAR Maintenance / History</p>
+						</div>
+						<div class="sec1_3_2">
+							<p>Tap here to maintain / record history of CAR</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div ng-if="dboard.userRoleId == 1003"
+	class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dashboard second">
+
+
+
+
+
+	<div class="col-xs-8 col-sm-12 col-md-4 col-lg-4 sec1">
+		<div ng-click="dboard.reloadScreen('VES_STA')" class="sec3">
+			<div
+				class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-01 col-lg-10 sec2">
+				<div class="sec1_1">
+					<div class="sec1_2">
+						<div class="sec1_3">
+							<img src="./assets/global/img/vesselstatus.jpg" class="img-ic" />
+
+						</div>
+						<div class="sec1_3_1">
+							<p>Vessel / Status Statement</p>
+						</div>
+						<div class="sec1_3_2">
+							<p>Tap here to vessel / status statement</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-xs-8 col-sm-12 col-md-4 col-lg-4 sec1">
+		<div ng-click="dboard.reloadScreen('MAS_MAI')" class="sec3">
+			<div
+				class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-1 col-lg-10 sec2">
+				<div class="sec1_1">
+					<div class="sec1_2">
+						<div class="sec1_3">
+							<img src="./assets/global/img/master.jpg" class="img-ic" />
+
+						</div>
+						<div class="sec1_3_1">
+							<p>Master Maintenance</p>
+						</div>
+						<div class="sec1_3_2">
+							<p>Tap here to master maintenance</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-xs-8 col-sm-12 col-md-4  col-lg-4 sec1">
+		<div ng-click="dboard.reloadScreen('AUD_CYC')" class="sec3">
+			<div
+				class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-2 col-lg-10 sec2">
+				<div class="sec1_1">
+					<div class="sec1_2">
+						<div class="sec1_3">
+							<img src="./assets/global/img/cycle-240.png" class="img-ic" />
+
+						</div>
+						<div class="sec1_3_1">
+							<p>Audit Cycle</p>
+						</div>
+						<div class="sec1_3_2">
+							<p>Tap here to create audit cycle</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div ng-if="dboard.userRoleId == 1006"
+	class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dashboard first">
+
+
+	<div class="col-xs-8 col-sm-12 col-md-4  col-lg-4 sec1">
+		<div ng-click="dboard.reloadScreen('REV_IHM_MANAGER')" class="sec3">
+			<div
+				class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-0 col-lg-10 sec2">
+				<div class="sec1_1">
+					<div class="sec1_2">
+						<div class="sec1_3">
+							<img src="./assets/global/img/auditcreate.jpg" class="img-ic" />
+
+						</div>
+						<div class="sec1_3_1">
+							<p>Review Creation and Search</p>
+						</div>
+						<div class="sec1_3_2">
+							<p>Tap here to create and search an review</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="col-xs-8 col-sm-12 col-md-4 col-lg-4 sec1">
+		<div ng-click="dboard.reloadScreen('CER_SEARCH')" class="sec3">
+			<div
+				class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-01 col-lg-10 sec2">
+				<div class="sec1_1">
+					<div class="sec1_2">
+						<div class="sec1_3">
+							<img src="./assets/global/img/print.png" class="img-ic" />
+
+						</div>
+						<div class="sec1_3_1">
+							<p>Certificate Search</p>
+						</div>
+						<div class="sec1_3_2">
+							<p>Tap here to search / generate an certificate</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+
+
+
+	<div class="col-xs-8 col-sm-12 col-md-4 col-lg-4 sec1">
+		<div ng-click="dboard.reloadScreen('MAS_MAI')" class="sec3">
+			<div
+				class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-1 col-lg-10 sec2">
+				<div class="sec1_1">
+					<div class="sec1_2">
+						<div class="sec1_3">
+							<img src="./assets/global/img/master.jpg" class="img-ic" />
+
+						</div>
+						<div class="sec1_3_1">
+							<p>Master Maintenance</p>
+						</div>
+						<div class="sec1_3_2">
+							<p>Tap here to master maintenance</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div ng-if="dboard.userRoleId == 1006"
+	class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+
+	<div class="col-xs-8 col-sm-12 col-md-4 col-lg-4 sec1">
+		<div ng-click="dboard.reloadScreen('IMH-SEARCH')" class="sec3">
+			<div
+				class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-1 col-lg-10 sec2">
+				<div class="sec1_1">
+					<div class="sec1_2">
+						<div class="sec1_3">
+							<img src="./assets/global/img/search.png" class="img-ic" />
+
+						</div>
+						<div class="sec1_3_1">
+							<p>Vessel History</p>
+						</div>
+						<div class="sec1_3_2">
+							<p>Tap here to Vessel History</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-xs-8 col-sm-12 col-md-4  col-lg-4 sec1"  ng-if="dboard.planApprovalReview">
+		<div ng-click="dboard.reloadScreen('AUD_CRE')" class="sec3">
+			<div
+				class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-0 col-lg-10 sec2">
+				<div class="sec1_1">
+					<div class="sec1_2">
+						<div class="sec1_3">
+							<img src="./assets/global/img/auditcreate.jpg" class="img-ic" />
+
+						</div>
+						 <div class="sec1_3_1">
+							<p>Plan Approval Review Creation</p>  <!-- changed by sudharsan for JIRA-ID=5493-->
+						</div>
+						<div class="sec1_3_2">
+							<p>Tap here to create an Plan Approval review</p>  <!-- changed by sudharsan for JIRA-ID=5493-->
+						</div> 
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<div ng-if="dboard.onlyPlanAccepted"
+	class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dashboard first">
+
+	<!-- 1st row 1stcolumn starts  -->
+
+	<div class="col-xs-8 col-sm-12 col-md-4  col-lg-4 sec1">
+		<div ng-click="dboard.reloadScreen('AUD_CRE')" class="sec3">
+			<div
+				class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-0 col-lg-10 sec2">
+				<div class="sec1_1">
+					<div class="sec1_2">
+						<div class="sec1_3">
+							<img src="./assets/global/img/auditcreate.jpg" class="img-ic" />
+
+						</div>
+						 <div class="sec1_3_1">
+							<p>Plan Approval Review Creation</p>  <!-- changed by sudharsan for JIRA-ID=5493-->
+						</div>
+						<div class="sec1_3_2">
+							<p>Tap here to create an Plan Approval review</p>  <!-- changed by sudharsan for JIRA-ID=5493-->
+						</div> 
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 1st row 1stcolumn ends  -->
+
+	<!-- 1st row 2ndcolumn starts  -->
+
+	<div 
+		class="col-xs-8 col-sm-12 col-md-4 col-lg-4 sec1">
+		<div ng-click="dboard.reloadScreen('AUD_MAI')" class="sec3">
+			<div
+				class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-0 col-lg-10 sec2">
+				<div class="sec1_1">
+					<div class="sec1_2">
+						<div class="sec1_3">
+							<img src="./assets/global/img/auditmaintaintenance.png"
+								class="img-ic" />
+
+						</div>
+						<div class="sec1_3_1">
+							<p>Audit / Inspection / Review Maintenance</p>
+						</div>
+						<div class="sec1_3_2">
+							<p>Tap here to maintain an audit / inspection / review</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-xs-8 col-sm-12  col-md-4 col-lg-4 sec1">
+		<div ng-click="dboard.reloadScreen('VES_STA')" class="sec3">
+			<div
+				class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-2 col-lg-10 sec2">
+				<div class="sec1_1">
+					<div class="sec1_2">
+						<div class="sec1_3">
+							<img src="./assets/global/img/vesselstatus.jpg" class="img-ic" />
+
+						</div>
+						<div class="sec1_3_1">
+							<p>Vessel / Status Statement</p>
+						</div>
+						<div class="sec1_3_2">
+							<p>Tap here to vessel / status statement</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+</div>
+</div>
+<div ng-if="dboard.onlyPlanAccepted"
+	class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dashboard first">
+	<div class="col-xs-8 col-sm-12 col-md-4 col-lg-4 sec1">
+		<div ng-click="dboard.reloadScreen('MAS_MAI')" class="sec3">
+			<div 
+				class="col-xs-offset-2 col-xs-8  col-sm-offset-4 col-sm-4 col-md-offset-0 col-md-12 col-lg-offset-1 col-lg-10 sec2"
+				style="margin-top: -40px;>
+				<div class="sec1_1">
+					<div class="sec1_2">
+						<div class="sec1_3">
+							<img src="./assets/global/img/master.jpg" class="img-ic" />
+
+						</div>
+						<div class="sec1_3_1">
+							<p>Master Maintenance</p>
+						</div>
+						<div class="sec1_3_2">
+							<p>Tap here to master maintenance</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>

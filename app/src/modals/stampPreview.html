@@ -1,0 +1,13 @@
+<div class="modal fade ismprev" data-keyboard="false" data-backdrop="static">
+	<div class="modal-dialog iFrameParentId">
+		<div class="modal-content iFrameModalContent">
+			<div class="modal-header" style="padding-bottom:0px !important;">
+                <button type="button" class="close" ng-click="closestamp()" aria-hidden="true" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Preview</h4>
+            </div>
+			<div class="modal-body iFrameModalBody" id="pdf-preview"iframe-auto-size>
+			  <iframe  ng-src="{{stPointer.previewStampPageno}}" iframe-auto-size></iframe>
+			</div>
+		</div>
+	</div>
+</div>

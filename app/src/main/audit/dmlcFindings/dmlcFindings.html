@@ -1,0 +1,285 @@
+<div ng-if="dfind.showSwitch" class="switch-container">
+        <label class="switch" data-toggle="tooltip" data-original-title="{{dfind.lockMessage}}" tooltip data-placement="left">
+              <input type="checkbox" ng-model="dfind.enabled" ng-disabled="(dfind.userRoleId != dfind.AppConstant.ADMIN_ROLE_ID && dfind.lockDisable) || dfind.auditCreate" ng-change="dfind.changeCallback()"/>
+              <span class="slider round">
+                  <i class="fa fa-unlock-alt icon-unlock-position" ng-if="!dfind.enabled"></i>
+                  <i class="icon-lock icon-lock-position" ng-if="dfind.enabled"></i>
+              </span>
+        </label>
+</div>
+
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 obs containerfull auditscroll scroll" >
+    <form name="dfind.PreviousfindingsForm" autocomplete="off">
+            <div class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12" style=" background-color: rgb(225, 225, 225) !important;">
+                <div class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 accordion-toggle1" data-toggle="collapse" data-target="#prevfindings">
+                    <div class="caption font-blue-sharp col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <span class="caption-subject bold uppercase pull-left">DMLC II NOTES</span>
+                        <div style="float:right !Important;" class="caption font-blue-sharp col-xs-8 col-sm-8 col-md-4 col-lg-4 containerfull">
+                        
+                        <div ng-if="dfind.majorCountDesc" class="col-xs-3 col-sm-4 col-md-4 col-lg-4 head-category">
+                                
+                             
+                            <label class="findShadow" >{{dfind.majorCountDesc}} :</label>
+                            <label class="findShadow" >{{dfind.countFindingCategoryPrev.majorCount}}</label>	
+                        </div>
+                    <div ng-if="dfind.minorCountDesc"  class="col-xs-6 col-sm-4 col-md-4 col-lg-4 head-category">
+                                
+                                    
+                            <label class="findShadow" >{{dfind.minorCountDesc}} :</label>
+                            <label class="findShadow" >{{dfind.countFindingCategoryPrev.minorCount}}</label>			
+                    </div>
+                   <!--  <div  ng-if="dfind.obsCountDesc" class="col-xs-3 col-sm-4 col-md-4 col-lg-4 head-category">
+                         
+                            <label class="findShadow" >{{dfind.obsCountDesc}} :</label>
+                            <label class="findShadow" >{{dfind.countFindingCategoryPrev.obsCount}}</label>		
+                                    
+                    </div> -->
+                        
+                        
+                
+                    </div>
+                            
+                    </div>
+                    
+                    
+                    <div  class="caption font-blue-sharp col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull">
+                        
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 findinput-size prevhead-category">
+                                
+                             
+                            <label >CATEGORY</label>
+                                    
+                        </div>
+                    <div  class="col-xs-3 col-sm-3 col-md-3 col-lg-3 findinput-size prevhead-category">
+                                
+                                    
+                            <label >{{dfind.auditType | uppercase}} DATE</label>
+                                    
+                    </div>
+                    <div  class="col-xs-3 col-sm-3 col-md-3 col-lg-3 findinput-size prevhead-category">
+                                
+                                    
+                            <label >{{dfind.auditauditType}} CODE</label>
+                                    
+                    </div>
+                    <div  class="col-xs-3 col-sm-3 col-md-3 col-lg-3 prevhead-category elementcategoryhead">
+                         
+                            <label >{{dfind.auditauditType}} ELEMENT</label>
+                                    
+                    </div>
+                        
+                        
+                
+                    </div>
+                    
+                    
+                </div>
+            
+        
+        
+        
+        <div id="prevfindings"  class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull">
+      
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 panel-group containerfull " id="accordion" style="margin-bottom: 40px !Important;">
+        <div  class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull panel panel-default find-right" ng-repeat="obseprev in dfind.observationarrayprevious">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 panel-heading  accordion-toggle1 collapsed" data-toggle="collapse" data-parent="#accordion" data-target="#collapse-{{$index}}">
+                   
+                   
+                   <div style="padding-top: 0px !Important;" class="txt-sec col-xs-3 col-sm-3 col-md-3 col-lg-3 findinput-size">
+                                
+                            <input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12"  placeholder="Category" disabled
+                            ng-model="obseprev.serialNo" id="prevfinCat-{{$index}}" type="text" autocomplete="off"   ng-class="{'changed':obseprev.displayFinging}"/> 
+            
+                                    
+                    </div>
+                    
+                    <div style="padding-top: 0px !Important;" class="txt-sec col-xs-3 col-sm-3 col-md-3 col-lg-3 findinput-size">
+                                
+                            <input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12" id="prevfinauddate-{{$index}}" placeholder="MMM-DD-YYYY" 
+                            ng-class="{'changed':obseprev.auditDate}"  ng-model="obseprev.auditDate"  disabled	type="text" autocomplete="off"/> 
+                            
+                    </div>
+                    <div style="padding-top: 0px !Important;" class="txt-sec col-xs-3 col-sm-3 col-md-3 col-lg-3 findinput-size">
+                                
+                            <input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12" id="prevfinIsmCode-{{$index}}" placeholder="{{dfind.auditauditType}} Code" 
+                            ng-class="{'changed':obseprev.auditCode}"  ng-model="obseprev.auditCode"  disabled	type="text" autocomplete="off" data-toggle="tooltip" tooltip data-placement="bottom" data-original-title="{{obseprev.auditCode}}"/> 
+                
+                                    
+                    </div>
+                
+                    <div style="padding-top: 0px !Important;" class="txt-sec col-xs-3 col-sm-3 col-md-3 col-lg-3 elementcategoryhead">
+                                
+                            <input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12"  id="prevfinIsmEle-{{$index}}" placeholder="{{dfind.auditauditType}} Element" 
+                            data-toggle="tooltip" data-original-title="{{obseprev.auditElements}}" tooltip data-placement="bottom"
+                            ng-class="{'changed':obseprev.auditElements}" ng-model="obseprev.auditElements" disabled
+                            type="text" autocomplete="off" /> 
+                    
+                                    
+                    </div>
+                    
+                       
+          </div>
+              
+          <div id="collapse-{{$index}}" style="background-color: rgba(163, 164, 165, 0.41);" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull panel-collapse collapse">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 panel-body containerfull">
+                <div ng-repeat="prevcatgs in obseprev.findingDetail">
+                    
+                    
+						<div ng-show="!(prevcatgs.updateFlag) || prevcatgs.updateDescription" style='background-color: #a3a4a5;' class="col-xs-12 col-sm-12 col-md-12 col-lg-12 find-pad">
+                			
+                			<div ng-show="!(prevcatgs.updateFlag)" style='width: 20% !important;' class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec">
+					
+                       		 <input type="text" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input port"
+                       			 	data-toggle="tooltip" data-original-title="{{prevcatgs.auditPlace}}" tooltip data-placement="bottom"
+                        			ng-model="prevcatgs.auditPlace" id="auditplace-{{$parent.$index}}-{{$index}}"
+                        			uib-typeahead="port as port for port in dfind.getPort($viewValue)"
+						 			auditplace max-len="{{dfind.AppConstant.AUDIT_PLACE_MAX_LEN}}"
+						 			type="text" autocomplete="off"
+						 			ng-class="{'changed':prevcatgs.auditPlace}"
+						 			ng-blur="dfind.setUpdateDescOnPlaceChange($parent.$index,$index)"
+						 			ng-disabled="((dfind.auditStatusId!=dfind.AppConstant.REOPEN || dfind.userRoleId!=dfind.AppConstant.MANAGER_ROLE_ID) && dfind.leadSign) || dfind.reviewStatus || dfind.lockStatus || ((dfind.auditStatusId!=dfind.AppConstant.REOPEN || dfind.userRoleId!=dfind.AppConstant.MANAGER_ROLE_ID) && dfind.leadStatus) || (prevcatgs.updateFlag) || ($index<obseprev.findingDetail.length-1 && (obseprev.findingDetail[$index+1].statusDate || obseprev.findingDetail[$index+1].nextActionId) ) || prevcatgs.nextActionId || dfind.auditSeqNo != prevcatgs.currentAuditSeq" 
+                                              /> 
+                      			   <label for="auditplace-{{$parent.$index}}-{{$index}}">{{dfind.auditType}} Place</label>
+				
+							</div>
+							
+                			<div style='padding-top:25px!important;' ng-if="prevcatgs.updateDescription" class="col-xs-12 col-sm-12 col-md-6 col-lg-6 findingClosed">
+                        		{{prevcatgs.updateDescription}}
+                       		 </div>
+                       		 
+                			<div ng-show="prevcatgs.statusId == dfind.AppConstant.VERIFIED_CLOSED && obseprev.showAuditChangeCheckBox" style="padding-top: 18px !important;width: 20% !important;float:right !important" class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+								<input id="complete-{{$parent.$index}}-{{$index}}" type="checkbox" ng-model="obseprev.auditStatus"
+								name="completeAdt" ng-true-value=1 ng-false-value=0
+								ng-init="obseprev.auditStatus=obseprev.auditStatus ? obseprev.auditStatus : 0" required 
+								ng-change="dfind.changeCompleteFlagForAll($parent.$index,obseprev.auditStatus)" ng-disabled="dfind.disableCheckbox"/> <label for="complete-{{$parent.$index}}-{{$index}}"
+								class="containerhght">Complete {{obseprev.audSubTypeDesc}} {{dfind.auditType}}</label>
+							</div>
+                		</div>                    
+                    
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 find-pad">
+                                <div class="txt-sec col-xs-12 col-sm-12 col-md-4 col-lg-3 findinput-size">
+                                    <select class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-model="prevcatgs.categoryId" id="category-{{$parent.$index}}-{{$index}}" 
+                                          ng-options="cat.findingsCategoryId as cat.findingsCategoryDesc for cat in dfind.obsCategoryOptions" disabled
+                                          ng-class="{'changed':prevcatgs.categoryId}">
+                                     </select>
+                                    <label for="category-{{$parent.$index}}-{{$index}}">Category</label>
+                                    
+                                </div>
+                                <div class="txt-sec col-xs-12 col-sm-12 col-md-4 col-lg-3 findinput-size">
+                                    <select class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-model="prevcatgs.statusId" id="status-{{$parent.$index}}-{{$index}}"
+                                               ng-options="stat.findingsStatusId as stat.findingstStatusDesc  for stat in dfind.obsStatusOptions" disabled
+                                               ng-class="{'changed':prevcatgs.statusId}">
+                                     </select>
+                                    <label for="status-{{$parent.$index}}-{{$index}}">Status</label>
+                                </div>
+                                <div class="txt-sec col-xs-12 col-sm-12 col-md-4 col-lg-3 findinput-size">
+                                    
+                                    <input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12 datePicker changed"  ng-model="prevcatgs.statusDate" id="statusdate-{{$parent.$index}}-{{$index}}" 
+                                              datepicker  placeholder="DD-Mon-YYYY" ng-click="dfind.setPrevFindMaxDate(obseprev.findingDetail[$index-1].statusDate,obseprev.findingDetail[$index+1].statusDate)" readonly
+                                              min-date="obseprev.findingDetail[$index-1].statusDate?dfind.prevFindMinStatusDate:dfind.FindingMinDate" 
+						 		 			  max-date="obseprev.findingDetail[$index+1].statusDate?dfind.prevFindMaxStatusDate:dfind.FindingMaxDate"
+						 		 			  ng-change="dfind.setNilNextActionForObs($parent.$index,$index)"
+						 		 			  ng-disabled="((dfind.auditStatusId!=dfind.AppConstant.REOPEN || dfind.userRoleId!=dfind.AppConstant.MANAGER_ROLE_ID) && dfind.leadSign) || dfind.reviewStatus || dfind.lockStatus || ((dfind.auditStatusId!=dfind.AppConstant.REOPEN || dfind.userRoleId!=dfind.AppConstant.MANAGER_ROLE_ID) && dfind.leadStatus) || ($index<obseprev.findingDetail.length-1 && obseprev.findingDetail[$index+1].statusDate) ||  prevcatgs.nextActionId == dfind.AppConstant.VERIFY_CLOSE || dfind.auditSeqNo != prevcatgs.currentAuditSeq" 
+                                              type="text" autocomplete="off" 
+                                              />
+                                     <label for="statusdate-{{$parent.$index}}-{{$index}}">Status Date </label>
+                                    
+                                </div>
+                                <div ng-show="!(prevcatgs.categoryId) || (prevcatgs.categoryId!=1004)" class="txt-sec col-xs-12 col-sm-12 col-md-4 col-lg-3 findinput-size">
+                                    <select class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-model="prevcatgs.nextActionId" id="nextaction-{{$parent.$index}}-{{$index}}"
+											  ng-change="dfind.nextActionChangePrev($parent.$index,$index,prevcatgs.oldVal);dfind.setPrevFindDueDate($parent.$index,$index,prevcatgs.categoryId,prevcatgs.nextActionId)"
+                                              ng-disabled="((dfind.auditStatusId!=dfind.AppConstant.REOPEN || dfind.userRoleId!=dfind.AppConstant.MANAGER_ROLE_ID) && dfind.leadSign) || dfind.reviewStatus || dfind.lockStatus || obseprev.findingDetail[$index+1].nextActionId || ((dfind.auditStatusId!=dfind.AppConstant.REOPEN || dfind.userRoleId!=dfind.AppConstant.MANAGER_ROLE_ID) && dfind.leadStatus) || !prevcatgs.statusDate ||  $index<obseprev.findingDetail.length-2 || prevcatgs.nextActionId == dfind.AppConstant.VERIFY_CLOSE || dfind.auditSeqNo != prevcatgs.currentAuditSeq"
+                                              ng-options="stat.findingsStatusId as stat.findingstStatusDesc disable when !((stat.findingsStatusId==dfind.CarFlowStructure[dfind.auditTypeId][(dfind.auditTypeId == dfind.AppConstant.ISPS_TYPE_ID && (obseprev.auditSubTypeId==1003 || obseprev.auditSubTypeId==1005) && obseprev.findingDetail[0].categoryId == 1002) ? 1003  : obseprev.findingDetail[0].categoryId][$index].nextActionId) || (stat.findingsStatusId == dfind.AppConstant.PREVIOUS_STATUS && ($index>0 || obseprev.findingDetail.length>1))) for stat in dfind.obsStatusOptions"
+                                              ng-class="{'changed':prevcatgs.nextActionId}">
+                                         </select> 
+                                        <label  for="nextaction-{{$parent.$index}}-{{$index}}">Next Action</label>
+                                
+                                </div>
+                                
+                                <div class="txt-sec col-xs-12 col-sm-12 col-md-4 col-lg-3 findinput-size">
+                                    
+                                    <input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-model="prevcatgs.dueDate" 
+                                    data-toggle="tooltip" data-original-title="{{prevcatgs.dueDate}}" tooltip data-placement="left"
+                                    ng-disabled="((dfind.auditStatusId!=dfind.AppConstant.REOPEN || dfind.userRoleId!=dfind.AppConstant.MANAGER_ROLE_ID) && dfind.leadSign) || dfind.reviewStatus || ((dfind.auditStatusId!=dfind.AppConstant.REOPEN || dfind.userRoleId!=dfind.AppConstant.MANAGER_ROLE_ID) && dfind.leadStatus) || prevcatgs.categoryId=='' || dfind.lockStatus || ($index<obseprev.findingDetail.length-1 && obseprev.findingDetail[$index+1].statusDate) ||  prevcatgs.nextActionId == dfind.AppConstant.VERIFY_CLOSE || dfind.auditSeqNo != prevcatgs.currentAuditSeq"
+                                    id="duedate-{{$parent.$index}}-{{$index}}"  type="text" autocomplete="off"  ng-class="{'changed':prevcatgs.dueDate}"/>
+                                     <label  for="duedate-{{$parent.$index}}-{{$index}}">Due Date</label>
+                                </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 find-pad" style="padding-top:0px !Important;">
+                            <div class="txt-sec col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <textarea  resizable  class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12 descriptionresizehgt" ng-model="prevcatgs.descriptions" id="description-{{$parent.$index}}-{{$index}}"  type="text" 
+                                    max-len="2500" ng-disabled="((dfind.auditStatusId!=dfind.AppConstant.REOPEN || dfind.userRoleId!=dfind.AppConstant.MANAGER_ROLE_ID) && dfind.leadSign) || dfind.reviewStatus || ((dfind.auditStatusId!=dfind.AppConstant.REOPEN || dfind.userRoleId!=dfind.AppConstant.MANAGER_ROLE_ID) && dfind.leadStatus) || prevcatgs.categoryId=='' || dfind.lockStatus || (prevcatgs.updateFlag || ($index<obseprev.findingDetail.length-1 && obseprev.findingDetail[$index+1].statusDate)) || dfind.auditSeqNo != prevcatgs.currentAuditSeq"
+                                    autocomplete="off" auditplace  ng-class="{'changed':prevcatgs.descriptions}"> </textarea>
+                                    <label for="description-{{$parent.$index}}-{{$index}}">Description</label>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 find-pad" >
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 image-upload">
+                                  <label for="file-input-{{$parent.$index}}-{{$index}}"  class="buttontrash btn btn-info btnclass fndattachicon"  
+                                  	ng-hide="(prevcatgs.updateFlag || ($index<obseprev.findingDetail.length-1 && obseprev.findingDetail[$index+1].statusDate)) || dfind.leadStatus || !prevcatgs.statusDate">
+                                       <i class="fa fa-paperclip" aria-hidden="true" title="Attachments"></i>
+                                </label>
+                                <input id="file-input-{{$parent.$index}}-{{$index}}" type="file" file-upload ng-model="prevcatgs.findFileData" 
+                                   ng-change="dfind.uploadFindingsAttach($parent.$index,$index)" accept="*/*" ng-click="dfind.clearFileType()"
+                                   ng-hide="($index<obseprev.findingDetail.length-1 && obseprev.findingDetail[$index+1].statusDate) || dfind.leadStatus || !prevcatgs.statusDate"/>
+                            </div>
+                            
+                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">	
+                                 <div class="table-responsive">
+                                      <table class="table table-bordered table-hover">
+                                           <thead>
+                                             <tr>
+                                                <th class="center">File Name</th>
+                                                <th class="center">Download</th>
+                                                <th class="center">Action</th>
+                                            </tr>
+                                            </thead>
+                                               <tbody>	
+                                             <tr ng-repeat="files in prevcatgs.findingRptAttachs">
+                                                 <td class="center" style="max-width: 100px !Important; overflow: auto;word-break: break-all;"><a auto-focus href="#" style="word-break: break-all;" ng-click="dfind.preview(files.fileName,$parent.$parent.$index,$parent.$index,$index);">{{files.fileName}}</a></td>
+                                                 <td class="center">
+                                                     <button class="buttontrash btn btn-info btnclass" ng-click="dfind.downloadFindingFile(files.fileName,$parent.$parent.$index,$parent.$index,$index)">
+                                                         <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                                                     </button>
+                                                </td>
+                                                <td class="center">
+                                                     <button class="buttontrash btn btn-info btnclass" 
+                                                     	ng-click="dfind.removeFindingFiles(files.fileName,$parent.$parent.$index,$parent.$index,$index)"
+                                                     	ng-disabled="((dfind.auditStatusId!=dfind.AppConstant.REOPEN || dfind.userRoleId!=dfind.AppConstant.MANAGER_ROLE_ID) && dfind.leadSign) || dfind.reviewStatus || dfind.lockStatus || (prevcatgs.updateFlag || ($parent.$index<obseprev.findingDetail.length-1 && obseprev.findingDetail[$parent.$index+1].statusDate)) || ((dfind.auditStatusId!=dfind.AppConstant.REOPEN || dfind.userRoleId!=dfind.AppConstant.MANAGER_ROLE_ID) && dfind.leadStatus) || dfind.auditStatusId==1002">
+                                                        <i class="fa fa-trash-o" aria-hidden="true" title="Trash"></i>
+                                                     </button>
+                                                </td>
+                                            
+                                             </tr>			
+                                              </tbody>
+                                     </table>
+                                 </div>
+                            </div>
+                        </div>
+                </div>
+          </div>
+        </div>
+       
+      </div> 
+    </div>
+        
+        
+        
+        
+    </div>
+    
+        </div>
+        </form>
+
+        <div   class="col-xs-12 col-sm-12 col-md-12 col-lg-12 obs footerfixed">		
+            <div class="col-xs-offset-1 col-xs-4  col-sm-offset-3 col-sm-3 col-md-offset-4 col-md-2 col-lg-offset-4 col-lg-2">
+                <button type="button" class="effect effect footerbutton btn btn-primaryclr font-home"  ng-click="dfind.auditHome()">Inspection Home</button>
+            </div>
+            <div class="col-xs-offset-1 col-xs-4 col-sm-offset-1 col-sm-3 col-md-offset-0 col-md-2 col-lg-offset-0 col-lg-2">
+                <button type="button" class="effect effect footerbutton btn btn-primaryclr font-save" ng-disabled="(dfind.lockStatus || dfind.auditStatusId!=1001 || dfind.leadSign) && (dfind.auditStatusId!=dfind.AppConstant.REOPEN || dfind.userRoleId!=dfind.AppConstant.MANAGER_ROLE_ID)" ng-click="dfind.save()" >Save</button>
+            </div>
+            
+    </div>
+
+    </div>

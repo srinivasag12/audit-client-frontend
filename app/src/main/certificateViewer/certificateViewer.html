@@ -1,0 +1,278 @@
+
+<div class="row" style="position: sticky">
+
+	<div class="page-header navbar "
+		data-ng-controller="certificateViewerController">
+		<div class="page-header-inner ">
+			<div class="logo_Section_main">
+
+				<div class="logo_Section_main_right">
+					<div class="logo_Section company ">
+
+						<span class="title" data-ng-bind="'Marshall islands' | uppercase"></span>
+
+					</div>
+					<div class="logo_Section pagetitle" style="padding: 0 !important"
+						ng-class="{pagetitlewithoutcompany:!tm.companyName}">
+						<span class="title"
+							data-ng-bind="'Certificate Validation Module' | uppercase"></span>
+
+					</div>
+
+				</div>
+				<div ng-class="{companyImage}"
+					class="container-fluid logo_Section company onlyLogo"
+					style="margin-left: 15px; margin-right: -15px;">
+					<img alt="" class="img-circle"
+						src="data:image/png;base64,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" />
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row" ng-if="certView.obj">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+
+<!-- General details --> 
+			
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+			 <div class="card-viewer" >
+						<div class="cardheader-viewer" >
+						<div>Certificate Details</div>
+					</div> 
+					
+					   <table  class="table" style="margin-bottom:0px !important; border:none!important">
+                                           	    
+                                         	   
+                                           		<tr  align="left">
+                                           			<td>Certificate Number</td>
+                                           			<td>{{certView.obj.certificateNo}}</td>
+                                           		</tr>
+                                           		
+                                           		<tr  align="left">
+                                           			<td>Certificate Type</td>
+                                           			<td>{{certView.obj.CertType}}</td>
+                                           		</tr>
+                                           		
+                                           		<tr  align="left">
+                                           			<td>Unique Tracking No</td>
+                                           			<td>{{certView.obj.utn}}</td>
+                                           		</tr>
+                                           		
+                                           		<tr  align="left">
+                                           			<td>Issue Date</td>
+                                           			<td>{{certView.obj.certissuedate}}</td>
+                                           		</tr>
+                                           		<tr  align="left">
+                                           			<td>Expire Date</td>
+                                           			<td>{{certView.obj.expirydate}}</td>
+                                           		</tr>
+                                           		<tr  align="left">
+                                           			<td>Status</td>
+                                           			<td>Valid</td>
+                                           		</tr>
+                                           		
+                    </table>
+                 
+				</div>
+
+			</div>
+<!-- vessel details --> 
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+
+				<div class="card-viewer" >
+					<div class="cardheader-viewer">
+						<div>Particulars of the Ship</div>
+					</div>
+					
+					 
+					
+					<div>
+					
+					    <table  class="table" style="margin-bottom:0px !important;">
+                                           	    
+                                         	   
+                                           		<tr  align="left">
+                                           			<td>Name of Ship</td>
+                                           			<td>{{certView.obj.vesselName}}</td>
+                                           		</tr>
+                                           		
+                                           		<tr  align="left">
+                                           			<td>Distinctive Number or Letters</td>
+                                           			<td>{{certView.obj.distinletter}}</td>
+                                           		</tr>
+                                           		
+                                           		<tr  align="left">
+                                           			<td>Port of Registry</td>
+                                           			<td>{{certView.obj.portofreg}}</td>
+                                           		</tr>
+                                           		
+                                           		<tr  align="left">
+                                           			<td>Gross Tonnage</td>
+                                           			<td>{{certView.obj.grt}}</td>
+                                           		</tr>
+                                           		
+                                           		<tr  align="left">
+                                           			<td>IMO No</td>
+                                           			<td>{{certView.obj.vesselImoNo}}</td>
+                                           		</tr>
+                                           		
+                                           		<tr  align="left">
+                                           			<td>Type of Ship</td>
+                                           			<td>{{certView.obj.shiptype}}</td>
+                                           		</tr>
+                                           		
+                                           		
+                                           			
+                    </table>
+               
+                    </div>
+                 
+				</div>
+
+			</div>
+	
+	<!-- vessel company details -->  
+	
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+
+				<div class="card-viewer" >
+					<div class="cardheader-viewer">
+						<div>Name and Address of the Company</div>
+					</div>
+					
+					
+					<div>
+					
+					     <table  class="table" style="margin-bottom:0px !important;">
+                                           	    
+                                         	   
+                                           		<tr  align="left">
+                                           			<td>Company Name</td>
+                                           			<td>{{certView.obj.companyname}}</td>
+                                           		</tr>
+                                           		
+                                           		<tr  align="left">
+                                           			<td>Company Address</td>
+                                           			<td>{{certView.obj.companyaddress}}</td>
+                                           		</tr>
+                                           		
+                                           		<tr  align="left">
+                                           			<td>Port of Registry</td>
+                                           			<td>{{certView.obj.dateOfReg}}</td>
+                                           		</tr>
+                                           		
+                    </table>
+               
+                    </div>
+                 
+				</div>
+
+			</div>
+			
+			<!-- General details --> 
+			
+
+	
+
+
+<!-- endorsement details --> 
+<!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding:0;marging:0;">
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+
+				<div class="card-viewer" >
+					<div class="cardheader-viewer">
+						<div>Intermediate Endorsement:</div>
+					</div>
+					
+					
+					<div>
+					
+					     <table  class="table" style="margin-bottom:0px !important;">
+                                           	    
+                                         	   <tr  align="left">
+                                           			<td>Lead Auditor Name:</td>
+                                           			<td>{{certView.obj.dateOfReg}}</td>
+                                           		</tr>
+                                           		
+                                           		<tr  align="left">
+                                           			<td>Issue Date:</td>
+                                           			<td>{{certView.obj.companyname}}</td>
+                                           		</tr>
+                                           		
+                                           		<tr  align="left">
+                                           			<td>Expire Date:</td>
+                                           			<td>{{certView.obj.companyaddress}}</td>
+                                           		</tr>
+                                           		
+                                           		<tr  align="left">
+                                           			<td>Endorsed Date:</td>
+                                           			<td>{{certView.obj.companyaddress}}</td>
+                                           		</tr>
+                                           		
+                                           		
+                                           		
+                    </table>
+               
+                    </div>
+                 
+				</div>
+
+			</div>
+			
+	Intermediate Two		
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+
+				<div class="card-viewer" >
+					<div class="cardheader-viewer">
+						<div>Intermediate Endorsement:</div>
+					</div>
+					
+					
+					<div>
+					
+					     <table  class="table" style="margin-bottom:0px !important;">
+                                           	    
+                                         	   <tr  align="left">
+                                           			<td>Lead Auditor Name:</td>
+                                           			<td>{{certView.obj.dateOfReg}}</td>
+                                           		</tr>
+                                           		
+                                           		<tr  align="left">
+                                           			<td>Issue Date:</td>
+                                           			<td>{{certView.obj.companyname}}</td>
+                                           		</tr>
+                                           		
+                                           		<tr  align="left">
+                                           			<td>Expire Date:</td>
+                                           			<td>{{certView.obj.companyaddress}}</td>
+                                           		</tr>
+                                           		
+                                           		<tr  align="left">
+                                           			<td>Endorsed Date:</td>
+                                           			<td>{{certView.obj.companyaddress}}</td>
+                                           		</tr>
+                                           		
+                                           		
+                                           		
+                    </table>
+               
+                    </div>
+                 
+				</div>
+
+			</div>
+			
+			
+			
+			
+			
+			</div> -->
+</div>
+ </div>
+
+	

@@ -1,0 +1,22 @@
+<div  class="modal fade reportprev" data-keyboard="false" data-backdrop="static" ng-class="{'officeClass':officeClass}">
+	<div class="modal-dialog iFrameParentId">
+		<div class="modal-content iFrameModalContent">
+			<div class="modal-header" style="padding-bottom:0px !important;">
+                <button type="button" class="close" ng-click="close('Cancel')" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Report Type : {{reportType}}<span ng-if="otherType">&nbsp&nbsp({{otherType}})</span>  </h4>
+            </div>
+			<div class="modal-body iFrameModalBody">
+				<div class="col-lg-12 containerfull iframe" ng-hide="officeFile">
+					 <iframe  ng-src="{{content}}" id="reportImage"></iframe>
+					 <!-- <embed  ng-src="{{content}}" iframe-auto-size></embed > -->
+				</div>
+				<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull">
+					<span class="has-float-label"> 
+						<textarea style="resize:none !Important;" class="form-control col-xs-12 col-sm-12 col-md-12 col-lg-12 descriptionhgt" ng-model="reportprevcomment" id="previewcomments" readonly> </textarea>
+						<label  for="previewcomments">Comments</label>
+					</span>
+				</div>
+			</div>
+			</div>
+	</div>
+</div>

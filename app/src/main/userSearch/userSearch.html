@@ -1,0 +1,138 @@
+<div style="height: 90.5vh !important; max-height: 90.5vh !Important;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull auditscroll scroll">
+<div class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12 search">
+			<div class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 accordion-toggle1" data-toggle="collapse" data-target="#search">
+				<div class="caption font-blue-sharp col-xs-6 col-sm-6 col-md-2 col-lg-2">
+					<span class="caption-subject bold uppercase pull-left">Search Criteria</span>
+				</div>
+				<!-- <div ng-if="isOnline" class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-offset-4 col-lg-2 datacheck">
+						<input type="radio" name="data" ng-model="ob.local" > Local<br>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-offset-3 col-lg-2 datacheck">
+						<input type="radio" name="data" ng-model="ob.central" > Central<br>
+					</div>
+					
+				</div> -->
+				
+				
+			</div>
+			
+				<div id="search" style="border-bottom: 1px solid #065050 !important;" class="portlet-body collapse in col-xs-12 col-sm-12 col-md-12 col-lg-12 padcontainer">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull">
+			
+				
+				
+		
+				
+				
+				   
+							
+				
+				<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec">
+                         <select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" 
+                         	ng-model="userSearch.userRegion" ng-disabled="userSearch.userRoleId==userSearch.AppConstant.IHM_MANAGER"
+                         	id="userRegion"  ng-options="type.regionId as type.regionName for type in userSearch.regionArray" ng-class="{'changed':userSearch.userRegion}"> </select>
+						 <label for="userRegion">Region </label>
+				</div>
+				
+				<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec">
+				
+                <input type="text" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" 
+                	ng-model="userSearch.searchCriteria.auditorName" id="auditorName"
+                	uib-typeahead="aud as aud.firstName+' '+aud.lastName for aud in userSearch.auditorsDetail | filter:$viewValue"
+                	ng-blur="userSearch.validateVessel(search.searchCriteria.auditorName,'AUDITORNAME')"
+					type="text" autocomplete="off"  ng-class="{'changed':userSearch.searchCriteria.auditorName}"/> 
+                <label for="auditorName">By Name</label>
+		
+		</div>
+		
+		<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec">
+		
+		 <select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" 
+            	ng-model="userSearch.searchCriteria.auditorRole"
+            	ng-options="role.roleId as role.roleDesc for role in userSearch.auditorRoles"
+            	id="auditorRole"  ng-class="{'changed':userSearch.searchCriteria.auditorRole}"
+            	></select>
+		
+           <label for="auditorRole">By Role</label>
+	
+	</div>
+	
+	<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec">
+		
+		 <select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" 
+            	ng-model="userSearch.searchCriteria.userQualified"
+            	ng-options="roles.roleId as roles.roleDesc for roles in userSearch.userQualifiedValues"
+            	id="userQualified"  ng-class="{'changed':userSearch.searchCriteria.userQualified}"
+            	></select>
+		
+           <label for="userQualified">User Qualified</label>
+	
+	</div>
+				
+				
+					
+					</div>
+				
+				</div>
+			
+		</div>
+		
+<div  class="col-xs-12 col-sm-12 col-md-12 col-lg-offset-0 tdpad col-lg-12 search audsrcpad">		
+			
+			<div  class="col-xs-4 col-sm-offset-2 col-sm-3 col-md-offset-4 col-md-2 col-lg-offset-3 col-lg-2">
+				<button type="button" class="effect effect btn btn-primaryclr btnsize btnclass fix-but-width font-home" ng-click="userSearch.back()">Home</button>
+			</div>
+			
+			<div class="col-xs-4 col-sm-offset-0  col-sm-3 col-md-offset-0  col-md-2 col-lg-offset-0 col-lg-2">
+				<button type="button" class="effect effect btn btn-primaryclr btnsize btnclass fix-but-width font-search" ng-click="userSearch.search(0)">Search</button>
+			</div>
+			
+			<div class="col-xs-4 col-sm-offset-0  col-sm-3 col-md-offset-0 col-md-2 col-lg-offset-0 col-lg-2">
+				<button type="button" class="effect effect btn btn-primaryclr btnsize btnclass fix-but-width font-clear" ng-click="userSearch.clear()">Clear</button>
+			</div>
+		
+</div>
+<!-- <div style="position:absolute !important;">
+			<div style="min-width:50px !Important;">
+				<button type="button" class="btn btn-primaryclr btnsize" ng-click="userSearch.report('pdf')">Pdf</button>
+			</div>
+			
+			<div style="min-width:50px !Important;">
+				<button type="button" class="btn btn-primaryclr btnsize" ng-click="userSearch.report('excel')">Excel</button>
+			</div>
+</div>	 -->
+
+
+<div ng-if="userSearch.showBlock" class="search_table_bordered auditSearch">
+
+		<table datatable="" dt-options="userSearch.dtOptions" dt-columns="userSearch.dtColumns" dt-instance="userSearch.dtInstance" class="table table-responsive datatables" ></table>
+		<nav ng-if="userSearch.pagination" class="pagination pagination-sm pagination_position searchpagination">
+            <li ng-class="{ disabled : pagination.current === 0 ||  pagination.current === 1}">
+        		<a href="" ng-click="(pagination.current === 0 || pagination.current === 1)?null:userSearch.search(0)">&laquo;</a>
+    		</li>
+    		<li ng-class="{ disabled : pagination.current === 0 || pagination.current === 1}">
+        		<a href="" ng-click="(pagination.current === 0 || pagination.current === 1)?null:userSearch.search(pagination.current-2)">&lsaquo;</a>
+    		</li>
+            <li ng-repeat="n in range(pagination.totalPages)" ng-class="{active:pagination.current===n}"> 
+            	<a href="#" ng-click="userSearch.search(n-1)" ng-bind="n">n</a>
+            </li>
+            <li ng-class="{ disabled : pagination.current === pagination.last }">
+        		<a href="" ng-click="(pagination.current === pagination.last)?null:userSearch.search(pagination.current)">&rsaquo;</a>
+    		</li>
+    		<li ng-class="{ disabled : pagination.current === pagination.last }">
+        		<a href="" ng-click="(pagination.current === pagination.last)?null:userSearch.search(pagination.last-1)">&raquo;</a>
+    		</li>
+        </nav>
+	
+</div>
+
+<div ng-if="userSearch.pagination" class="search_table_bordered" >
+<div class="displayCountRecords">
+	Showing {{userSearch.from}} to {{userSearch.to}} of {{userSearch.total}} entries
+</div>	
+</div>
+
+
+ 
+    </div>

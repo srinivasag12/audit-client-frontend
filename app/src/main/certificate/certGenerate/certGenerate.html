@@ -1,0 +1,381 @@
+ <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull certgeneratescroll" onscroll="scrollFunction()">
+<div
+	class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12 stat">
+	<div
+		class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 accordion-toggle1"
+		data-toggle="collapse" data-target="#stat">
+		<div
+			class="caption font-blue-sharp col-xs-12 col-sm-12 col-md-10 col-lg-10">
+			<span class="caption-subject bold uppercase pull-left">Search
+				Criteria</span>
+		</div>
+
+	</div>
+
+	<div id="stat"
+		class="portlet-body collapse in col-xs-12 col-sm-12 col-md-12 col-lg-12 padcontainer">
+		<div class="col-xs-12 col-sm-12 col-md-8 col-lg-12 containerfull">
+			<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 txt-sec ">
+
+				<input type="text"
+					class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+					ng-model="certGenerate.certSearchCriteria.vesselImoNo"
+					id="searchimo"
+					uib-typeahead="ship as ship.vesselImoNo for ship in _.getLatestVesselImo($viewValue, certGenerate.latestCreatedImo,certGenerate.vesselData)"
+					ng-class="{'changed':certGenerate.certSearchCriteria.vesselImoNo}"
+					typeahead-no-results="noVesselImo" custom-tooltip="{{noVesselImo}}"
+					type="text" autocomplete="off" numeric max-len="7"
+					ng-change="certGenerate.certSearchCriteria.vesselName=''"
+					typeahead-on-select="certGenerate.setVessel($item)" required /> <label
+					for="searchimo">Vessel IMO No.</label>
+
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 txt-sec">
+
+				<input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+					ng-model="certGenerate.certSearchCriteria.vesselName"
+					id="searchvslname" type="text" autocomplete="off"
+					uib-typeahead="ship as ship.vesselName for ship in _.getVesselName($viewValue,certGenerate.vesselData) "
+					typeahead-on-select="certGenerate.setVessel($item)" alpha-numeric
+					ng-change="certGenerate.certSearchCriteria.vesselImoNo=''"
+					ng-blur="certGenerate.validateVessel(certGenerate.certSearchCriteria.vesselName,'VES')"
+					typeahead-no-results="noVesselName"
+					custom-tooltip="{{noVesselName}}"
+					ng-class="{'changed':certGenerate.certSearchCriteria.vesselName}" required/>
+				<label for="searchvslname">Vessel Name</label>
+
+			</div>
+
+
+			<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 txt-sec">
+
+				<select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+					ng-model="certGenerate.certSearchCriteria.auditTypeId"
+					id="audittype"
+					ng-class="{'changed':certGenerate.certSearchCriteria.auditTypeId}"
+					ng-options="autype.auditTypeId as autype.auditTypeDesc for autype in certGenerate.audtype"
+					ng-init="certGenerate.certSearchCriteria.auditTypeId=0"
+					ng-class="{'changed':certGenerate.certSearchCriteria.auditTypeId}"
+					ng-change="certGenerate.getAuditData(certGenerate.certSearchCriteria.auditTypeId)" required></select>
+				<label for="audittype">Audit Type</label>
+
+			</div>
+			<!-- <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 txt-sec">
+				<select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+					ng-model="certGenerate.certSearchCriteria.auditSubTypeId"
+					ng-class="{'changed':certGenerate.certSearchCriteria.auditSubTypeId}"
+					ng-disabled="!certGenerate.certSearchCriteria.auditTypeId"
+					ng-class="{'changed':certGenerate.certSearchCriteria.auditSubTypeId}"
+					ng-options="type.auditSubtypeId as type.auditSubtypeDesc for type in certGenerate.audsubtype"
+					id="audsubtype"></select> <label for="audsubtype">Sub Type</label>
+			</div> -->
+
+			 
+
+
+		</div>
+		&nbsp;&nbsp;<br>
+		<div  class="col-xs-12 col-sm-12 col-md-12 col-lg-offset-0 tdpad col-lg-12 search audsrcpad">		
+			
+			<div  class="col-xs-4 col-sm-offset-2 col-sm-3 col-md-offset-4 col-md-2 col-lg-offset-3 col-lg-2">
+				<button type="button" class="effect effect btn btn-primaryclr btnsize btnclass fix-but-width font-home" ng-click="certGenerate.back()">Home</button>
+			</div>
+			
+			<div class="col-xs-4 col-sm-offset-0  col-sm-3 col-md-offset-0  col-md-2 col-lg-offset-0 col-lg-2">
+				<button type="button" class="effect effect btn btn-primaryclr btnsize btnclass fix-but-width font-search" ng-click="certGenerate.search(0,'fromBtn')">Search</button>
+			</div>
+			
+			<div class="col-xs-4 col-sm-offset-0  col-sm-3 col-md-offset-0 col-md-2 col-lg-offset-0 col-lg-2">
+				<button type="button" class="effect effect btn btn-primaryclr btnsize btnclass fix-but-width font-clear" ng-click="certGenerate.clear()">Clear</button>
+			</div>
+		
+</div>
+	</div>
+	
+
+</div>
+
+
+
+
+ 
+
+
+
+ 
+
+
+<div  id="collapseAtOne" class="portlet light  bordered col-xs-12 col-sm-12 col-md-12 col-lg-12 stat">
+
+	<div
+		class="portlet light bordered collapse in col-xs-12 col-sm-12 col-md-12 col-lg-12 status" >
+		<div id="collapseAtTwo" class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 accordion-toggle1 collapsed" ng-click="certGenerate.toggle($event)" >
+		
+			<div
+				class="caption font-blue-sharp col-xs-8 col-sm-8 col-md-4 col-lg-4">
+				<span style="margin-top: 5px;"
+					class="caption-subject bold uppercase pull-left"> Certificate Details</span>
+					
+					 
+
+			</div>
+		</div>
+	
+
+		<div id="status"  class="portlet-body collapse col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull" >
+		   <div style="padding: 10px 0px 10px 0px !important; margin:25px !important;width:96%;border:1px solid #bdbbbb;"	class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull">
+		
+		<!--  	 <div style="margin-top: 8px;padding-right:0px !Important;"		class="col-xs-3 col-sm-3 col-md-21 col-lg-2 col-lg-offset-1">
+			     <label><b>Vessel IMO No.</b></label>
+		     </div>
+			
+			<div style="margin-top: 8px;"		class="col-xs-3 col-sm-3 col-md-3  col-lg-1">
+		 	      <label>{{certGenerate.certSearchData[0].vesselImoNo}}</label>
+		    </div>
+		    
+		    <div style="margin-top: 8px;padding-right:0px !Important;"
+				class="col-xs-3 col-sm-4 col-md-1 col-lg-1">
+				<label><b>Vessel Name</b></label>
+			</div>
+			
+			<div style="margin-top: 8px;"
+				class="col-xs-9 col-sm-8 col-md-11  col-lg-2 col-lg-offset-1 VesselName">
+				<label>{{certGenerate.certSearchData[0].vesselName}}</label>
+			</div>
+			
+			<div style="margin-top: 8px;padding-right:0px !Important;"
+				class="col-xs-3 col-sm-4 col-md-1 col-lg-2 ">
+				<label><b>Certificate Type</b></label>
+			</div>
+			
+			<div style="margin-top: 8px;"
+				class="col-xs-9 col-sm-8 col-md-11  col-lg-1 auditTypeDesc">
+				<label>{{certGenerate.certSearchData[0].auditTypeDesc}}</label>
+			</div>			
+			
+			<div style="margin-top: 8px;padding-right:0px;"
+				class="col-xs-3 col-sm-3 col-md-1  col-lg-1 col-lg-offset-1">
+				<label><b>Official No.</b></label>
+			</div>
+			<div style="margin-top: 8px;"
+				class="col-xs-3 col-sm-3 col-md-4  col-lg-1 offcialNo-{{officialNoValue}}">
+				<label>{{certGenerate.certSearchData[0].officialNo}}</label>
+			</div> -->
+			
+			<div class="col-lg-3 col-md-4 col-sm-6">
+			<div class="col-xs-6">
+			 <label><b>Vessel IMO No.</b></label>
+			 </div>
+			 <div class="col-xs-6">
+			 <label>{{certGenerate.certSearchData[0].vesselImoNo}}</label>
+			 </div>
+			 </div>
+			 
+			 <div class="col-lg-3 col-md-4 col-sm-6">
+			 <div class="col-xs-5">
+			 <label><b>Vessel Name</b></label>
+			 </div>
+			 <div class="col-xs-7">
+			 <label>{{certGenerate.certSearchData[0].vesselName}}</label>
+			 </div>
+			 </div>
+			 
+			 <div class="col-lg-3 col-md-4 col-sm-6">
+			 <div class="col-xs-6">
+			 <label><b>Audit Type</b></label>
+			 </div>
+			 <div class="col-xs-6">
+			 <label>{{certGenerate.certSearchData[0].auditTypeDesc}}</label>
+			 </div>
+			 </div>
+			 
+			 <div class="col-lg-3 col-md-4 col-sm-6">
+			 <div class="col-xs-6">
+			 <label><b>Official No.</b></label>
+			 </div>
+			 <div class="col-xs-6">
+			 <label>{{certGenerate.certSearchData[0].officialNo}}</label>
+			 </div>
+			 </div>
+			
+	     
+	       </div>
+	       
+	       
+	       <div class="portlet-body col-xs-12 col-sm-12 col-md-12 col-lg-12 " ng-if = "certGenerate.certExtData != 0 ? true : false ">
+	     <div  class="col-xs-12 col-sm-12 col-md-12 col-lg-12 table-responsive mobilesizecontainer">
+				<table class="table table-responsive" style="width:75%; margin: 0 auto 20px auto;">
+					<thead>
+						<tr class="head"> 
+							<th class="mgmntcmpny"><label class="alignCenter" style="font-size:small;"><b> Audit Sub Type</b></label></th>
+							<th class="mgmntcmpny"><label class="alignCenter" style="font-size:small;"><b>Certificate Type</b></label></th>
+							<th class="mgmntcmpny" ng-if="!certGenerate.managerPublished"><label class="alignCenter" style="font-size:small;" ><b>Publish Status</b></label></th>
+							<th class="mgmntcmpny"><label class="alignCenter" style="font-size:small;"><b>Action Required</b></label></th>
+							
+
+						</tr>
+					</thead>
+					<tbody style="background:white">
+						<tr class="detail" >
+							<td class="mgmntcmpny companyName-{{companyNameValue}}"><label>{{certGenerate.certSubType}}</label></td>
+							<td class="mgmntcmpny companyDocExpiry-{{docExpiryValue}}"  style="width:26vw" ng-if="certGenerate.managerPublished">
+                           
+                    				
+	                    				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-sec">
+	
+											<select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" style="border:1px solid rgb(100, 103, 109)!important;width: 80% !important; margin:0 10%"
+												ng-model="certGenerate.setCert.certDes"
+												id="certDes"
+												ng-options="type.seqNo as type.certType for type in certGenerate.names"
+											    ng-class="{'changed':certGenerate.setCert}"  required></select>
+											<label for="certDes">Certificate Type</label>
+							
+										</div>
+							</td>
+							<td class="mgmntcmpny companyName-{{companyNameValue}}" ng-if="!certGenerate.managerPublished"><label>{{certGenerate.checkSeq[0].certIssueDesc}}</label></td> <!-- Changed by sudharsan for Jira-ID= IRI-5444 -->
+							<td class="mgmntcmpny companyName-{{companyNameValue}}" style="background:#F0E68C" ng-if="!certGenerate.managerPublished"><label>{{certGenerate.managerPublished? 'Yes' : 'No'}} </label></td>
+							<td class="mgmntcmpny companyDoc-{{companyDocValue}}" ><div ng-if="certGenerate.showBtn"><a ui-sref="tab2"><button type="button" class="effect effect btn btn-primaryclr btnsize btnclass fix-but-width font-search" style="width:100px !important;" ng-click="certGenerate.showCertificateDetail()">Proceed</button></a></div>
+							</td>
+							
+						</tr>
+					</tbody> 
+					
+					<!-- <tbody style="background:white">
+						<tr class="detail"  ng-repeat="certGen in certGenerate.certExtData track by $index">
+							<td class="mgmntcmpny companyName-{{companyNameValue}}"><label>{{certGen.audSubTypeDesc}}</label></td>
+							<td class="mgmntcmpny companyDocExpiry-{{docExpiryValue}}" > <label>{{certGen.reqCertDesc}}</label></td>
+							<td class="mgmntcmpny companyDoc-{{companyDocValue}}"><div ><a ui-sref="tab2"><button type="button" class="effect effect btn btn-primaryclr btnsize btnclass fix-but-width font-search" style="width:100px !important;" ng-click="certGenerate.showCertificateDetail(certGen)">Proceed</button></a></div>
+							</td>
+							
+						</tr>
+					</tbody> -->
+
+				</table>
+			</div> 
+			</div>
+			
+			
+			<div class="portlet-body col-xs-12 col-sm-12 col-md-12 col-lg-12 " ng-if="certGenerate.messageAudit!=''">
+	            <div  class="incompleteAuditNote" >
+	            	<div>{{certGenerate.messageAudit}}</div>
+	            </div>
+            </div> 
+
+	       
+	       <div class="portlet light col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+							<div
+								class="portlet-body col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+								<div
+									class="col-xs-12 col-sm-12 col-md-12  col-lg-12 mobilesizecontainer">
+									<div class="table-responsive tdmar">
+
+										<table class="table table-responsive">
+											<thead>
+												<tr style="border-top:1px solid;" >  
+													<th class="center mgmntcmpny"><b>Audit Sub Type</b></th>
+													<th class="center mgmntcmpny"><b>Certificate Issued</b></th>
+													<th class="center mgmntcmpny"><b>Certificate No.</b></th>
+													<th class="center mgmntcmpny"><b>Certificate Issued Date</b></th>
+													<th class="center mgmntcmpny"><b>Certificate Expiry Date</b></th>
+													<th class="center mgmntcmpny"><b>Certificate Status</b></th>
+													<th class="center mgmntcmpny" style="border-right:1px solid"><b>Action Required</b></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr class="detail" ng-repeat="certGen in certGenerate.certSearchData track by $index">
+													<td class="center mgmntcmpny">{{certGen.audSubTypeDesc}}</td>
+													<td class="center mgmntcmpny">{{certGen.certIssueDesc}}</td> <!-- CHANGED BY SUDHARSAN FOR JIRA-ID = IRI-5650 -->
+													<td class="center mgmntcmpny">{{certGen.certificateNo}}</td>
+													<td class="center mgmntcmpny">{{certGen.certIssueDate}}</td>
+													<td class="center mgmntcmpny">{{certGen.certExpireDate}}</td>
+													<td class="center mgmntcmpny">{{certGen.statusDesc}}</td>
+													<td class="center mgmntcmpny"><div ng-if="certGen.showBtn"><a ui-sref="tab2"><button type="button" class="effect effect btn btn-primaryclr btnsize btnclass fix-but-width font-search" style="width:100px !important;" ng-click="certGenerate.showCertificateDetail(certGen)">Proceed</button></a></div>
+														<div ng-if="!certGen.showBtn">
+														<button ng-class="{'btn btn-warning' :(certGen.getExactActiveStatus==0), 'btn btn-primary' :(certGen.getExactActiveStatus==1)}"  ng-click="certGenerate.downloadCertificate(certGen)" >
+							                     						Download
+							                     		</button></div></td>
+							
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+	        
+			<!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 table-responsive">
+				<table class="table table-responsive">
+					<thead>
+						<tr class="head"> 
+							<th class="mgmntcmpny"><label class="alignCenter"><b> Certificate Sub Type</b></label></th>
+							<th class="mgmntcmpny"><label class="alignCenter"><b>Certificate NO.</b></label></th>
+							<th class="mgmntcmpny"><label class="alignCenter"><b>Certificate Issued Date</b></label></th>
+							<th class="mgmntcmpny"><label class="alignCenter"><b>Certificate Expiry Date</b></label></th>
+							<th class="mgmntcmpny"><label class="alignCenter"><b>Certificate Type</b></label></th>
+							<th class="mgmntcmpny"><label class="alignCenter"><b>Certificate Status</b></label></th>
+							<th class="mgmntcmpny"><label class="alignCenter"><b>Action Required</b></label></th>
+							
+
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="detail"  ng-repeat="certGen in certGenerate.certSearchData track by $index">
+							<td class="mgmntcmpny companyName-{{companyNameValue}}"><label>{{certGen.audSubTypeDesc}}</label></td>
+							<td class="mgmntcmpny companyDoc-{{companyDocValue}}"><label>{{certGen.certificateNo}}</label></td>
+							<td class="mgmntcmpny companyDoc-{{companyDocValue}}"><label>{{certGen.certIssueDate}}</label></td>
+							<td class="mgmntcmpny companyDoc-{{companyDocValue}}"><label>{{certGen.certExpireDate}}</label></td>
+							<td class="mgmntcmpny companyDocExpiry-{{docExpiryValue}}" > <label>{{certGen.reqCertDesc}}</label></td>
+							<td class="mgmntcmpny companyDocExpiry-{{docExpiryValue}}" > <label>{{certGen.statusDesc}}</label></td>
+							<td class="mgmntcmpny companyDoc-{{companyDocValue}}"><div ng-if="certGen.showBtn"><a ui-sref="tab2"><button type="button" class="effect effect btn btn-primaryclr btnsize btnclass fix-but-width font-search" style="width:100px !important;" ng-click="certGenerate.showCertificateDetail(certGen)">Proceed</button></a></div>
+							<div ng-if="!certGen.showBtn">
+							<button ng-class="{'btn btn-warning' :(certGen.getExactActiveStatus==0), 'btn btn-primary' :(certGen.getExactActiveStatus==1)}"  ng-click="certGenerate.downloadCertificate(certGen)" >
+                     						Download
+                     		</button>
+							<button type="button" class="effect effect btn btn-primaryclr btnsize btnclass fix-but-width font-search" style="width:100px !important;" ng-click="certGenerate.downloadCertificate(certGen)">Download</button></div>
+							</td>
+							
+						</tr>
+					</tbody>
+
+				</table>
+			</div> -->
+	       
+	    </div>
+	     
+	     
+
+	</div>
+
+<!-- <div class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 accordion-toggle1" data-toggle="collapse" data-target="#some">
+    
+</div> -->
+<div class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12 uistat" ng-if="certGenerate.showCertificateScreen" ng-hide="certGenerate.hideCert">
+
+	<div class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 accordion-toggle1"
+			data-toggle="collapse" data-target="#uistat">
+			<div
+				class="caption font-blue-sharp col-xs-12 col-sm-12 col-md-10 col-lg-10">
+				<span class="caption-subject bold uppercase pull-left">Certificate Extensions</span>
+					
+			</div>
+	
+		</div>
+		&nbsp;<br>
+		<div id="uistat">
+			
+				<div ui-view="detailsTab" ng-if="certGenerate.showCertificateScreen" ng-hide="certGenerate.hideCert" style="padding:0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				</div>
+			
+		</div>
+		
+</div>
+</div>
+</div>
+
+<script>
+function scrollFunction() {
+	  $( ".bootstrap-datetimepicker-widget.dropdown-menu.top" ).hide();
+      $( ".bootstrap-datetimepicker-widget.dropdown-menu.bottom" ).hide();
+}
+</script>

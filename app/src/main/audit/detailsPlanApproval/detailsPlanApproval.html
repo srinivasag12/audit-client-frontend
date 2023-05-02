@@ -1,0 +1,768 @@
+<div ng-if="det.showSwitch" class="switch-container">
+        <label class="switch" data-toggle="tooltip" data-original-title="{{det.lockMessage}}" tooltip data-placement="left">
+           <!--changed by @Ramya for TICKET-673-->
+            <input type="checkbox" ng-model="det.enabled" ng-disabled="!(det.userRelatedToAdt) || ((det.userRoleId != det.AppConstant.ADMIN_ROLE_ID && det.userRoleId!=det.AppConstant.Approval_MANAGER_ROLE_ID) && det.lockDisable ) || det.auditCreate"  ng-change="det.callSubBack()"/>
+              <span class="slider round">
+                  <i class="fa fa-unlock-alt icon-unlock-position" ng-if="!det.enabled"></i>
+                  <i class="icon-lock icon-lock-position" ng-if="det.enabled"></i>
+              </span>
+        </label>
+</div>
+
+
+
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 aud containerfull auditscroll scroll" onscroll="scrollFunction()">
+    <form name="det.AuditDetailForm" autocomplete="off">
+    <qr type-number="8" class="hidden" id="qrC" correction-level="'L'" size="200" text="qrString" image="true"></qr>
+            
+            <div class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 accordion-toggle1" data-toggle="collapse" data-target="#vessel">
+                    <div class="col-xs-12 col-sm-10 col-md-12 col-lg-12 containerfull">
+                        <div class="caption font-blue-sharp col-xs-9 col-sm-3 col-md-3 col-lg-3 containerfull">
+                            <span class="caption-subject bold uppercase pull-left">Vessel / Company</span>
+
+                        </div>
+                    </div>	
+                    
+                    
+                </div>	
+                
+                
+	                        
+	                	<div class="auditreportsection">
+	                	
+                    <button 
+                    style="width: 25px !important;height:25px !important;margin-right:25px;padding:0;text-align:center;border-radius: 50%;color:#0ed6d8 !important;background-color: #2b3643 !important;" 
+                    class="btn " ng-click="det.vesselDtlsRefresh()"  
+                    data-toggle="tooltip" data-original-title="Refresh Vessel Details" tooltip data-placement="bottom"
+                    ng-disabled="det.vesselUpdate || det.auditCreate || !det.auditDetail.auditStatusId || (det.userRoleId!=det.AppConstant.OBSERVER_ROLE_ID) && (det.auditDetail.auditStatusId==det.AppConstant.VOID_AUDIT_STATUS || det.lockStatus || (det.userRoleId==det.AppConstant.AUDITOR_ROLE_ID && ( !(det.auditDetail.auditSubTypeId) || det.auditDetail.reviewStatus == det.AppConstant.INITIATE_REVIEW_STATUS))) || det.notApprovedPrevAudit "> 
+                       <i class="fa fa-refresh" aria-hidden="true"></i>
+
+                    </button>
+                    
+                </div>
+                		
+                
+                    <div style="padding:0px !Important;" class="imosection  col-xs-4 col-sm-offset-5 col-sm-3 col-md-offset-3 col-md-3 col-lg-offset-5 col-lg-2">
+                        <div style="padding:0px !Important;" class=" col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <!-- <label class="imolabel">IMO Number</label> -->
+                             <select style="font-weight:500 !Important;padding:0px !important;height: 20px;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 imoval" ng-model="det.imolabelVal"  id="imolabelVal"
+                            
+                            ng-options="type.reqUrl as type.imolabelValTypeDesc  for type in det.imolabelValOptions" ng-disabled="!det.auditCreate"
+                            ng-change="det.vesselImoNo.vesselImoNo='';det.vesselDetail={};det.vesselCompanyDtl={}"
+						>					
+                        </select> 
+                            
+                        </div>
+                        <div ng-if="det.imolabelVal != 'vesselName'" style="padding:0px !Important;" class=" col-xs-6 col-sm-6 col-md-6 col-lg-6 mob" id="divID" >
+                            <input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 imoval"  ng-model="det.vesselImoNo.vesselImoNo" id="veselimono" name="vslImo"
+                                type="text" autocomplete="off" required
+                                numeric
+								ng-disabled ="!det.auditCreate" type="text" autocomplete="off"
+					   	 		ng-keypress="det.avoidWhiteSpace($event)"
+					   	 		ng-change="det.imolabelVal != 'officialNumber' ? det.vesselDetails(det.vesselImoNo.vesselImoNo,'vesselImoNo'):''"
+					   	 		ng-blur="det.imolabelVal != 'officialNumber' ? det.validateVessel('vesselImoNo'):det.vesselDetails(det.vesselImoNo.vesselImoNo,'officialNumber')"
+					   	 		ng-keyup="($event.keyCode == 13 && det.imolabelVal == 'officialNumber') ? det.doBlur($event):null"/>
+					   	 		
+					   	 			  <i ng-if="det.vesselDetail.vesselStatus == 'Active'" class="fa fa-check-circle-o vessel-status-icon-position vessel-status-icon-active" aria-hidden="true" data-toggle="tooltip" data-original-title="{{det.vesselDetail.vesselStatus}}" tooltip data-placement="bottom"></i>
+					   	 		  
+					   	 		  
+					   	 		    <i ng-if="det.vesselDetail.vesselStatus == 'Pending'" class="fa fa-clock-o vessel-status-icon-position vessel-status-icon-pending" aria-hidden="true" data-toggle="tooltip" data-original-title="{{det.vesselDetail.vesselStatus}}" tooltip data-placement="bottom"></i>
+					   	 		  
+                        </div><!-- numeric="det.imolabelVal!='vesselName'"  add-directive="det.imolabelValOptions[det.imolabelVal].directive" minlength=3 maxlength=7-->
+                        
+                        <div ng-if="det.imolabelVal == 'vesselName'" style="padding:0px !Important;" class=" col-xs-6 col-sm-6 col-md-6 col-lg-6 mob" id="divID" >
+                            <input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 imoval"  ng-model="det.vesselImoNo.vesselImoNo" id="veselimono" name="vslImo"
+                                type="text" autocomplete="off" required
+                                ng-disabled ="!det.auditCreate" type="text" autocomplete="off"
+					   	 		ng-blur="det.vesselDetails(det.vesselImoNo.vesselImoNo,'vesselName')"
+					   	 		ng-keyup="$event.keyCode == 13 ? det.doBlur($event):null"
+					   	 		/>
+					   	 		<i ng-if="det.vesselDetail.vesselStatus == 'Active'" class="fa fa-check-circle-o vessel-status-icon-position vessel-status-icon-active" aria-hidden="true" data-toggle="tooltip" data-original-title="{{det.vesselDetail.vesselStatus}}" tooltip data-placement="bottom"></i>
+					   	 		  
+					   	 		  
+					   	 		    <i ng-if="det.vesselDetail.vesselStatus == 'Pending'" class="fa fa-clock-o vessel-status-icon-position vessel-status-icon-pending" aria-hidden="true" data-toggle="tooltip" data-original-title="{{det.vesselDetail.vesselStatus}}" tooltip data-placement="bottom"></i>
+					   	 		  
+                        </div>
+                        
+                        
+                    </div>
+                    
+                    
+                    <!-- typeahead-on-select="det.setvesselImoNo($item)" 
+                    ng-enter="det.getVesselRmi(det.vesselImoNo)"-->
+                    
+					<div id="vessel" class="portlet-body collapse in col-xs-12 col-sm-12 col-md-12 col-lg-12 padcontainer">
+                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 containerfull">
+                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 txt-sec">
+                                                 
+                             <input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" ng-model="det.vesselDetail.vesselName" id="vesselname"  type="text" autocomplete="off"  
+                             data-toggle="tooltip" data-original-title="{{det.vesselDetail.vesselName}}" tooltip data-placement="bottom"
+                                  readonly ng-class="{'changed':det.vesselDetail.vesselName}"/>  	
+                             <label for="vesselname">Vessel Name</label>
+                
+                    </div>
+                    <div class="txt-sec col-xs-12 col-sm-12 col-md-3 col-lg-3">
+    
+                            <input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-model="det.vesselDetail.vesselTypeName" id="vesseltype" type="text" autocomplete="off" readonly  ng-class="{'changed':det.vesselDetail.vesselTypeName}"
+                            data-toggle="tooltip" data-original-title="{{det.vesselDetail.vesselTypeName}}" tooltip data-placement="bottom"/> 
+                            <input type="hidden" ng-model="det.vesselTypeId">
+                            <label  for="vesseltype">Vessel Type</label>
+                    
+                    </div>
+                    
+                    <div class="txt-sec col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                        
+                             <input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-model="det.vesselDetail.officialNo" id="officialnumber" type="text" autocomplete="off"  readonly ng-class="{'changed':det.vesselDetail.officialNo}"/>
+                             <label for="officialnumber">Official No.</label>
+                    
+                    </div>
+                    <div class="txt-sec col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                    
+                             <input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-model="det.vesselDetail.grt" id="grt" type="text" autocomplete="off"  readonly integer max-len="{{det.AppConstant.GRT_MAX_LEN}}" ng-class="{'changed':det.vesselDetail.grt}"/>
+                            <label for="grt">GRT(MT)</label>
+                    
+                    </div>
+                    <div class="txt-sec col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                                
+                            <input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-model="det.vesselCompanyDtl.companyImoNo" id="companyimo" type="text" autocomplete="off"  readonly ng-class="{'changed':det.vesselCompanyDtl.companyImoNo}"/> 
+                            <label for="companyimo">Company IMO No.</label>
+                                    
+                    </div>
+                    <div class="txt-sec  col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                                    
+                            <input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-model="det.vesselCompanyDtl.docType" id="doctype" type="text" autocomplete="off" readonly 
+                            data-toggle="tooltip" data-original-title="{{det.vesselCompanyDtl.docType}}" tooltip data-placement="bottom"
+                             ng-class="{'changed':det.vesselCompanyDtl.docType}"/> 
+                            <label for="doctype">DOC Type</label>
+                                    
+                    </div>
+                    <div class="txt-sec col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                                
+                            <input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-model="det.vesselCompanyDtl.docIssuer" id="docissue" type="text" autocomplete="off" 
+                            data-toggle="tooltip" data-original-title="{{det.vesselCompanyDtl.docIssuer}}" tooltip data-placement="bottom"
+                             readonly ng-class="{'changed':det.vesselCompanyDtl.docIssuer}"/>
+                            <label for="docissue">DOC Issuer</label>
+                                
+                    </div>
+                    <div  class="txt-sec col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                                
+                            <input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12 " ng-model="det.vesselCompanyDtl.docExpiry"  id="docexpiry" type="text" autocomplete="off"  readonly ng-class="{'changed':det.vesselCompanyDtl.docExpiry}"/> 
+                            <label for="docexpiry">DOC Expiry</label>
+                        
+                    </div>	
+                      
+                    
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 tabsizecontainer containerfull">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-sec">
+                                
+                                    <textarea class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12 input-height-address" ng-model="det.vesselCompanyDtl.companyAddress" id="companyaddress" readonly ng-class="{'changed':det.vesselCompanyDtl.companyAddress}"></textarea>
+                                    <label for="companyaddress">Name / Address of Company</label>
+                                
+                            </div>
+                        </div>
+                        
+       
+                        
+                        
+                        
+                    </div>
+            </div>
+            <div class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div style="padding: 2px 2px 2px 5px !important;"  class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 accordion-toggle1" data-toggle="collapse" data-target="#auditorcertificate">
+            
+                        <span class="caption-subject bold uppercase">{{det.auditType}}</span>
+                        
+            
+                    
+                </div>
+                <div class="auditreportsection">
+                    <button class="btn btn-info audbut btnclass fix-but-width" ng-click="det.auditorDetail()"
+                    ng-disabled="!det.auditDetail.auditStatusId || (det.auditDetail.auditStatusId==det.AppConstant.VOID_AUDIT_STATUS  || det.lockStatus || (det.userRoleId==det.AppConstant.AUDITOR_ROLE_ID && ( !(det.auditDetail.auditSubTypeId) || det.auditDetail.reviewStatus == det.AppConstant.INITIATE_REVIEW_STATUS))) || det.notApprovedPrevAudit  || det.notApprovedCurAudit || det.nextCreatedBlockFinding">Add {{det.auditorType}}</button>
+                </div>
+                
+                <div id="auditorcertificate" class="portlet-body collapse in col-xs-12 col-sm-12 col-md-12 col-lg-12 bodycontainer padcontainer">
+                    <div class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                    
+                             <input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" ng-model="det.auditDetail.leadAuditorName" id="auditorname" type="text" autocomplete="off" 
+                              data-toggle="tooltip" data-original-title="{{det.auditDetail.leadAuditorName}}" tooltip data-placement="bottom"
+                              readonly ng-class="{'changed':det.auditDetail.leadAuditorName}"/>
+                             <label for="auditorname">{{det.auditorType}} Name</label>
+                        
+                    </div>
+                    <div class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                    
+                             <input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" ng-model="det.auditDetail.leadAuditorId" id="auditorid" type="text" autocomplete="off"  readonly ng-class="{'changed':det.auditDetail.leadAuditorId}"/> 
+                             <label for="auditorid">{{det.auditorType}} ID</label>
+                        
+                    </div>
+                    <div class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                    
+                             <input type="text" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" ng-model="det.auditDetail.auditReportNo"  id="auditreportno" disabled autocomplete="off" ng-class="{'changed':det.auditDetail.auditReportNo}"/>
+                             <label for="auditreportno">{{det.auditType}} Report No.</label>
+                        
+                    </div>
+                    <div class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                     
+                        <select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" ng-model="det.auditDetail.auditSubTypeId"  id="auditType"
+                            ng-class="{'changed':det.auditDetail.auditSubTypeId}"
+       						ng-options="type.auditSubtypeId as type.auditSubtypeDesc disable when det.enableAuditSubType.indexOf(type.auditSubtypeId)== -1 for type in det.auditSubTypeOptions"
+                            ng-disabled="!(det.vesselImoNo.vesselImoNo) || !(det.vesselDetail.vesselName) || !(det.auditCreate) || det.auditDetail.auditStatusId==det.AppConstant.COMPLETED_AUDIT_STATUS || det.auditDetail.auditStatusId==det.AppConstant.VOID_AUDIT_STATUS  || det.lockStatus || det.notApprovedPrevAudit "
+                            ng-change="det.auditSubTypeChange(det.auditDetail.auditSubTypeId); det.setCloseMeetingDate();det.setRenewalCycleData(det.auditDetail.auditSubTypeId);"
+						>	
+                            <option value="1"></option>						
+                        </select>
+                        
+                        <input type="hidden" ng-model="det.auditDetail.auditTypeId">
+                        <label for="auditType">{{det.auditType}} Sub Type</label>
+                    
+                    </div>
+                    
+                    <!-- <div  ng-if="det.auditTypeId != det.AppConstant.SSP_TYPE_ID && det.auditTypeId != det.AppConstant.DMLC_TYPE_ID" class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                        <select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input changed" ng-model="det.scopeId"  id="scopeId"  ng-change="det.checkScopeFun(det.scopeId)"
+                            ng-options="type.scopeId as type.scopeName for type in det.checkScope" ng-disabled="!(det.auditCreate) || !det.auditDetail.auditSubTypeId || det.auditDetail.auditSubTypeId  != det.AppConstant.ADDITIONAL_SUB_TYPE_ID" ng-change="det.setCloseMeetingDate()">	</select>
+                        <label for="scopeId">Scope</label>
+                        </div> -->
+                    <div class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2">
+
+                             <input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input datePicker changed"  
+                                 ng-model="det.auditDetail.auditDate" id="auditdate" datepicker placeholder="DD-MMM-YYYY"
+                                 min-date="det.auditMinDate" max-date="det.auditMaxDate"
+                                  ng-init="oldValue=''"
+       						      ng-focus="oldValue=det.auditDetail.auditDate"
+                                 ng-blur = "det.auditDetail.auditDate=_.dateValidation(det.auditDetail.auditDate,'auditdate',det.auditMinDate,det.auditMaxDate,det.firstIntermeadite,det.auditDetail.auditSubTypeId,det.auditTypeId);det.setSSPMaxReceiptDate(det.auditDetail.auditDate)"
+                                 type="text" autocomplete="off" 
+                                ng-disabled="det.leadSign || !(det.auditDetail.auditSubTypeId) || det.auditDetail.auditStatusId==det.AppConstant.COMPLETED_AUDIT_STATUS || det.auditDetail.auditStatusId==det.AppConstant.VOID_AUDIT_STATUS  || det.notLead || det.lockStatus || det.notApprovedPrevAudit " 
+							/>
+
+                            <label for="auditdate">{{det.auditDate}} Date</label>
+                    
+                    </div>
+                    
+                    <div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec">
+					
+                        <input type="text" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input port"
+                        data-toggle="tooltip" data-original-title="{{det.auditDetail.auditPlace}}" tooltip data-placement="bottom"
+                        	ng-model="det.auditDetail.auditPlace" id="auditplace" ng-change="det.createValidation();"
+                        	ng-disabled="det.leadSign || !(det.auditDetail.auditSubTypeId) || det.auditDetail.auditStatusId==det.AppConstant.COMPLETED_AUDIT_STATUS || det.auditDetail.auditStatusId==det.AppConstant.VOID_AUDIT_STATUS  || det.notLead || det.lockStatus || det.notApprovedPrevAudit " 
+						 	uib-typeahead="port as port for port in det.getPort($viewValue)"
+						 	auditplace max-len="{{det.AppConstant.AUDIT_PLACE_MAX_LEN}}"
+						 	type="text" autocomplete="off"
+						 	ng-class="{'changed':det.auditDetail.auditPlace}"/> 
+                         <label for="auditplace">{{det.auditType}} Place</label>
+				
+				</div>
+				<!-- uib-typeahead="port.portName+', '+port.countryName as port.portName+', '+port.countryName for port in det.getPort($viewValue)" -->
+                    <div class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                    <!--changed by @Ramya for jira id - IRI-5628-->
+                         <select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" 
+                            ng-model="det.auditDetail.auditStatusId" id="auditstaus" ng-change="det.onChangeAuditStatus(oldValue);det.createValidation();"
+                            ng-class="{'changed':det.auditDetail.auditStatusId}"
+                            ng-init="oldValue=''"
+       						ng-focus="oldValue=det.auditDetail.auditStatusId"
+                            ng-options="stat.auditStatusId as stat.auditStatusDesc disable when det.userRoleId==det.AppConstant.ADMIN_ROLE_ID && 
+                             [det.AppConstant.CLOSED_AUDIT_STATUS].indexOf(stat.auditStatusId)>-1 || 
+                             stat.auditStatusId==det.AppConstant.CLOSED_AUDIT_STATUS  || ( (det.userRoleId!=det.AppConstant.Approval_MANAGER_ROLE_ID && det.userRoleId!=det.AppConstant.ADMIN_ROLE_ID ) && (stat.auditStatusId==det.AppConstant.VOID_AUDIT_STATUS || stat.auditStatusId==det.AppConstant.REOPEN)) ||
+                             ((stat.auditStatusId==det.AppConstant.VOID_AUDIT_STATUS || stat.auditStatusId==det.AppConstant.COMPLETED_AUDIT_STATUS || stat.auditStatusId==det.AppConstant.REOPEN) && det.auditCreate) ||
+                             (stat.auditStatusId==det.AppConstant.COMPLETED_AUDIT_STATUS && (det.auditDetail.auditStatusId==det.AppConstant.VOID_AUDIT_STATUS) ) ||
+                             (stat.auditStatusId==det.AppConstant.COMMENCED_AUDIT_STATUS && (det.auditDetail.auditStatusId==det.AppConstant.VOID_AUDIT_STATUS) ) ||
+                             ( det.auditDetail.allowNext != 1 &&    det.auditDetail.auditStatusId!=1005 &&  !det.auditCreate && !det.managerCreatedAuditFlag   && (det.userRoleId==det.AppConstant.Approval_MANAGER_ROLE_ID || det.userRoleId==det.AppConstant.ADMIN_ROLE_ID) && stat.auditStatusId==det.AppConstant.COMMENCED_AUDIT_STATUS) ||
+                             ( det.auditDetail.allowNext != 1 && det.auditDetail.auditStatusId!=1005 &&  !det.auditCreate && (det.userRoleId==det.AppConstant.Approval_MANAGER_ROLE_ID || det.userRoleId==det.AppConstant.ADMIN_ROLE_ID) && stat.auditStatusId==det.AppConstant.COMPLETED_AUDIT_STATUS) ||
+                             (stat.auditStatusId==det.AppConstant.REOPEN && (det.auditDetail.auditStatusId==det.AppConstant.VOID_AUDIT_STATUS) ) for stat in det.auditStatusOptions" 
+                            ng-disabled="!(det.auditDetail.auditSubTypeId) || det.lockStatus || ( det.auditDetail.reviewStatus==det.AppConstant.ACCEPTED_REVIEW_STATUS &&  (det.userRoleId!=det.AppConstant.Approval_MANAGER_ROLE_ID && det.userRoleId!=det.AppConstant.ADMIN_ROLE_ID)) || (det.notLead && (!det.managerCreatedAudit && det.userRoleId!=det.AppConstant.Approval_MANAGER_ROLE_ID ) && (det.userRoleId!=det.AppConstant.ADMIN_ROLE_ID) )  || (det.auditDetail.reviewStatus==det.AppConstant.INITIATE_REVIEW_STATUS && (det.userRoleId!=det.AppConstant.Approval_MANAGER_ROLE_ID && det.userRoleId!=det.AppConstant.ADMIN_ROLE_ID )|| (det.userRoleId!=det.AppConstant.Approval_MANAGER_ROLE_ID && det.userRoleId!=det.AppConstant.ADMIN_ROLE_ID ) && (det.auditDetail.auditStatusId==det.AppConstant.VOID_AUDIT_STATUS || det.auditDetail.auditStatusId==det.AppConstant.REOPEN))|| (det.auditDetail.auditComplteLaptop==1 && det.userRoleId!=det.AppConstant.Approval_MANAGER_ROLE_ID && det.userRoleId!=det.AppConstant.ADMIN_ROLE_ID)|| det.nextCreatedBlockFinding || det.notApprovedPrevAudit  || (det.userRoleId!=det.AppConstant.Approval_MANAGER_ROLE_ID && det.leadSign)" 
+						>		<!--added by ramya for jira id--IRI-5215 -->					
+                        </select> <label for="auditstaus">{{det.auditType}} Status</label>
+                       <!--   (stat.auditStatusId==det.AppConstant.COMMENCED_AUDIT_STATUS && (det.auditDetail.auditStatusId==det.AppConstant.COMPLETED_AUDIT_STATUS && (det.userRoleId==det.AppConstant.Approval_MANAGER_ROLE_ID || det.userRoleId==det.AppConstant.ADMIN_ROLE_ID) ) ) || -->
+                    </div>
+                    <div class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                        
+                              <input type="text" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" ng-model="det.auditDetail.certificateNo" disabled 
+                                   id="certificateno"  autocomplete="off" ng-class="{'changed':det.auditDetail.certificateNo}" 
+                                   />
+                             <label for="certificateno">{{det.certType}} No.</label>
+                    
+                    </div>
+                   
+
+                    <div class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2">
+				
+                            <input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input  datePicker changed" datepicker 
+                                ng-model="det.auditDetail.openMeetingDate" id="receiptdateSSP" type="text" placeholder="DD-MMM-YYYY"
+                                min-date="det.receiptMinDate" max-date="det.receiptMaxDate"
+                                ng-blur = "det.auditDetail.openMeetingDate=_.dateValidation(det.auditDetail.openMeetingDate,'receiptdateSSP',det.receiptMinDate,det.receiptMaxDate,'','','');det.setReceiptDate()"
+                                autocomplete="off" ng-disabled="det.leadSign || !(det.auditDetail.auditSubTypeId) || det.auditDetail.auditStatusId==det.AppConstant.COMPLETED_AUDIT_STATUS || det.auditDetail.auditStatusId==det.AppConstant.VOID_AUDIT_STATUS  || det.notLead || det.lockStatus || (!det.auditDetail.auditDate && (det.auditTypeId!=det.AppConstant.SOPEP_TYPE_ID &&  det.auditTypeId!=det.AppConstant.COW_TYPE_ID  &&  det.auditTypeId!=det.AppConstant.SDR_TYPE_ID && det.auditTypeId!=det.AppConstant.STS_TYPE_ID &&  det.auditTypeId!=det.AppConstant.SMPEP_TYPE_ID && det.auditTypeId!=det.AppConstant.VOC_TYPE_ID && det.auditTypeId!=det.AppConstant.BWS_TYPE_ID))  || det.notApprovedPrevAudit " 
+							/>
+                            <label for="receiptdateSSP">Receipt Date</label>
+                            
+                    </div>
+                    <div class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                        
+                        <input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input datePicker changed" datepicker placeholder="DD-MMM-YYYY"
+                            
+                            ng-model="det.auditDetail.certIssueDate" id="issuedate" type="text" 
+                            min-date="det.minIssueDate" max-date="det.maxIssueDate"  ng-blur=" det.auditDetail.certIssueDate=_.dateValidation(det.auditDetail.certIssueDate,'issuedate',det.minIssueDate,det.maxIssueDate,'','','');" ng-change=" det.setExpiryDate();"
+                            ng-disabled="det.leadSign || !(det.auditDetail.auditSubTypeId) || det.auditDetail.auditStatusId==det.AppConstant.COMPLETED_AUDIT_STATUS || det.auditDetail.auditStatusId==det.AppConstant.VOID_AUDIT_STATUS  || det.notLead || det.lockStatus || det.notApprovedPrevAudit " autocomplete="off" 
+                            /> 
+
+                            <label for="issuedate">Issue Date</label>
+                   
+                    </div>
+              
+
+
+              <div class="txt-sec col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                        
+                    <input type="text" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" 
+                           ng-model="det.auditDetail.sspReviewDetail[0].sspRevisionNo"
+                          id="revno"  autocomplete="off" ng-class="{'changed':det.auditDetail.sspReviewDetail[0].sspRevisionNo}" auditplace max-len="{{det.AppConstant.REVISION_NO_MAX_LEN}}"
+                           ng-disabled="det.leadSign || !(det.auditDetail.auditSubTypeId) || det.auditDetail.auditStatusId==det.AppConstant.COMPLETED_AUDIT_STATUS || det.auditDetail.auditStatusId==det.AppConstant.VOID_AUDIT_STATUS  || det.notLead || det.lockStatus || det.notApprovedPrevAudit "
+                            />
+                   <label for="revno">{{det.revsionNo}}</label>
+          
+          </div>
+          
+            
+
+                </div>
+            </div>
+        
+        <div id="collapseAtOne">
+            
+            <div class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div id="reportHead" style="padding: 2px 2px 2px 5px !important;"  class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 accordion-toggle1 collapsed caption-subject bold uppercase" ng-click="det.toggle($event)" >
+                    
+                       Attachment to this Report
+                        
+                    
+                </div>
+                
+                <div class="auditreportsection">
+                    <button class="btn btn-info attabut btnclass fix-but-width" ng-click="det.reportUpload(det.AppConstant.OTHER_RPT_ATCH_ID)"
+                    ng-disabled="(det.notLead && !det.AuditReopenEnableFields) || det.lockStatus || (det.leadSign && !det.AuditReopenEnableFields) || det.auditDetail.auditStatusId==det.AppConstant.COMPLETED_AUDIT_STATUS || det.auditDetail.auditStatusId==det.AppConstant.VOID_AUDIT_STATUS  || !(det.auditDetail.auditSubTypeId) || (det.auditDetail.auditSubTypeId!=det.AppConstant.INTERIM_SUB_TYPE_ID && sum.audSummaryId==det.AppConstant.INTERIM_SUMMARY_ID && !det.AuditReopenEnableFields && (det.auditDetail.auditTypeId<=det.AppConstant.SOPEP_TYPE_ID &&  det.auditDetail.auditTypeId<=det.AppConstant.COW_TYPE_ID ))   || ( det.auditDetail.auditSubTypeId==det.AppConstant.INTERIM_SUB_TYPE_ID && sum.audSummaryId==1001 && (det.auditDetail.auditTypeId<=det.AppConstant.SOPEP_TYPE_ID &&  det.auditDetail.auditTypeId>=det.AppConstant.COW_TYPE_ID ) && !det.AuditReopenEnableFields) || det.carUpdateStatus  || (det.userRoleId == det.AppConstant.ADMIN_ROLE_ID || det.userRoleId == det.AppConstant.MANAGER_ROLE_ID) || det.notApprovedPrevAudit || det.nextCreatedBlockFinding">Add Attachment </button>
+                </div>
+                <div class="portlet-body collapse col-xs-12 col-sm-12 col-md-12 col-lg-12 mobilesizecontainer"  id="reportFileBody">
+                    <div  class="col-xs-12 col-sm-12 col-md-12 col-lg-offset-1 col-lg-10 mobilesizecontainer"> 
+                     <div class="table-responsive tdmar">
+                                      <table class="table table-bordered table-hover containerfull">
+                                       <thead>
+                                          <tr>
+                                             <th class="center">File Name</th>
+                                             <th class="center">Types</th>
+                                             <th class="center">Download</th>
+                                             <th class="center">Action</th>
+            
+                                          </tr>
+                                        </thead>
+                                       <tbody>
+                                          <tr ng-repeat="report in det.auditDetail.auditRptAttach | orderBy:'seqNo'">
+                                              
+                                                <td class="center" style="max-width: 100px !Important; overflow: auto;">
+                                                    
+                                               		<label for="report-file-{{$index}}" style="padding:1px 6px !important;width:34px !important;" class="buttontrash btn btn-info btnclass"
+                                               		 	ng-disabled=" (det.notLead && !det.AuditReopenEnableFields) || det.lockStatus || (det.leadSign && !det.AuditReopenEnableFields) || det.auditDetail.auditStatusId==det.AppConstant.COMPLETED_AUDIT_STATUS || det.auditDetail.auditStatusId==det.AppConstant.VOID_AUDIT_STATUS  || !(det.auditDetail.auditSubTypeId) || (det.auditDetail.auditSubTypeId!=det.AppConstant.INTERIM_SUB_TYPE_ID && sum.audSummaryId==det.AppConstant.INTERIM_SUMMARY_ID && !det.AuditReopenEnableFields && (det.auditDetail.auditTypeId<=det.AppConstant.SOPEP_TYPE_ID &&  det.auditDetail.auditTypeId<=det.AppConstant.COW_TYPE_ID ))   || ( det.auditDetail.auditSubTypeId==det.AppConstant.INTERIM_SUB_TYPE_ID && sum.audSummaryId==1001 && (det.auditDetail.auditTypeId<=det.AppConstant.SOPEP_TYPE_ID &&  det.auditDetail.auditTypeId>=det.AppConstant.COW_TYPE_ID ) && !det.AuditReopenEnableFields) || det.carUpdateStatus  || (det.userRoleId == det.AppConstant.ADMIN_ROLE_ID || det.userRoleId == det.AppConstant.MANAGER_ROLE_ID) || det.notApprovedPrevAudit " ng-if="!report.fileName" 
+                                               		 	ng-click="!( (det.notLead && !det.AuditReopenEnableFields) || det.lockStatus || (det.auditDetail.reviewStatus==det.AppConstant.INITIATE_REVIEW_STATUS  && !det.AuditReopenEnableFields && det.notLead) || (det.auditDetail.auditStatusId==det.AppConstant.COMPLETED_AUDIT_STATUS &&  det.notLead ) || det.auditDetail.auditStatusId==det.AppConstant.VOID_AUDIT_STATUS  || det.notApprovedPrevAudit  || (det.leadSign && !det.AuditReopenEnableFields)  || !(det.auditDetail.auditSubTypeId))?det.reportUpload(report.attachmentTypeId):''" >
+       													<i class="fa fa-paperclip" aria-hidden="true" title="Attachments"></i>
+    												</label>
+                                                <!-- ng-click="(!(det.notLead) && det.auditDetail.auditStatusId!=1001 && !(det.lockStatus) && det.auditDetail.auditSubTypeId)?det.reportUpload(report.attachmentTypeId):null" >
+       													 -->
+                                                    <a href="#" style="word-break: break-all;" ng-click="det.reportFilePreview(report.fileName,$index)">{{report.fileName}}</a>   
+                                                </td>
+                                                 <td class="center" style="max-width: 100px !Important; overflow: auto;word-break: break-all;" ng-class="{default:!report.fileName}">
+ 												<span ng-if="!report.fileName && report.mandatory==1" ng-class="{default:!report.fileName}" style="font-weight: 900; font-size: larger; color: #f10f0f;">*</span> 				
+ 									            <span>{{report.attchTypeDescAudit?report.attchTypeDescAudit:report.attachmentTypeDesc}}</span>
+                                              <span ng-if="report.otherType">({{report.otherType}}) 
+                                                 				</span> 
+                                                 </td>
+                                             <td class="center">
+                                                 <button class="buttontrash btn btn-info btnclass" ng-click="det.downloadReport(report.fileName,$index)" ng-disabled="!report.fileName">
+                                                     <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                                                 </button>
+                                              </td>
+                                             <td class="center">
+                                                <!--added by @Ramya on 12-12-2022 for IRI-5587-->
+                                                 <button class="buttontrash btn btn-info btnclass" ng-click="det.removeReport(report.seqNo,report.fileName,report.attachmentTypeId)" 
+                                                 ng-disabled="det.leadSign || !(det.auditDetail.auditSubTypeId) || det.auditDetail.auditStatusId==det.AppConstant.COMPLETED_AUDIT_STATUS || det.auditDetail.auditStatusId==det.AppConstant.VOID_AUDIT_STATUS  || det.notLead || det.lockStatus|| !report.fileName"
+                                                    >
+                                                     <i class="fa fa-trash-o " aria-hidden="true" title="Trash"></i>
+                                                     	
+                                                 </button>
+                                              </td>
+            
+                                          </tr>	 		
+                                      </tbody>
+                         </table>
+                      </div>
+                      </div>
+            </div>
+            </div>
+    
+            <div class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12" >
+                <div style="padding: 2px 2px 2px 5px !important;" class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 accordion-toggle1 collapsed caption-subject bold uppercase" ng-click="det.toggle($event)">
+                    
+                        {{det.auditType}} Summary
+                    
+                    
+                </div>
+                   <div class="portlet-body  collapse col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <h5 class="audithead">{{det.summaryHead}}</h5>
+                        <div ng-repeat="sum in det.auditSummary  | orderBy:'audSummaryId'">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 inner-container">
+                            
+                                  <input type="radio" id="sum-{{$index}}" ng-change="det.setAuditSummary($index)" name="ismaudsum" ng-model="sum.sumary" class="containerhght" ng-value="sum.audSummaryId"
+                                  ng-init="(det.auditCreate && $index==0)?(sum.sumary=sum.audSummaryId):''" ng-disabled="  (det.notLead && !det.AuditReopenEnableFields) || det.lockStatus || (det.leadSign && !det.AuditReopenEnableFields) || det.auditDetail.auditStatusId==det.AppConstant.COMPLETED_AUDIT_STATUS || det.auditDetail.auditStatusId==det.AppConstant.VOID_AUDIT_STATUS  || !(det.auditDetail.auditSubTypeId) || (det.auditDetail.auditSubTypeId!=det.AppConstant.INTERIM_SUB_TYPE_ID && sum.audSummaryId==det.AppConstant.INTERIM_SUMMARY_ID && !det.AuditReopenEnableFields && (det.auditDetail.auditTypeId<=det.AppConstant.SOPEP_TYPE_ID &&  det.auditDetail.auditTypeId>=det.AppConstant.COW_TYPE_ID ))   || ( det.auditDetail.auditSubTypeId==det.AppConstant.INTERIM_SUB_TYPE_ID && sum.audSummaryId==1001 && (det.auditDetail.auditTypeId<=det.AppConstant.SOPEP_TYPE_ID &&  det.auditDetail.auditTypeId>=det.AppConstant.COW_TYPE_ID ) && !det.AuditReopenEnableFields) || det.carUpdateStatus  || (det.userRoleId == det.AppConstant.ADMIN_ROLE_ID || det.userRoleId == det.AppConstant.Approval_MANAGER_ROLE_ID) || det.notApprovedPrevAudit "
+                                   ng-change="det.setAuditSummary($index)">
+                                         <label for="sum-{{$index}}" class="access"></label>
+         					<label for="sum1-{{$index}}" class="no-access">{{sum.audSummaryDesc}}</label>
+                                        <div class="check">
+                            
+                                        </div>
+                                
+                            </div>
+                        </div>				
+                </div>
+    </div>
+    
+            <div class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12" >
+                <div style="padding: 2px 2px 2px 5px !important;" class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 accordion-toggle1 collapsed caption-subject bold uppercase"  ng-click="det.toggle($event)">
+                
+                    {{det.auditorType}} / Reviewer Signature
+                
+                            
+                </div>
+                
+                
+                <div style="padding-bottom: 15px !important;" class="portlet-body collapse col-xs-12 col-sm-12 col-md-12 col-lg-12 bodycontainer mobilesizecontainer">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 trdlpadding mobtdpad">	
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 containerfull moblrpad">
+                            <label class="auditorsec">Type</label>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 containerfull moblrpad">
+                            <label class="auditorsec">Name</label>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 containerfull moblrpad">
+                            <label class="auditorsec">Date</label>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 containerfull moblrpad">
+                            <label class="auditorsec">Signature</label>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 trdlpadding mobtdpad"  ng-repeat="auditor in det.auditDetail.auditAuditorDetail">
+                    
+                        <div  class="txt-sec col-xs-2 col-sm-2 col-md-2 col-lg-2 moblrpad mobileContainer std-hgt-sign">
+                    
+                             <input  class="col-lg-12 input-height certificateSection txt-input sign-full-width std-hgt-sign" ng-model="auditor.auditRoleDesc" 
+                             data-toggle="tooltip" data-original-title="{{auditor.auditRoleDesc}}" tooltip data-placement="top"
+                               readonly  ng-class="{'changed':auditor.auditRoleDesc}"/>
+                            
+                        </div>
+                        
+                        <div  class="txt-sec col-xs-2 col-sm-2 col-md-2 col-lg-2 moblrpad mobileContainer std-hgt-sign">
+                    
+                             <input   class="col-lg-12 input-height certificateSection txt-input sign-full-width std-hgt-sign" ng-model="auditor.auditorName"  readonly 
+                             data-toggle="tooltip" data-original-title="{{auditor.auditorName}}" tooltip data-placement="top"
+                              ng-class="{'changed':auditor.auditorName}"/>
+                            
+                        </div>
+                                      
+                     
+                        <div  style="padding:0px !Important;" class="txt-sec col-xs-3 col-sm-2 col-md-2 col-lg-2 moblrpad std-hgt-sign">
+                    
+                            
+                             <input   class="col-lg-12 input-height certificateSection txt-input datePicker changed sign-full-width std-hgt-sign"  datepicker id="signDate-{{$index}}" ng-model="auditor.audSignatureDate" placeholder="DD-MMM-YYYY" 
+                             min-date="det.minSignatureDate" max-date="det.maxSignatureDate" disabled
+                        	 ng-blur = "det.dateValidation(auditor.audSignatureDate,'signDate-'+$index,det.minSignatureDate,det.maxSignatureDate,auditor)"
+                             data-toggle="tooltip" data-original-title="{{auditor.audSignatureDate}}" tooltip data-placement="top"  
+                             />
+                        </div>
+                        
+                        <div  class="col-xs-2 col-sm-2 col-md-2 col-lg-2 moblrpad containerfull std-hgt-sign" ng-if="auditor.audSignature && !auditor.showSignatureButton">					 
+                            <input   type="text" style="background-image:url('data:image/png;base64,{{auditor.audSignature}}'); background-size:100% 100%;border: none !Important;" class="col-lg-12 input-height certificateSection imageset sign-full-width std-hgt-sign" disabled/> 
+                        </div>
+                        <div  class="col-xs-2 col-sm-2 col-md-2 col-lg-2 moblrpad containerfull std-hgt-sign" ng-if="auditor.showSignatureButton || !auditor.audSignature">
+                                                          
+                               <button  class="col-lg-12 input-height btn btn-info btnclass sign-full-width normalMode std-hgt-sign" type="button"
+                            ng-click="det.attachSignature($index,auditor.auditRoleID)"
+                            ng-disabled="auditor.auditRoleID==det.AppConstant.AUDIT_REVIEWER_ROLE_ID?(det.auditDetail.reviewStatus==det.AppConstant.REVERT_REVIEW_STATUS || det.lockStatus || auditor.userId!=det.loginUserId || !(det.leadSign) || det.nextAdtCreated || (auditor.auditRoleID==det.AppConstant.AUDIT_REVIEWER_ROLE_ID && det.auditDetail.auditSummaryId == det.AppConstant.NOT_APPROVED_SUMMARY)):(det.lockStatus ||  det.nextAdtCreated || (auditor.userId!=det.loginUserId  && auditor.delegateSign!=1) || det.auditDetail.auditStatusId==det.AppConstant.VOID_AUDIT_STATUS  || det.auditDetail.reviewStatus==det.AppConstant.INITIATE_REVIEW_STATUS || (auditor.userId==det.loginUserId && auditor.delegateSign==1 && det.notLead) || (auditor.userId!=det.loginUserId && det.notLead) ) || det.auditCreate || det.notApprovedPrevAudit || (((auditor.auditRoleID == det.AppConstant.AUDIT_AUDITOR_ROLE_ID && det.notLead) || auditor.auditRoleID==det.AppConstant.AUDIT_REVIEWER_ROLE_ID) && det.auditDetail.auditSummaryId == det.AppConstant.NOT_APPROVED_SUMMARY)"
+                            
+                               >Attach</button>
+                               
+                            <button  class="buttontrash btn btn-info btnclass fndattachicon mobileMode std-hgt-sign sign-fix" type="button" ng-click="det.attachSignature($index,auditor.auditRoleID)"
+                            data-toggle="tooltip"
+                            ng-disabled="auditor.auditRoleID==det.AppConstant.AUDIT_REVIEWER_ROLE_ID?(det.auditDetail.reviewStatus==det.AppConstant.REVERT_REVIEW_STATUS || det.lockStatus || auditor.userId!=det.loginUserId ):(det.lockStatus || auditor.userId!=det.loginUserId || det.auditDetail.auditStatusId==det.AppConstant.VOID_AUDIT_STATUS  || det.auditDetail.reviewStatus==det.AppConstant.INITIATE_REVIEW_STATUS)"
+                             data-original-title="Attach Signature" tooltip data-placement="top">
+                                    <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+                            </button>	
+                        </div>
+                        
+                        
+                        
+                        <div  class="col-xs-2 col-sm-2 col-md-2 col-lg-2 moblrpad containerfull std-hgt-sign" ng-if="auditor.auditRoleID==1001 && auditor.audLeadStatus==0 && auditor.userId==det.loginUserId && auditor.delegateSign!=1">
+                            <button  class="col-lg-12 input-height btn btn-info btnclass sign-full-width normalMode std-hgt-sign" type="button" 
+                            ng-click="det.delegateSign($index,auditor.auditRoleID,'Attach')"
+                            ng-disabled="det.lockStatus || auditor.audSignature || det.notApprovedPrevAudit || ((auditor.auditRoleID == det.AppConstant.AUDIT_AUDITOR_ROLE_ID || auditor.auditRoleID==det.AppConstant.AUDIT_REVIEWER_ROLE_ID) && det.auditDetail.auditSummaryId == det.AppConstant.NOT_APPROVED_SUMMARY)" >Delegate</button>
+                            
+                            <button  class="buttontrash btn btn-info btnclass fndattachicon mobileMode std-hgt-sign sign-fix" type="button" 
+                            data-toggle="tooltip" ng-click="det.delegateSign($index,auditor.auditRoleID,'Attach')"
+                            ng-disabled="det.lockStatus"
+                             data-original-title="Attach Signature" tooltip data-placement="top">
+                                    <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+                             </button>
+                            
+                            </div>
+                          
+                            <div  class="col-xs-2 col-sm-2 col-md-2 col-lg-2 moblrpad containerfull std-hgt-sign" ng-if=" ( auditor.auditRoleID == det.AppConstant.AUDITOR_ROLE_ID  && det.notLead && auditor.userId==det.loginUserId && auditor.delegateSign==1 ) || (auditor.delegateSign==1 && (det.userRoleId == det.AppConstant.ADMIN_ROLE_ID || det.userRoleId == det.AppConstant.Approval_MANAGER_ROLE_ID ))" >
+                            
+                             <button   class="col-lg-12 btn btn-info btnclass input-height sign-full-width normalMode std-hgt-sign" type="button"  
+                            ng-disabled="det.lockStatus || auditor.audSignature || (det.userRoleId ==det.AppConstant.Approval_MANAGER_ROLE_ID || det.userRoleId == det.AppConstant.ADMIN_ROLE_ID) || det.notApprovedPrevAudit || det.nextCreatedBlockFinding"
+							ng-click="det.delegateSign($index,auditor.auditRoleID,'Revert')">Pull back Delegate Request</button>
+                              
+                               
+                             <button  class="buttontrash btn btn-info btnclass fndattachicon mobileMode std-hgt-sign sign-fix" type="button" 
+                            data-toggle="tooltip" ng-click="det.delegateSign($index,auditor.auditRoleID,'Revert')"
+                            ng-disabled="det.lockStatus"
+                             data-original-title="Attach Signature" tooltip data-placement="top">
+                                    <i class="fa fa-hand-o-right" aria-hidden="true"></i> 
+                           	</button>
+                        </div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        <!-- ng-disabled="auditor.auditRoleID==det.AppConstant.AUDIT_REVIEWER_ROLE_ID?(det.auditDetail.reviewStatus==det.AppConstant.REVERT_REVIEW_STATUS || det.lockStatus || auditor.userId!=det.loginUserId || det.nextAdtCreated):(det.lockStatus || auditor.userId!=det.loginUserId || det.auditDetail.auditStatusId==det.AppConstant.COMPLETED_AUDIT_STATUS || det.auditDetail.auditStatusId==det.AppConstant.VOID_AUDIT_STATUS  || det.auditDetail.reviewStatus==det.AppConstant.INITIATE_REVIEW_STATUS)"
+                             -->
+                                        
+                        <div  class="col-xs-1 col-sm-2 col-md-2 col-lg-2 moblrpad containerfull std-hgt-sign" ng-if="auditor.audSignature && !auditor.showSignatureButton">
+                            <button   class="col-lg-12 btn btn-info btnclass input-height sign-full-width normalMode std-hgt-sign" type="button" 
+                             ng-disabled="auditor.auditRoleID==det.AppConstant.AUDIT_REVIEWER_ROLE_ID?(det.auditDetail.reviewStatus==det.AppConstant.REVERT_REVIEW_STATUS || det.lockStatus || auditor.userId!=det.loginUserId || det.nextAdtCreated || det.auditDetail.reviewStatus==det.AppConstant.ACCEPTED_REVIEW_STATUS || (det.reviewerSign || det.auditDetail.reviewerSign ) ):(det.lockStatus || (auditor.userId!=det.loginUserId &&  auditor.delegateSign!=1 ) || det.auditDetail.auditStatusId==det.AppConstant.VOID_AUDIT_STATUS  || det.auditDetail.reviewStatus==det.AppConstant.INITIATE_REVIEW_STATUS || det.auditDetail.reviewStatus==det.AppConstant.ACCEPTED_REVIEW_STATUS || (det.notLead && det.leadSign) || (auditor.delegateSign==1 && det.leadSign)) || det.notApprovedPrevAudit || det.nextCreatedBlockFinding"
+                             ng-click="det.removeSign($index,auditor.auditRoleID)">Remove Sign.</button>
+                            
+                            <button class="buttontrash btn btn-info btnclass fndattachicon mobileMode std-hgt-sign sign-fix" type="button"  ng-disabled="auditor.auditRoleID==det.AppConstant.AUDIT_REVIEWER_ROLE_ID?(det.auditDetail.reviewStatus==det.AppConstant.REVERT_REVIEW_STATUS || det.lockStatus || auditor.userId!=det.loginUserId || det.nextAdtCreated):(det.lockStatus || auditor.userId!=det.loginUserId || det.auditDetail.auditStatusId==det.AppConstant.COMPLETED_AUDIT_STATUS || det.auditDetail.auditStatusId==det.AppConstant.VOID_AUDIT_STATUS  || det.auditDetail.reviewStatus==det.AppConstant.INITIATE_REVIEW_STATUS) "  ng-click="det.removeSign($index,auditor.auditRoleID)"
+                             data-toggle="tooltip" data-original-title="Remove Sign" tooltip data-placement="top"
+                            >
+                                <i class="fa fa-remove" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        
+                        
+                        
+                        <div ng-if="auditor.auditRoleID == det.AppConstant.AUDIT_AUDITOR_ROLE_ID && auditor.audLeadStatus==det.AppConstant.AUD_LEAD_STATUS && auditor.userId==det.loginUserId && (auditor.audSignature && (det.auditDetail.reviewStatus != det.AppConstant.INITIATE_REVIEW_STATUS && det.auditDetail.reviewStatus != det.AppConstant.ACCEPTED_REVIEW_STATUS))" class="col-xs-1 col-sm-2 col-md-2 col-lg-2 moblrpad containerfull">
+                        
+                        
+                        <button   class="col-lg-12 btn btn-info btnclass input-height sign-full-width normalMode std-hgt-sign" type="button"
+                        ng-disabled="!auditor.audSignature || det.lockStatus || auditor.userId!=det.loginUserId || det.auditDetail.auditStatusId==det.AppConstant.VOID_AUDIT_STATUS || det.notApprovedPrevAudit || det.nextCreatedBlockFinding"
+                        ng-click="det.initiateReview()">Initiate Review</button>
+                             
+                            
+                            <button class="buttontrash btn btn-info btnclass fndattachicon mobileMode std-hgt-sign sign-fix" type="button"   ng-disabled="!auditor.audSignature || det.lockStatus || auditor.userId!=det.loginUserId|| det.auditDetail.auditStatusId==det.AppConstant.VOID_AUDIT_STATUS"
+                           ng-click="det.initiateReview()" data-toggle="tooltip" data-original-title="Initiate Review" tooltip data-placement="top">
+                                <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+                            </button>
+                        
+                        </div>
+                    
+                        
+                        <div ng-if="auditor.auditRoleID == det.AppConstant.AUDIT_AUDITOR_ROLE_ID && auditor.audLeadStatus==det.AppConstant.AUD_LEAD_STATUS && auditor.userId==det.loginUserId && (auditor.audSignature && det.auditDetail.reviewStatus == det.AppConstant.INITIATE_REVIEW_STATUS)" class="col-xs-1 col-sm-2 col-md-2 col-lg-2 moblrpad containerfull">
+                            
+                            <button   class="col-lg-12 btn btn-info btnclass input-height sign-full-width normalMode std-hgt-sign" type="button" 
+                            ng-disabled="!auditor.audSignature || auditor.userId!=det.loginUserId || det.auditDetail.reviewStatus != det.AppConstant.INITIATE_REVIEW_STATUS || det.lockStatus || det.auditDetail.auditStatusId==det.AppConstant.VOID_AUDIT_STATUS || det.notApprovedPrevAudit || det.nextCreatedBlockFinding || det.nextAdtCreated"
+							ng-click="det.revertReview()">Pull back Review request</button>
+                            <!--changed by Ramya on 25-10-2022 for jira id - IRI-5514-->
+							<button class="buttontrash btn btn-info btnclass fndattachicon mobileMode std-hgt-sign sign-fix" type="button" 
+                                data-toggle="tooltip" data-original-title="Revert Review" tooltip data-placement="top"
+                                 ng-disabled="!auditor.audSignature || auditor.userId!=det.loginUserId || det.auditDetail.reviewStatus != det.AppConstant.INITIATE_REVIEW_STATUS || det.lockStatus || det.nextCreatedBlockFinding || det.nextAdtCreated" ng-click="det.revertReview()">
+                                    <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>	
+                </div>
+    </div>
+    
+            <div class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12 " >
+                <div style="padding: 2px 2px 2px 5px !important;" class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 accordion-toggle1 collapsed caption-subject bold uppercase pull-left" ng-click="det.toggle($event)">
+                    
+                    Narrative Report / Summary
+                        
+            
+                    
+                </div>
+                
+            <div style="margin-bottom:0px !Important;"  class="portlet-body col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull collapse">
+                    
+                <summernote id='narrative'  ng-model="det.auditDetail.narrativeSummary" ></summernote>	
+                
+                 <summernote class='hidden' id='duplicateNarrative'  ng-model="det.duplicateNarrativeSummary" ></summernote>	
+                    
+                    <img class="hidden" id="image"  src="../../../assets/global/img/background-logo.png" alt="The Scream">
+                    
+                    <img class="hidden" id="images"  src="../../../assets/global/img/background-logo-black.jpg" alt="The Scream">
+                    
+                    <div class="hidden" ng-repeat="sign in signatureonLoad">
+                        <img  id="image-{{$index}}" src='data:image/png;base64,{{sign.audSignature}}' width="500" height="300"/>
+    				</div>
+    				
+                        <img  class="hidden"  id="image-1" src='data:image/png;base64,{{det.leadSignImgData}}' width="500" height="300"/>
+                       
+    				
+    				<img id="sealId" class="hidden" ng-src="data:image/png;base64,{{det.seal}}" alt="The Scream">
+		
+		<img class="hidden" id="intermediateSign" ng-src="{{det.intermediateSign}}" alt="The Scream"> 
+	
+		<img class="hidden" id="qrCodeImage" 	ng-src="{{det.qrCodeData}}" alt="The Scream">
+		
+		<img class="hidden" id="imageSign" 	ng-src="data:image/png;base64,{{det.leadSignReceiptLtr}}" alt="The Scream">
+    				
+                </div>
+        </div>	
+        
+        
+        <div
+				class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<div  style="padding: 2px 2px 2px 5px !important;"
+					class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 caption-subject bold uppercase">
+
+					STAMP
+					<div class="auditreportsection"
+						class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
+						<button class="btn btn-info attabut btnclass fix-but-width"
+							ng-disabled="det.auditDetail.auditStatusId!=det.AppConstant.COMMENCED_AUDIT_STATUS || det.auditCreate || det.lockStatus || det.notLead || (det.scopeId == 1001) || det.auditDetail.auditStatusId==det.AppConstant.COMPLETED_AUDIT_STATUS || det.userRoleId ==det.AppConstant.IHM_MANAGER_ROLE_ID || det.userRoleId ==det.AppConstant.Approval_MANAGER_ROLE_ID || det.auditDetail.reviewStatus == det.AppConstant.INITIATE_REVIEW_STATUS
+							|| (det.auditDetail.auditStatusId == 1002 && !auditor.showSignatureButton)  || ( det.auditDetail.auditStatusId==det.AppConstant.VOID_AUDIT_STATUS && (det.userRoleId ==det.AppConstant.Approval_MANAGER_ROLE_ID || det.userRoleId == det.AppConstant.ADMIN_ROLE_ID || det.userRoleId==det.AppConstant.AUDITOR_ROLE_ID )) || det.auditDetail.auditSummaryId == det.AppConstant.NOT_APPROVED_SUMMARY || det.notApprovedPrevAudit "
+							type="button"
+							class="effect effect footerbutton btn btn-primaryclr font-print" ng-click="det.stampApproval()">Add 
+							Stamp</button>
+					</div>
+
+				</div>
+				
+			</div>
+        
+        
+        <div  class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12">
+               <div style="padding: 2px 2px 2px 5px !important;" class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 accordion-toggle1 collapsed caption-subject bold uppercase pull-left" ng-click="det.toggle($event)">
+                    
+                    Letter History
+                        
+            
+                    
+                </div>
+                    <div id="certificateHistory" class="portlet-body collapse col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull">
+                    <div  class="col-xs-12 col-sm-12 col-md-12  col-lg-12 mobilesizecontainer"> 
+                        <div class="table-responsive tdmar">
+                   
+                        <table class="table table-bordered table-hover containerfull">
+                        	<thead>
+                        		<tr>
+                        			<th class="center"> Sl No.</th>
+                        			<th class="center"> Review Type</th>
+                        			<th class="center"> {{det.auditDate}} Date</th>
+                        			<th class="center"> Location</th>
+                        			<th class="center">{{det.apreletter}} No.</th>
+                        			<th class="center" ng-hide="det.auditTypeId == det.AppConstant.SDR_TYPE_ID">Receipt Letter</th><!-- code added to fix IRI-5288 by kiran -->
+                        			<th class="center">{{ det.sspLetterHistDate}}</th>
+                        			<th class="center"> {{det.ltrHistAuditor}}</th>
+                        			<th class="center">Status</th>
+
+                        		</tr>		
+     						</thead>		                      
+                           <tbody>
+                        
+                           	<tr ng-repeat="letter in det.LetterHistoryDetails |  orderBy:'auditSeqNo':false" ng-if="letter.sspLtrStatus==1" >
+                           	    <td class="center" ng-if="det.LetterHistoryDetails[det.LetterHistoryDetails.length-1].sspLtrStatus==0">{{$index+1}}</td>
+                           	    <td class="center" ng-if="det.LetterHistoryDetails[det.LetterHistoryDetails.length-1].sspLtrStatus==1">{{$index+1}}</td>
+                        			<td class="center"><a ng-href="#" ng-click="det.showData(letter.auditSeqNo,letter.vesselImoNo,letter.auditTypeId,letter.companyId)">{{letter.audSubTypeDesc}}</a></td>
+                        			<td class="center">{{letter.auditDate |  date:'dd-MMM-yyyy'}}
+                        			<td class="center">{{letter.auditPlace}}</td>
+                        			<td class="center"><a ng-href="#" ng-click="det.exportLetterHist(letter.auditTypeId,letter.companyId,letter.auditSeqNo,letter.leadSign,letter.auditAuditorDetail[0].userId,1,letter.vesselNameAud,letter.companyAddressAud,letter.companyName,letter.portOfRegistry)">{{letter.certificateNo}}</a></td>
+                        			<!-- code added to fix IRI-5288 by kiran -->
+                                    <td class="center" ng-hide="det.auditTypeId == det.AppConstant.SDR_TYPE_ID"><button class="buttontrash btn btn-info btnclass" ng-click="det.exportReceiptHist(letter.auditAuditorDetail[0].userId,letter.auditTypeId,letter.companyId,letter.auditSeqNo,letter.vesselNameAud,letter.companyAddressAud,letter.companyName,1,letter.openMeetingDate,letter.portOfRegistry)">
+												<i class="fa fa-file-text-o" aria-hidden="true"></i><!-- <i class="fas fa-file-alt"></i> -->
+											</button></td>
+                        		 <td class="center">{{letter.auditTypeId==1005 ? (letter.closeMeetingDate.split(' ')[0] |  date:'dd-MMM-yyyy') : letter.certIssueDate }}</td>
+                        		 <td class="center">{{letter.leadAuditorName}}</td>
+                        		 <td class="center" style="color:green">Active</td>
+                        		</tr>
+                        	<tr ng-repeat="letter in det.vesselHistory" ng-if="letter.sspLtrStatus==1" >
+                           	    <td class="center">{{letter.slNo}}</td>
+                        			<td class="center" >{{letter.audSubTypeDesc}}</td>
+                        			<td class="center">{{letter.auditDate |  date:'dd-MMM-yyyy'}}
+                        			<td class="center">{{letter.auditPlace}}</td>
+                        			<td class="center"><a ng-href="#" ng-click="det.exportLetterHist(letter.auditTypeId,letter.companyId,letter.auditSeqNo,letter.leadSign,letter.auditAuditorDetail[0].userId,0,letter.vesselNameAud,letter.companyAddressAud,letter.companyName,letter.portOfRegistry)">{{letter.certificateNo}}</a></td>
+                        			<!-- code added to fix IRI-5288 by kiran -->
+                                    <td class="center" ng-hide="det.auditTypeId == det.AppConstant.SDR_TYPE_ID"><button class="buttontrash btn btn-info btnclass" ng-click="det.exportReceiptHist(letter.auditAuditorDetail[0].userId,letter.auditTypeId,letter.companyId,letter.auditSeqNo,letter.vesselNameAud,letter.companyAddressAud,letter.companyName,0,letter.openMeetingDate,letter.portOfRegistry)">
+												<i class="fa fa-file-text-o" aria-hidden="true"></i>
+											</button></td>
+                        		 <td class="center">{{letter.auditTypeId==1005 ? (letter.closeMeetingDate.split(' ')[0] |  date:'dd-MMM-yyyy') : letter.certIssueDate }}</td>
+                        		 <td class="center">{{letter.leadAuditorName}}</td>
+                        		 <td class="center" style="color:red">In-Active</td>
+                        	</tr>
+                           </tbody>
+                        </table>
+                        </div>
+                        </div>
+   				</div>
+               </div>
+           
+           
+       </div>
+    </form>
+  
+    <div   class="col-xs-12 col-sm-12 col-md-12 col-lg-12 aud footerfixed">
+        <!-- code added to fix IRI-5288 by kiran -->
+               <div class=" col-xs-4  col-sm-4  col-md-2" ng-class="{'col-lg-offset-1':(((det.auditTypeId == det.AppConstant.SOPEP_TYPE_ID || det.auditTypeId == det.AppConstant.STS_TYPE_ID || det.auditTypeId == det.AppConstant.SMPEP_TYPE_ID || det.auditTypeId == det.AppConstant.BWS_TYPE_ID || det.auditTypeId == det.AppConstant.VOC_TYPE_ID || det.auditTypeId == det.AppConstant.SDR_TYPE_ID  || det.auditTypeId == det.AppConstant.COW_TYPE_ID) && (det.auditDetail.auditSubTypeId))), 'col-lg-offset-3':((det.auditTypeId == det.AppConstant.SOPEP_TYPE_ID || det.auditTypeId == det.AppConstant.STS_TYPE_ID || det.auditTypeId == det.AppConstant.SMPEP_TYPE_ID || det.auditTypeId == det.AppConstant.BWS_TYPE_ID || det.auditTypeId == det.AppConstant.VOC_TYPE_ID || det.auditTypeId == det.AppConstant.SDR_TYPE_ID || det.auditTypeId == det.AppConstant.COW_TYPE_ID) && !det.auditDetail.auditSubTypeId)}"
+               ng-style ="{ 'margin-left' : (det.auditTypeId == det.AppConstant.SDR_TYPE_ID)? '222px' : '' }">
+            <button  ng-class="{'widthSetting':(det.auditTypeId == det.AppConstant.MLC_TYPE_ID)}" type="button" class="effect effect footerbutton btn btn-primaryclr font-back" ng-click="det.back()">
+                Back 
+            </button>
+        </div>
+        
+        
+        
+        <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
+            <button type="button" class="effect effect footerbutton btn btn-primaryclr font-print" ng-disabled="det.auditCreate" ng-click="det.exportReport()">{{det.reportletter}}</button>
+        </div>
+        
+         <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2" ng-if="((det.auditTypeId == det.AppConstant.SOPEP_TYPE_ID || det.auditTypeId == det.AppConstant.STS_TYPE_ID || det.auditTypeId == det.AppConstant.SMPEP_TYPE_ID || det.auditTypeId == det.AppConstant.BWS_TYPE_ID || det.auditTypeId == det.AppConstant.VOC_TYPE_ID || det.auditTypeId == det.AppConstant.COW_TYPE_ID) &&(det.auditDetail.auditSubTypeId))">
+            <button type="button" class="effect effect footerbutton btn btn-primaryclr font-print" ng-disabled="det.auditCreate || !(det.auditDetail.openMeetingDate) || !det.ValidationForReceiptLetter || det.notLead || det.auditDetail.auditStatusId==det.AppConstant.VOID_AUDIT_STATUS" ng-click="(det.validateReceiptLetter())? det.exportReceiptLetter():''">{{det.certiRecieptLetter}}</button>
+        </div>     
+          
+		<div   class="col-xs-4 col-sm-4 col-md-2 col-lg-2" ng-if="(det.auditDetail.auditSubTypeId == det.AppConstant.SSP_DMLC_INITIAL_AUD_SUBTYPEID) ">
+            <button type="button" class="effect effect footerbutton btn btn-primaryclr font-print" ng-disabled="det.auditCreate ||det.disabledApproveButton || (!det.auditDetail.sspReviewDetail[0].sspRevisionNo) || det.notLead || !det.ValidationForReviewLetter || ((det.auditTypeId == det.AppConstant.SOPEP_TYPE_ID || det.auditTypeId == det.AppConstant.STS_TYPE_ID || det.auditTypeId == det.AppConstant.SMPEP_TYPE_ID || det.auditTypeId == det.AppConstant.BWS_TYPE_ID || det.auditTypeId == det.AppConstant.VOC_TYPE_ID || det.auditTypeId == det.AppConstant.SDR_TYPE_ID || det.auditTypeId == det.AppConstant.COW_TYPE_ID)&&!det.auditDetail.certIssueDate) || !det.auditDetail.auditDate || det.lockStatus || det.auditDetail.auditStatusId==det.AppConstant.VOID_AUDIT_STATUS || det.nextCreatedBlockFinding"  ng-click="(det.validateReceiptLetter())?det.validateAndExportapprovalletter(det.auditTypeId,det.companyId,det.auditSeqNo):''">{{det.apreletter}}</button>
+        </div>           
+         
+        <div  class="col-xs-4 col-sm-4 col-md-2 col-lg-2" ng-if="(det.auditDetail.auditSubTypeId == det.AppConstant.SSP_DMLC_AMENDMENT_AUD_SUBTYPEID) ">
+            <button type="button" class="effect effect footerbutton btn btn-primaryclr font-print" ng-disabled="det.auditCreate || det.disabledApproveButton || (!det.auditDetail.sspReviewDetail[0].sspRevisionNo) || !det.ValidationForReviewLetter || ((det.auditTypeId == det.AppConstant.SOPEP_TYPE_ID || det.auditTypeId == det.AppConstant.STS_TYPE_ID || det.auditTypeId == det.AppConstant.SMPEP_TYPE_ID || det.auditTypeId == det.AppConstant.BWS_TYPE_ID || det.auditTypeId == det.AppConstant.VOC_TYPE_ID || det.auditTypeId == det.AppConstant.SDR_TYPE_ID || det.auditTypeId == det.AppConstant.COW_TYPE_ID)&&!det.auditDetail.certIssueDate) || !det.auditDetail.auditDate || det.notLead || det.lockStatus || det.auditDetail.auditStatusId==det.AppConstant.VOID_AUDIT_STATUS || det.nextCreatedBlockFinding"  ng-click="(det.validateReceiptLetter())?det.valiudateAndExportAmendmentLetter(det.auditTypeId,det.companyId,det.auditSeqNo):''">{{det.apreAmendletter}}</button>
+        </div>   
+          
+           
+       <!--  <div  ng-if="det.auditTypeId != det.AppConstant.SSP_TYPE_ID && det.auditTypeId != det.AppConstant.DMLC_TYPE_ID" class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
+            <button type="button" class="effect effect footerbutton btn btn-primaryclr font-print"  ng-disabled="det.auditCreate || (det.scopeId == 1001) || (det.notLead && det.auditDetail.certificateDetail.length == 0 ) "  ng-click="det.certficateDetils()">{{det.certiletter}}</button>
+        </div> -->
+        <!--changed by @Ramya for Jira id - IRI-5635-->
+   <div class="col-xs-offset-0 col-xs-4 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-2 col-lg-offset-0 col-lg-2" ng-class="{'col-lg-1':(det.auditTypeId == det.AppConstant.MLC_TYPE_ID),'col-lg-2':(det.auditTypeId != det.AppConstant.MLC_TYPE_ID)}">
+            <button ng-class="{'widthSetting':(det.auditTypeId == det.AppConstant.MLC_TYPE_ID)}" type="button" class="effect effect footerbutton btn btn-primaryclr font-save"
+            ng-disabled="!(det.userRelatedToAdt) || (det.userRoleId != det.AppConstant.ADMIN_ROLE_ID) && (det.lockStatus || !(det.auditDetail.auditSubTypeId) ) ||det.disableSave || det.notApprovedPrevAudit || det.notApprovedCurAudit || det.nextCreatedBlockFinding || det.nextAdtCreated"
+            ng-click = "det.validateAndSaveAuditData()">
+                Save
+            </button>
+        </div>
+
+    </div>
+    
+   </div>
+    
+    
+ <script>
+function scrollFunction() {
+	  $( ".bootstrap-datetimepicker-widget.dropdown-menu.top" ).hide();
+      $( ".bootstrap-datetimepicker-widget.dropdown-menu.bottom" ).hide();
+}
+</script>  
+    
+   
+    
+    
+    
+    
+            

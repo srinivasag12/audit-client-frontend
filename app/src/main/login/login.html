@@ -1,0 +1,228 @@
+	 <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 login containerfull">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 log containerfull">
+	<div class="hidden-xs hidden-sm col-md-6 col-lg-6 left-log containerfull" backstretch backstretch-images="images" backstretch-duration="3000" backstretch-fade="2">	
+		
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 right-log containerfull">
+	
+	<div ng-if="login.loginForm" class="col-xs-12 col-sm-12 col-md-10 col-lg-10 login-content" style="margin-top: 10% !important;">
+				<h1 style="color: red; font-size:40px;font-weight:600;">UAT APPLICATION</h1>
+				</div>
+			<div ng-if="login.loginForm" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 login-content" style="margin-top: 20% !important;">
+				<h1>CENTRAL SERVER</h1>
+				
+			<form class="col-xs-12 col-sm-12 col-md-12 col-lg-12 login-form" ng-submit="login.checkUserPresent();" autocomplete="off">
+				<div ng-if="login.showErrMsg" class="alert-err row">
+                                <button class="close" ng-click="login.alert();"></button>
+                                <span>{{login.errorMsg}}</span>
+                 </div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 log-sec">
+                           <input ng-space class="log-input" ng-class="{err:login.showErrMsg}" type="email" name="username" ng-model="login.uname" autofocus="true" required for="username" float="login.focus" /> 
+                           <label id="username">Username</label>
+                    </div>
+                    
+					 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 log-sec">
+                    
+                           <input class="log-input" ng-class="{err:login.showErrMsg}"  ng-enter="login.checkUserPresent();" id="passInput" type="{{login.pass}}" name="{{login.pass}}" ng-model="login.pwd" required for="username" float/> 
+                         	 <i id="passStatus" class="fa fa-eye eye-position" aria-hidden="true" ng-click="login.showPassword()"></i>
+                           <label id="{{login.pass}}">{{login.pass}}</label>
+                    </div>
+				</div>
+				<div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 containerfull remember-section">
+                                    <div class="remember">
+                                        <label class="rememberme mt-checkbox mt-checkbox-outline">
+                                            <input type="checkbox" name="remember" value="1" ng-model="login.remember" ng-change="login.rememberMe()"/> Remember me
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 foget-section containerfull">
+                                    <div class="col-xs-8 col-sm-8 col-md-6 col-lg-8 containerfull forget">
+                                        <a href="#"  class="forget-{{login.pass}}" ng-click="login.forgetBlock();">Forgot {{login.pass}}
+                                        <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                    <div class="col-xs-4 col-sm-4 col-md-6 col-lg-4 containerfull submit">
+                                   		 <button class="submit-button" type="submit">
+                                   		 	<span>Sign In</span>
+                                   		 	<i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                   		 </button>
+                                    </div>
+                                </div>
+                 </div>
+				
+			</form>
+			
+			</div>
+			
+			<div ng-if="login.forgetForm" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 forget-content">
+				<h3>Forget {{login.pass}} ?</h3>
+				<p> Lost your {{login.pass}}? Please enter your email address. You will receive a verification code to create a new {{login.pass}}. </p>
+			<form class="col-xs-12 col-sm-12 col-md-12 col-lg-12 forget-form" ng-submit="login.forget();" autocomplete="off">
+				
+				<div ng-if="login.showErrMsg" class="alert-err row">
+                                <button class="close" ng-click="login.alert();"></button>
+                                <span>{{login.forgeterrMsg}}</span>
+                 </div>
+				
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 forget-sec">
+                           <input class="forget-input" ng-class="{err:login.showErrMsg}" type="email" name="email" ng-model="login.email" autofocus="true" required for="email" float="login.focus"/> 
+                           <label id="emaild">Email</label>
+                    </div>
+                    
+				</div>
+				<div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull forget-but-section">
+                        <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2 containerfull pull-left">
+                         <button class="back-button" type="button" ng-click="login.back();">
+                                   		<i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                                   		<span>Back</span>
+                        	 </button>
+                         </div>
+                         <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2 containerfull pull-right">
+                         <button class="submit-button resettng" type="submit" ng-click="login.reset();">
+                                   		 <span>Reset</span>
+                                   		 <i class="fa fa-key" aria-hidden="true"></i>
+                         </button>  
+                         </div>
+                         <div class="clearfix"></div>         
+                    </div>
+                                
+                 </div>
+				
+			</form>
+			
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 login-footer containerfull">
+				<div class="row   footer-sec">
+				<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 footer-copy containerfull">
+					<span>Copyright <i class="fa fa-copyright" aria-hidden="true"></i> 
+				 			Bsol Systems 2017
+					</span>	
+				</div>
+				</div>
+			</div>
+	</div>
+</div>
+</div>
+
+-->
+
+
+
+ 
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 login containerfull">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 log containerfull">
+	<div class="hidden-xs hidden-sm col-md-6 col-lg-6 left-log containerfull" backstretch backstretch-images="images" backstretch-duration="3000" backstretch-fade="2">	
+		
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 right-log containerfull">
+			<div ng-if="login.loginForm" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 login-content">
+				<h1>CENTRAL SERVER</h1>
+				
+			<form class="col-xs-12 col-sm-12 col-md-12 col-lg-12 login-form" ng-submit="login.checkUserPresent();" autocomplete="off">
+				<div ng-if="login.showErrMsg" class="alert-err row">
+                                <button class="close" ng-click="login.alert();"></button>
+                                <span>{{login.errorMsg}}</span>
+                 </div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 log-sec">
+                           <input ng-space class="log-input" ng-class="{err:login.showErrMsg}" type="email" name="username" ng-model="login.uname" autofocus="true" required for="username" float="login.focus" /> 
+                           <label id="username">Username</label>
+                    </div>
+                    
+					 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 log-sec">
+							<!--changed by @Ramya for Jira id - IRI-5718-->
+                           <input class="log-input" ng-class="{err:login.showErrMsg}"  ng-enter="login.checkUserPresent();" id="passInput" type="{{login.pass}}" name="{{login.pass}}" ng-model="login.pwd" required for="username" float/> 
+                         	 <i id="passStatus" class="fa fa-eye-slash eye-position" aria-hidden="true" ng-click="login.showPassword()"></i>
+                           <label id="{{login.pass}}">{{login.pass}}</label>
+                    </div>
+				</div>
+				<div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 containerfull remember-section">
+                                    <div class="remember">
+                                        <label class="rememberme mt-checkbox mt-checkbox-outline">
+                                            <input type="checkbox" name="remember" value="1" ng-model="login.remember" ng-change="login.rememberMe()"/> Remember me
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 foget-section containerfull">
+                                    <div class="col-xs-8 col-sm-8 col-md-6 col-lg-8 containerfull forget">
+                                        <a href="#"  class="forget-{{login.pass}}" ng-click="login.forgetBlock();">Forgot {{login.pass}}
+                                        <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                    <div class="col-xs-4 col-sm-4 col-md-6 col-lg-4 containerfull submit">
+                                   		 <button class="submit-button" type="submit">
+                                   		 	<span>Sign In</span>
+                                   		 	<i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                   		 </button>
+                                    </div>
+                                </div>
+                 </div>
+				
+			</form>
+			
+			</div>
+			
+			<div ng-if="login.forgetForm" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 forget-content">
+				<h3>Forget {{login.pass}} ?</h3>
+				<p> Lost your {{login.pass}}? Please enter your email address. You will receive a verification code to create a new {{login.pass}}. </p>
+			<form class="col-xs-12 col-sm-12 col-md-12 col-lg-12 forget-form" ng-submit="login.forget();" autocomplete="off">
+				
+				<div ng-if="login.showErrMsg" class="alert-err row">
+                                <button class="close" ng-click="login.alert();"></button>
+                                <span>{{login.forgeterrMsg}}</span>
+                 </div>
+				
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 forget-sec">
+                           <input class="forget-input" ng-class="{err:login.showErrMsg}" type="email" name="email" ng-model="login.email" autofocus="true" required for="email" float="login.focus"/> 
+                           <label id="emaild">Email</label>
+                    </div>
+                    
+				</div>
+				<div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull forget-but-section">
+                        <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2 containerfull pull-left">
+                         <button class="back-button" type="button" ng-click="login.back();">
+                                   		<i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                                   		<span>Back</span>
+                        	 </button>
+                         </div>
+                         <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2 containerfull pull-right">
+                         <button class="submit-button resettng" type="submit" ng-click="login.reset();">
+                                   		 <span>Reset</span>
+                                   		 <i class="fa fa-key" aria-hidden="true"></i>
+                         </button>  
+                         </div>
+                         <div class="clearfix"></div>         
+                    </div>
+                                
+                 </div>
+				
+			</form>
+			
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 login-footer containerfull">
+				<div class="row   footer-sec">
+				<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 footer-copy containerfull">
+					<span>Copyright <i class="fa fa-copyright" aria-hidden="true"></i> 
+				 			Bsol Systems 2017
+					</span>	
+				</div>
+				</div>
+			</div>
+	</div>
+</div>
+</div>
+

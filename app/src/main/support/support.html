@@ -1,0 +1,185 @@
+<div style="height: 90.5vh !important; max-height: 90.5vh !Important;"
+	class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull auditscroll scroll">
+	<div
+		class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12 search">
+		<div
+			class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 accordion-toggle1"
+			data-toggle="collapse" data-target="#search">
+			<div
+				class="caption font-blue-sharp col-xs-6 col-sm-6 col-md-2 col-lg-2">
+				<span class="caption-subject bold uppercase pull-left">Support
+					Search Criteria</span>
+			</div>
+
+		</div>
+
+		<div id="search" style="border-bottom: 1px solid #065050 !important;"
+			class="portlet-body collapse in col-xs-12 col-sm-12 col-md-12 col-lg-12 padcontainer">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull">
+				<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec" >
+
+					<input type="text"
+						class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+						ng-model="support.supportCriteria.vesselImoNo" id="searchimo"
+						uib-typeahead="ship as ship.vesselImoNo for ship in _.getLatestVesselImo($viewValue, support.LatestAuditData,support.vesselData)"
+						ng-class="{'changed':support.supportCriteria.vesselImoNo}"
+						typeahead-no-results="noVesselImo"
+						custom-tooltip="{{noVesselImo}}" type="text" autocomplete="off"
+						numeric max-len="7"
+						ng-change="support.supportCriteria.vesselName=''"
+						typeahead-on-select="support.setVessel($item)" /> <label
+						for="searchimo">Vessel IMO No</label>
+
+				</div>
+
+
+				<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec">
+
+
+					<input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+						ng-model="support.supportCriteria.vesselName" id="searchvslname"
+						type="text" autocomplete="off"
+						uib-typeahead="ship as ship.vesselName for ship in _.getVesselName($viewValue,support.vesselData) "
+						typeahead-on-select="support.setVessel($item)" alpha-numeric
+						ng-change="support.supportCriteria.vesselImoNo=''"
+						ng-blur="support.validateVessel(support.supportCriteria.vesselName,'VES')"
+						typeahead-no-results="noVesselName"
+						custom-tooltip="{{noVesselName}}"
+						ng-class="{'changed':support.supportCriteria.vesselName}" /> <label
+						for="searchvslname">Vessel Name</label>
+				</div>
+
+				<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec">
+
+
+					<input type="text"
+						class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+						ng-model="support.supportCriteria.officialNo"
+						id="searchofficialNo"
+						ng-class="{'changed':support.supportCriteria.officialNo}" numeric />
+					<label for="searchofficialNo">Official No</label>
+
+				</div>
+
+				<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec">
+
+					<select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+						ng-model="support.supportCriteria.auditTypeId" id="audittype"
+						ng-class="{'changed':support.supportCriteria.auditTypeId}"
+						ng-options="autype.auditTypeId as autype.auditTypeDesc for autype in support.auditType"
+						ng-init="support.supportCriteria.auditTypeId=0"
+						ng-class="{'changed':support.supportCriteria.auditTypeId}"
+						ng-change="support.getAuditData(support.supportCriteria.auditTypeId)"></select>
+					<label for="audittype">Audit Type</label>
+
+				</div>
+
+				<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec">
+
+					<select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+						ng-model="support.supportCriteria.auditSubTypeId"
+						ng-class="{'changed':support.supportCriteria.auditSubTypeId}"
+						ng-disabled="!support.supportCriteria.auditTypeId"
+						ng-class="{'changed':support.supportCriteria.auditSubTypeId}"
+						ng-options="type.auditSubtypeId as type.auditSubtypeDesc for type in support.audsubtype"
+						id="audsubtype"></select> <label for="audsubtype">Sub Type</label>
+
+				</div>
+
+				<div ng-if = "support.loginUserId == support.AppConstant.DEMO_ROLE_ID" class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec">
+
+					<input type="text"
+						class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+						ng-model="support.supportCriteria.auditorName" id="auditorName"
+						uib-typeahead="aud as aud.firstName+' '+aud.lastName for aud in support.auditorsDetail | filter:$viewValue"
+						type="text" autocomplete="off"
+						ng-class="{'changed':support.supportCriteria.auditorName}" /> <label
+						for="auditorName">By Name</label>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+<!-- ng-blur="search.validateVessel(search.searchCriteria.auditorName,'AUDITORNAME')" -->
+	<div
+		class="col-xs-12 col-sm-12 col-md-12 col-lg-offset-0 tdpad col-lg-12 search audsrcpad">
+
+		<div
+			class="col-xs-4 col-sm-offset-2 col-sm-3 col-md-offset-4 col-md-2 col-lg-offset-3 col-lg-2">
+			<button type="button"
+				class="effect effect btn btn-primaryclr btnsize btnclass fix-but-width font-home"
+				ng-click="support.back()">Home</button>
+		</div>
+
+		<div
+			class="col-xs-4 col-sm-offset-0  col-sm-3 col-md-offset-0  col-md-2 col-lg-offset-0 col-lg-2">
+			<button type="button"
+				class="effect effect btn btn-primaryclr btnsize btnclass fix-but-width font-search"
+				ng-click="support.search(0)">Search</button>
+		</div>
+
+		<!-- 	<div
+			class="col-xs-4 col-sm-offset-0  col-sm-3 col-md-offset-0  col-md-2 col-lg-offset-0 col-lg-2">
+			<button type="button"
+				class="effect effect btn btn-primaryclr btnsize btnclass fix-but-width font-search"
+				ng-disabled="support.uploadSave" ng-click="search.checkUserInfo()">Upload </button>
+		</div> -->
+
+		<div
+			class="col-xs-4 col-sm-offset-0  col-sm-3 col-md-offset-0 col-md-2 col-lg-offset-0 col-lg-2">
+			<button type="button"
+				class="effect effect btn btn-primaryclr btnsize btnclass fix-but-width font-clear"
+				ng-click="support.clear()">Clear</button>
+		</div>
+
+		<div
+			class="col-xs-4 col-sm-offset-0  col-sm-3 col-md-offset-0 col-md-2 col-lg-offset-0 col-lg-2">
+			<button type="button"
+				class="effect effect btn btn-primaryclr btnsize btnclass fix-but-width font-clear"
+				ng-click="support.viewRmiData()">View Rmi Data</button>
+		</div>
+
+	</div>
+
+	<div ng-if="support.showBlock"
+		class="search_table_bordered auditSearch supportSearch">
+		<table datatable="" dt-options="support.dtOptions"
+			dt-columns="support.dtColumns" dt-instance="support.dtInstance"
+			class="table table-responsive datatables"></table>
+		 <nav ng-if="support.pagination"
+			class="pagination pagination-sm pagination_position searchpagination">
+			<li
+				ng-class="{ disabled : pagination.current === 0 ||  pagination.current === 1}">
+				<a href=""
+				ng-click="(pagination.current === 0 || pagination.current === 1)?null:support.search(0)">&laquo;</a>
+			</li>
+			<li
+				ng-class="{ disabled : pagination.current === 0 || pagination.current === 1}">
+				<a href=""
+				ng-click="(pagination.current === 0 || pagination.current === 1)?null:support.search(pagination.current-2)">&lsaquo;</a>
+			</li>
+			<li ng-repeat="n in range(pagination.totalPages)"
+				ng-class="{active:pagination.current===n}"><a href="#"
+				ng-click="support.search(n-1)" ng-bind="n">n</a></li>
+			<li ng-class="{ disabled : pagination.current === pagination.last }">
+				<a href=""
+				ng-click="(pagination.current === pagination.last)?null:support.search(pagination.current)">&rsaquo;</a>
+			</li>
+			<li ng-class="{ disabled : pagination.current === pagination.last }">
+				<a href=""
+				ng-click="(pagination.current === pagination.last)?null:support.search(pagination.last-1)">&raquo;</a>
+			</li>
+		</nav> 
+
+	</div>
+
+
+	<div ng-if="support.pagination" class="search_table_bordered">
+		<div class="displayCountRecords">Showing {{support.from}} to
+			{{support.to}} of {{support.total}} entries</div>
+	</div> 
+
+</div>

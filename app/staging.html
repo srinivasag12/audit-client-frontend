@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="central">
+<!-- BEGIN HEAD -->
+<head>
+<base href="/">
+<link href="./assets/global/img/favicon.ico" rel="shortcut icon" type="image/x-icon" /> <!--added by sudharsan for jira-ID=IRI-5639-->
+<title data-ng-bind="'CENTRAL SYSTEM | ' + $state.current.data.pageTitle"></title>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<meta content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0" name="viewport" />
+<meta content="" name="description" />
+<meta content="" name="author" />
+
+<link rel="stylesheet" type="text/css" href="src/styles/staticStyles.min.css" />
+<link rel="stylesheet" type="text/css" href="src/styles/dynamicStyles.min.css" />
+<link id="myExCss" rel="stylesheet" type="text/css" href="src/styles/dynamicColorChange.min.css" ng-css="{ script:'local', live:true }"/>
+
+
+</head>
+																																		
+<body style="overflow-y:hidden !Important;" block-ui="main" id="cont" class="page-sidebar-closed-hide-logo page-content-white page-header-fixed page-sidebar-reversed page-sidebar-closed">
+
+	
+	<div ng-spinner-bar class="loader" id="loader">
+    	 <div class="side"></div>
+    	 <div class="side"></div>
+   	 	 <div class="side"></div>
+   	 	 <div class="side"></div>
+ 	     <div class="side"></div>
+    	 <div class="side"></div>
+   		 <div class="side"></div>
+   		 <div class="side"></div>
+	</div>
+	
+		
+	
+	<div ui-view="root"></div>
+
+<script type="text/javascript" src="src/scripts/vendorScripts.min.js"></script>
+<script type="text/javascript" src="src/scripts/htmlTemplateCache.js"></script>
+<script type="text/javascript" src="src/scripts/AppScripts.min.js"></script>
+<script>
+	console.log = function() {};
+</script>
+</body>
+
+</html>

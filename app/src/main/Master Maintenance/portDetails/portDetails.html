@@ -1,0 +1,173 @@
+<div class="containerfull auditscroll scroll">
+	<form name="portDet.PortDetailsForm" autocomplete="off">
+		<div style="border-bottom: 1px solid #065050 !important;padding-bottom: 20px;" class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12 portDet">
+			<div class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 accordion-toggle1" data-toggle="collapse"
+				data-target="#portDet">
+				<div class="caption font-blue-sharp col-xs-12 col-sm-12 col-md-6 col-lg-6">
+					<span class="caption-subject bold uppercase pull-left">Port
+						Details</span>
+				</div>
+			</div>
+
+			<div class="switch-container">
+				<label class="switch" data-toggle="tooltip" data-original-title="{{portDet.lockMessage}}" tooltip
+					data-placement="left"> <input type="checkbox" ng-model="portDet.enabled"
+						ng-change="portDet.changeCallback()">
+					<span class="slider round"> <i class="fa fa-plus-square-o icon-lock-position"
+							ng-if="portDet.enabled"></i> <i class="fa fa-pencil-square-o icon-unlock-position"
+							ng-if="!portDet.enabled"></i>
+					</span>
+				</label>
+			</div>
+
+			<!-- <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 txt-sec"
+			ng-if="portDet.enabled == true">
+				<input type="text" numeric maxlen=7
+					maximum-length max-len=100 style="text-transform: uppercase"
+					class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+					name="portid" 
+					ng-model="portDet.portid" 
+					id="portid"
+					 
+					ng-focus="code.toasterClear()"
+					
+					ng-class="{'changed':portDet.portid}" required /> <label for="portid">Port Id</label>
+
+			</div>
+			
+			<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 txt-sec"
+			ng-if="portDet.enabled == false">
+				<input maximum-length max-len=100 style="text-transform: uppercase"
+					class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+					name="portid" ng-model="portDet.portid"	id="portid"
+					uib-typeahead="port as port.portId for port in portDet.portIdTypeahead($viewValue)"
+					type="text" numeric maxlen=7 
+					autocomplete="off"
+					typeahead-on-select="portDet.focusSuccessive($item)"
+					ng-focus="code.toasterClear()"
+					ng-class="{'changed':portDet.portid}" required /> <label for="portid">Port Id</label>
+ 			</div> -->
+
+			<div class="txt-sec col-xs-12 col-sm-12 col-md-3 col-lg-3" ng-if="portDet.enabled == true" style="margin-left: 10px !important;">
+				<input  
+					class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" name="portName"
+					ng-model="portDet.portname" id="portname" type="text" ng-class="{'changed':portDet.portname}"
+					uib-typeahead="port as port.portName for port in portDet.portNameTypeahead($viewValue) "
+					typeahead-on-select="portDet.focusSuccessive($item)" alpha-numeric
+					required /> <label for="portname">Port Name</label>
+
+			</div>
+
+			<div class="txt-sec col-xs-12 col-sm-12 col-md-3 col-lg-3" ng-if="portDet.enabled == false" style="margin-left: 10px !important;">
+				<input  
+					class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" name="portName"
+					ng-model="portDet.portname" id="portname" type="text"
+					uib-typeahead="port as port.portName for port in portDet.portNameTypeahead($viewValue) "
+					typeahead-on-select="portDet.focusSuccessive($item)"  ng-class="{'changed':portDet.portname}"
+					required /> <label for="portname">Port Name</label>
+
+			</div>
+
+			<!-- 	uib-typeahead="port as port.countryName for port in portDet.portCountryTypeahead($viewValue)" -->
+			<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 txt-sec">
+				<input maximum-length max-len=100 class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+					name="countryName" ng-model="portDet.countryName" id="countryName"
+					uib-typeahead="port as port for port in portDet.portCountryTypeahead($viewValue)" type="text"
+					autocomplete="off" typeahead-on-select="portDet.focusSuccessiveCountry(portDet.countryName)"
+					ng-focus="code.toasterClear()" ng-class="{'changed':portDet.countryName}" required /> <label
+					for="countryName">Country</label>
+			</div>
+
+			<!-- <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 txt-sec">
+					<input datepicker readonly min-date="portDet.today"
+						style="text-transform: uppercase"
+						class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input datePicker" 
+						ng-model="portDet.dateins" id="dateins" type="text"
+						name="dateins"
+						ng-class="{'changed':portDet.dateins}" required /> <label
+						for="dateins">Date Of Inspection</label>
+
+				</div> -->
+
+			<div style="padding-top: 25px !important;" class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+				<input id="portdetstatus" type="checkbox" ng-model="portDet.status" name="statid" ng-true-value=1
+					ng-false-value=0 ng-init="portDet.status" required /> <label for="portdetstatus"
+					class="containerhght">Active Status</label>
+			</div>
+
+			<!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 makeCenter">
+			    
+			    <div 
+			    class="col-lg-offset-8 col-lg-2 masterScreenBut"
+			     ng-if="portDet.enabled == false" >
+				<button type="button" class="effect effect btn btn-primaryclr btnsize btnclass fix-but-width font-search" ng-click="portDet.search(0)">Search</button>
+			</div>
+			    
+				<div
+					class="col-xs-offset-6 col-xs-6 col-sm-offset-6 col-sm-6 col-md-offset-10 col-md-12 col-lg-offset-10 col-lg-2 masterScreenBut">
+					<button type="button"
+						class="effect effect btnclass btn btn-primaryclr fix-but-width font-create"
+						ng-disabled=" "
+						ng-click="portDet.submit(portDet.createedit)">{{portDet.createedit}}</button>
+				</div>
+			</div> -->
+
+		</div>
+	</form>
+	
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-offset-0 tdpad col-lg-12 search audsrcpad">
+
+				<div class="col-xs-4 col-sm-offset-2 col-sm-3 col-md-offset-4 col-md-2 col-lg-offset-3 col-lg-2">
+					<button type="button" class="effect effect btnclass btn btn-primaryclr fix-but-width font-create"
+						ng-disabled=" " ng-click="portDet.submit(portDet.createedit)">{{portDet.createedit}}</button>
+				</div>
+
+				<div class="col-xs-4 col-sm-offset-0  col-sm-3 col-md-offset-0  col-md-2 col-lg-offset-0 col-lg-2">
+					<button type="button"
+						class="effect effect btn btn-primaryclr btnsize btnclass fix-but-width font-search"
+						ng-click="portDet.search(0)">SEARCH</button>
+				</div>
+
+				<div class="col-xs-4 col-sm-offset-0  col-sm-3 col-md-offset-0 col-md-2 col-lg-offset-0 col-lg-2">
+					<button type="button"
+						class="effect effect btn btn-primaryclr btnsize btnclass fix-but-width font-clear"
+						ng-click="portDet.clear()">CLEAR</button>
+				</div>
+
+			</div>
+	
+	<div ng-if="portDet.showBlock" class="search_table_bordered auditSearch">
+				<table datatable="" dt-options="portDet.dtOptions" dt-columns="portDet.dtColumns"
+					dt-instance="portDet.dtInstance" class="table table-responsive datatables"></table>
+					<!--changed by @Ramya for Jira id - IRI-5006 -->
+				<nav ng-if="portDet.pagination" class="pagination pagination-sm pagination_position searchpagination">
+					<li ng-class="{ disabled : pagination.current === 0 ||  pagination.current === 1}">
+						<a href="" ng-click="(pagination.current === 0 || pagination.current === 1)?null:portDet.search(0,'start')">&larrb;</a>
+					</li>
+					<li ng-class="{ disabled : pagination.ShowPagesMax < 10 ||  portDet.pageInitialCount == 1}">
+						<a href="" ng-click="(pagination.current === 0 || pagination.current === 1)?null:portDet.search(0,'back')">&laquo;</a>
+					</li>
+					<li ng-class="{ disabled : pagination.current === 0 || pagination.current === 1}">
+						<a href="" ng-click="(pagination.current === 0 || pagination.current === 1)?null:portDet.search(pagination.current-2)">&lsaquo;</a>
+					</li>
+					<li ng-repeat="n in range(pagination.ShowPagesMin,pagination.ShowPagesMax)" ng-class="{active:pagination.current===n}"> 
+						<a href="#" ng-click="portDet.search(n-1)" ng-bind="n">n</a>
+					</li>
+					<!--Changed by @Ramya for Jira id -IRI-5006-->
+					<li ng-class="{ disabled : pagination.current === pagination.last}">
+						<a href="" ng-click="(pagination.current === pagination.last)?null:portDet.search(pagination.current)">&rsaquo;</a>
+					</li>
+					<li ng-class="{ disabled :pagination.current === pagination.last || pagination.ShowPagesMax>pagination.totalPages}">
+						<a href="" ng-click="(pagination.current === pagination.last || pagination.ShowPagesMax>pagination.totalPages)?null:portDet.search(pagination.last-1,'front')">&raquo;</a>
+					</li>
+					<li ng-class="{ disabled : pagination.current === pagination.last  || pagination.ShowPagesMax>pagination.totalPages}">
+						<a href="" ng-click="(pagination.current === pagination.last  || pagination.ShowPagesMax>pagination.totalPages)?null:portDet.search(pagination.last-1,'end')">&rarrb;</a>
+					</li>
+				</nav> 
+					<div ng-if="portDet.pagination" class="search_table_bordered">
+				<div class="displayCountRecords">
+					Showing {{portDet.from}} to {{portDet.to}} of {{portDet.total}} entries
+				</div>
+			</div>
+			</div>
+</div>

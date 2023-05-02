@@ -1,0 +1,66 @@
+<div  class="col-xs-12 col-sm-12 col-md-12 col-lg-12 modal fade" data-keyboard="false" data-backdrop="static">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 modal-dialog">
+		<div class="col-xs-8 col-sm-12 col-md-12 col-lg-12 modal-content modal-content1">
+			
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 modal-body">
+			
+				<div class="col-lg-12 containerfull" style="text-align:center" ng-if="(ihmCertificates.certDetails.certIssueId  == ihmCertificates.AppConstant.FULL_TERM_IHM || ihmCertificates.certDetails.certIssueId  == ihmCertificates.AppConstant.RE_ISSUE_ADMINISTRATIVE_IHM )" >
+					<header>
+						<h5>{{ihmCertificates.message}}</h5>
+					</header>
+					
+				</div>
+				
+				<div class="col-lg-12 containerfull" style="text-align:center" ng-if="(ihmCertificates.certDetails.certIssueId == ihmCertificates.AppConstant.EXTENSION_IHM || ihmCertificates.certDetails.certIssueId == ihmCertificates.AppConstant.RENEWAL_ENDORSED_11_7_IHM ||ihmCertificates.certDetails.certIssueId == ihmCertificates.AppConstant.RENEWAL_ENDORSED_11_8_11_9_IHM ||ihmCertificates.certDetails.certIssueId == ihmCertificates.AppConstant.ADDITIONAL_ENDORSED_IHM)" >
+					<header>
+						<h5>{{ihmCertificates.message1}}</h5>
+					</header>
+					
+				</div> 			
+			</div>
+	
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 modal-body" ng-show="(ihmCertificates.certDetails.certIssueId  == ihmCertificates.AppConstant.FULL_TERM_IHM || ihmCertificates.certDetails.certIssueId  == ihmCertificates.AppConstant.RE_ISSUE_ADMINISTRATIVE_IHM )">
+				<div class="checkbox-inline" ng-if="!ihmCertificates.disableOptionHk">
+
+					<input type="checkbox"
+						class="ihmCertificates-chckbox"
+						ng-disabled = "ihmCertificates.disableOptions"
+						ng-model="ihmCertificates.checkboxModel.hk"
+						ng-click = "ihmCertificates.checkboxModelEnable('hk');"
+						id="ihmCertificates-chckbox1" name="chck1" value="hk"> <label
+						for="ihmCertificates-chckbox1">HK</label>
+				</div>
+				<div class=" checkbox-inline" ng-if="!ihmCertificates.disableOptionEu">
+					<input type="checkbox" 
+						class="ihmCertificates-chckbox" 
+						ng-model="	ihmCertificates.checkboxModel.eu"
+						ng-disabled = "ihmCertificates.disableOptions"
+						ng-click = "ihmCertificates.checkboxModelEnable('eu')"
+						id="ihmCertificates-chckbox2" name="chck2" value="eu"> <label
+						for="ihmCertificates-chckbox2">EU</label>
+				</div>
+				<div class="checkbox-inline" ng-if="!ihmCertificates.disableOptionExe">
+					<input type="checkbox"
+						ng-model="	ihmCertificates.checkboxModel.exe"
+						class="ihmCertificates-chckbox" 
+						ng-disabled = "ihmCertificates.disableOptions "
+						ng-click = "ihmCertificates.checkboxModelEnable('exe')"
+						id="ihmCertificates-chckbox3" name="chck3" value="exe"> <label
+						for="ihmCertificates-chckbox3">Exemption</label>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 modal-footer">
+			
+			    <div class=" col-xs-offset-6 col-xs-4 col-sm-12 col-md-12 col-lg-offset-7 col-lg-2">
+					<button type="button" class="btn btnclass" style="width:120% !important" ng-click="ihmCertificates.close('NO')" aria-hidden="true">Close</button> 
+                </div> 
+                
+				<div class="col-xs-4 col-sm-12 col-md-12 col-lg-3">
+					<button type="button" class="btn btnclass" style="width:100% !important" ng-click="ihmCertificates.close('YES');" aria-hidden="true">Proceed</button> 
+                </div>
+			 	
+			 </div>
+            
+			</div>
+	</div>
+</div>

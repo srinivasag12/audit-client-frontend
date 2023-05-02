@@ -1,0 +1,59 @@
+<div style="overflow-y:hidden !important;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12  modal fade report " data-keyboard="false" data-backdrop="static">
+<form name="reportForm">
+	<div style="padding:45px !important;" class=" col-xs-12 col-sm-12 col-md-12 col-lg-12 vesselImo modal-dialog">
+		<div class=" col-xs-12 col-sm-12 col-md-12 col-lg-12 modal-content">
+			<div class="modal-header">
+				<h4>Vessel/Company Details of {{vc.criteria}}: {{vc.vslImoNo}}</h4>
+                <button type="button" class="close" ng-click="close('Cancel')"data-dismiss="modal" aria-hidden="true">&times;</button>           
+            </div>
+			<div style="overflow-y:auto !important;height:65vh !important;max-height:65 !important;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 headScroll" >
+	<table  class="table table-responsive">
+	
+<tr class="tr-table" >
+
+
+   <th colspan="1" class="center"></th>
+	  <th colspan="1" class="center">Vessel ID</th>
+      <th colspan="1" class="center">Vessel Name</th>
+      <th colspan="1" class="center">IMO No</th>
+      <th colspan="1" class="center">DOC Type No </th>
+      <th colspan="1" class="center">Company IMO No</th>
+      <th colspan="1" class="center">Company DOC</th>
+      <th colspan="1" class="center">Status</th>
+      <th colspan="1" class="center">Official No.</th>
+      <th colspan="1" class="center">TC Status</th>  
+</tr>
+<tr ng-repeat="vessel in vc.vesselList" class="tr-table">
+
+    <td align="center"><div class="form-check">
+    <input class="form-check-input" name="group100" type="radio" id="radio-{{$index}}" ng-model="vessel.select" ng-value="$index" ng-change="vc.setVessel($index)">
+    <label class="form-check-label" for="radio-{{$index}}"></label>
+    </div>
+</td>
+    <td align="center">{{vessel.vesselID}}</td>
+	<td align="center">{{vessel.vesselName}}</td>
+	<td align="center">{{vessel.imoNumber}}</td>
+    <td align="center">{{vessel.docTypeNumber}}</td>
+    <td align="center">{{vessel.companyIMONumber}}</td>
+    <td align="center">{{vessel.docType}}</td>
+    <td align="center">{{vessel.vesselStatus}}</td>
+    <td align="center">{{vessel.officialNumber}}</td>
+   	<td align="center">{{vessel.tcApprovalStatus}}</td>
+  </tr>
+
+    
+	</table>
+
+</div>
+	<div style="margin-top:23px !important;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 but-margin">
+			 	<div class="col-xs-offset-4 col-xs-4 col-sm-12 col-md-12 col-lg-offset-8 col-lg-2" >
+					<button type="button" class="btn btnclass fix-but-width" ng-click="vc.setVesselDtl()" data-dismiss="modal" aria-hidden="true">Ok</button> 
+                </div>     
+              	<div class="col-xs-4 col-sm-12 col-md-12 col-lg-2">
+					<button type="button" class="btn btnclass fix-but-width" ng-click="vc.cancel()" data-dismiss="modal" aria-hidden="true">Cancel</button>         
+              	</div> 
+</div>
+		</div>
+	</div>
+	</form>
+</div>

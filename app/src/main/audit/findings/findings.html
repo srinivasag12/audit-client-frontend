@@ -1,0 +1,373 @@
+<div ng-if="cfind.showSwitch" class="switch-container">
+        <label class="switch" data-toggle="tooltip" data-original-title="{{cfind.lockMessage}}" tooltip data-placement="left">
+              <input type="checkbox" ng-model="cfind.enabled" ng-disabled="(cfind.userRoleId != cfind.AppConstant.MANAGER_ROLE_ID && cfind.lockDisable) || cfind.auditCreate || cfind.userRoleId==cfind.AppConstant.OBSERVER_ROLE_ID" ng-change="cfind.changeCallback()"/>
+              <span class="slider round">
+                  <i class="fa fa-unlock-alt icon-unlock-position" ng-if="!cfind.enabled"></i>
+                  <i class="icon-lock icon-lock-position" ng-if="cfind.enabled"></i>
+              </span>
+        </label>
+</div>
+
+
+<div  style="border-top: 2px solid #065050 !important;border-bottom: 2px solid #065050 !important;width: 96.7vw !important;" class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull">
+		
+    <div  class="portlet-body col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull">	
+                
+    <div  class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull obs" >
+                    <div  class="caption font-blue-sharp col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull">
+                        <span class="caption-subject bold uppercase pull-left">{{cfind.auditType1}}</span>
+                        
+                        <div  style="float:right !important;" class="caption font-blue-sharp col-xs-8 col-sm-8 col-md-4 col-lg-4 containerfull">
+                        
+                            <div  ng-if="cfind.majorCountDesc" class="col-xs-3 col-sm-4 col-md-4 col-lg-4 head-category">
+                                    
+                                 
+                                <label class="findShadow" >{{cfind.majorCountDesc}} :</label>
+                                <label class="findShadow" >{{cfind.countFindingCategory.majorCount}}</label>	
+                            </div>
+                            <div  ng-if="cfind.reviewCountDesc" style="float:right !important" class="col-xs-3 col-sm-4 col-md-4 col-lg-5 head-category">
+                                    
+                                <label class="findShadow" >{{cfind.reviewCountDesc}} :</label>
+                                <label class="findShadow" >{{cfind.countFindingCategory.reviewNoteCount}}</label>	
+                            </div>
+                        <div ng-if="cfind.minorCountDesc"  class="col-xs-6 col-sm-4 col-md-4 col-lg-4 head-category">
+                                    
+                                        
+                                <label class="findShadow" >{{cfind.minorCountDesc}} :</label>
+                                <label class="findShadow" >{{cfind.countFindingCategory.minorCount}}</label>			
+                        </div>
+                        <div  ng-if="cfind.obsCountDesc" class="col-xs-3 col-sm-4 col-md-4 col-lg-4 head-category">
+                             
+                                <label class="findShadow" >{{cfind.obsCountDesc}} :</label>
+                                <label class="findShadow" >{{cfind.countFindingCategory.obsCount}}</label>		
+                                        
+                        </div>
+                            
+                            
+                    
+                        </div>
+                        
+                
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    <div   class="caption font-blue-sharp col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull">
+                        
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-3 findinput-size head-category  ">
+                                
+                             
+                            <label >CATEGORY</label>
+                                    
+                        </div>
+                    <div  class="col-xs-4 col-sm-4 col-md-4 col-lg-3 findinput-size head-category ">
+                                
+                                    
+                            <label >{{cfind.auditauditType}} CODE</label>
+                                    
+                    </div>
+                    <div  class="col-xs-4 col-sm-4 col-md-4 col-lg-6 findelement-size head-category ">
+                             
+                                <label >{{cfind.auditauditType}} ELEMENT</label>
+                            
+                            
+                            
+                            
+                                    
+                    </div>
+                        
+                        
+                
+                    </div>
+                
+                    
+    </div>
+    
+        </div>
+                
+    </div>
+    
+    
+    
+    <div  class="col-xs-12 col-sm-12 col-md-12 col-lg-12 obs containerfull auditscroll scroll" >
+    <form name="cfind.NewFindingsForm" autocomplete="off">	
+        
+    <div  class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull">
+      
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 panel-group containerfull " id="accordion"  style="margin-bottom: 40px !Important;">
+        <div  class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull panel panel-default find-right" ng-repeat="obse in cfind.observationarray">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 panel-heading accordion-toggle1 collapsed" data-toggle="collapse" data-parent="#accordion" data-target="#collapse-{{$index}}">
+                   
+                   <div class="fixed-close" ng-click="$event.stopPropagation();!(cfind.lockStatus || cfind.openForCar || cfind.auditStatusId!=cfind.AppConstant.COMMENCED_AUDIT_STATUS || cfind.leadStatus || cfind.leadSign || cfind.reviewStatus==cfind.AppConstant.INITIATE_REVIEW_STATUS || cfind.reviewStatus==cfind.AppConstant.ACCEPTED_REVIEW_STATUS)?cfind.removeItem($index):''">
+                        
+                        <i class="fa fa-trash-o" aria-hidden="true" ></i>
+                </div>
+                   
+                   
+                   <div style="padding-top: 0px !Important;" class="txt-sec col-xs-4 col-sm-4 col-md-4 col-lg-3 findinput-size">
+                                
+                            <input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12" disabled ng-model="obse.serialNo" id="finCat-{{$index}}" type="text" autocomplete="off" ng-click="$event.stopPropagation();" placeholder="CATEGORY"  ng-class="{'changed':obse.displayFinging}"/> 
+                           
+                                    
+                    </div>
+                    <div style="padding-top: 0px !Important;" class="txt-sec col-xs-4 col-sm-4 col-md-4 col-lg-3 findinput-size">
+                                <!--Changed by @Ramya on 2-9-2022 for jira id - IRI-5446 -->
+                            <input style="cursor:pointer;" class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12" id="finIsmCode-{{$index}}" 
+                            		ng-disabled="cfind.lockStatus || cfind.auditStatusId==1002 || cfind.leadStatus || cfind.reviewStatus==cfind.AppConstant.INITIATE_REVIEW_STATUS || cfind.reviewStatus==cfind.AppConstant.ACCEPTED_REVIEW_STATUS || cfind.nextAdtCreated || cfind.auditStatusId==cfind.AppConstant.VOID_AUDIT_STATUS"  
+                            		ng-class="{'changed':obse.auditCode}"  ng-model="obse.auditCode" 
+                            		uib-typeahead="ism as ism.auditCode+'\n'+ism.auditElements for ism in _.getAuditCodes($viewValue,'auditCode',cfind.auditCodeArray)" 
+                                   	typeahead-on-select="cfind.setAuditElement($item,$index);$event.stopPropagation();"
+                                    autocomplete="off" ng-click="$event.stopPropagation();"
+                                    ng-readonly="cfind.leadSign"
+                                    placeholder="{{cfind.auditauditType}} Code" ng-change="obse.auditElements = ''" />
+                                     
+                    </div>
+                    <div style="padding-top: 0px !Important;" class="txt-sec col-xs-4 col-sm-4 col-md-4 col-lg-6 findelement-size">
+                                
+                            <input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12" id="finIsmEle-{{$index}}" 
+                            	ng-readonly="cfind.lockStatus || cfind.auditStatusId==1002 || cfind.leadStatus || cfind.reviewStatus==cfind.AppConstant.INITIATE_REVIEW_STATUS || cfind.reviewStatus==cfind.AppConstant.ACCEPTED_REVIEW_STATUS || obse.auditCode ||cfind.leadSign || cfind.nextAdtCreated"
+                                ng-class="{'changed':obse.auditElements}"   ng-model="obse.auditElements"  ng-click="$event.stopPropagation();"
+                                uib-typeahead="ism as ism.auditCode+'\n'+ism.auditElements for ism in  _.getAuditCodes($viewValue,'auditElements',cfind.auditCodeArray)"
+                                typeahead-on-select="cfind.setAuditElement($item,$index);$event.stopPropagation();"
+                                type="text" autocomplete="off"  placeholder="{{cfind.auditauditType}} Element"
+                                data-toggle="tooltip" tooltip data-placement="bottom" data-original-title="{{obse.auditElements.auditElements?obse.auditElements.auditElements:obse.auditElements}}" ng-change="obse.auditCode = ''"/> 
+                    </div>
+                       
+          </div>
+              
+          <div id="collapse-{{$index}}" style="background-color: rgba(163, 164, 165, 0.41);" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull panel-collapse collapse" >
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 panel-body containerfull">
+                <div ng-repeat="catgs in obse.findingDetail">
+                    	
+                    	<!-- <div ng-show="(catgs.updateFlag==false && catgs.updateFlag+''!='') || catgs.updateDescription" style='background-color: #a3a4a5;' class="col-xs-12 col-sm-12 col-md-12 col-lg-12 find-pad">
+                		 -->	
+                         <!-- ng-if="(catgs.updateFlag==false && catgs.updateFlag+''!='')"  added by archana for jira id-IRI-4571-->
+                		  <div ng-show="cfind.openForCar" ng-if="(catgs.updateFlag==false && catgs.updateFlag+''!='')" style='background-color: #a3a4a5;' class="col-xs-12 col-sm-12 col-md-12 col-lg-12 find-pad">
+                			<div ng-show="cfind.openForCar || (catgs.updateFlag==false && catgs.updateFlag+''!='') || catgs.auditPlace" style='width: 20% !important;' class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec">
+					
+                       		 <input type="text" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input port"
+                       			 	data-toggle="tooltip" data-original-title="{{catgs.auditPlace}}" tooltip data-placement="bottom"
+                        			ng-model="catgs.auditPlace" id="auditplace-{{$parent.$index}}-{{$index}}"
+                        			uib-typeahead="port as port for port in cfind.getPort($viewValue)"
+						 			auditplace max-len="{{cfind.AppConstant.AUDIT_PLACE_MAX_LEN}}"
+						 			type="text" autocomplete="off"
+						 			ng-class="{'changed':catgs.auditPlace}"
+						 			ng-blur="cfind.setUpdateDescOnPlaceChange($parent.$index,$index)"
+						 			ng-disabled="!(cfind.openForCar) || (catgs.updateFlag && !cfind.openForCar) || cfind.reviwerlogin || cfind.lockStatus || !(catgs.statusDate) ||  $index<obse.findingDetail.length-1 ||
+												(cfind.lockStatusValue==cfind.AppConstant.OPENFORCAR&& (cfind.reviewStatus==cfind.AppConstant.INITIATE_REVIEW_STATUS || cfind.leadSign)) || cfind.nextAdtCreated ||  cfind.auditStatusId==cfind.AppConstant.COMPLETED_AUDIT_STATUS || cfind.mlcDmlcLink"
+          							/> 
+                      			   <label for="auditplace-{{$parent.$index}}-{{$index}}">Acceptance  Place</label>
+				
+							</div>
+							
+                       		 <div style='padding-top:25px!important;'  ng-if="catgs.updateDescription" class="col-xs-12 col-sm-12 col-md-6 col-lg-6 findingClosed">
+                        		
+                        		
+                        		{{catgs.updateDescription}}
+                       		 </div>
+                			
+                		</div>
+                    	
+                    	
+                    	<!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 find-pad">
+                			<div ng-if="catgs.updateDescription" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 findingClosed">
+                        		{{catgs.updateDescription}}
+                       		 </div>
+                			
+                			<div class="col-xs-6 col-sm-4 col-md-3 col-lg-3 txt-sec">
+					
+                       		 <input type="text" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input port"
+                       			 	data-toggle="tooltip" data-original-title="{{cfind.auditPlace}}" tooltip data-placement="bottom"
+                        			ng-model="cfind.auditPlace" id="auditplace"
+                        			uib-typeahead="port as port for port in cfind.getPort($viewValue)"
+						 			auditplace max-len="{{cfind.AppConstant.AUDIT_PLACE_MAX_LEN}}"
+						 			type="text" autocomplete="off"
+						 			ng-class="{'changed':cfind.auditPlace}"/> 
+                      			   <label for="auditplace">{{cfind.auditType}} Place</label>
+				
+[							</div>	
+                		</div> -->
+                    	
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 find-pad">
+                        		<div class="txt-sec col-xs-12 col-sm-12 col-md-4 col-lg-3 findinput-size">
+                                    <select class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-model="catgs.categoryId"  id="category-{{$parent.$index}}-{{$index}}"
+                                            ng-init="oldValue=''"
+       						                ng-focus="oldValue=catgs.categoryId"
+       						                ng-options="cat.findingsCategoryId as cat.findingsCategoryDesc disable when cat.findingsCategoryId==1003 for cat in cfind.obsCategoryOptions"
+                                            ng-change="catgs.statusId=1001;cfind.setDisplayFinding(catgs.categoryId,$parent.$index,$index,1,oldValue);cfind.setSerialNoAndStatusDate($parent.$index,$index,catgs.categoryId)" 
+                                            ng-disabled="cfind.reviewStatus==cfind.AppConstant.INITIATE_REVIEW_STATUS || cfind.reviewStatus==cfind.AppConstant.ACCEPTED_REVIEW_STATUS || cfind.leadStatus || cfind.lockStatus || obse.findingDetail.length>1 || cfind.auditStatusId==1002 || !(obse.auditCode) || ( (cfind.userRoleId!=cfind.AppConstant.MANAGER_ROLE_ID &&  cfind.userRoleId!=cfind.AppConstant.ADMIN_ROLE_ID ) &&  cfind.auditStatusId==cfind.AppConstant.REOPEN) ||cfind.reviwerlogin || cfind.nextAdtCreated || cfind.mlcDmlcLink"
+                                            ng-class="{'changed':catgs.categoryId}">
+                                     </select>
+                                    <label for="category-{{$parent.$index}}-{{$index}}">Category</label>
+                                    
+                                </div>
+                                <div class="txt-sec col-xs-12 col-sm-12 col-md-4 col-lg-3 findinput-size">
+                                    <select class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-model="catgs.statusId" id="status-{{$parent.$index}}-{{$index}}"
+                                             ng-options="stat.findingsStatusId as stat.findingstStatusDesc disable when (stat.findingsStatusId !=1001 && $index==0) for stat in cfind.obsStatusOptions"
+                                             ng-disabled="(cfind.reviewStatus==cfind.AppConstant.INITIATE_REVIEW_STATUS || cfind.reviewStatus==cfind.AppConstant.ACCEPTED_REVIEW_STATUS && !cfind.AuditReopenEnableFields) || cfind.leadStatus || cfind.lockStatus || !(catgs.categoryId)|| obse.findingDetail.length>1 || cfind.auditStatusId==1002 || catgs.categoryId == 1004 || ( (cfind.userRoleId!=cfind.AppConstant.MANAGER_ROLE_ID &&  cfind.userRoleId!=cfind.AppConstant.ADMIN_ROLE_ID) &&  cfind.auditStatusId==cfind.AppConstant.REOPEN)||cfind.leadSign || cfind.reviwerlogin || cfind.nextAdtCreated || cfind.mlcDmlcLink"
+                                             ng-class="{'changed':catgs.statusId}" >
+                                             
+                                     </select> 
+                                    <label for="status-{{$parent.$index}}-{{$index}}">Status</label>
+                                </div>
+                                <div class="txt-sec col-xs-12 col-sm-12 col-md-4 col-lg-3 findinput-size">
+                                    
+                                    <input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12 datePicker changed" ng-model="catgs.statusDate" 
+                                    		id="statusdate-{{$parent.$index}}-{{$index}}"
+                                    		ng-disabled=" (catgs.updateFlag && !cfind.openForCar)|| (catgs.nextActionId && cfind.auditTypeId == cfind.AppConstant.DMLC_TYPE_ID) || cfind.reviwerlogin || cfind.lockStatus || catgs.categoryId=='' || cfind.auditStatusId==cfind.AppConstant.COMPLETED_AUDIT_STATUS || cfind.auditStatusId==cfind.AppConstant.VOID_AUDIT_STATUS || cfind.userRoleId==cfind.AppConstant.OBERVER_ROLE_ID || (obse.findingDetail.length-1>$index && obse.findingDetail[$index+1].statusDate) || 
+                                    					((cfind.auditStatusId==cfind.AppConstant.COMMENCED_AUDIT_STATUS || cfind.auditStatusId!=cfind.AppConstant.REOPEN) && cfind.userRoleId!=cfind.AppConstant.AUDITOR_ROLE_ID ) || 
+														(cfind.auditStatusId==cfind.AppConstant.REOPEN && cfind.userRoleId==cfind.AppConstant.AUDITOR_ROLE_ID) ||
+														(cfind.reviewStatus==cfind.AppConstant.INITIATE_REVIEW_STATUS && cfind.auditStatusId!=cfind.AppConstant.REOPEN ) ||
+														((cfind.reviewStatus==cfind.AppConstant.ACCEPTED_REVIEW_STATUS || cfind.leadSign) && cfind.auditStatusId!=cfind.AppConstant.REOPEN && !(cfind.openForCar)) ||
+														(cfind.lockStatusValue == cfind.AppConstant.OPENFORCAR && (cfind.reviewStatus==cfind.AppConstant.INITIATE_REVIEW_STATUS || cfind.leadSign) && cfind.auditStatusId!=cfind.AppConstant.REOPEN) ||
+														(cfind.leadStatus && !(cfind.openForCar) && (cfind.auditStatusId!=cfind.AppConstant.REOPEN)) || cfind.nextAdtCreated ||  cfind.auditStatusId==cfind.AppConstant.COMPLETED_AUDIT_STATUS || cfind.mlcDmlcLink"
+                                             
+                                            ng-click="cfind.momentDateConverter(obse.findingDetail[$index-1].statusDate,obse.findingDetail[$index+1].statusDate)"
+                                           	datepicker readonly
+                                            min-date="obse.findingDetail[$index-1].statusDate?cfind.minFindStatusDate:cfind.FindingMaxDate"
+                                            max-date="obse.findingDetail[$index+1].statusDate?cfind.maxFindStatusDate:cfind.FindingMinDate"
+                                            placeholder="DD-MMM-YYYY" type="text" autocomplete="off"
+                                            ng-change="cfind.setNilNextActionForObs($parent.$index,$index);cfind.setUpdateDescOnPlaceChange($parent.$index,$index)"/>
+                                     <label for="statusdate-{{$parent.$index}}-{{$index}}">Status Date </label>
+                                   <!--  ng-disabled="(cfind.reviewStatus==cfind.AppConstant.INITIATE_REVIEW_STATUS && (cfind.auditStatusId!=1005 && cfind.userRoleId!=1002) ) || (cfind.leadSign && !(cfind.openForCar) && (cfind.auditStatusId!=1005 && cfind.userRoleId!=1002)) || (cfind.leadStatus && !(cfind.openForCar) && (cfind.auditStatusId!=1005 && cfind.userRoleId!=1002)) || cfind.lockStatus || cfind.auditStatusId==cfind.AppConstant.COMPLETED_AUDIT_STATUS || catgs.categoryId=='' || (obse.findingDetail.length-1>$index && obse.findingDetail[$index+1].statusDate)" -->
+                                </div>
+                               
+                                <div ng-show="!(catgs.categoryId) || (catgs.categoryId!=1004)" class="txt-sec col-xs-12 col-sm-12 col-md-4 col-lg-3 findinput-size">
+                                    <select class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-model="catgs.nextActionId"
+                                    		ng-options="stat.findingsStatusId as stat.findingstStatusDesc disable when !((stat.findingsStatusId==cfind.CarFlowStructure[cfind.auditTypeId][obse.findingDetail[0].categoryId==1002 && cfind.ispsEndorse ? 1003 : obse.findingDetail[0].categoryId][$index].nextActionId) || (stat.findingsStatusId == cfind.AppConstant.PREVIOUS_STATUS && ($index>0 || obse.findingDetail.length>1))) for stat in cfind.obsStatusOptions"  
+                                    		ng-change="cfind.nextActionChange($parent.$index,$index);cfind.setCurFindDueDate($parent.$index,$index,catgs.categoryId,catgs.nextActionId)"
+                                    		ng-disabled=" (catgs.updateFlag && !cfind.openForCar)|| cfind.reviwerlogin || cfind.lockStatus || catgs.categoryId=='' || !(catgs.statusId) || !(catgs.statusDate) || obse.findingDetail[$index+1].nextActionId || $index<obse.findingDetail.length-2 || catgs.categoryId == 1004 || cfind.auditStatusId==cfind.AppConstant.COMPLETED_AUDIT_STATUS || cfind.auditStatusId==cfind.AppConstant.VOID_AUDIT_STATUS || cfind.userRoleId==cfind.AppConstant.OBERVER_ROLE_ID || 
+														((cfind.auditStatusId==cfind.AppConstant.COMMENCED_AUDIT_STATUS || cfind.auditStatusId!=cfind.AppConstant.REOPEN) && cfind.userRoleId!=cfind.AppConstant.AUDITOR_ROLE_ID ) || 
+														(cfind.auditStatusId==cfind.AppConstant.REOPEN && cfind.userRoleId==cfind.AppConstant.AUDITOR_ROLE_ID) ||
+														(cfind.reviewStatus==cfind.AppConstant.INITIATE_REVIEW_STATUS && cfind.auditStatusId!=cfind.AppConstant.REOPEN ) ||
+														((cfind.reviewStatus==cfind.AppConstant.ACCEPTED_REVIEW_STATUS || cfind.leadSign) && cfind.auditStatusId!=cfind.AppConstant.REOPEN && !(cfind.openForCar)) ||
+														(cfind.lockStatusValue == cfind.AppConstant.OPENFORCAR && (cfind.reviewStatus==cfind.AppConstant.INITIATE_REVIEW_STATUS || cfind.leadSign) && cfind.auditStatusId!=cfind.AppConstant.REOPEN) ||
+														(cfind.leadStatus && !(cfind.openForCar) && (cfind.auditStatusId!=cfind.AppConstant.REOPEN)) || cfind.nextAdtCreated ||  cfind.auditStatusId==cfind.AppConstant.COMPLETED_AUDIT_STATUS || cfind.mlcDmlcLink"							
+											ng-click="catgs.oldVal == catgs.nextactionId"
+											ng-class="{'changed':catgs.nextActionId}" id="nextaction-{{$parent.$index}}-{{$index}}">
+                                         </select> 
+                                        <label  for="nextaction-{{$parent.$index}}-{{$index}}">Next Action</label>
+                                
+                                </div>
+                                 
+                              	<div ng-if="catgs.categoryId==1004" class="txt-sec col-xs-12 col-sm-12 col-md-4 col-lg-3 findinput-size">
+                                    <input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-model="catgs.nextActionId2"
+                                    		ng-disabled="true"
+                                    		ng-class="{'changed':catgs.nextActionId2}" id="nextaction-{{$parent.$index}}-{{$index}}"/> 
+                                        <label  for="nextaction-{{$parent.$index}}-{{$index}}">Next Action</label>
+                                
+                                </div>
+                                
+                                <div class="txt-sec col-xs-12 col-sm-12 col-md-4 col-lg-3 findinput-size">
+                                    <!-- min-date="cfind.closeMeeting ? cfind.FindingMinDate : catgs.statusDate ? catgs.statusDate :''" -->
+                                     <!--added by @Ramya on 10-11-2022 for TICKET-574 -->
+                                    <input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12" datepicker ng-model="catgs.dueDate" auditplace max-len="30"
+                                    	id="duedate-{{$parent.$index}}-{{$index}}"                                     	
+                                    	min-date="cfind.closeMeetingDate ? cfind.closeMeetingDate  : catgs.statusDate"   
+                                    	max-date="cfind.dueMaxDate" 
+                                    	ng-disabled="(catgs.updateFlag && !cfind.openForCar) || cfind.reviwerlogin || cfind.lockStatus || catgs.categoryId=='' || cfind.auditStatusId==cfind.AppConstant.COMPLETED_AUDIT_STATUS || cfind.auditStatusId==cfind.AppConstant.VOID_AUDIT_STATUS || cfind.userRoleId==cfind.AppConstant.OBERVER_ROLE_ID || (obse.findingDetail.length-1>$index && obse.findingDetail[$index+1].statusDate) || 
+                                    					((cfind.auditStatusId==cfind.AppConstant.COMMENCED_AUDIT_STATUS || cfind.auditStatusId!=cfind.AppConstant.REOPEN) && cfind.userRoleId!=cfind.AppConstant.AUDITOR_ROLE_ID ) || 
+														(cfind.auditStatusId==cfind.AppConstant.REOPEN && cfind.userRoleId==cfind.AppConstant.AUDITOR_ROLE_ID) ||
+														(cfind.reviewStatus==cfind.AppConstant.INITIATE_REVIEW_STATUS && cfind.auditStatusId!=cfind.AppConstant.REOPEN ) ||
+														((cfind.reviewStatus==cfind.AppConstant.ACCEPTED_REVIEW_STATUS || cfind.leadSign) && cfind.auditStatusId!=cfind.AppConstant.REOPEN && !(cfind.openForCar)) ||
+														(cfind.lockStatusValue == cfind.AppConstant.OPENFORCAR && (cfind.reviewStatus==cfind.AppConstant.INITIATE_REVIEW_STATUS || cfind.leadSign) && cfind.auditStatusId!=cfind.AppConstant.REOPEN) ||
+														(cfind.leadStatus && !(cfind.openForCar) && (cfind.auditStatusId!=cfind.AppConstant.REOPEN)) || cfind.nextAdtCreated ||  cfind.auditStatusId==cfind.AppConstant.COMPLETED_AUDIT_STATUS || cfind.mlcDmlcLink"
+                                        type="text" autocomplete="off"  data-toggle="tooltip" data-original-title="{{catgs.dueDate}}" tooltip data-placement="bottom" ng-class="{'changed':catgs.dueDate}"
+                                       	ng-click="cfind.validateWithClosingMeetingDate(catgs.dueDate,catgs.nextActionId); "/>
+                                     <label  for="duedate-{{$parent.$index}}-{{$index}}">Due Date</label>  
+                                </div>
+                       </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 find-pad" style="padding-top:0px !Important;">
+                            <div class="txt-sec col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <textarea resizable  class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12 descriptionresizehgt" 
+                                    	ng-model="catgs.descriptions" id="description-{{$parent.$index}}-{{$index}}"  
+                                    	type="text" autocomplete="off" auditplace max-len="2500"
+                                    	ng-disabled="cfind.auditStatusId==cfind.AppConstant.COMPLETED_AUDIT_STATUS || (catgs.updateFlag && !cfind.openForCar) || cfind.reviwerlogin || cfind.lockStatus || catgs.categoryId=='' || cfind.auditStatusId==cfind.AppConstant.VOID_AUDIT_STATUS || cfind.userRoleId==cfind.AppConstant.OBERVER_ROLE_ID || (obse.findingDetail.length-1>$index && obse.findingDetail[$index+1].statusDate) || 
+                                    					((cfind.auditStatusId==cfind.AppConstant.COMMENCED_AUDIT_STATUS || cfind.auditStatusId!=cfind.AppConstant.REOPEN) && cfind.userRoleId!=cfind.AppConstant.AUDITOR_ROLE_ID ) || 
+														(cfind.auditStatusId==cfind.AppConstant.REOPEN && cfind.userRoleId==cfind.AppConstant.AUDITOR_ROLE_ID) ||
+														(cfind.reviewStatus==cfind.AppConstant.INITIATE_REVIEW_STATUS && cfind.auditStatusId!=cfind.AppConstant.REOPEN ) ||
+														((cfind.reviewStatus==cfind.AppConstant.ACCEPTED_REVIEW_STATUS || cfind.leadSign) && cfind.auditStatusId!=cfind.AppConstant.REOPEN && !(cfind.openForCar)) ||
+														(cfind.lockStatusValue == cfind.AppConstant.OPENFORCAR && (cfind.reviewStatus==cfind.AppConstant.INITIATE_REVIEW_STATUS || cfind.leadSign) && cfind.auditStatusId!=cfind.AppConstant.REOPEN) ||
+														(cfind.leadStatus && !(cfind.openForCar) && (cfind.auditStatusId!=cfind.AppConstant.REOPEN)) || cfind.nextAdtCreated || cfind.mlcDmlcLink"
+                                        ng-class="{'changed':catgs.descriptions}" data-toggle="tooltip" tooltip data-placement="bottom" data-original-title="{{catgs.descriptions}}" > </textarea>
+                                    <label for="description-{{$parent.$index}}-{{$index}}">Description</label>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 find-pad" >
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 image-upload" >
+                                  <label for="file-input-{{$parent.$index}}-{{$index}}"  class="buttontrash btn btn-info btnclass fndattachicon">
+                                       <i class="fa fa-paperclip" aria-hidden="true" title="Attachments"></i>
+                                </label>
+                                <input id="file-input-{{$parent.$index}}-{{$index}}" type="file" file-upload ng-model="catgs.findFileData" 
+                                	ng-change="cfind.uploadFindingsAttach($parent.$index,$index)" accept="*/*" ng-click="cfind.clearFileType()"
+                                    ng-disabled="(catgs.updateFlag && !cfind.openForCar) || cfind.reviwerlogin || cfind.lockStatus || catgs.categoryId=='' || cfind.auditStatusId==cfind.AppConstant.COMPLETED_AUDIT_STATUS || cfind.auditStatusId==cfind.AppConstant.VOID_AUDIT_STATUS || cfind.userRoleId==cfind.AppConstant.OBERVER_ROLE_ID || (obse.findingDetail.length-1>$index && obse.findingDetail[$index+1].statusDate) || 
+                                    					((cfind.auditStatusId==cfind.AppConstant.COMMENCED_AUDIT_STATUS || cfind.auditStatusId!=cfind.AppConstant.REOPEN) && cfind.userRoleId!=cfind.AppConstant.AUDITOR_ROLE_ID ) || 
+														(cfind.auditStatusId==cfind.AppConstant.REOPEN && cfind.userRoleId==cfind.AppConstant.AUDITOR_ROLE_ID) ||
+														(cfind.reviewStatus==cfind.AppConstant.INITIATE_REVIEW_STATUS && cfind.auditStatusId!=cfind.AppConstant.REOPEN ) ||
+														((cfind.reviewStatus==cfind.AppConstant.ACCEPTED_REVIEW_STATUS || cfind.leadSign) && cfind.auditStatusId!=cfind.AppConstant.REOPEN && !(cfind.openForCar)) ||
+														(cfind.lockStatusValue == cfind.AppConstant.OPENFORCAR && (cfind.reviewStatus==cfind.AppConstant.INITIATE_REVIEW_STATUS || cfind.leadSign) && cfind.auditStatusId!=cfind.AppConstant.REOPEN) ||
+														(cfind.leadStatus && !(cfind.openForCar) && (cfind.auditStatusId!=cfind.AppConstant.REOPEN)) || cfind.nextAdtCreated || cfind.mlcDmlcLink"
+                                        />
+                            </div>
+                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">	
+                                 <div class="table-responsive">
+                                      <table class="table table-bordered table-hover">
+                                           <thead>
+                                             <tr>
+                                                <th class="center">File Name</th>
+                                                <th class="center">Download</th>
+                                                <th class="center">Action</th>
+                                
+                                            </tr>
+                                            </thead>
+                                               <tbody>	
+                                             <tr ng-repeat="files in catgs.findingRptAttachs">
+                                                    <td class="center" style="max-width: 100px !Important; overflow: auto;word-break: break-all;">
+                                                        <a auto-focus href="#" style="word-break: break-all;" ng-click="cfind.preview(files.fileName,$parent.$parent.$index,$parent.$index,$index);">{{files.fileName}}</a>
+                                                    </td>
+                                                 <td class="center width-center">
+                                                     <button class="buttontrash btn btn-info btnclass" ng-click="cfind.downloadFindingFile(files.fileName,$parent.$parent.$index,$parent.$index,$index)">
+                                                         <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                                                     </button>
+                                                </td>
+                                                <td class="center width-center">
+                                                     <button class="buttontrash btn btn-info btnclass" ng-disabled="(catgs.updateFlag && cfind.auditStatusId!=cfind.AppConstant.REOPEN && cfind.userRoleId!=cfind.AppConstant.MANAGER_ROLE_ID) || ((cfind.reviewStatus==cfind.AppConstant.INITIATE_REVIEW_STATUS || cfind.reviewStatus==cfind.AppConstant.ACCEPTED_REVIEW_STATUS) && cfind.auditStatusId!=cfind.AppConstant.REOPEN && cfind.userRoleId!=cfind.AppConstant.MANAGER_ROLE_ID) || cfind.lockStatus  || cfind.auditStatusId==1002 || (cfind.leadSign && !(cfind.openForCar) && cfind.auditStatusId!=cfind.AppConstant.REOPEN && cfind.userRoleId!=cfind.AppConstant.MANAGER_ROLE_ID) || obse.findingDetail[$parent.$index+1].statusDate || obse.findingDetail[$parent.$index+1].nextActionId || (cfind.userRoleId!=cfind.AppConstant.MANAGER_ROLE_ID &&  cfind.auditStatusId==cfind.AppConstant.REOPEN)" ng-click="cfind.removeFindingFiles(files.fileName,$parent.$parent.$index,$parent.$index,$index)">
+                                                         <i class="fa fa-trash-o" aria-hidden="true" title="Trash"></i>
+                                                     </button>
+                                                </td>
+                                               </tr>			
+                                              </tbody>
+                                     </table>
+                                 </div>
+                            </div>
+                        </div>
+                </div>
+          </div>
+        </div>
+       
+      </div> 
+    </div>
+        
+        <div ng-disabled="cfind.lockStatus || cfind.nextAdtCreated || cfind.auditStatusId!=1001 || cfind.openForCar || cfind.leadStatus || cfind.leadSign "
+        ng-click="cfind.mlcDmlcLink || !(cfind.lockStatus || cfind.openForCar || cfind.auditStatusId!=1001 || cfind.leadStatus || cfind.leadSign || cfind.reviewStatus==cfind.AppConstant.INITIATE_REVIEW_STATUS || cfind.reviewStatus==cfind.AppConstant.ACCEPTED_REVIEW_STATUS)?cfind.addItem(''):''"
+        class="fab" ><span>+</span>
+        </div>
+        
+    </div>
+    </form>
+
+    <div   class="col-xs-12 col-sm-12 col-md-12 col-lg-12 obs footerfixed">		
+        <div class="col-xs-offset-1 col-xs-4  col-sm-offset-3 col-sm-3 col-md-offset-4 col-md-2 col-lg-offset-4 col-lg-2">
+            <button type="button" class="effect effect footerbutton btn btn-primaryclr font-home"  ng-click="cfind.auditHome()">{{cfind.auditType}} Home</button>
+        </div>
+        <div class="col-xs-offset-1 col-xs-4 col-sm-offset-1 col-sm-3 col-md-offset-0 col-md-2 col-lg-offset-0 col-lg-2">
+            <button type="button" class="effect effect footerbutton btn btn-primaryclr font-save" ng-click="cfind.save()" ng-disabled="(cfind.leadSign && !(cfind.openForCar) && (cfind.auditStatusId!=cfind.AppConstant.REOPEN && cfind.userRoleId!=cfind.AppConstant.MANAGER_ROLE_ID)) || cfind.lockStatus || (cfind.observationarray[0].findingDetail.length<2 && cfind.observationarray[0].findingDetail[0].categoryId!=1004) || cfind.reviwerlogin || cfind.nextAdtCreated || cfind.mlcDmlcLink || cfind.auditStatusId==cfind.AppConstant.VOID_AUDIT_STATUS">Save</button>     <!--Changed by @Ramya on 1-9-2022 for jira id IRI-5446-->
+        </div>
+        
+</div>
+
+    </div>
+
+    

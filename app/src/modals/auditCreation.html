@@ -1,0 +1,311 @@
+<div class="modal fade auditcreate" data-keyboard="false"
+	data-backdrop="static" ng-init="disableBtn=true">
+	<div style="margin-top: 10vh; margin-left: calc(100vw/ 2 - 20vw);"
+		ng-if="!auditcreate.Planapprovalmodel"
+		class="col-xs-12 col-sm-12 col-md-12 col-lg-12 modal-dialog">
+		<div class="modal-content">
+			<div class=" modal-header"
+				style="border-bottom: 1px dotted #1d2d3c !Important;">
+				<button type="button" class="close"
+					ng-click="auditcreate.checkPlanApproval()" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 style="text-align: center" class="modal-title">{{auditcreate.title}}</h4>
+			</div>
+			<div class="modal-body">
+
+				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+					style="border-right: 1px dotted #1d2d3c !Important;">
+					<div ng-if="auditcreate.param=='AUD_CREATE_SEARCH'"
+						class="col-xs-12 col-sm-12 col-md-9 col-lg-offset-1 col-lg-9">
+						<button class="btn btn-info btnclass btninfo fix-but-width"
+							ng-click="auditcreate.checkIspsReview('auditcreate',false)"
+							ng-click="close('Cancel')" data-dismiss="modal">AUDIT
+							CREATION</button>
+					</div>
+
+					<div ng-if="auditcreate.param=='AUD_CREATE_SEARCH_IHM'"
+						class="col-xs-12 col-sm-12 col-md-9 col-lg-offset-1 col-lg-9">
+						<button class="btn btn-info btnclass btninfo fix-but-width"
+							ng-click="auditcreate.checkIspsReview('auditcreate',false)"
+							ng-click="close('Cancel')" data-dismiss="modal">REVIEW
+							CREATION</button>
+					</div>
+					<div
+						ng-if="auditcreate.param=='MAS_MAI' && auditcreate.userRoleId!=1006"
+						class="col-xs-12 col-sm-12 col-md-9 col-lg-offset-1 col-lg-9">
+						<button class="btn btn-info btnclass btninfo fix-but-width"
+							ng-click="auditcreate.checkIspsReview('code',false)"
+							ng-click="close('Cancel')" data-dismiss="modal">AUDIT
+							CODES</button>
+					</div>
+
+					<div ng-if="auditcreate.param=='MAS_MAI'"
+						class="col-xs-12 col-sm-12 col-md-9 col-lg-offset-1 col-lg-9">
+						<button class="btn btn-info btnclass btninfo fix-but-width"
+							ng-click="auditcreate.checkIspsReview('vslDetail',false)"
+							ng-click="close('Cancel')" data-dismiss="modal">VESSEL
+							DETAILS</button>
+					</div>
+
+					<div ng-if="auditcreate.param=='MAS_MAI'"
+						class="col-xs-12 col-sm-12 col-md-9 col-lg-offset-1 col-lg-9">
+						<button class="btn btn-info btnclass btninfo fix-but-width"
+							ng-click="auditcreate.checkIspsReview('portDetails',false)"
+							ng-click="close('Cancel')" data-dismiss="modal">PORT
+							DETAILS</button>
+					</div>
+
+					<div
+						ng-if="auditcreate.param=='MAS_MAI' && auditcreate.userRoleId==1006"
+						class="col-xs-12 col-sm-12 col-md-8 col-lg-offset-1 col-lg-9">
+						<button class="btn btn-info btnclass btninfo fix-but-width"
+							ng-click="auditcreate.checkIspsReview('reportdetail',false)"
+							ng-click="close('Cancel')" data-dismiss="modal">REPORT
+							DETAILS</button>
+					</div>
+					<div ng-if="auditcreate.param=='CER_GEN'"
+						class="col-xs-12 col-sm-12 col-md-9 col-lg-offset-1 col-lg-9">
+						<button class="btn btn-info btnclass btninfo fix-but-width"
+							ng-click="auditcreate.checkIspsReview('certDetail',false)"
+							ng-click="close('Cancel')" data-dismiss="modal">CREATION</button>
+					</div>
+					<div ng-if="auditcreate.param=='MANAGER_SEARCH'"
+						class="col-xs-12 col-sm-12 col-md-9 col-lg-offset-1 col-lg-9">
+						<button class="btn btn-info btnclass btninfo fix-but-width"
+							ng-click="auditcreate.checkIspsReview('MANAGER_CER_GEN',false)"
+							ng-click="close('Cancel')" data-dismiss="modal">GENERATION</button>
+					</div>
+
+					<div ng-if="auditcreate.param=='IHM_CER_GEN'"
+						class="col-xs-12 col-sm-12 col-md-9 col-lg-offset-1 col-lg-9">
+						<button class="btn btn-info btnclass btninfo fix-but-width"
+							ng-click="auditcreate.checkIspsReview('SMCcertDetail',false)"
+							ng-click="close('Cancel')" data-dismiss="modal">SMC
+							CERTIFICATE</button>
+					</div>
+
+				</div>
+
+				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+					<div ng-if="auditcreate.param=='AUD_CREATE_SEARCH'"
+						class="col-xs-12 col-sm-12 col-md-8 col-lg-offset-2 col-lg-9">
+						<button class="btn btn-info btnclass btninfo fix-but-width"
+							ng-click="auditcreate.checkIspsReview('auditSearch',false)"
+							ng-click="close('Cancel')" data-dismiss="modal">AUDIT
+							SEARCH</button>
+					</div>
+
+					<div ng-if="auditcreate.param=='AUD_CREATE_SEARCH_IHM'"
+						class="col-xs-12 col-sm-12 col-md-8 col-lg-offset-2 col-lg-9">
+						<button class="btn btn-info btnclass btninfo fix-but-width"
+							ng-click="auditcreate.checkIspsReview('auditSearch',false)"
+							ng-click="close('Cancel')" data-dismiss="modal">REVIEW
+							SEARCH</button>
+					</div>
+					<div
+						ng-if="auditcreate.param=='AUD_CRE' && auditcreate.userRoleId==1003 && auditcreate.ihmReview"
+						class="col-xs-12 col-sm-12 col-md-8 col-lg-offset-2 col-lg-9">
+						<button class="btn btn-info btnclass btninfo fix-but-width"
+							ng-click="auditcreate.checkIspsReview(auditcreate.AppConstant.IHM_TYPE_ID,false)"
+							ng-click="close('Cancel')" data-dismiss="modal">IHM PART
+							I REVIEW</button>
+					</div>
+
+					<div ng-if="auditcreate.param=='MAS_MAI'"
+						class="col-xs-12 col-sm-12 col-md-8 col-lg-offset-2 col-lg-9">
+						<button class="btn btn-info btnclass btninfo fix-but-width"
+							ng-click="auditcreate.checkIspsReview('vesselCompanyDetail',false)"
+							ng-click="close('Cancel')" data-dismiss="modal">VESSEL
+							COMPANY</button>
+					</div>
+
+					<div ng-if="auditcreate.param=='MAS_MAI'"
+						class="col-xs-12 col-sm-12 col-md-8 col-lg-offset-2 col-lg-9">
+						<button class="btn btn-info btnclass btninfo fix-but-width"
+							ng-click="auditcreate.checkIspsReview('userdetail',false)"
+							ng-click="close('Cancel')" data-dismiss="modal">USER
+							DETAILS</button>
+					</div>
+					<div
+						ng-if="auditcreate.param=='MAS_MAI'  && auditcreate.userRoleId!=1006"
+						class="col-xs-12 col-sm-12 col-md-8 col-lg-offset-2 col-lg-9">
+						<button class="btn btn-info btnclass btninfo fix-but-width"
+							ng-click="auditcreate.checkIspsReview('reportdetail',false)"
+							ng-click="close('Cancel')" data-dismiss="modal">REPORT
+							DETAILS</button>
+					</div>
+
+					<div ng-if="auditcreate.param=='CER_GEN'"
+						class="col-xs-12 col-sm-12 col-md-9 col-lg-offset-1 col-lg-9">
+						<button class="btn btn-info btnclass btninfo fix-but-width"
+							ng-click="auditcreate.checkIspsReview('certSearch',false)"
+							ng-click="close('Cancel')" data-dismiss="modal">SEARCH</button>
+					</div>
+					<div ng-if="auditcreate.param=='MANAGER_SEARCH'"
+						class="col-xs-12 col-sm-12 col-md-9 col-lg-offset-1 col-lg-9">
+						<button class="btn btn-info btnclass btninfo fix-but-width"
+							ng-click="auditcreate.checkIspsReview('MANAGER_SEARCH',false)"
+							ng-click="close('Cancel')" data-dismiss="modal">SEARCH</button>
+					</div>
+
+					<div ng-if="auditcreate.param=='IHM_CER_GEN'"
+						class="col-xs-12 col-sm-12 col-md-9 col-lg-offset-1 col-lg-9">
+						<button class="btn btn-info btnclass btninfo fix-but-width"
+							ng-click="auditcreate.checkIspsReview('IHMcertDetail',false)"
+							ng-click="close('Cancel')" data-dismiss="modal">IHM
+							CERTIFICATE</button>
+					</div>
+
+				</div>
+				<div class="Planapprovalstateworko-tabs"
+					ng-if="auditcreate.param=='AUD_CRE' || auditcreate.param=='AUD_CRE_PA'">
+
+					<input class="Planapprovalstate" type="radio" title="tab-one"
+						name="tabs-state" id="tab-one" checked/> 
+						<input
+						class="Planapprovalstate" type="radio" title="tab-two"
+						name="tabs-state" id="tab-two" /> <input
+						class="Planapprovalstate" type="radio" title="tab-three"
+						name="tabs-state" id="tab-three" />
+						<input
+						class="Planapprovalstate" type="radio" title="tab-four"
+						name="tabs-state" id="tab-four" ng-if="!auditcreate.onlyPlanAccepted" />
+						<input
+						class="Planapprovalstate" type="radio" title="tab-four"
+						name="tabs-state" id="tab-four" ng-if="auditcreate.onlyPlanAccepted || auditcreate.param=='AUD_CRE_PA'" checked />
+
+					<div class="tabs flex-tabs">
+						<label for="tab-one" id="tab-one-label" class="Planapprovaltab"
+							ng-if="!auditcreate.onlyPlanAccepted && auditcreate.param=='AUD_CRE'">Audit</label> <label
+							for="tab-two" id="tab-two-label" class="Planapprovaltab"
+							ng-if="!auditcreate.onlyPlanAccepted && auditcreate.param=='AUD_CRE'">Inspection</label> <label
+							for="tab-three" id="tab-three-label" class="Planapprovaltab"
+							ng-if="!auditcreate.onlyPlanAccepted && auditcreate.param=='AUD_CRE'">Review</label> <label
+							for="tab-four" id="tab-four-label" class="Planapprovaltab"
+							ng-if="auditcreate.planApprovalReview ">Plan Approval</label>
+
+
+						<div id="tab-one-panel" class="Planapproval active">
+							<div class="modal-body">
+								<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+									style="border-right: 1px dotted #1d2d3c !Important;">
+									<div ng-if="auditcreate.param=='AUD_CRE'"
+										class="col-xs-12 col-sm-12 col-md-9 col-lg-offset-1 col-lg-9">
+										<button class="btn btn-info btnclass btninfo fix-but-width"
+											ng-click="auditcreate.checkIspsReview(auditcreate.AppConstant.ISM_TYPE_ID,false)"
+											ng-click="close('Cancel')" data-dismiss="modal">ISM
+											AUDIT</button>
+									</div>
+								</div>
+								<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+									<div ng-if="auditcreate.param=='AUD_CRE'"
+										class="col-xs-12 col-sm-12 col-md-9 col-lg-offset-1 col-lg-9">
+										<button class="btn btn-info btnclass btninfo fix-but-width"
+											ng-click="auditcreate.checkIspsReview(auditcreate.AppConstant.ISPS_TYPE_ID,false)"
+											ng-click="close('Cancel')" data-dismiss="modal">ISPS
+											AUDIT</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div id="tab-two-panel" class="Planapproval">
+							<div class="modal-body">
+								<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+									style="margin-left: 140px;">
+									<div ng-if="auditcreate.param=='AUD_CRE'"
+										class="col-xs-12 col-sm-12 col-md-9 col-lg-offset-1 col-lg-9">
+										<button class="btn btn-info btnclass btninfo fix-but-width"
+											ng-click="auditcreate.checkIspsReview(auditcreate.AppConstant.MLC_TYPE_ID,false)"
+											ng-click="close('Cancel')" data-dismiss="modal">MLC
+											INSPECTION</button>
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+						<div id="tab-three-panel" class="Planapproval">
+							<div class="modal-body">
+								<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+									style="border-right: 1px dotted #1d2d3c !Important;">
+									<div ng-if="auditcreate.param=='AUD_CRE'"
+										class="col-xs-12 col-sm-12 col-md-8 col-lg-offset-2 col-lg-9">
+										<button class="btn btn-info btnclass btninfo fix-but-width"
+											ng-click="auditcreate.checkIspsReview(auditcreate.AppConstant.SSP_TYPE_ID,false)"
+											ng-click="close('Cancel')" data-dismiss="modal">SSP
+											REVIEW</button>
+									</div>
+								</div>
+								<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+									<div ng-if="auditcreate.param=='AUD_CRE'"
+										class="col-xs-12 col-sm-12 col-md-8 col-lg-offset-2 col-lg-9">
+										<button class="btn btn-info btnclass btninfo fix-but-width"
+											ng-click="auditcreate.checkIspsReview(auditcreate.AppConstant.DMLC_TYPE_ID,false)"
+											ng-click="close('Cancel')" data-dismiss="modal">DMLC
+											II REVIEW</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div id="tab-four-panel" class="Planapproval">
+							<div class="modal-body">
+								<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"
+									style="border-right: 1px dotted #1d2d3c !Important;">
+									<div
+										class="col-xs-12 col-sm-12 col-md-9 col-lg-offset-1 col-lg-9">
+										<button class="btn btn-info btnclass btninfo fix-but-width"
+											ng-click="auditcreate.checkIspsReview(auditcreate.AppConstant.SOPEP_TYPE_ID,true)"
+											ng-click="close('Cancel')" data-dismiss="modal">SOPEP</button>
+									</div>
+									<div
+										class="col-xs-12 col-sm-12 col-md-9 col-lg-offset-1 col-lg-9">
+										<button class="btn btn-info btnclass btninfo fix-but-width"
+											ng-click="auditcreate.checkIspsReview(auditcreate.AppConstant.STS_TYPE_ID,true)"
+											ng-click="close('Cancel')" data-dismiss="modal">STS</button>
+									</div>
+									<div
+										class="col-xs-12 col-sm-12 col-md-9 col-lg-offset-1 col-lg-9">
+										<button class="btn btn-info btnclass btninfo fix-but-width"
+											ng-click="auditcreate.checkIspsReview(auditcreate.AppConstant.SMPEP_TYPE_ID,true)"
+											ng-click="close('Cancel')" data-dismiss="modal">SMPEP</button>
+									</div>
+									<div
+										class="col-xs-12 col-sm-12 col-md-9 col-lg-offset-1 col-lg-9">
+										<button class="btn btn-info btnclass btninfo fix-but-width"
+											ng-click="auditcreate.checkIspsReview(auditcreate.AppConstant.COW_TYPE_ID,true)"
+											ng-click="close('Cancel')" data-dismiss="modal">COW</button>
+									</div>
+								</div>
+								<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+									<div
+										class="col-xs-12 col-sm-12 col-md-9 col-lg-offset-1 col-lg-9">
+										<button class="btn btn-info btnclass btninfo fix-but-width"
+											ng-click="auditcreate.checkIspsReview(auditcreate.AppConstant.BWS_TYPE_ID,true)"
+											ng-click="close('Cancel')" data-dismiss="modal">BWS</button>
+									</div>
+									<div
+										class="col-xs-12 col-sm-12 col-md-9 col-lg-offset-1 col-lg-9">
+										<button class="btn btn-info btnclass btninfo fix-but-width"
+											ng-click="auditcreate.checkIspsReview(auditcreate.AppConstant.VOC_TYPE_ID,true)"
+											ng-click="close('Cancel')" data-dismiss="modal">VOC</button>
+									</div>
+									<div
+										class="col-xs-12 col-sm-12 col-md-9 col-lg-offset-1 col-lg-9">
+										<button class="btn btn-info btnclass btninfo fix-but-width"
+											ng-click="auditcreate.checkIspsReview(auditcreate.AppConstant.SDR_TYPE_ID,true)"
+											ng-click="close('Cancel')" data-dismiss="modal">SDR</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer"></div>
+		</div>
+	</div>
+</div>

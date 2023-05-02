@@ -1,0 +1,15 @@
+@-moz-document url-prefix() { 
+		
+  tr > td > label, tr > th > label {
+    word-break: break-all !important;
+}
+
+.auditSearch td {
+       max-width: 120px !important;
+       white-space: pre-wrap;
+       word-break: break-all;
+       word-break: break-word !important;
+       vertical-align: middle !important;
+   }
+
+}

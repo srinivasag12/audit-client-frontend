@@ -1,0 +1,7 @@
+node_modules
+app/vendor
+log
+dev
+app/src/htmlTemplateCache.js
+dist
+app/assets/

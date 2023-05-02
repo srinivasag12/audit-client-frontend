@@ -1,0 +1,225 @@
+<form name="cardtl.carDetailsForm" autocomplete="off">
+ <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 obs containerfull auditscroll scroll" >
+
+		<div class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12" style=" background-color: rgb(225, 225, 225) !important;">
+			<div class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12  accordion-toggle" >
+				<div class="caption font-blue-sharp col-xs-4col-sm-4 col-md-4 col-lg-4">
+					<span class="caption-subject bold uppercase pull-left">CAR HISTORY MAINTENANCE</span>
+					
+				</div>
+				<div  class="caption font-blue-sharp col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull">
+					
+					<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 findinput-size prevhead-category">
+							
+						 
+						<label >CATEGORY</label>
+								
+					</div>
+				<div  class="col-xs-3 col-sm-3 col-md-3 col-lg-3 findinput-size prevhead-category">
+							
+								
+						<label >AUDIT DATE</label>
+								
+				</div>
+				<div  class="col-xs-3 col-sm-3 col-md-3 col-lg-3 findinput-size prevhead-category">
+							
+								
+						<label >AUDIT CODE</label>
+								
+				</div>
+				<div  class="col-xs-3 col-sm-3 col-md-3 col-lg-3 prevhead-category elementcategoryhead">
+					 
+						<label >AUDIT ELEMENT</label>
+								
+				</div>
+					
+					
+			
+				</div>	
+			
+			</div>
+			
+			
+	<div  class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull collapse in">
+  
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 panel-group containerfull " id="accordion" style="  margin-bottom: 40px !Important;">
+    <div  class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull panel panel-default find-right" >
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 panel-heading accordion-toggle1 collapsed" data-toggle="collapse" data-parent="#accordion" data-target="#collapse-{{$index}}">
+       		
+       		
+       		<div style="padding-top: 0px !Important;" class="txt-sec col-xs-3 col-sm-3 col-md-3 col-lg-3 findinput-size">
+							
+						<input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12" disabled placeholder="Category" ng-model="cardtl.serialNo" id="prevfinCat-{{$index}}" type="text" autocomplete="off"  ng-click="$event.stopPropagation();" /> 
+		
+								
+				</div>
+				
+				<div style="padding-top: 0px !Important;" class="txt-sec col-xs-3 col-sm-3 col-md-3 col-lg-3 findinput-size">
+							
+						<input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12" id="prevfinauddate-{{$index}}" placeholder="MMM-DD-YYYY" disabled   ng-model="cardtl.auditdate"  	type="text" autocomplete="off" ng-click="$event.stopPropagation();" /> 
+						
+				</div>
+				<div style="padding-top: 0px !Important;" class="txt-sec col-xs-3 col-sm-3 col-md-3 col-lg-3 findinput-size">
+							
+						<input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12" id="prevfinIsmCode-{{$index}}" placeholder="Audit Code" disabled   ng-model="cardtl.auditCode" data-toggle="tooltip" tooltip data-placement="bottom" data-original-title="{{cardtl.auditCode}}" type="text" autocomplete="off" ng-click="$event.stopPropagation();" /> 
+			
+								
+				</div>
+			
+				<div style="padding-top: 0px !Important;" class="txt-sec col-xs-3 col-sm-3 col-md-3 col-lg-3 elementcategoryhead">
+							
+						<input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12"  id="prevfinIsmEle-{{$index}}" placeholder="Audit Element" readonly  ng-model="cardtl.auditElements"
+						data-toggle="tooltip" tooltip data-placement="bottom" data-original-title="{{cardtl.auditElements}}"
+						type="text" autocomplete="off" ng-click="$event.stopPropagation();" /> 
+				
+								
+				</div>
+				
+       			
+      </div>
+      	
+      <div id="collapse-{{$index}}" style="background-color: rgba(163, 164, 165, 0.41);" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull panel-collapse collapse">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 panel-body containerfull">
+        	<div ng-repeat="prevcatgs in cardtl.categorySection">
+        		
+        			<div ng-show="prevcatgs.auditPlace || prevcatgs.updateDescription" style='background-color: #a3a4a5;' class="col-xs-12 col-sm-12 col-md-12 col-lg-12 find-pad">
+                			
+                			<div ng-show="prevcatgs.auditPlace" style='width: 20% !important;' class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec">
+					
+                       		 <input type="text" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input port"
+                       			 	data-toggle="tooltip" data-original-title="{{catgs.auditPlace}}" tooltip data-placement="bottom"
+                        			ng-model="prevcatgs.auditPlace" id="auditplace-{{$index}}"
+                        			type="text" autocomplete="off"
+						 			ng-class="{'changed':prevcatgs.auditPlace}"
+						 			disabled
+						 			/> 
+                      			   <label for="auditplace-{{$index}}">{{cfind.auditType}} Place</label>
+				
+							</div>
+							
+                       		 <div style='padding-top:25px!important;' ng-if="prevcatgs.updateDescription" class="col-xs-12 col-sm-12 col-md-6 col-lg-6 findingClosed">
+                        		{{prevcatgs.updateDescription}}
+                       		 </div>
+                			
+                	</div>
+                	
+        			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 find-pad">
+        					<div class="txt-sec col-xs-12 col-sm-12 col-md-4 col-lg-3 findinput-size">
+								<select class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12"	ng-model="prevcatgs.categoryId" id="category-{{$index}}"  ng-class="{'changed':prevcatgs.categoryId}"
+								 ng-options="cat.findingsCategoryId as cat.findingsCategoryDesc for cat in cardtl.obsCategoryOptions" disabled >
+						 		</select>
+								<label for="category-{{$index}}">Category</label>
+								
+							</div>
+							<div class="txt-sec col-xs-12 col-sm-12 col-md-4 col-lg-3 findinput-size">
+								<select class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-model="prevcatgs.statusId" id="status-{{$index}}" ng-class="{'changed':prevcatgs.statusId}"
+									ng-options="stat.findingsStatusId as stat.findingstStatusDesc  for stat in cardtl.obsStatusOptions" disabled>
+						 		</select> 
+								<label for="status-{{$index}}">Status</label>
+							</div>
+							<div class="txt-sec col-xs-12 col-sm-12 col-md-4 col-lg-3 findinput-size">
+							
+								<input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12 changed"  ng-model="prevcatgs.statusDate"  id="statusdate-{{$index}}" 
+						 		 		 datepicker ng-click="cardtl.setFindingMinDate($index)"
+						 		 		 min-date="cardtl.findingMinDate" max-date="cardtl.findingMaxDate"
+						 		 		 type="text" autocomplete="off" ng-disabled="!(prevcatgs.newCreate) || ($index<cardtl.categorySection.length-1)" 
+						 		 		 ng-blur="prevcatgs.statusDate=_.dateValidation(prevcatgs.statusDate,'statusdate-'+$index,cardtl.findingMinDate,cardtl.findingMaxDate)" 
+						 		 		 ng-change="cardtl.setFindDueDate($index,prevcatgs.categoryId,prevcatgs.nextActionId);cardtl.nextActionDisable($index,prevcatgs.categoryId,prevcatgs.statusId)"
+						 		 		 placeholder="MMM-DD-YYYY"/>
+								 <label for="statusdate-{{$index}}">Status Date</label>
+								
+							</div>
+							<div class="txt-sec col-xs-12 col-sm-12 col-md-4 col-lg-3 findinput-size">
+								<select class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12" 	ng-model="prevcatgs.nextActionId" id="nextaction-{{$index}}"
+						 				ng-options="stat.findingsStatusId as stat.findingstStatusDesc  disable when ((stat.findingsStatusId!=cardtl.nextActionIDEnable[$index].status) && (stat.findingsStatusId!=cardtl.AppConstant.PREVIOUS_STATUS))  for stat in cardtl.obsStatusOptions"
+						 				ng-disabled="!(prevcatgs.statusDate) || !(prevcatgs.newCreate) || ($index<cardtl.categorySection.length-2) || ($index!= (cardtl.categorySection.length-1) &&(cardtl.categorySection[cardtl.categorySection.length-1].nextActionId == cardtl.AppConstant.CLOSE))" ng-click="prevcatgs.oldVal == prevcatgs.nextactionId"
+						 				ng-change="cardtl.nextActionChange($index,prevcatgs.nextActionId,cardtl.auditTypeId);cardtl.setFindDueDate($index,prevcatgs.categoryId,prevcatgs.nextActionId)" ng-class="{'changed':prevcatgs.nextActionId}">
+						 			</select> 
+									<label  for="nextaction-{{$index}}">Next Action</label>
+							
+							</div>
+							<div class="txt-sec col-xs-12 col-sm-12 col-md-4 col-lg-3 findinput-size">
+								
+								<input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-model="prevcatgs.dueDate" id="duedate-{{$index}}" readonly 
+								data-toggle="tooltip" tooltip data-placement="bottom" data-original-title="{{prevcatgs.dueDate}}"
+								 type="text" autocomplete="off"  ng-readonly="true || $index<cardtl.categorySection.length-1" ng-class="{'changed':prevcatgs.dueDate}"/>
+								 <label  for="duedate-{{$index}}">Due Date</label>
+							</div>
+        			</div>
+        			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 find-pad" style="padding-top:0px !Important;">
+        				<div class="txt-sec col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        						<textarea resizable class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12 descriptionresizehgt" ng-model="prevcatgs.descriptions" id="description-{{$index}}"  type="text" 
+								autocomplete="off" auditplace max-len="{{cardtl.AppConstant.FINDING_DESCRIPTION_MAX_LEN}}" ng-disabled="prevcatgs.categoryId=='' || !(prevcatgs.newCreate) || !(prevcatgs.statusDate)" ng-readonly="!(prevcatgs.newCreate)" ng-class="{'changed':prevcatgs.descriptions}"> </textarea>
+								<label for="description-{{$index}}">Description</label>
+						</div>
+        			</div>
+        			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 find-pad" >
+						
+						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 image-upload">
+  							<label for="file-input-{{$index}}"  class="buttontrash btn btn-info btnclass fndattachicon" ng-disabled="!(prevcatgs.categoryId) || !(prevcatgs.statusDate)" ng-hide="!(prevcatgs.newCreate && prevcatgs.statusDate)">
+       							<i class="fa fa-paperclip" aria-hidden="true" title="Attachments"></i>
+    						</label>
+							<input ng-hide="!(prevcatgs.newCreate && prevcatgs.statusDate)" 
+							    id="file-input-{{$index}}" type="file" file-upload ng-model="prevcatgs.findFileData" ng-change="cardtl.uploadFindingsAttach('CAR')"
+								ng-click="cardtl.setArrayIndex($index,cardtl.findingSeqNo,prevcatgs.statusSeqNo,'carFind')" accept="*/*" 
+								ng-disabled="!(prevcatgs.categoryId) && !(prevcatgs.statusDate)"/>
+								
+								</div>								
+    					
+    					<div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">	
+ 							<div class="table-responsive">
+  								<table class="table table-bordered table-hover">
+   									<thead>
+     									<tr>
+       										<th class="center">File Name</th>
+        									<th class="center">Download</th>
+        									<th class="center">Action</th>
+        									
+        								</tr>
+   								 	</thead>
+   							   	 	<tbody>	
+     									<tr ng-repeat="files in prevcatgs.findingRptAttachs">
+     										<td class="center"><a href="#" ng-click="cardtl.preview(files.fileName,$parent.$index,$index);">{{files.fileName}}</a></td>
+        								 	<td class="center width-center">
+        								 		<button class="buttontrash btn btn-info btnclass" ng-click="cardtl.downloadFindingFile(files.fileName,$parent.$index,$index)">
+        								 			<i class="fa fa-cloud-download" aria-hidden="true"></i>
+        								 		</button>
+        									</td>
+        									<td class="center width-center">
+        								 		<button class="buttontrash btn btn-info btnclass" ng-click="cardtl.removeFindingFiles(files,$parent.$index,$index,prevcatgs.statusSeqNo,files.fileSeqNo)" ng-disabled="!(prevcatgs.newCreate)" >
+        								 			<i class="fa fa-trash-o" aria-hidden="true" title="Trash"></i>
+        								 		</button>
+        									</td>
+        								
+     							    	</tr>			
+   							   		</tbody>
+ 								</table>
+ 							</div>
+						</div>
+					</div>
+        	</div>
+      </div>
+    </div>
+   
+  </div> 
+</div>
+    
+    
+    
+    
+</div>
+			
+
+	</div>
+</div>
+
+
+<div  class="col-xs-12 col-sm-12 col-md-12 col-lg-12 obs footerfixed">		
+			 <div class="col-xs-offset-2 col-xs-4 col-sm-offset-2 col-sm-2 col-md-offset-5 col-md-2 col-lg-offset-4 col-lg-2">
+				<button type="button" class="effect effect footerbutton btn btn-primaryclr font-home"  ng-click="cardtl.back('search')">Back</button>
+			</div> 
+			<div class="col-xs-4 col-sm-offset-1 col-sm-2 col-md-offset-0 col-md-2 col-lg-offset-0 col-lg-2">
+				<button type="button" class="effect effect footerbutton btn btn-primaryclr font-save" ng-disabled="true || !(cardtl.nxtAudStatus) || cardtl.notAllowUpdate" ng-click="cardtl.update()">Update</button> 
+			</div>
+</div>
+</form>

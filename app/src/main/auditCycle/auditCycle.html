@@ -1,0 +1,258 @@
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 cert containerfull auditscroll scroll">
+  
+    
+            
+    <div style="border-bottom: 1px solid #065050 !important;" class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 accordion-toggle1" data-toggle="collapse" data-target="#vessel">
+            <div class="col-xs-12 col-sm-10 col-md-12 col-lg-12 containerfull">
+                <div class="caption font-blue-sharp col-xs-9 col-sm-3 col-md-3 col-lg-3 containerfull">
+                    <span class="caption-subject bold uppercase pull-left">Audit Cycle</span>
+
+                </div>
+            </div>	
+        </div>	
+       
+          
+        <div style="padding:0px !Important;" class="imosection  col-xs-4 col-sm-offset-5 col-sm-3 col-md-offset-3 col-md-3 col-lg-offset-5 col-lg-2">
+                <div style="padding:0px !Important;" class=" col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <!--  <label class="imolabel">IMO Number</label>-->
+                      <select style="font-weight:500 !Important;padding:0px !important;height: 20px;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 imoval" ng-model="cycle.imolabelVal"  id="imolabelVal"
+                    
+                    ng-options="type.reqUrl as type.imolabelValTypeDesc  for type in cycle.imolabelValOptions" 
+                    ng-change="cycle.vesselImoNo='';cycle.clearData();"
+                >					
+                </select>
+                    
+                </div>
+                <div ng-if="cycle.imolabelVal != 'vesselName'" style="padding:0px !Important;" class=" col-xs-6 col-sm-6 col-md-6 col-lg-6 mob" id="divID" >
+                    <input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 imoval"  ng-model="cycle.vesselImoNo" id="veselimono" name="vslImo"
+                        type="text" autocomplete="off" required
+                        numeric
+                        ng-disabled="cycle.vesselName" type="text" autocomplete="off"
+                            ng-keypress="cycle.avoidWhiteSpace($event)"
+                            ng-change="cycle.imolabelVal != 'officialNumber' ? cycle.vesselDetails(cycle.vesselImoNo,'vesselImoNo'):''"
+                            ng-blur="cycle.imolabelVal != 'officialNumber' ? cycle.validateVessel('vesselImoNo'):cycle.vesselDetails(cycle.vesselImoNo,'officialNumber')"
+                            ng-keyup="($event.keyCode == 13 && cycle.imolabelVal == 'officialNumber') ? cycle.doBlur($event):null" />
+                            
+                                  <i ng-if="cycle.vesselDetail.vesselStatus == 'Active'" class="fa fa-check-circle-o vessel-status-icon-position vessel-status-icon-active" aria-hidden="true" data-toggle="tooltip" data-original-title="{{cycle.vesselDetail.vesselStatus}}" tooltip data-placement="bottom"></i>
+                              
+                              
+                                <i ng-if="cycle.vesselDetail.vesselStatus == 'Pending'" class="fa fa-clock-o vessel-status-icon-position vessel-status-icon-pending" aria-hidden="true" data-toggle="tooltip" data-original-title="{{cycle.vesselDetail.vesselStatus}}" tooltip data-placement="bottom"></i>
+                              
+                </div><!-- numeric="cycle.imolabelVal!='vesselName'"  add-directive="cycle.imolabelValOptions[cycle.imolabelVal].directive" minlength=3 maxlength=7-->
+                
+                <div ng-if="cycle.imolabelVal == 'vesselName'" style="padding:0px !Important;" class=" col-xs-6 col-sm-6 col-md-6 col-lg-6 mob" id="divID" >
+                    <input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 imoval"  ng-model="cycle.vesselImoNo" id="veselimono" name="vslImo"
+                        type="text" autocomplete="off" required
+                         ng-disabled="cycle.vesselName"type="text" autocomplete="off"
+                            ng-blur="cycle.vesselDetails(cycle.vesselImoNo,'vesselName')"
+                            ng-keyup="$event.keyCode == 13 ? cycle.doBlur($event):null"
+                            />
+                            <i ng-if="cycle.vesselDetail.vesselStatus == 'Active'" class="fa fa-check-circle-o vessel-status-icon-position vessel-status-icon-active" aria-hidden="true" data-toggle="tooltip" data-original-title="{{cycle.vesselDetail.vesselStatus}}" tooltip data-placement="bottom"></i>
+                              
+                              
+                                <i ng-if="cycle.vesselDetail.vesselStatus == 'Pending'" class="fa fa-clock-o vessel-status-icon-position vessel-status-icon-pending" aria-hidden="true" data-toggle="tooltip" data-original-title="{{cycle.vesselDetail.vesselStatus}}" tooltip data-placement="bottom"></i>
+                              
+                </div>
+                
+            </div>
+        
+            <div id="vessel" class="portlet-body collapse in col-xs-12 col-sm-12 col-md-12 col-lg-12 padcontainer">
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 containerfull">
+                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 txt-sec">
+                     <!-- ng-disabled="true" added by archana for jira id-IRI-5395-->
+                     <input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" ng-model="cycle.vesselName" id="vesselname"  type="text" autocomplete="off"  
+                     data-toggle="tooltip" data-original-title="{{cycle.vesselName}}" tooltip data-placement="bottom"
+                           ng-class="{'changed':cycle.vesselName}" ng-disabled="true"
+                          uib-typeahead="vesselName as vesselName for vesselName in cycle.vesselArray | filter:$viewValue"/>  	
+                     <label for="vesselname">Vessel Name</label>
+        
+                    </div>
+                    
+                     <div class="txt-sec col-xs-12 col-sm-6 col-md-6 col-lg-6">
+             
+                <select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" ng-model="cycle.auditTypeId"  id="auditType" 
+                    
+                    ng-options="autype.auditTypeId as autype.auditTypeDesc for autype in cycle.audtype"
+                    ng-class="{'changed':cycle.auditTypeId}"  ng-init="oldValue=''"
+                       ng-focus="oldValue=cycle.auditTypeId"
+                       ng-disabled=" !cycle.vesselImoNo"
+                    ng-change="cycle.auditTypeChange(oldValue);" >	
+                    <option value="1"></option>						
+                </select>
+                
+                <label for="auditType">Type</label>
+            
+            </div>
+            
+            <div class="txt-sec col-xs-12 col-sm-6 col-md-6 col-lg-6" ng-if="cycle.cycleWithAudit==true">
+             
+                <select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" ng-model="cycle.auditSubTypeId"  id="auditSubType"
+                    ng-options="type.auditSubtypeId as  cycle.auditLastSubtypeDesc disable when (type.auditSubtypeId!=1002)  for type in cycle.audsubtype"
+                   ng-disabled="cycle.disableAll || !cycle.vesselImoNo || cycle.cycleWithAudit "
+                    ng-class="{'changed':cycle.auditSubTypeId}">	
+                    <option value="1"></option>						
+                </select>
+                
+                <!-- added by archana for jira ID-IRI-5387 -->
+                 <label for="auditSubType">Last Audit Sub Type </label> 
+            
+            </div>
+            
+            
+             <div class="txt-sec col-xs-12 col-sm-6 col-md-6 col-lg-6" ng-if="cycle.cycleWithAudit==true">
+                
+                <input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input datePicker changed" datepicker placeholder="DD-Mon-YYYY"
+                    ng-model="cycle.auditDate" id="issuedate" type="text" autocomplete="off" ng-disabled="cycle.disableAll || !cycle.vesselImoNo || cycle.cycleWithAudit" /> 
+                      
+                    <label for="issuedate">Last Audit Date</label>
+             </div>
+            
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 txt-sec"  >
+                                          
+                     <input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" ng-model="cycle.leadName" id="cycle.leadName"  type="text" autocomplete="off"  
+                   uib-typeahead="aud as aud.firstName+' '+aud.lastName for aud in cycle.auditorNameArray | filter:$viewValue" ng-click = "cycle.leadchange();"
+                   data-toggle="tooltip" tooltip data-placement="bottom" ng-class="{'changed':cycle.leadName}" ng-disabled="  cycle.currentAuditUnderProcees || !cycle.vesselImoNo || cycle.cycleWithAudit"/>  	
+                     <label for="leadName">Lead Auditor Name </label>
+        
+                    </div>
+                   <div class="txt-sec col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                
+                <input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input datePicker changed" datepicker placeholder="DD-Mon-YYYY" ng-disabled=" !cycle.vesselImoNo ||  cycle.currentAuditUnderProcees || cycle.cycleWithAudit"
+                    ng-model="cycle.creditDate" id="creditDate" type="text" autocomplete="off" ng-change="cycle.onChangecreditDate();cycle.genarateNextIntermediateDate(cycle.creditDate);cycle.genrateCycleDates(cycle.creditDate,'genrate');" 
+                    min-date="cycle.creditmindate" max-date="cycle.creditmaxdate"
+                    ng-blur = "cycle.creditDate=_.dateValidation(cycle.creditDate,'creditDate',cycle.creditmindate,cycle.creditmaxdate);" /> 
+
+                    <label for="creditDate">Credit Date</label>
+             </div>
+                    
+            </div> 
+            
+            
+              <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 containerfull skip">
+                 
+                     <div  class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull"> 
+                         <div class="table-responsive">
+                              <table class="table table-bordered table-hover containerfull">
+                                 <thead>
+                                     <tr>
+                                         <td>
+                                             CYCLE <span  ng-if="cycle.creditDate">{{ cycle.iteratorVal1 ? cycle.iteratorVal1 : '' }} </span>
+                                         </td>
+                                         
+                                         <td>
+                                             Start Date
+                                         </td>
+                                         <td>
+                                         Due Date
+                                         </td>
+                                         <td>
+                                             End Date
+                                         </td>
+                                         
+                                         <td>
+                                             Skip
+                                         </td>
+                                     </tr>
+                                 </thead>
+                                 <tbody class="scroll">
+                                      <tr ng-repeat="type in cycle.audsubtypeIterationForCyle"> 
+                                         <td>
+                                         {{type.auditSubtypeDesc}}
+                                         </td> 
+                                         <td> {{type.startDate ? type.startDate : ' - '}}</td> 
+                                          <td>{{type.dueDate ? type.dueDate :'-' }} </td>
+                                         <td> {{type.endDate   ? type.endDate:' - '}}</td>
+                                         
+                                         <td>
+                                             <div  class="col-xs-6 col-sm-6 col-md-6 col-lg-offset-3 col-lg-6">
+            <input id="userismreview-{{$index}}" type="checkbox" ng-model="type.check" 
+                name="reviewism" 
+                ng-true-value=1 ng-false-value=0  ng-disabled="(!type.startDate && type.check!=1) || type.auditSubtypeId==cycle.AppConstant.RENEWAL_SUB_TYPE_ID ||cycle.currentAuditUnderProcees || cycle.cycleWithAudit" ng-change="cycle.cycleSkip($index,type.auditSubtypeId,cycle.creditDate,type.check)"/>
+            <label for="userismreview-{{$index}}" class="containerhght">
+                </label>
+          </div>
+                                         </td>
+                                         
+                                     </tr>
+                                     
+                                 </tbody>
+                              </table>
+                         </div>
+                    </div>
+             </div>
+             
+            </div>
+    </div>
+    
+    <!-- 
+    <div style="border-bottom: 1px solid #065050 !important;" class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 accordion-toggle1" data-toggle="collapse" data-target="#cycleHistory">
+            <div class="col-xs-12 col-sm-10 col-md-12 col-lg-12 containerfull">
+                <div class="caption font-blue-sharp col-xs-9 col-sm-3 col-md-3 col-lg-3 containerfull">
+                    <span class="caption-subject bold uppercase pull-left">Audit Cycle History</span>
+
+                </div>
+            </div>	
+        </div>	 -->
+         
+ 
+<div ng-if="cycle.showBlock" style="border-bottom: 1px solid #065050 !important;" class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 accordion-toggle1" data-toggle="collapse" data-target="#auditCycleHistoryTable">
+            <div class="col-xs-12 col-sm-10 col-md-12 col-lg-12 containerfull">
+                <div class="caption font-blue-sharp col-xs-9 col-sm-3 col-md-3 col-lg-3 containerfull">
+                    <span class="caption-subject bold uppercase pull-left">Audit Cycle History</span>
+                </div>
+            </div>	
+        </div>
+      
+<div ng-if="cycle.showBlock" class="search_table_bordered auditTableHeight auditSearch " id="auditCycleHistoryTable">
+
+<table datatable="" dt-options="cycle.dtOptions" dt-columns="cycle.dtColumns" dt-instance="cycle.dtInstance" class="table table-responsive datatables" id="dtTable"></table>
+<nav ng-if="cycle.pagination" class="pagination pagination-sm pagination_position searchpagination">
+    <li ng-class="{ disabled : pagination.current === 0 ||  pagination.current === 1}">
+        <a href="" ng-click="(pagination.current === 0 || pagination.current === 1)?null:cycle.search(0)">&laquo;</a>
+    </li>
+    <li ng-class="{ disabled : pagination.current === 0 || pagination.current === 1}">
+        <a href="" ng-click="(pagination.current === 0 || pagination.current === 1)?null:cycle.search(pagination.current-2)">&lsaquo;</a>
+    </li>
+    <li ng-repeat="n in range(pagination.totalPages)" ng-class="{active:pagination.current===n}"> 
+        <a href="#" ng-click="cycle.search(n-1)" ng-bind="n">n</a>
+    </li>
+    <li ng-class="{ disabled : pagination.current === pagination.last }">
+        <a href="" ng-click="(pagination.current === pagination.last)?null:cycle.search(pagination.current)">&rsaquo;</a>
+    </li>
+    <li ng-class="{ disabled : pagination.current === pagination.last }">
+        <a href="" ng-click="(pagination.current === pagination.last)?null:cycle.search(pagination.last-1)">&raquo;</a>
+    </li>
+</nav>
+
+</div>
+    
+</div>
+
+
+
+
+
+
+</div>
+
+<div class=" col-xs-2  col-sm-2 col-md-2 col-lg-12 aud footerfixed">		
+
+
+ <div class="col-xs-offset-3 col-xs-4 col-sm-offset-3  col-sm-4 col-md-offset-3  col-md-2 col-lg-offset-3  col-lg-2">
+    <button type="button" class="effect effect footerbutton btn btn-primaryclr font-create" ng-click="cycle.back()">Back</button>
+    
+</div>
+
+<div class="col-xs-4 col-sm-4 col-md-2 col-lg-2"> 
+    <button type="button" class="effect effect footerbutton btn btn-primaryclr font-create" ng-click="cycle.createCycle()" ng-disabled=" cycle.cycleWithAudit|| cycle.disableSave || !cycle.creditDate || ( cycle.currentAuditUnderProcees && (cycle.auditSubTypeId == cycle.AppConstant.INTERMEDIATE_SUB_TYPE_ID || cycle.auditSubTypeId == cycle.AppConstant.ADDITIONAL_SUB_TYPE_ID))">Save</button>
+    
+</div>
+<div class="col-xs-4 col-sm-4 col-md-2 col-lg-2"> 
+    <button type="button" class="effect effect footerbutton btn btn-primaryclr font-create" ng-click="cycle.clearData()" ng-disabled="!cycle.vesselImoNo">Clear</button>
+    
+</div>
+</div>
+

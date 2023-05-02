@@ -1,0 +1,67 @@
+<div  class="col-xs-12 col-sm-12 col-md-12 col-lg-12 modal fade" data-keyboard="false" data-backdrop="static">
+	<div  class="col-xs-12 col-sm-12 col-md-12 col-lg-12 modal-dialog audit-cycle-body">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 modal-content audit-cycle-content">	
+			
+			<table class="table" style="margin-bottom:0px !important;" >
+                                           	    <tr  align="center" class="auditCycleModelHeader">
+                                           	  
+                                           	   <th colspan="3">AUDIT CYCLE</th>
+                                           		<th>
+                                           			<div style="color:white;">
+                										<button type="button" class="close" ng-click="aCycle.close('Cancel')" aria-hidden="true">&times;</button>                
+           										 	</div>	
+           										</th>	
+                                       
+                                           		</tr>
+                                           	    <tr><!-- {{tm.cycleGenNo ? tm.cycleGenNo :''}} -->
+                                           			<th style="padding-left:24px;">CYCLE {{aCycle.renewalTemp ? aCycle.renewalTemp :''}}  {{aCycle.cycleGenNo ? aCycle.cycleGenNo :''}} </th>
+                                           			<th>START DATE</th>
+                                           			<th>END DATE </th>
+                                           			<th>SKIP</th>
+                                           			
+                                           		</tr>
+                                           		<tr  align="center">
+                                           			<td>{{aCycle.initilOrRenewal}} {{aCycle.cycleGenNo1 ? aCycle.cycleGenNo1 :''}}</td>
+													<!-- added by archana for jira id-IRI-5385 -->
+                                           			<td>{{aCycle.initialStartDate}}</td>
+                                           			<td>-</td>
+                                           			<td><input type="checkbox" id="auditCycleCheckBox" name="completeAdt" ng-true-value=0 ng-false-value=1 ng-init="tm.initialSkip" ng-disabled="true" ng-model="aCycle.initialCheck"/>
+                                           			<!-- <input type="checkbox" name="auditCycleCheck"/> --></td>
+                                           		</tr>
+                                           		<tr  align="center">
+                                           			<td>INTERMEDIATE </td> 
+                                           			<td>{{aCycle.nextIntermediateStart}}</td>
+                                           			<td>{{aCycle.nextIntermediateEnd}}</td>
+                                           		 	<td><input type="checkbox" id="auditCycleCheckBox" ng-true-value=0 ng-false-value=1 ng-init="tm.interSkip" ng-disabled="true" ng-model="aCycle.intermediatecheck" /></td>
+                                           			
+                                           			
+                                           			
+                                           		</tr><!-- {{tm.cycleGenNo ? tm.cycleGenNo:''}} -->
+                                           			<tr  align="center">
+                                           			<td>RENEWAL {{aCycle.renewalTemp ? aCycle.renewalTemp :''}} {{aCycle.cycleGenNo ? aCycle.cycleGenNo:''}}  </td>
+                                           			<td>{{aCycle.nextRenewalStart}}</td>
+                                           			<td>{{aCycle.nextRenewal}}</td>
+                                           			
+                                           			<td><input type="checkbox" id="auditCycleCheckBox" ng-true-value=0 ng-false-value=1 ng-init="tm.renewalSkip" ng-disabled="true"   ng-model="aCycle.renewalcheck"/></td>
+                                           		</tr>
+                                           		
+                                           </table>
+			
+			
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        

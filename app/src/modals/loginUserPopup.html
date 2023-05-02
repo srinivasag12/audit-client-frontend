@@ -1,0 +1,30 @@
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 modal fade"
+	data-keyboard="false" data-backdrop="static">
+	<div style="width: 500px; margin: 15vh 40vw;"
+		class="col-xs-12 col-sm-12 col-md-12 col-lg-12 modal-dialog">
+		<!-- <form class="col-xs-12 col-sm-12 col-md-12 col-lg-12 login-form" ng-submit="login.auth();" autocomplete="off"> -->
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 modal-content">
+
+			<div class="modal-header"
+				style="padding-bottom: 0px; padding-left: 0px;">
+				<button type="button" class="close" ng-click="close('Cancel')"
+					data-dismiss="modal" aria-hidden="true">&times;</button>
+					<!--changed by sudharsan For Jira-Id IRI-5482 on 16-09-2022-->
+				<h4 class="modal-title">{{checkLogin.loginUserName}} is already logged in {{checkLogin.device}} Application</h4>
+				<h6 class="modal-title">Do you want to logout from {{checkLogin.device}} Application and continue here?</h6>
+			</div>
+
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 modal-footer">
+				<div 
+				class="col-xs-offset-4 col-xs-4 col-sm-6 col-md-3 col-lg-offset-6 col-lg-3">
+					<button type="button" class="btn btnclass fix-but-width"
+						ng-click="checkLogin.logoutAllDevice()" aria-hidden="true">Yes</button>
+				</div>
+				<div class="col-xs-4 col-sm-6 col-md-3 col-lg-3">
+					<button type="button" class="btn btnclass fix-but-width"
+						ng-click="checkLogin.removePop('NO')"  aria-hidden="true">No</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

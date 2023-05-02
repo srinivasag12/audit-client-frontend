@@ -1,0 +1,815 @@
+<div class="page-header navbar navbar-fixed-top"  data-ng-controller="HeaderController">
+
+	<div class="page-header-inner ">
+
+		<!-- <div class="page-logo">
+			<a href="index.html">  <img src="" alt="" class="logo-default" />
+			</a>
+
+		</div> -->
+				<img class="hidden" id="sb"
+			src="../../../assets/global/img/Sealblack.jpg" alt="The Scream">
+
+		<img class="hidden" id="sg"
+			src="../../../assets/global/img/Sealgrey.jpg" alt="The Scream">
+
+
+		<img class="hidden" id="sa"
+			src="../../../assets/global/img/SpecialAgent.jpg" alt="The Scream">
+
+		<img class="hidden" id="dc"
+			src="../../../assets/global/img/DeputyCommissioner.jpg"
+			alt="The Scream">
+			
+		<img class="hidden" id="ts"
+			src="../../../assets/global/img/transparent.png"
+			alt="The Scream">
+			
+		<div class="logo_Section_main">
+		
+		<div class="logo_Section_main_right">
+		<div class="logo_Section company ">
+		
+		  <span class="title">{{tm.companyName}}</span>
+		  
+		  <!-- <span ng-if="!tm.ihmReviewer" style="font-size: 17px"><a href="javascript:;"  ng-click="tm.downloadSoft()" >SHIPBOARD APPLICATION</a></span> -->
+		  
+		 </div>
+		 <!--added by Ramya on 26-10-2022 for jira id - IRI-5519 -->
+		  <div  ng-if="tm.userRoleId==1003 || tm.userRoleId==1006" class="logo_Section pagetitle"  ng-class="{pagetitlewithoutcompany:!tm.companyName}">
+			<span class="title"   ng-bind="'manager - '+ $state.current.data.pageTitle | uppercase"></span>
+			
+		</div>
+		<div  ng-if="tm.userRoleId!=1003 && tm.userRoleId!=1006" class="logo_Section pagetitle"  ng-class="{pagetitlewithoutcompany:!tm.companyName}">
+			<span class="title"   data-ng-bind="$state.current.data.pageTitle | uppercase"></span>
+			
+		</div>
+			
+		</div>
+		<div ng-class="{companyImage}" class="logo_Section company onlyLogo">
+			<img alt="" class="img-circle"  src="data:image/png;base64,{{companyImage}}" /> 
+		</div>
+		
+		
+		</div>
+		
+		
+		<div ng-if="$state.current.data.pageTitle != 'Dashboard' "  >
+			 <a  href="javascript:;" class="menu-toggler responsive-toggler alignToggle"
+				data-toggle="collapse" data-target=".navbar-collapse" > <span></span>
+			</a>
+
+		</div>
+	
+			
+			
+			
+	
+		<div class="top-menu">
+			<ul class="nav navbar-nav pull-right" >
+
+			<!-- <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar" ng-if="tm.AuditOrInspection && $state.current.data.pageModule == 'AUDIT' && $state.current.data.pageTitle != 'CREATE SSP' && $state.current.data.pageTitle != 'UPDATE SSP'  && $state.current.data.pageTitle !='UPDATE DMLC II'   && $state.current.data.pageTitle !='CREATE DMLC II' && $state.current.data.pageTitle != 'CREATE IHM' &&  $state.current.data.pageTitle != 'UPDATE IHM'">
+			
+				<a  href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="true" ng-click="getVesselDeatilsUpdate">
+				 
+					<i  class="fa fa-exclamation-triangle"></i>
+				</a>
+				  <ul class="dropdown-menu dropdown-menu-default">
+						<li ng-repeat="jsondata in myArray" ng-click="changeflag(jsondata)">
+						<a href="javascript:;"> <i class="fa fa-dot-circle-o" aria-hidden="true"></i> {{jsondata.SUBJECT}}</a>
+						 </li>
+				</ul>
+			</li> -->
+			<!--7 reviews conditions added by ramya for Jira ID-> 5218 -->
+			<li ng-if="tm.countFindingCategory.auditTypeId!=tm.AppConstant.IHM_TYPE_ID && $state.current.data.pageModule == 'AUDIT' && $state.current.data.pageTitle != 'CREATE SSP' && $state.current.data.pageTitle != 'UPDATE SSP'
+			&& $state.current.data.pageTitle != 'CREATE SOPEP' && $state.current.data.pageTitle != 'UPDATE SOPEP'
+			&& $state.current.data.pageTitle != 'CREATE STS' && $state.current.data.pageTitle != 'UPDATE STS'
+			&& $state.current.data.pageTitle != 'CREATE SMPEP' && $state.current.data.pageTitle != 'UPDATE SMPEP'
+			&& $state.current.data.pageTitle != 'CREATE BWS' && $state.current.data.pageTitle != 'UPDATE BWS'
+			&& $state.current.data.pageTitle != 'CREATE VOC' && $state.current.data.pageTitle != 'UPDATE VOC'
+			&& $state.current.data.pageTitle != 'CREATE SDR' && $state.current.data.pageTitle != 'UPDATE SDR'
+			&& $state.current.data.pageTitle != 'CREATE COW' && $state.current.data.pageTitle != 'UPDATE COW'" class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+                                <a href="javascript:;" class="dropdown-toggle" ng-mouseover="tm.showfindcategorystatus($event);" ng-mouseleave="tm.hidefindcategorystatus($event);" data-close-others="true" aria-expanded="true">
+                                   <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                    <span class="badge badge-default">  </span>
+                                </a>
+                                
+                                <ul class="dropdown-menu customClass">
+                                    <li>
+                                        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: auto;">
+                                        <table ng-if="tm.countFindingCategory.auditTypeId!=1005" class="table" style="margin-bottom:0px !important;">
+                                           	    <tr>
+                                           			<th>CATEGORY</th>
+                                           			<th>PF</th>
+                                           			<th>NF</th>
+                                           		</tr>
+                                           		<tr>
+                                           			<td>{{tm.countFindingCategory.majorDesc}}</td>
+                                           			<td>{{tm.countFindingCategory.majorPrevCnt}}</td>
+                                           			<td>{{tm.countFindingCategory.majorCurrCnt}}</td>
+                                           		</tr>
+                                           		<tr>
+                                           			<td>{{tm.countFindingCategory.minorDesc}}</td>
+                                           			<td>{{tm.countFindingCategory.minorPrevCnt}}</td>
+                                           			<td>{{tm.countFindingCategory.minorCurrCnt}}</td>
+                                           		</tr>
+                                           		<tr>
+                                           			<td>{{tm.countFindingCategory.obsDesc}}</td>
+                                           			<td>{{tm.countFindingCategory.obsPrevCnt}}</td>
+                                           			<td>{{tm.countFindingCategory.obsCurrCnt}}</td>
+                                           		</tr>
+                                           		
+                                           </table>
+                                           
+                                           <table ng-if="tm.countFindingCategory.auditTypeId==1005" class="table" style="margin-bottom:0px !important;">
+                                           	    <tr>
+                                           			<th>CATEGORY</th>
+                                           			<th>RN</th>
+                                           		</tr>
+                                           		<tr>
+                                           			<td>{{tm.countFindingCategory.reviewNoteDesc}}</td>
+                                           			<td>{{tm.countFindingCategory.reviewNoteCount}}</td>
+                                           		</tr>
+                                           		
+                                           </table>
+                                        
+                                        <div class="slimScrollBar" style="background: rgb(99, 114, 131); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 121.359px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(234, 234, 234); opacity: 0.2; z-index: 90; right: 1px;"></div></div>
+                                    </li>
+                                </ul>
+                                
+                                
+                                
+				</li>
+				
+				
+					<!--       Start Audit Cycle         -->
+			<!-- && tm.auditSubTypeIdToCycle==true -->
+				<li ng-if="tm.AuditOrInspection && $state.current.data.pageModule == 'AUDIT' && $state.current.data.pageTitle != 'CREATE SSP' && $state.current.data.pageTitle != 'UPDATE SSP'  && $state.current.data.pageTitle !='UPDATE DMLC II'   && $state.current.data.pageTitle !='CREATE DMLC II' && $state.current.data.pageTitle != 'CREATE IHM' &&  $state.current.data.pageTitle != 'UPDATE IHM'" class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar cycle">
+                                <a href="javascript:;" class="dropdown-toggle" ng-mouseover="tm.ShowAuditCycle($event); " data-close-others="true" aria-expanded="true">
+                                   <i class="fa fa-recycle" aria-hidden="true"></i>
+                                    <span class="badge badge-default">  </span>
+                                </a>
+                        
+                        		<ul class="dropdown-menu customClass cycleMenu" ng-mouseleave="tm.hidefindcategorystatus($event);">
+                                    <li>
+                                        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: auto;">
+                                        <table ng-if="tm.countFindingCategory.auditTypeId!=1005" class="table" style="margin-bottom:0px !important;">
+                                           	    <tr  align="center" class="auditCycleModelHeader">
+                                           	    	<th style="padding:3px;">
+                                           	     <a href="javascript:;"   ng-click="tm.auditCycleDataNavigationPrev();" >  	
+                                           	    	<i class="fa fa-angle-left" style="font-size:x-large; color:white;"   ></i>
+                                           	   </a>  
+                                           	    	</th>
+                                           			<th style="text-align:center;padding-right: 70px;"colspan="3">AUDIT CYCLE</th>
+                                           			<th style="padding:3px;">
+                                           		  	<a href="javascript:;"  ng-click="tm.auditCycleDataNavigationNext();">  	
+                                           	    	<i class="fa fa-angle-right" style="font-size:x-large; color:white;float:right"   ></i>
+                                           	   </a>  
+                                           			</th>
+                                           		</tr>
+                                           	    <tr><!-- {{tm.cycleGenNo ? tm.cycleGenNo :''}} -->
+                                           			<th style="padding-left:24px;"> CYCLE {{tm.renewalTemp ? tm.renewalTemp :''}} {{tm.cycleGenNo4 ? tm.cycleGenNo4 :''}} {{tm.cycleGenNo ? tm.cycleGenNo :''}} </th>
+                                           			<th>START DATE</th>
+                                           			<th>DUE DATE</th>
+                                           			<th>END DATE </th>
+                                           			<th>SKIP</th>
+                                           			
+                                           			
+                                           		</tr>
+                                           		<tr  align="center">
+                                           			<td>{{tm.initilOrRenewal}} {{tm.cycleGenNo1 ? tm.cycleGenNo1 :''}}</td>
+                                           			<td>{{tm.initialStartDate}}</td>
+                                           			<td>-</td> <td>-</td>
+                                           			<td><input type="checkbox" id="auditCycleCheckBox" name="completeAdt" ng-true-value=0 ng-false-value=1 ng-init="tm.initialSkip" ng-disabled="true" ng-model="tm.initialSkip"/>
+                                           			<!-- <input type="checkbox" name="auditCycleCheck"/> --></td>
+                                           		</tr>
+                                           		<tr  align="center">
+                                           			<td>INTERMEDIATE </td> 
+                                           			<td>{{tm.nextIntermediateStart}}</td>
+                                           			<td>{{tm.intermediateDueDate}}</td>
+                                           			<td>{{tm.nextIntermediateEnd}}</td>
+                                           			
+                                           		 	<td><input type="checkbox" id="auditCycleCheckBox" ng-true-value=0 ng-false-value=1 ng-init="tm.interSkip" ng-disabled="true" ng-model="tm.interSkip" /></td>
+                                           			
+                                           			
+                                           			
+                                           		</tr><!-- {{tm.cycleGenNo ? tm.cycleGenNo:''}} --> 
+                                           			<tr  align="center">
+                                           			<td>RENEWAL {{tm.renewalTemp ? tm.renewalTemp :''}} {{tm.cycleGenNo ? tm.cycleGenNo:''}} {{tm.cycleGenNo3 ? tm.cycleGenNo3:''}} </td>
+                                           			<td>{{tm.nextRenewalStart}}</td>
+                                           			<td>{{tm.nextRenewalDueDate}}</td>
+                                           			<td>{{tm.nextRenewal}}</td>
+                                           			
+                                           			
+                                           			<td><input type="checkbox" id="auditCycleCheckBox" ng-true-value=0 ng-false-value=1 ng-init="tm.renewalSkip" ng-disabled="true"   ng-model="tm.renewalSkip"/></td>
+                                           		</tr>
+                                           		
+                                           </table>
+                                           
+                                           <table ng-if="tm.countFindingCategory.auditTypeId==1005" class="table" style="margin-bottom:0px !important;">
+                                           	    <tr>
+                                           			<th>CATEGORY</th>
+                                           			<th>RN</th>
+                                           		</tr>
+                                           		<tr>
+                                           			<td>{{tm.countFindingCategory.reviewNoteDesc}}</td>
+                                           			<td>{{tm.countFindingCategory.reviewNoteCount}}</td>
+                                           		</tr>
+                                           		
+                                           </table>
+                                        
+                                        <div class="slimScrollBar" style="background: rgb(99, 114, 131); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 121.359px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(234, 234, 234); opacity: 0.2; z-index: 90; right: 1px;"></div></div>
+                                    </li>
+                                </ul>
+                                
+                                
+                                
+				</li>
+				
+				
+				<!--       end Audit Cycle       -->
+			<li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+			
+                                <a  href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="true" ng-click="getUserEmailDtls()">
+                                 
+                                    <i  class="icon-bell"></i>
+                                    <span class="badge badge-danger">{{notifyLength}} </span>
+                                </a>
+                                  <ul class="dropdown-menu dropdown-menu-default">
+    									<li ng-repeat="jsondata in myArray" ng-click="changeflag(jsondata)">
+    									<a href="javascript:;"> <i class="fa fa-envelope" aria-hidden="true"></i> {{jsondata.SUBJECT}}</a>
+    									 </li>
+                                </ul>
+				</li>
+				<li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+					<a href="javascript:;" class="dropdown-toggle fixed-content" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="false" ng-click="tm.fileDownload_validation()">
+						 <i class="fa fa-file-pdf-o"></i>
+					 </a>
+			
+					<ul class="dropdown-menu dropdown-menu-default" style="max-height: 240px !important; overflow-y: inherit;">
+						<li ng-show="tm.smcUser"> 
+							<a href="javascript:;"  ng-click="tm.userManulDownload()" >
+								<i class="fa fa-download"></i>&nbsp;&nbsp;&nbsp;Audit User Manual</a>
+						</li>
+						
+						
+						<li ng-show="tm.ihmReviewer"> 
+							<a href="javascript:;"  ng-click="tm.userManulDownloadIhm()" >
+								<i class="fa fa-download"></i>&nbsp;&nbsp;&nbsp;IHM User Manual </a>
+						</li>
+
+						<li ng-show="tm.planApprovalReview"> 
+							<a href="javascript:;"  ng-click="tm.userManulDownloadPA()" >
+								<i class="fa fa-download"></i>&nbsp;&nbsp;&nbsp;Plan Approval User Manual </a>
+						</li>
+				   </ul>
+			</li>
+				<li class="dropdown dropdown-user">
+				
+                                <a href="javascript:;" class="dropdown-toggle fixed-content" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="false">
+                                   <img ng-if="phoImage!=null" alt="" class="img-circle"  src="data:image/png;base64,{{phoImage}}"> 
+                                    <span class="username "> {{usrname | uppercase}} </span>
+                                    <i class="fa fa-angle-down"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-default" style="max-height: 240px !important; overflow-y: inherit;">
+                                     <li ng-click="tm.resetPassword()">
+                                        <a href="javascript:;">
+                                        <i class="fa fa-key" aria-hidden="true"></i> Reset Password</a> </li>
+									<!--   Start section for downloading laptop application from Central Server  -->
+                                     <li ng-if="tm.userRoleId==1001 && !tm.onlyIhm" > 
+                                        <a href="javascript:;"  ng-click="tm.downloadSoft()" >
+                                            <i class="fa fa-download"></i>Shipboard Application</a>
+                                     </li>
+                                     <li ng-click="tm.settings()">
+                                        <a href="javascript:;">
+                                        <i class="fa fa-cog" aria-hidden="true"></i>Settings</a> </li>
+                                        <li ng-if="tm.userRoleId==1002 || tm.userRoleId==1003 || tm.userRoleId==1006">
+                                        <a href="javascript:;" ng-click="tm.userSearch()">
+                                        <i class="fa fa-search" aria-hidden="true"></i>User Search</a> </li>
+                                    <li ng-if = "tm.userRoleId != 1002 && tm.userRoleId != 1003" ng-click="tm.support()">
+                                        <a href="javascript:;">
+                                        <i class="fa fa-support" aria-hidden="true"></i>Support</a> </li>
+                                    <li ng-click="tm.logout()">
+                                        <a href="javascript:;" >
+                                            <i class="icon-logout"></i> Log Out </a>
+                                    </li>
+                                </ul>
+                            </li>
+				
+			</ul>
+				
+		</div>
+
+	</div>
+
+</div>
+
+<div  ng-if="$state.current.data.pageTitle != 'Dashboard'" class="page-sidebar navbar-collapse collapse pull-right" data-ng-controller="SidebarController" >
+
+
+
+	<ul class="page-sidebar-menu page-sidebar-menu-closed"
+		data-keep-expanded="false" data-auto-scroll="true"
+		data-slide-speed="200">
+		
+
+
+	
+		<li class="nav-item">
+		
+		
+		<a href="#"  class="nav-link nav-toggle" ui-sref="app.dashboard" ui-sref-opts="{reload: true}">
+			
+			
+		
+			 <i class="icon-home"></i>
+			 
+			    <span class="title">Dashboard</span> 
+				<span class="selected"></span> 
+				<span class="arrow"></span>
+		</a>
+			
+		</li>
+		
+		
+		
+		<li ng-if="tm.userRoleId == 1004 && tm.onlyIhm"  ng-class="{['active']:$state.current.data.pageModule == 'AUDIT'}" class="nav-item">
+		
+		<a ng-show="tm.onlyIhm" href="javascript:;"  class="nav-link nav-toggle" >
+		  <i class="icon-docs" ></i>
+		  <span class="title" > Review Creation</span> 
+		  <span class="selected"></span> 
+		  <span class="arrow"></span>
+		</a>
+			<ul class="sub-menu">
+				
+				<li ng-if="tm.ihmReviewer" ng-click="tm.clearSession(tm.AppConstant.IHM_TYPE_ID)" ng-class="{['active']:$state.current.data.pageTitle == 'IHM Part I Review'}"  class="nav-item"><a 
+					class="nav-link"> 
+					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					<span class="title">IHM Part I Review</span>
+				</a></li>
+				<ul class="page-sidebar-menu page-sidebar-menu-closed"
+				 ng-if="tm.onlyPlanAccepted"
+					style="margin-top:-125px; width:300px"
+					data-keep-expanded="false" data-auto-scroll="true"
+					data-slide-speed="200" >
+					<li  ng-if="tm.onlyPlanAccepted || tm.ihmReviewer" ng-class="{['active']:$state.current.data.pageModule == 'AUDIT'}"
+						class="nav-item  " >
+						<a href="javascript:;" 	class="nav-link nav-toggle" ui-sref-opts="{reload: true}" 
+						style="width:210px;background-color: #364150;">
+							<i><span class="title" style="width:210px;color: #fafcfbad;">Plan Approval</span></i>
+							 <span 	class="title">
+							<i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
+							 </span>
+							 <span class="selected"></span> 
+							 <span
+							class="arrow"></span>
+					</a>
+						<ul class="sub-menu">
+						<li  ng-click="tm.clearSession(tm.AppConstant.SOPEP_TYPE_ID)" ng-class="{['active']:$state.current.data.pageTitle == 'CREATE SOPEP'}" class="nav-item">
+					<a  class="nav-link" > 
+						<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+						<span class="title">SOPEP</span>
+					</a>
+				</li>
+				<li ng-click="tm.clearSession(tm.AppConstant.STS_TYPE_ID)" ng-class="{['active']:$state.current.data.pageTitle == 'CREATE STS'}" class="nav-item">
+					<a class="nav-link"> 
+						<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+						<span class="title">STS</span>
+					</a></li>
+				<li  ng-click="tm.clearSession(tm.AppConstant.SMPEP_TYPE_ID)" ng-class="{['active']:$state.current.data.pageTitle == 'CREATE SMPEP'}" class="nav-item"><a  
+					class="nav-link"> 
+					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					<span class="title">SMPEP</span>
+				</a></li>
+				<li ng-click="tm.clearSession(tm.AppConstant.BWS_TYPE_ID)" ng-class="{['active']:$state.current.data.pageTitle == 'CREATE BWS'}" class="nav-item"><a 
+					class="nav-link"> 
+					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					<span class="title">BWS</span>
+				</a></li>
+				<li  ng-click="tm.clearSession(tm.AppConstant.VOC_TYPE_ID)" ng-class="{['active']:$state.current.data.pageTitle == 'CREATE VOC'}"  class="nav-item"><a 
+					class="nav-link"> 
+					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					<span class="title">VOC</span>
+				</a></li>
+				<li  ng-click="tm.clearSession(tm.AppConstant.SDR_TYPE_ID)" ng-class="{['active']:$state.current.data.pageTitle == 'CREATE ISM'}"  class="nav-item"><a 
+					class="nav-link"> 
+					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					<span class="title">SDR</span>
+				</a></li>
+				<li  ng-click="tm.clearSession(tm.AppConstant.COW_TYPE_ID)" ng-class="{['active']:$state.current.data.pageTitle == 'CREATE COW'}"  class="nav-item"><a 
+					class="nav-link"> 
+					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					<span class="title">COW</span>
+				</a></li>
+						</ul>
+						</li>
+				</ul>
+			</ul></li>
+			
+		
+		
+		<li ng-if="tm.userRoleId == 1006"  ng-class="{['active']:$state.current.data.pageModule == 'AUDIT'}" class="nav-item">
+		<a ng-show="!tm.onlyIhm" href="javascript:;"  class="nav-link nav-toggle" >
+		  <i class="icon-docs" ></i>
+		  <span class="title" >Review Creation</span> 
+		  <span class="selected"></span> 
+		  <span class="arrow"></span>
+		</a>
+		<a ng-show="tm.onlyIhm" href="javascript:;"  class="nav-link nav-toggle" >
+		  <i class="icon-docs" ></i>
+		  <span class="title" > Review Creation</span> 
+		  <span class="selected"></span> 
+		  <span class="arrow"></span>
+		</a>
+			<ul class="sub-menu">
+				
+				<li ng-if="tm.ihmReviewer" ng-click="tm.clearSession(tm.AppConstant.IHM_TYPE_ID)" ng-class="{['active']:$state.current.data.pageTitle == 'IHM Part I Review'}"  class="nav-item"><a 
+					class="nav-link"> 
+					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					<span class="title">IHM Part I Review</span>
+					
+				</a></li>
+				<ul class="page-sidebar-menu page-sidebar-menu-closed"
+				 ng-if="tm.planApprovalReview"
+					style="margin-top:-125px; width:300px"
+					data-keep-expanded="false" data-auto-scroll="true"
+					data-slide-speed="200" >
+					<li  ng-if="tm.planApprovalReview" ng-class="{['active']:$state.current.data.pageModule == 'AUDIT'}"
+						class="nav-item  " >
+						<a href="javascript:;" 	class="nav-link nav-toggle" ui-sref-opts="{reload: true}" 
+						style="width:210px;background-color: #364150;">
+							<i><span class="title" style="width:210px;color: #fafcfbad;">Plan Approval</span></i>
+							 <span 	class="title">
+							<i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
+							 </span>
+							 <span class="selected"></span> 
+							 <span
+							class="arrow"></span>
+					</a>
+						<ul class="sub-menu">
+						<li ng-click="tm.clearSession(tm.AppConstant.SOPEP_TYPE_ID)" ng-class="{['active']:$state.current.data.pageTitle == 'CREATE SOPEP'}" class="nav-item">
+					<a  class="nav-link" > 
+						<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+						<span class="title">SOPEP</span>
+					</a>
+				</li>
+				<li ng-click="tm.clearSession(tm.AppConstant.STS_TYPE_ID)" ng-class="{['active']:$state.current.data.pageTitle == 'CREATE STS'}" class="nav-item">
+					<a class="nav-link"> 
+						<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+						<span class="title">STS</span>
+					</a></li>
+				<li ng-click="tm.clearSession(tm.AppConstant.SMPEP_TYPE_ID)" ng-class="{['active']:$state.current.data.pageTitle == 'CREATE SMPEP'}" class="nav-item"><a  
+					class="nav-link"> 
+					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					<span class="title">SMPEP</span>
+				</a></li>
+				<li  ng-click="tm.clearSession(tm.AppConstant.BWS_TYPE_ID)" ng-class="{['active']:$state.current.data.pageTitle == 'CREATE BWS'}" class="nav-item"><a 
+					class="nav-link"> 
+					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					<span class="title">BWS</span>
+				</a></li>
+				<li ng-click="tm.clearSession(tm.AppConstant.VOC_TYPE_ID)" ng-class="{['active']:$state.current.data.pageTitle == 'CREATE VOC'}"  class="nav-item"><a 
+					class="nav-link"> 
+					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					<span class="title">VOC</span>
+				</a></li>
+				<li  ng-click="tm.clearSession(tm.AppConstant.SDR_TYPE_ID)" ng-class="{['active']:$state.current.data.pageTitle == 'CREATE ISM'}"  class="nav-item"><a 
+					class="nav-link"> 
+					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					<span class="title">SDR</span>
+				</a></li>
+				<li  ng-click="tm.clearSession(tm.AppConstant.COW_TYPE_ID)" ng-class="{['active']:$state.current.data.pageTitle == 'CREATE COW'}"  class="nav-item"><a 
+					class="nav-link"> 
+					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					<span class="title">COW</span>
+				</a></li>
+						</ul>
+						</li>
+				</ul>
+				
+			</ul></li>
+	
+			
+			
+			
+			
+
+		<li ng-if="tm.userRoleId == 1001 || tm.userRoleId == 1003"  ng-class="{['active']:$state.current.data.pageModule == 'AUDIT'}" class="nav-item">
+		<a ng-show="!tm.onlyIhm && !tm.onlyPlanAccepted" href="javascript:;"  class="nav-link nav-toggle" >
+		  <i class="icon-docs" ></i>
+		  <span class="title" >Audit / Inspection / Review Creation </span> 
+		  <span class="selected"></span> 
+		  <span class="arrow"></span>
+		</a>
+		<a ng-show="tm.onlyIhm" href="javascript:;"  class="nav-link nav-toggle" >
+		  <i class="icon-docs" ></i>
+		  <span class="title" > Review Creation</span> 
+		  <span class="selected"></span> 
+		  <span class="arrow"></span>
+		</a>
+			<ul class="sub-menu">
+				<li ng-show="!tm.onlyIhm" ng-click="tm.clearSession(tm.AppConstant.ISM_TYPE_ID)" ng-class="{['active']:$state.current.data.pageTitle == 'CREATE ISM' || $state.current.data.pageTitle == 'UPDATE ISM' }" class="nav-item">
+					<a  class="nav-link" > 
+						<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+						<span class="title">ISM Audit</span>
+					</a>
+				</li>
+				<li ng-show="!tm.onlyIhm" ng-click="tm.clearSession(tm.AppConstant.ISPS_TYPE_ID)" ng-class="{['active']:$state.current.data.pageTitle == 'ISPS AUDIT'}" class="nav-item">
+					<a class="nav-link"> 
+						<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+						<span class="title">ISPS Audit</span>
+					</a></li>
+				<li ng-show="!tm.onlyIhm" ng-click="tm.clearSession(tm.AppConstant.MLC_TYPE_ID)" ng-class="{['active']:$state.current.data.pageTitle == 'MLC AUDIT'}" class="nav-item"><a  
+					class="nav-link"> 
+					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					<span class="title">MLC Inspection</span>
+				</a></li>
+				<li ng-show="!tm.onlyIhm" ng-click="tm.clearSession(tm.AppConstant.SSP_TYPE_ID)" ng-class="{['active']:$state.current.data.pageTitle == 'SSP REVIEW'}" class="nav-item"><a 
+					class="nav-link"> 
+					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					<span class="title">SSP Review</span>
+				</a></li>
+				<li  ng-show="!tm.onlyIhm" ng-click="tm.clearSession(tm.AppConstant.DMLC_TYPE_ID)" ng-class="{['active']:$state.current.data.pageTitle == 'DMLC II REVIEW'}"  class="nav-item"><a 
+					class="nav-link"> 
+					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					<span class="title">DMLC II Review</span>
+				</a></li>
+				<li ng-if="tm.ihmReviewer" ng-click="tm.clearSession(tm.AppConstant.IHM_TYPE_ID)" ng-class="{['active']:$state.current.data.pageTitle == 'IHM Part I Review'}"  class="nav-item"><a 
+					class="nav-link"> 
+					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					<span class="title">IHM Part I Review</span>
+				</a></li>
+				<ul class="page-sidebar-menu page-sidebar-menu-closed"
+				 ng-if="tm.planApprovalReview"
+					style="margin-top:-130px; width:300px"
+					data-keep-expanded="false" data-auto-scroll="true"
+					data-slide-speed="200" >
+					<li  ng-if="tm.planApprovalReview" ng-class="{['active']:$state.current.data.pageModule == 'AUDIT'}"
+						class="nav-item  " >
+						<a href="javascript:;" 	class="nav-link nav-toggle" ui-sref-opts="{reload: true}" 
+						style="width:210px;background-color: #364150;">
+							<i><span class="title" style="width:210px;color: #fafcfbad;">Plan Approval</span></i>
+							 <span 	class="title">
+							<i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
+							 </span>
+							 <span class="selected"></span> 
+							 <span
+							class="arrow"></span>
+					</a>
+						<ul class="sub-menu">
+						<li style="margin-top: -4px !important;" ng-click="tm.clearSession(tm.AppConstant.SOPEP_TYPE_ID)" ng-class="{['active']:$state.current.data.pageTitle == 'CREATE SOPEP'}" class="nav-item">
+					<a  class="nav-link" > 
+						<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+						<span class="title">SOPEP</span>
+					</a>
+				</li>
+				<li style="margin-top: -4px !important;" ng-click="tm.clearSession(tm.AppConstant.STS_TYPE_ID)" ng-class="{['active']:$state.current.data.pageTitle == 'CREATE STS'}" class="nav-item">
+					<a class="nav-link"> 
+						<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+						<span class="title">STS</span>
+					</a></li>
+				<li style="margin-top: -4px !important;" ng-click="tm.clearSession(tm.AppConstant.SMPEP_TYPE_ID)" ng-class="{['active']:$state.current.data.pageTitle == 'CREATE SMPEP'}" class="nav-item"><a  
+					class="nav-link"> 
+					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					<span class="title">SMPEP</span>
+				</a></li>
+				<li style="margin-top: -4px !important;" ng-click="tm.clearSession(tm.AppConstant.BWS_TYPE_ID)" ng-class="{['active']:$state.current.data.pageTitle == 'CREATE BWS'}" class="nav-item"><a 
+					class="nav-link"> 
+					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					<span class="title">BWS</span>
+				</a></li>
+				<li style="margin-top: -4px !important;" ng-click="tm.clearSession(tm.AppConstant.VOC_TYPE_ID)" ng-class="{['active']:$state.current.data.pageTitle == 'CREATE VOC'}"  class="nav-item"><a 
+					class="nav-link"> 
+					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					<span class="title">VOC</span>
+				</a></li>
+				<li style="margin-top: -4px !important;" ng-click="tm.clearSession(tm.AppConstant.SDR_TYPE_ID)" ng-class="{['active']:$state.current.data.pageTitle == 'CREATE ISM'}"  class="nav-item"><a 
+					class="nav-link"> 
+					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					<span class="title">SDR</span>
+				</a></li>
+				<li style="margin-top: -4px !important;" ng-click="tm.clearSession(tm.AppConstant.COW_TYPE_ID)" ng-class="{['active']:$state.current.data.pageTitle == 'CREATE COW'}"  class="nav-item"><a 
+					class="nav-link"> 
+					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					<span class="title">COW</span>
+				</a></li>
+						</ul>
+						</li>
+				</ul>
+
+
+			</ul></li>
+		<li ng-show="tm.userRoleId !=1005" ng-class="{['active']:$state.current.data.pageModule == 'AUDIT SEARCH'}" class="nav-item">
+		<a ng-show="!tm.onlyIhm && tm.userRoleId !=1006" href="javascript:;"
+			class="nav-link nav-toggle"> <i class="icon-folder"></i> <span
+				class="title" >Audit / Inspection / Review Maintenance </span>
+				<span class="selected"></span> 
+				 <span class="arrow"></span>
+		</a>
+		<a ng-show="tm.userRoleId ==1006 || tm.onlyIhm" href="javascript:;"
+			class="nav-link nav-toggle"> <i class="icon-folder"></i> <span
+				class="title" >Review Maintenance </span>
+				<span class="selected"></span> 
+				 <span class="arrow"></span>
+		</a>
+		
+			<ul class="sub-menu">
+				<li ng-class="{['active']:$state.current.data.pageTitle == 'AUDIT SEARCH'}"  class="nav-item">
+				<a ng-show="!tm.onlyIhm && tm.userRoleId !=1006" ui-sref="app.audit.search" ui-sref-opts="{reload: true}" class="nav-link ">
+					<i class="fa fa-search" aria-hidden="true"></i>
+					 <span class="title">Audit Search</span>
+				</a>
+				<a ng-show="tm.onlyIhm || tm.userRoleId ==1006" ui-sref="app.audit.search" ui-sref-opts="{reload: true}" class="nav-link ">
+					<i class="fa fa-search" aria-hidden="true"></i>
+					 <span class="title">Review Search</span>
+				</a>
+				
+				</li>
+			</ul></li>
+			
+		<li  ng-if="(tm.userRoleId == 1001 || tm.userRoleId == 1004) && !tm.onlyIhm" ng-class="{['active']:$state.current.data.pageModule == 'CAR MAINTENANCE'}" class="nav-item">
+		<a href="javascript:;" class="nav-link nav-toggle"> 
+			<i class="icon-wallet"></i> 
+			<span class="title">CAR Maintenance / History</span>
+			<span class="selected"></span> 
+			<span class="arrow"></span>
+		</a>
+			<ul class="sub-menu">
+				<li ng-class="{['active']:$state.current.data.pageTitle == 'CAR SEARCH'}" class="nav-item"><a  ui-sref="app.carMaintenance.carSearch" ui-sref-opts="{reload: true}"
+					class="nav-link">
+					<i class="fa fa-search" aria-hidden="true"></i>
+					 <span class="title">CAR Search</span>
+				</a></li>
+			</ul>
+		</li>
+		<li  ng-show="tm.userRoleId != 1005" ng-class="{['active']:$state.current.data.pageModule == 'VESSEL STATUS'}" class="nav-item"><a href="javascript:;"
+			class="nav-link nav-toggle"> <i class="icon-bulb"></i> <span
+				class="title">Vessel / Status Statement</span> 
+				<span class="selected"></span> 
+				<span class="arrow"></span>
+		</a>
+			<ul class="sub-menu">
+				<li ng-class="{['active']:$state.current.data.pageTitle == 'VESSEL / STATUS STATEMENT'}" class="nav-item"><a  ui-sref="app.vesselStatement" ui-sref-opts="{reload: true}"
+					class="nav-link"> 
+					<i class="fa fa-search" aria-hidden="true"></i>
+					<span class="title">Vessel Statement</span>
+				</a></li>
+
+			</ul></li>
+		<li ng-if="tm.userRoleId == 1002 || tm.userRoleId == 1003 || tm.userRoleId == 1006 || tm.userRoleId == 1007 "  ng-class="{['active']:$state.current.data.pageModule == 'MASTER'}" class="nav-item  ">
+		<a href="javascript:;" class="nav-link nav-toggle"> 
+			 <i class="icon-earphones-alt"></i>
+			 <span 	class="title">Master Maintenance</span>
+			 <span class="selected"></span> 
+			 <span class="arrow"></span>
+		</a>
+			<ul class="sub-menu">
+				<li ng-if="tm.userRoleId == 1002 || tm.userRoleId == 1003 || tm.userRoleId == 1007 " ng-class="{['active']:$state.current.data.pageTitle == 'AUDIT CODE'}"  class="nav-item"><a  ui-sref="app.master.auditCode" ui-sref-opts="{reload: true}"
+					class="nav-link"> 
+					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					<span class="title">Audit Code</span>
+				</a></li>
+				<li ng-if="tm.userRoleId == 1002 || tm.userRoleId == 1006 || tm.userRoleId == 1003 || tm.userRoleId == 1007 " ng-class="{['active']:$state.current.data.pageTitle == 'VESSEL COMPANY DETAILS'}"  class="nav-item"><a  ui-sref="app.master.vesselCompanyDetails" ui-sref-opts="{reload: true}"
+					class="nav-link">
+					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					 <span class="title">Vessel Company Details </span>
+				</a></li>
+				<li ng-if="tm.userRoleId == 1002 ||tm.userRoleId == 1006 || tm.userRoleId == 1003 || tm.userRoleId == 1007 " ng-class="{['active']:$state.current.data.pageTitle == 'VESSEL DETAILS'}"  class="nav-item"><a  ui-sref="app.master.vesselDetails" ui-sref-opts="{reload: true}"
+					class="nav-link">
+					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					 <span class="title">Vessel Details</span>
+				</a></li>
+				<li  ng-class="{['active']:$state.current.data.pageTitle == 'USER DETAILS'}"  class="nav-item"><a  ui-sref="app.master.user" ui-sref-opts="{reload: true}"
+					class="nav-link"> 
+					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					<span class="title">User Details</span>
+				</a></li>
+				<li  ng-class="{['active']:$state.current.data.pageTitle == 'PORT DETAILS'}"  class="nav-item"><a  ui-sref="app.master.portDetails" ui-sref-opts="{reload: true}"
+					class="nav-link"> 
+					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					<span class="title">Port Details</span>
+				</a></li>
+				<li  ng-if="tm.userRoleId == 1006 ||tm.userRoleId == 1003 || tm.userRoleId == 1002 || tm.userRoleId == 1007 " ng-class="{['active']:$state.current.data.pageTitle == 'REPORT DETAILS'}"  class="nav-item"><a  ui-sref="app.master.report" ui-sref-opts="{reload: true}"
+					class="nav-link"> 
+					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					<span class="title">Report Details</span>
+				</a></li>
+				<!-- <li  ng-if="tm.userRoleId == 1002 " ng-class="{['active']:$state.current.data.pageTitle == 'EXEMPTION DETAILS'}"  class="nav-item"><a  ui-sref="app.master.ihm_ExemptionDetails" ui-sref-opts="{reload: true}"
+					class="nav-link"> 
+					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					<span class="title">Exemption Details</span>
+				</a></li> -->
+				
+			</ul>
+		</li>
+		<li ng-show="tm.userRoleId !=1005 &&  tm.userRoleId != 1007" ng-class="{['active']:$state.current.data.pageModule == 'Certificate Generate'}" class="nav-item  ">
+		<a href="javascript:;" class="nav-link nav-toggle"> 
+			 <i class="icon-printer"></i>
+			 <span 	class="title">Certificate Generation</span>
+			 <span class="selected"></span> 
+			 <span class="arrow"></span>
+		</a>
+			<ul  class="sub-menu">
+				<li ng-class="{['active']:$state.current.data.pageTitle == 'Certificate Search'}"  class="nav-item"><a  ui-sref="app.certificate.search" ui-sref-opts="{reload: true}"
+					class="nav-link"> 
+					<i class="fa fa-search" aria-hidden="true"></i>
+					<span class="title">Certificate Search</span>
+				</a></li>
+				<!-- "&& tm.userRoleId != 1004" added by archana for jira-ID-IRI-5520 -->
+				<li ng-if="tm.userRoleId != 1002 && tm.userRoleId != 1003 && !tm.onlyIhm && tm.userRoleId != 1004 " ng-class="{['active']:$state.current.data.pageTitle == 'Certificate Search'}"  class="nav-item"><a ng-click="tm.certWithOutAudit('smc')" ui-sref-opts="{reload: true}"
+					class="nav-link"> 
+					<i class="fa fa-search" aria-hidden="true"></i>
+					<span class="title">SMC Certificate Detail</span>
+				</a></li>
+				<li ng-if="tm.userRoleId != 1002 && tm.ihmReviewer" ng-class="{['active']:$state.current.data.pageTitle == 'Certificate Search'}"  class="nav-item"><a ng-click="tm.certWithOutAudit('ihm')" ui-sref-opts="{reload: true}"
+					class="nav-link"> 
+					<i class="fa fa-search" aria-hidden="true"></i>
+					<span class="title">IHM Certificate Detail</span>
+				</a></li>
+				<li ng-if="tm.userRoleId == 1003 && tm.userRoleId != 1002 && !tm.ihmReviewer" ng-class="{['active']:$state.current.data.pageTitle == 'Generate'}"  class="nav-item"><a  ui-sref="app.certificate.generate" ui-sref-opts="{reload: true}"
+					class="nav-link"> 
+					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					<span class="title">Certificate Generation</span>
+				</a></li>
+			</ul>
+		</li>
+	
+	
+	
+	
+	<li ng-show="tm.onlyPlanAccepted && !tm.ihmReviewer" ng-class="{['active']:$state.current.data.pageModule == 'Certificate Generate'}" class="nav-item  ">
+		<a href="javascript:;" class="nav-link nav-toggle"> 
+			<i class="fa fa-list-alt" aria-hidden="true"></i>
+			 <span 	class="title">Plan Approval</span>
+			 <span class="selected"></span> 
+			 <span class="arrow"></span>
+		</a>
+			<ul class="sub-menu">
+						<li ng-show="tm.onlyPlanAccepted || tm.ihmReviewer" ng-click="tm.clearSession(tm.AppConstant.SOPEP_TYPE_ID)" ng-class="{['active']:$state.current.data.pageTitle == 'CREATE SOPEP'}" class="nav-item">
+					<a  class="nav-link" > 
+						<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+						<span class="title">SOPEP</span>
+					</a>
+				</li>
+				<li ng-show="tm.onlyPlanAccepted || tm.ihmReviewer" ng-click="tm.clearSession(tm.AppConstant.STS_TYPE_ID)" ng-class="{['active']:$state.current.data.pageTitle == 'CREATE STS'}" class="nav-item">
+					<a class="nav-link"> 
+						<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+						<span class="title">STS</span>
+					</a></li>
+				<li ng-show="tm.onlyPlanAccepted || tm.ihmReviewer" ng-click="tm.clearSession(tm.AppConstant.SMPEP_TYPE_ID)" ng-class="{['active']:$state.current.data.pageTitle == 'CREATE SMPEP'}" class="nav-item"><a  
+					class="nav-link"> 
+					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					<span class="title">SMPEP</span>
+				</a></li>
+				<li ng-show="tm.onlyPlanAccepted || tm.ihmReviewer" ng-click="tm.clearSession(tm.AppConstant.BWS_TYPE_ID)" ng-class="{['active']:$state.current.data.pageTitle == 'CREATE BWS'}" class="nav-item"><a 
+					class="nav-link"> 
+					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					<span class="title">BWS</span>
+				</a></li>
+				<li  ng-show="tm.onlyPlanAccepted || tm.ihmReviewer" ng-click="tm.clearSession(tm.AppConstant.VOC_TYPE_ID)" ng-class="{['active']:$state.current.data.pageTitle == 'CREATE VOC'}"  class="nav-item"><a 
+					class="nav-link"> 
+					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					<span class="title">VOC</span>
+				</a></li>
+				<li  ng-show="tm.onlyPlanAccepted || tm.ihmReviewer" ng-click="tm.clearSession(tm.AppConstant.SDR_TYPE_ID)" ng-class="{['active']:$state.current.data.pageTitle == 'CREATE ISM'}"  class="nav-item"><a 
+					class="nav-link"> 
+					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					<span class="title">SDR</span>
+				</a></li>
+				<li  ng-show="tm.onlyPlanAccepted || tm.ihmReviewer" ng-click="tm.clearSession(tm.AppConstant.COW_TYPE_ID)" ng-class="{['active']:$state.current.data.pageTitle == 'CREATE COW'}"  class="nav-item"><a 
+					class="nav-link"> 
+					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					<span class="title">COW</span>
+				</a></li>
+						</ul>
+		</li>
+	
+	
+	
+	
+	
+		<li ng-if="tm.userRoleId == 1002 || tm.userRoleId == 1003" ng-class="{['active']:$state.current.data.pageModule == 'Audit Cycle'}" class="nav-item  ">
+		<a href="javascript:;" class="nav-link nav-toggle" ui-sref="app.auditCycle" ui-sref-opts="{reload: true}" ng-click="tm.clearCycleData();"> 
+			 <i class="glyphicon glyphicon-refresh"></i>
+			 <span 	class="title">Audit Cycle</span>
+			 <span class="selected"></span> 
+			 <span class="arrow"></span>
+		</a>
+			
+		</li>
+	</ul>
+
+</div>
+
+
+
+<div growl></div>
+<toaster-container toaster-options="{'limit':1,'close-button': true}"></toaster-container>
+
+
+<div ui-view="module" ng-class="{['pull-left module']:$state.current.data.pageTitle != 'Dashboard'}" id="view-content" class="fade-in-up" ng-controller="AppController">
+</div>
+<div class="clearfix"></div>
+
+

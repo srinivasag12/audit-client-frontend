@@ -1,0 +1,449 @@
+<div
+	class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12 stat">
+	<div
+		class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 accordion-toggle1"
+		data-toggle="collapse" data-target="#stat">
+		<div
+			class="caption font-blue-sharp col-xs-12 col-sm-12 col-md-10 col-lg-10">
+			<span class="caption-subject bold uppercase pull-left">Search
+				Criteria</span>
+		</div>
+
+	</div>
+
+	<div id="stat"
+		class="portlet-body collapse in col-xs-12 col-sm-12 col-md-12 col-lg-12 padcontainer">
+		<div class="col-xs-12 col-sm-12 col-md-8 col-lg-12 containerfull">
+			<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 txt-sec ">
+
+				<input max-len=7 numeric
+					class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+					ng-model="stat.imo" id=statimo   type="text"
+					uib-typeahead="ves as ves.vesselImoNo for ves in vslImo($viewValue)| limitTo:9"
+					typeahead-on-select="autoGenerate($item)"
+					typeahead-no-results="showNoResults"
+					custom-tooltip="{{showNoResults}}"
+					ng-blur="validateTypeahead(stat.imo,'IMMMO')"
+					ng-change="makenull(stat.imo)" ng-class="{'changed':stat.imo}" />
+				<label for="statimo">Vessel IMO No</label>
+
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 txt-sec">
+
+				<input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" 
+							ng-model="stat.vesselname" id="statvslname" type="text" autocomplete="off"  
+							uib-typeahead="ves as ves.vesselName for ves in vslName($viewValue)"
+							typeahead-on-select="autoGenerate($item)" ng-pattern="/^[a-zA-Z0-9.,:&apos;&quot;]*$/"
+							ng-change="makeimonull(stat.vesselname,name)"
+							ng-blur="validateTypeahead(stat.vesselname)"
+							typeahead-no-results="noVesselName" custom-tooltip="{{noVesselName}}" ng-class="{'changed':stat.vesselname}""/> 
+					
+					<label for="statvslname">Vessel
+					Name</label>
+
+			</div>
+			
+
+			<div style="padding: 15px 0px 0px 0px !important;"
+				class="col-xs-offset-9 col-xs-2 col-sm-offset-9 col-sm-12 col-md-offset-9  col-md-2 col-lg-offset-7 col-lg-1">
+			
+				<button style="width: 100px !important;" type="button"
+					class="effect effect btnclass btn btn-primaryclr fix-but-width font-search"
+					ng-click="stat.search()">Search</button>
+			</div>
+			
+
+		</div>
+	</div>
+</div>
+
+<div ng-if="stat.detailscreen"
+	class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12 stat containerfull vesselauditscroll scroll">
+	<div
+		class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<div
+			class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 accordion-toggle1"
+			data-toggle="collapse" data-target="#status">
+		
+			<div
+				class="caption font-blue-sharp col-xs-8 col-sm-8 col-md-4 col-lg-4">
+				<span style="margin-top: 5px;"
+					class="caption-subject bold uppercase pull-left">Vessel
+					Status</span>
+					
+					<div ng-if="stat.detailscreen == true" >
+					<div ng-if="stat.NCUpdate==1 || stat.MNCUpdate==1 || stat.OBSUpdate==1 || stat.duealert==1" data-original-title="{{stat.toastermessage}}"  tooltip data-placement="bottom" >
+					<i class="fa fa-exclamation-circle fa-lg overdue-{{stat.NCUpdate || stat.MNCUpdate || stat.OBSUpdate || stat.duealert}}" style="margin-left:5px"></i>
+					</div>
+					</div>
+<!-- VesselHistory Pop-up -->
+		<div style="margin-left: 190px;">
+                    <button style="width: 50% !important;padding: 5px 0px !important;"
+                        class=" btnclass btn btn-primaryclr "
+                        ng-click="$event.stopPropagation();stat.vesseldeatls();"
+                        ng-disabled="stat.vesselHistory.length==0">
+                        <b>Vessel History</b>
+                    </button>
+                </div>
+<!-- end VesselHistory Pop-up -->
+			</div>
+			
+			
+			
+			<div class="dt-buttons ui-buttonset vesselSearch">
+				<button
+					class="dt-button ui-button ui-state-default ui-button-text-only"
+					ng-click="$event.stopPropagation();stat.printPdf();"
+					ng-disabled="!stat.vesselname" ng-hide="pdfValue!=true">
+					<i class="fa fa-file-pdf-o" aria-hidden="true"></i> PDF
+				</button>
+			</div>
+
+
+		</div>
+
+		<div id="status"
+		class="portlet-body collapse in col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull">
+		<div style="padding: 10px 0px 10px 0px !important;"
+			class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull">
+		
+		 <div style="margin-top: 8px;padding-right:0px !Important;"
+		class="col-xs-3 col-sm-3 col-md-21 col-lg-1">
+		<label><b>IMO No.</b></label>
+	     </div>
+
+	      <div style="margin-top: 8px;"
+		class="col-xs-3 col-sm-3 col-md-3  col-lg-1">
+	 	<label>{{stat.imono}}</label>
+	     </div>
+		
+			<div style="margin-top: 8px;padding-right:0px !Important;"
+				class="col-xs-3 col-sm-4 col-md-1 col-lg-1">
+				<label><b>Vessel Name</b></label>
+			</div>
+			
+			<div style="margin-top: 8px;"
+				class="col-xs-9 col-sm-8 col-md-11  col-lg-7 VesselName">
+				<label>{{stat.vslnme}}</label>
+			</div>
+			
+			
+		 	<div style="margin-top: 8px;padding-right:0px;"
+				class="col-xs-3 col-sm-3 col-md-1  col-lg-1">
+				<label><b>Official No.</b></label>
+			</div>
+			<div style="margin-top: 8px;"
+				class="col-xs-3 col-sm-3 col-md-4  col-lg-1 offcialNo-{{officialNoValue}}">
+				<label>{{stat.officialNum}}</label>
+			</div> 
+			
+			
+		</div>
+
+
+
+
+
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 containerfull">
+					<label class="alignCenter"><b>Management Company</b></label>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 table-responsive vesselauditscroll1">
+				<table class="table table-responsive">
+					<thead>
+						<tr class="head"> 
+							<th class="mgmntcmpny"><label class="alignCenter"><b>Company
+										IMO NO.</b></label></th>
+							<th class="mgmntcmpny"><label class="alignCenter"><b>Company
+										Name</b></label></th>
+							<th class="mgmntcmpny"><label class="alignCenter"><b>DOC
+										Type </b></label></th>
+							<th class="mgmntcmpny"><label class="alignCenter"><b>DOC
+										Expiry Date</b></label></th>
+							<th class="mgmntcmpny"><label class="alignCenter"><b>DOC
+										Issuer</b></label></th>
+
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="detail">
+							<td class="mgmntcmpny companyImoNo-{{companyImoNoValue}}"><label>{{stat.companyimono}}</label>
+							</td>
+							<td class="mgmntcmpny companyName-{{companyNameValue}}"><label>{{stat.cmpnyname}}</label></td>
+							<td class="mgmntcmpny companyDoc-{{companyDocValue}}"><label>{{stat.doccert}}</label></td>
+							<td class="mgmntcmpny companyDocExpiry-{{docExpiryValue}}"><label>{{stat.docexpiry}}</label></td>
+							<td class="mgmntcmpny companyDocIssuer-{{docIssuerValue}}"><label>{{stat.docissue}}</label></td>
+
+						</tr>
+					</tbody>
+
+				</table>
+			</div>
+			<div
+				ng-if=" arryVal[$index].auditTypeId==1001 ? (arryVal[$index].divtag==1) :(arryVal[$index].auditTypeId==1002 ? (sspArrayVal[0].divtag == 1 || arryVal[1].divtag==1) : (sspArrayVal[1].divtag == 1 || arryVal[2].divtag==1))"
+				id="accordion"
+				class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12 stat"
+				ng-repeat="n in arryVal">
+				<div
+					ng-if=" arryVal[$index].auditTypeId==1001 ? (arryVal[$index].divtag==1) :(arryVal[$index].auditTypeId==1002 ? (sspArrayVal[0].divtag == 1 || arryVal[1].divtag==1) : (sspArrayVal[1].divtag == 1 || arryVal[2].divtag==1))"
+					class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 accordion-toggle1"
+					data-toggle="collapse" data-parent="#accordion"
+					data-target="#auditstatus-{{$index}}">
+					<div
+						ng-if=" arryVal[$index].auditTypeId==1001 ? (arryVal[$index].divtag==1) :(arryVal[$index].auditTypeId==1002 ? (sspArrayVal[0].divtag == 1 || arryVal[1].divtag==1) : (sspArrayVal[1].divtag == 1 || arryVal[2].divtag==1))"
+						class="caption font-blue-sharp col-xs-12 col-sm-12 col-md-10 col-lg-10">
+						<span class="caption-subject bold uppercase pull-left">{{n.status}}
+							{{stat.audittype}} - {{n.auditType}}</span>
+					</div>
+
+				</div>
+
+
+
+
+				<div id="auditstatus-{{$index}}"
+					class="portlet-body collapse  col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull">
+
+
+
+
+
+
+
+
+					<div ng-if="n.auditTypeId==1002 || n.auditTypeId==1003"
+						class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull"
+						ng-repeat="nn in sspArrayVal |filter:{auditTypeId:n.subaudit}">
+
+
+						<div ng-if="nn.divtag == 1"
+							style="padding: 0px 20px 0px 20px !important;"
+							class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+							ng-repeat="ctr in finalVal |filter:{auditTypeId:nn.auditTypeId}|orderBy:'-auditDate' | limitTo: 1"">
+							<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 containerfull">
+								<label class="alignCenter"><b>{{nn.auditDesc}}</b></label>
+							</div>
+
+						</div>
+
+
+						<!-- <div ng-if="nn.divtag == 1"
+							style="padding: 0px 20px 20px 20px !important;"
+							class="col-xs-12 col-sm-12 col-md-6 col-lg-6 containerfull">
+							<table class="table table-responsive">
+								<tr class="head">
+
+
+									<th class="mgmntcmpny"><label class="alignCenter"><b>{{nn.CerificateNo}}</b></label>
+									</th>
+									<th class="mgmntcmpny"><label class="alignCenter"><b>{{nn.IssueDate}}</b></label>
+									</th>
+
+								</tr>
+								<tr class="detail"
+									ng-repeat="ctr in finalVal |filter:{auditTypeId:nn.auditTypeId}|orderBy:'-auditDate' | limitTo: 1"">
+
+
+									<td class="mgmntcmpny"><label>{{ctr.certificateNos}}</label>
+									</td>
+									<td class="mgmntcmpny"><label>{{ctr.certIssueDates}}</label>
+									</td>
+
+
+								</tr>
+							</table>
+						</div> -->
+
+						<div ng-if="nn.divtag == 1"
+							style="padding: 0px 20px 0px 20px !important;"
+							class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<div class="col-xs-12 col-sm-12 col-md-2 col-lg-4 containerfull">
+								<label class="alignCenter"><b>6 Years of Review
+										History</b></label>
+							</div>
+						</div>
+						<div ng-if="nn.divtag == 1"
+							style="padding: 0px 20px 20px 20px !important;"
+							class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull"
+							ng-repeat="status in sspArrayVal |filter:{auditTypeId:n.subaudit}">
+
+							<table class="table table-responsive">
+								<tr class="head">
+									<th class="mgmntcmpny"><label class="alignCenter"><b>Record
+												No</b></label></th>
+									<th class="mgmntcmpny"><label class="alignCenter"><b>Review
+												Type</b></label></th>
+									<th class="mgmntcmpny"><label class="alignCenter"><b>{{nn.AppDate}}</b></label></th>
+									<th class="mgmntcmpny"><label class="alignCenter"><b>Location</b></label>
+									</th>
+									<th class="mgmntcmpny"><label class="alignCenter"><b>{{nn.CerificateNo}}
+												</b></label></th>
+												<th class="mgmntcmpny"><label class="alignCenter"><b>{{nn.IssueDate}}</b></label></th>
+									<th ng-if="status.auditTypeId==1005" class="mgmntcmpny"><label
+										class="alignCenter"><b>{{status.nc}}</b></label></th>
+									<th class="mgmntcmpny"><label class="alignCenter"><b>{{status.Auditor}}</b></label>
+									</th>
+								</tr>
+								<tr class="detail"
+									ng-repeat="inc in finalVal |filter:{auditTypeId:n.subaudit}">
+									<td ng-if="inc.reviewSum==1" data-toggle="popover" title="Review Summary Not Approved" data-content="Default popover" class="mgmntcmpny certpub-{{inc.reviewSum}}">
+										<label><a href="#" ng-click="stat.auditNavigate(inc)">{{$index+1}}</a></label></td>
+									
+								<td ng-if="inc.reviewSum!==1" class="mgmntcmpny"><label><a href="#" ng-click="stat.auditNavigate(inc)">{{$index+1}}</a></label></td>
+									<td class="mgmntcmpny"><label>{{inc.audSubTypeDescs}}</label>
+									</td>
+									<td class="mgmntcmpny"><label>{{inc.auditDates}}</label></td>
+									<td class="mgmntcmpny audit-plc"><label>{{inc.auditPlaces}}</label>
+									</td>
+									<td class="mgmntcmpny"><label>{{inc.certificateNos}}</label></td>
+									<td class="mgmntcmpny"><label>{{inc.certIssueDates}}</label>
+									</td>
+									<td ng-if="inc.auditTypeId==1005" class="mgmntcmpny"><label
+										class="alignCenter">{{inc.ncs}}</label></td>
+									<td class="mgmntcmpny"><label>{{inc.auditorNames}}</label>
+									</td>
+
+
+								</tr>
+							</table>
+						</div>
+
+					</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+					<div ng-if="n.divtag == 1"
+						style="padding: 0px 20px 0px 20px !important;"
+						class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+						ng-repeat="ctr in finalVal | filter:{auditTypeId:n.auditTypeId} | limitTo: 1 |orderBy: '-auditDate'">
+						<div class="col-xs-4 col-sm-12 col-md-2 col-lg-2 containerfull">
+							<label class="alignCenter"><b>{{n.auditDesc}}</b></label>
+						</div>
+						<!-- <div style="float: right;"
+							class="col-xs-8 col-sm-12 col-md-2 col-lg-4 containerfull">
+							<div class="col-xs-6 col-sm-12 col-md-2 col-lg-6 containerfull">
+								<label class="alignCenter"><b>ANNIVERSARY DATE:</b></label>
+							</div>
+							<div class="col-xs-6 col-sm-12 col-md-2 col-lg-6 containerfull">
+								<label class="alignCenter">{{ctr.annivDate}}</label>
+							</div>
+						</div> -->
+					</div>
+					<div ng-if="n.divtag == 1"
+						style="padding: 0px 20px 20px 20px !important;"
+						class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull">
+						<table class="table table-responsive">
+							<tr class="head">
+								<th class="mgmntcmpny"><label class="alignCenter"><b>{{n.auditDat}}</b></label>
+								</th>
+								<th class="mgmntcmpny"><label class="alignCenter"><b>{{n.CerificateNo}}</b></label>
+								</th>
+								<th class="mgmntcmpny"><label class="alignCenter"><b>{{n.IssueDate}}</b></label>
+								</th>
+								<th class="mgmntcmpny"><label class="alignCenter"><b>{{n.ExpireDate}}</b></label>
+								</th>
+								<th class="mgmntcmpny"><label class="alignCenter"><b>{{n.Inspection}}</b></label>
+								</th>
+								<th class="mgmntcmpny"><label class="alignCenter"><b>Due
+											Date</b></label></th>
+								<th class="mgmntcmpny"><label class="alignCenter"><b>Due
+											Range</b></label></th>
+							</tr>
+							<tr class="detail"
+								ng-repeat="ctr in finalVal |filter:{auditTypeId:n.auditTypeId}| limitTo: 1 |orderBy: '-auditDate' ">
+								<td class="mgmntcmpny"><label>{{ctr.Dateform}}</label></td>
+								<td class="mgmntcmpny"><label>{{ctr.certificateNo}}</label>
+								</td>
+								<td class="mgmntcmpny"><label>{{ctr.certIssueDate}}</label>
+								</td>
+								<td class="mgmntcmpny"><label>{{ctr.certExpireDate}}</label>
+								</td>
+								<td class="mgmntcmpny"><label>{{ctr.nxtperdte}}</label></td>
+								
+								<td class="mgmntcmpny"><label>{{ctr.dueDate}}</label></td>
+								<td class="mgmntcmpny nxtCurntDate-{{ctr.red}}"><label>{{ctr.resultDate}}</label></td>
+								
+							</tr>
+						</table>
+					</div>
+
+
+					<div ng-if="n.divtag == 1"
+						style="padding: 0px 20px 0px 20px !important;"
+						class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<div class="col-xs-12 col-sm-12 col-md-2 col-lg-4 containerfull">
+							<label class="alignCenter"><b>{{n.history}}</b></label>
+						</div>
+					</div>
+					<div ng-if="n.divtag == 1"
+						style="padding: 0px 20px 20px 20px !important;"
+						class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull"
+						ng-repeat="status in arryVal |filter:{auditTypeId:n.auditTypeId}">
+						<table class="table table-responsive">
+							<tr class="head">
+								<th class="mgmntcmpny"><label class="alignCenter"><b>Record
+											No</b></label></th>
+								<th class="mgmntcmpny"><label class="alignCenter"><b>{{n.auditKind}}</b></label>
+								</th>
+								<th class="mgmntcmpny"><label class="alignCenter"><b>Last
+											Visit Date</b></label></th>
+								<th class="mgmntcmpny"><label class="alignCenter"><b>Location</b></label>
+								</th>
+								<th class="mgmntcmpny "><label class="alignCenter"><b>{{status.dnc}}</b></label>
+								</th>
+								<th class="mgmntcmpny "><label class="alignCenter"><b>{{status.nc}}</b></label>
+								</th>
+								<th class="mgmntcmpny "><label class="alignCenter"><b>{{status.obs}}</b></label>
+								</th>
+								<th class="mgmntcmpny"><label class="alignCenter"><b>{{n.Auditor}}</b></label>
+								</th>
+								<th ng-if="stat.vesselNameMissFound" class="mgmntcmpny"><label class="alignCenter"><b>Previous Vessel Name</b></label>
+								</th>
+							</tr>
+							<tr class="detail"
+								ng-repeat="inc in finalVal |filter:{auditTypeId:n.auditTypeId}">
+								<td ng-if="inc.audSum==1" data-toggle="popover" title="Audit Summary Not Approved" data-content="Default popover" class="mgmntcmpny certpub-{{inc.audSum}}"><label><a href="#" ng-click="stat.auditNavigate(inc)">{{$index+1}}</a></label></td>
+								<td ng-if="inc.audSum!==1" class="mgmntcmpny"><label><a href="#" ng-click="stat.auditNavigate(inc)">{{$index+1}}</a></label></td>
+								<td ng-if="inc.yellow==1" data-toggle="popover" title="Certificate has not Published" data-content="Default popover" class="mgmntcmpny certpub-{{inc.yellow}}"><label>{{inc.audSubTypeDesc}}</label>
+								
+								</td>
+								<td  ng-if="inc.yellow==0" class="mgmntcmpny "><label>{{inc.audSubTypeDesc}}</label>
+								</td>
+								<td ng-if="inc.yellow==2" data-toggle="popover" style="background-color: burlywood;" title="Additional - Half Scope" data-content="Default popover" class="mgmntcmpny certpub-{{inc.yellow}}"><label>{{inc.audSubTypeDesc}}</label>
+								
+								</td>
+								<td class="mgmntcmpny"><label>{{inc.auditDate}}</label></td>
+								<td class="mgmntcmpny audit-plc"><label>{{inc.auditPlace}}</label></td>
+								<td class="mgmntcmpny dnc-{{inc.overDueMNC}}"><label class="alignCenter">{{inc.dnc}}</label>
+								</td>
+								<td class="mgmntcmpny nc-{{inc.overDueNC}}"><label class="alignCenter">{{inc.nc}}</label>
+								</td>
+								<td class="mgmntcmpny obs-{{inc.overDueOBS}}"><label class="alignCenter">{{inc.ob}}</label>
+								</td>
+								<td class="mgmntcmpny"><label>{{inc.auditorName}}</label></td>
+                                <td ng-if="stat.vesselNameMissFound" class="mgmntcmpny"><label> {{inc.vesselNameMissMatch ? inc.vesselNameMissMatch : '--'}}</label></td>
+
+							</tr>
+
+						</table>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+

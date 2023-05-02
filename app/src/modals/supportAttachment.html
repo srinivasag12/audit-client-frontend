@@ -1,0 +1,122 @@
+
+<div style="overflow-y: hidden !important;"
+	class="col-xs-10 col-sm-10 col-md-10 col-lg-10 modal fade report"
+	data-keyboard="false" data-backdrop="static">
+	<form name="supportForm">
+		<div class=" col-xs-12 col-sm-12 col-md-12 col-lg-12 modal-dialog">
+			<div class=" col-xs-12 col-sm-12 col-md-12 col-lg-12 modal-content"
+				ng-if=supAta.disableDisplay>
+				<div class="modal-header">
+					<button type="button" class="close" ng-click="close('Cancel')"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Support Attachment</h4>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 modal-body">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 tdpad">
+						<div
+							class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<div style="padding: 12px 0px 12px 0px !important;"
+								class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 accordion-toggle1"
+								data-toggle="collapse" data-target="#reportattachsection">
+								<div class="caption font-blue-sharp col-lg-3"></div>
+
+							</div>
+							<div id="supportattachsection"
+								class="portlet-body col-xs-12 col-sm-12 col-md-12 col-lg-12 tdpad collapse in reportAttSection scroll">
+								<div
+									class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull ">
+
+									<div
+										class="col-xs-12 col-sm-12 col-md-4 col-lg-4 containerfull">
+
+										<div style="text-align: center;"
+											class="col-xs-3 col-sm-3 col-md-3 col-lg-3 image-upload"
+											ng-mouseenter="showToolTip()"
+											data-original-title="Select Report Types"
+											id="fileAttach-{{$index}}">
+
+											<label for="file-input-{{$index}}"
+												style="padding: 1px 6px !important; width: 34px !important;"
+												class="buttontrash btn btn-info btnclass"> <i
+												class="fa fa-paperclip" aria-hidden="true"
+												title="Attachment"></i>
+											</label> <input id="file-input-{{$index}}" type="file" file-upload
+												ng-model="supAta.fileReport" accept="application/zip"
+												ng-click="supAta.clearFiles($index)"
+												ng-change="supAta.uploadReport($index)" />{{supAta.fileReport.name}}
+
+										</div>
+
+										<div style="text-align: center;"
+											class="col-xs-3 col-sm-3 col-md-3 col-lg-3 image-upload"
+											data-original-title="Delete Attachment"
+											id="deleteAttach-{{$index}}">
+
+											<button
+												style="padding: 1px 6px !important; width: 34px !important;"
+												class="buttontrash btn btn-info btnclass"
+												ng-disabled="!supAta.fileReport.name"
+												ng-click="supAta.deleteFile($index,rpt.attachmentTypeId)">
+												<i class="fa fa-trash-o" aria-hidden="true"
+												title="Delete Attachment"></i>
+											</button>
+
+										</div>
+									</div>
+
+									<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+										<div font-size: 10% style="font-weight: bold; color: red">Instructions
+											to upload laptop audit file</div>
+										<ul >
+											<li style="font-weight: bold;">Copy the following path from here: </li> {{supAta.path}}
+											<li><span style="font-weight: bold;">Click on upload icon and select the file name:</span> {{supAta.fname}}</li> 
+											<li style="font-weight: bold;">Submission for support.</li>
+										</ul>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<div style="float: right !important;"
+						class="col-xs-4  col-sm-4  col-md-2 col-lg-2">
+						<button type="button"
+							class="btn btn-primary btnclass fix-but-width"
+							ng-disabled="!supAta.fileReport.name"
+							ng-click="uploadFile('Cancel')">Upload</button>
+					</div>
+				</div>
+
+			</div>
+
+			<div class=" col-xs-12 col-sm-12 col-md-12 col-lg-12 modal-content"
+				style="overflow-y: auto !important; height: 65vh !important; max-height: 65 !important;"
+				class="col-xs-12 col-sm-12 col-md-12 col-lg-12 headScroll"
+				ng-if=!supAta.disableDisplay>
+
+				<div class="modal-header">
+					<button type="button" class="close" ng-click="close('Cancel')"
+						aria-hidden="true">&times;</button>
+					<h3 class="modal-title" style="text-align: center;">Audit
+						Details</h3>
+				</div>
+
+				<table>
+					<tr ng-repeat="(key, data) in supAta.auditData.auditDetail">
+						<td>{{key}}</td>
+						<td>{{data}}</td>
+					</tr>
+				</table>
+
+				<h3 class="modal-title" style="text-align: center;">Previous
+					Audit Finding Details</h3>
+
+				<p
+					ng-repeat-start="(key, data) in supAta.auditData.PrevAuditFindings">{{key}}
+					==> {{data}}</p>
+				<p ng-repeat-end />
+			</div>
+	</form>
+</div>

@@ -1,0 +1,133 @@
+<form name="code.AuditCodeForm" autocomplete="off">
+	<div
+		class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12 auditcode">
+		<div
+			class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 accordion-toggle1"
+			data-toggle="collapse" data-target="#auditcode">
+			<div
+				class="caption font-blue-sharp col-xs-12 col-sm-12 col-md-6 col-lg-6">
+				<span class="caption-subject bold uppercase pull-left">Audit
+					Code</span>
+			</div>
+
+
+		</div>
+
+		<div class="switch-container">
+			<label class="switch" data-toggle="tooltip"
+				data-original-title="{{code.lockMessage}}" tooltip
+				data-placement="left"> <input type="checkbox"
+				ng-model="code.enabled" ng-change="code.changeCallback()"> <span
+				class="slider round"> <i
+					class="fa fa-plus-square-o icon-lock-position"
+					ng-if="code.enabled"></i> <i
+					class="fa fa-pencil-square-o icon-unlock-position"
+					ng-if="!code.enabled"></i>
+			</span>
+			</label>
+		</div>
+
+
+		<div id="auditcode"
+			class="portlet-body collapse in col-xs-12 col-sm-12 col-md-12 col-lg-12 padcontainer">
+			<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 txt-sec">
+				<select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+					ng-model="code.auditType" ng-change="code.changeTypeId()"
+					name="auditTyp"
+					ng-options="type.auditTypeId as type.auditTypeDesc for type in auditTypeArray"
+					ng-class="{'changed':code.auditType}" required>
+				</select> <label for="auditType">Audit Type</label>
+
+			</div>
+
+
+
+
+
+			<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 txt-sec"
+				ng-if="code.enabled == true">
+				<input maximum-length max-len=100 style="text-transform: uppercase"
+					class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+					name="auditcod" ng-model="code.auditcode" id="auditcode"
+					type="text" ng-class="{'changed':code.auditcode}"
+					ng-focus="code.toasterClear()"
+					ng-blur="code.checkAuditCode(code.auditcode,
+						code.auditType)"
+					required /> <label for="auditcode">Audit Code</label>
+
+			</div>
+
+
+
+
+			<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 txt-sec"
+				ng-if="code.enabled == false">
+				<input style="text-transform: uppercase"
+					class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+					ng-model="code.auditcode" id="auditcode" name="auditcod"
+					type="text"
+					uib-typeahead="aud as aud.auditCode for aud in  code.typeaheadArr($viewValue) "
+					ng-disabled="code.auditType==null"
+					typeahead-on-select="code.updateTypeahead($item, $model, $label, $event, code.auditType)"
+					typeahead-no-results="showNoResults"
+					custom-tooltip="{{showNoResults}}"
+					ng-blur="code.validateCode(code.auditcode,'CODE')"
+					ng-change="code.removeElement(code.auditcode)"
+					ng-class="{'changed':code.auditcode}" required /> <label
+					for="auditcode">Audit Code</label>
+
+			</div>
+
+
+
+
+
+
+
+
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 txt-sec">
+				<textarea style="resize: none !important; text-transform: uppercase"
+					"
+					class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+					ng-model="code.auditelements" id="auditelements" type="text"
+					name="auditElem"
+					ng-disabled="code.auditType==null && code.auditTyp" maximum-length
+					max-len=1000 ng-class="{'changed':code.auditelements}" required> </textarea>
+				<label for="auditelements">Audit Elements</label>
+
+			</div>
+
+
+
+
+
+			<div style="padding-top: 25px !important;"
+				class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+				<input id="codestatus" type="checkbox" ng-model="code.status"
+					name="statid" ng-true-value="1" ng-false-value="0" required /> <label
+					for="codestatus" class="containerhght">Active Status</label>
+			</div>
+
+
+
+
+
+
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 makeCenter">
+				<div
+					class="col-xs-offset-6 col-xs-6 col-sm-offset-6 col-sm-6 col-md-offset-10 col-md-2 col-lg-offset-10 col-lg-2 masterScreenBut">
+
+					<button type="button"
+						class="effect effect btnclass btn btn-primaryclr fix-but-width font-create"
+						ng-disabled="!code.auditcode || !code.auditelements || !code.auditType"
+						ng-click="code.submit(code.createedit)">{{code.createedit}}</button>
+
+				</div>
+			</div>
+
+
+		</div>
+
+
+	</div>
+</form>

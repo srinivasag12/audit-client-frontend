@@ -1,0 +1,139 @@
+.master .masteroperations{
+	    padding: 10px 15px !important;
+}
+.master .masteroperations > a > i{
+	margin-right:5px !Important;
+}
+.master .masteroperations > a{
+	color:#000 !Important;
+}
+.domainadjust{
+    position: absolute;
+    z-index: 3;
+    width: auto;
+    right: 18px;
+    top: 25px;
+}
+.master .masteroperations > a:hover, .master .masteroperations > a.active{
+	font-weight:bolder !Important;
+}
+.master .masteroperations > a:hover, .master .masteroperations > a:focus{
+	text-decoration:none !Important;
+}
+.phonealign{
+	width:100% !Important;
+}
+.phonelabelalign{
+padding-left:45px !Important;
+}
+.ngduallist .right-container .right-sub-container{
+  height: 150px !important;
+  border-radius:0px !Important;
+}
+.ngduallist .left-container .left-sub-container{
+	height: 150px !important;
+	border-radius:0px !Important;
+}
+.user .row.ngduallist{
+	margin: 0px !Important;
+    border: 1px solid #1d2d3c !important;
+    border-radius: 25px;
+}
+.user .duallist{
+    margin-top:20px !important;
+    margin-bottom:20px !important;	
+}
+.user .ngduallist .input-group{
+	margin:0px !Important;
+}
+.user .ngduallist label {
+    color: #1d2d3c !important;
+    font-weight: bolder !important;
+}
+.user .row > .left-container > label, .user .row > .right-container > label{
+	margin:10px 0px !Important;
+	text-align:center !important;
+}
+.user .left-sub-container > .list-group, .user .right-sub-container > .list-group{
+	margin-bottom:0px !Important;
+}
+.user .ngdual-left-container, .user .ngdual-right-container{
+	border:1px solid #000 !Important;
+	/* border-radius: 25px !important; */
+}
+.user .list-group-item{
+	    padding: 12px 15px !important;
+   	 	border: 0px !important;
+   	 	border-radius:0px !important;
+   	 	background-color: #e1e1e1 !Important;
+}
+
+input[type="file"]{
+	display:none !important;
+}
+.fixed{
+	position: absolute !Important;
+    width: 15% !important;
+    z-index: 5;
+    top: 19px;
+}
+.btnIconOnly{
+	width: 50px !important;
+    padding-top: 20px;
+}
+.pad-left-sign{
+	padding-left: 50px !Important;
+}
+/* .user .input-group > .form-control{
+	border-radius:0px !important;
+	border-top-left-radius:25px !Important;
+}
+.user .input-group > .input-group-addon{
+	border-radius:0px !important;
+	border-top-right-radius:25px !Important;
+}
+.user .list-group .list-group-item:last-child{
+	border-bottom-left-radius: 25px !Important;
+	border-bottom-right-radius: 25px !Important;
+} */
+/* 
+.user ::-webkit-input-placeholder { Chrome/Opera/Safari
+  color: pink;
+}
+.user ::-moz-placeholder { Firefox 19+
+  color: pink;
+}
+.user :-ms-input-placeholder { IE 10+
+  color: pink;
+}
+.user :-moz-placeholder { Firefox 18-
+  color: pink;
+} */
+.user .photo-size{
+    width: 100% !important;
+    height: 200px !important;
+    background-color: white !important;
+}
+.user input::placeholder {
+  color: #1d2d3c !important;
+  padding-left:90px !Important;
+}
+
+.user .fixedProfilePic{
+    position: absolute !Important;
+    width: 75.5% !important;
+    bottom: -12px;
+    left: 40px;
+}
+
+.user .fixedProfBut{
+	width:100% !important;
+	border-radius:0px !Important;
+}
+
+/* .user .row .left-container .info-container .info{
+	    margin-left: 100px !Important;
+}
+.user .row .right-container .info-container .info{
+	    margin-left: 116px !Important;
+} */

@@ -1,0 +1,162 @@
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 modal fade auddet" data-keyboard="false" data-backdrop="static">
+	<form name="auditorForm">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 modal-dialog">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 modal-content">
+			<!-- <div class="modal-header">
+                <button type="button" class="close" ng-click="close('Cancel')" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Auditor/Observer/Reviewer Detail</h4>
+            </div> -->
+            <div class="modal-header" ng-if="auditor.auditTypeId != 1003 && auditor.auditTypeId != 1005 && auditor.auditTypeId != auditor.AppConstant.IHM_TYPE_ID">
+                <button type="button" class="close" ng-click="close('Cancel')" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Auditor/Observer/Reviewer Detail</h4>
+            </div>
+            <div class="modal-header" ng-if="auditor.auditTypeId == 1003 || auditor.auditTypeId == 1005  && auditor.auditTypeId != auditor.AppConstant.IHM_TYPE_ID">
+                <button type="button" class="close" ng-click="close('Cancel')" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Inspector/Observer/Reviewer Detail</h4>
+            </div>
+             <div class="modal-header" ng-if="auditor.auditTypeId == auditor.AppConstant.IHM_TYPE_ID">
+                <button type="button" class="close" ng-click="close('Cancel')" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Reviewer/Observer Detail</h4>
+            </div>
+            
+			<div class="modal-body tdpad">
+				
+				
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 tdpad">
+
+		<div class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+			<div style="padding: 12px 0px 12px 0px !important;" class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 accordion-toggle1" data-toggle="collapse" data-target="#auditoraddsection">
+				
+				
+			</div>
+			<div class="auditoraddsection col-xs-6 col-sm-6 col-md-3 col-lg-3">
+					<button  type="button" class="btn btn-info btn-sm btnCntrol" ng-click="_.addAuditorRow(auditor.auditAuditorDetail)" ng-disabled="(auditor.notLead && auditor.useRoleId!=1003 && auditor.useRoleId!=1002 ) || (auditor.lockStatus==auditor.AppConstant.RETRIEVE_STATUS && auditor.useRoleId != auditor.AppConstant.ADMIN_ROLE_ID) || auditor.auditStatusId == auditor.AppConstant.VOID_AUDIT_STATUS || auditor.reviewStatus == auditor.AppConstant.INITIATE_REVIEW_STATUS || !(auditor.auditAuditorDetail[auditor.auditAuditorDetail.length-1].auditRoleID) || ( (auditor.useRoleId ==1003 || auditor.useRoleId ==1002 ) && auditor.managerOrAdminChangeLead) || auditor.reviwerSign || auditor.reviwerLogged || auditor.managerCreatingAudit || auditor.carUpdateStatus">
+						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+					</button>
+			  	 	 <button type="button" class="btn btn-danger btn-sm btnCntrol" ng-click="auditor.removeItem(auditor.auditAuditorDetail,'check')" ng-disabled=" (auditor.notLead && auditor.useRoleId!=1003 && auditor.useRoleId!=1002 )|| (auditor.lockStatus==auditor.AppConstant.RETRIEVE_STATUS && auditor.useRoleId != auditor.AppConstant.ADMIN_ROLE_ID) || auditor.auditStatusId == auditor.AppConstant.VOID_AUDIT_STATUS || auditor.reviewStatus == auditor.AppConstant.INITIATE_REVIEW_STATUS || ( (auditor.useRoleId ==1003 || auditor.useRoleId ==1002 ) && auditor.managerOrAdminChangeLead) || auditor.reviwerSign || auditor.reviwerLogged || auditor.carUpdateStatus">
+						<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+					</button>
+			</div>
+		<div id="auditoraddsection" class="collapse in">
+			<div  class="portlet-body col-xs-12 col-sm-12 col-md-12 col-lg-12 tdpad" ng-repeat="ob in auditor.auditAuditorDetail">
+			    
+			    <div class="form-group col-xs-offset-0 col-xs-1 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-md-3 col-lg-offset-0 col-lg-1">
+					<input id="aud{{$index}}" type="checkbox" ng-model="ob.check"
+					ng-disabled="ob.audLeadStatus || auditor.auditStatusId == auditor.AppConstant.VOID_AUDIT_STATUS  || ob.audSignature || auditor.carUpdateStatus" />
+					<label for="aud{{$index}}" ></label>
+				</div>
+			    
+			     <div ng-show="auditor.auditTypeId == auditor.AppConstant.IHM_TYPE_ID" class="form-group  col-xs-offset-0 col-xs-11  col-sm-offset-0 col-sm-12 col-md-offset-0 col-md-3 col-lg-offset-0 col-lg-3">
+					<span class="has-float-label " ng-if="ob.audLeadStatus==1 && auditor.auditTypeId == auditor.AppConstant.IHM_TYPE_ID">
+						 <select class="form-control col-xs-12 col-sm-12 col-md-12 col-lg-12 input-height" ng-model="ob.auditRoleID" 
+						    ng-change="auditor.checkReviewer(ob.auditRoleID,$index); " id="type"   
+						 	ng-options="aud.auditRoleId as aud.auditRoleDesc disable when ( ( auditor.leadSign && (auditor.useRoleId ==1003 || auditor.useRoleId ==1002)  && aud.auditRoleId!=auditor.AppConstant.AUDIT_REVIEWER_ROLE_ID ))  for aud in auditor.audObsTypeOptions"
+						 	ng-disabled="ob.audLeadStatus || auditor.auditStatusId == auditor.AppConstant.VOID_AUDIT_STATUS || auditor.reviewStatus == auditor.AppConstant.INITIATE_REVIEW_STATUS ||  ( auditor.notLead && auditor.useRoleId !=1003 && auditor.useRoleId != auditor.AppConstant.ADMIN_ROLE_ID ) || ( (auditor.useRoleId ==1003 || auditor.useRoleId ==1002 ) && auditor.managerOrAdminChangeLead) || auditor.reviwerSign || auditor.reviwerLogged || ob.audSignature || auditor.carUpdateStatus" >
+						 </select>
+						 <label for="type">Type</label>
+					</span>
+					
+					<span class="has-float-label " ng-if="ob.audLeadStatus!=1 && auditor.auditTypeId == auditor.AppConstant.IHM_TYPE_ID">
+						 <select class="form-control col-xs-12 col-sm-12 col-md-12 col-lg-12 input-height" ng-model="ob.auditRoleID" 
+						    ng-change="auditor.checkReviewer(ob.auditRoleID,$index); " id="type"   
+						 	ng-options="aud.auditRoleId as aud.auditRoleDesc disable when ( ( auditor.leadSign && (auditor.useRoleId ==1003 || auditor.useRoleId ==1002)  && aud.auditRoleId!=auditor.AppConstant.AUDIT_REVIEWER_ROLE_ID ))  for aud in auditor.audObsTypeOptionsIhmObser"
+						 	ng-disabled="ob.audLeadStatus || auditor.auditStatusId == auditor.AppConstant.VOID_AUDIT_STATUS || auditor.reviewStatus == auditor.AppConstant.INITIATE_REVIEW_STATUS ||  ( auditor.notLead && auditor.useRoleId !=1003 && auditor.useRoleId != auditor.AppConstant.ADMIN_ROLE_ID ) || ( (auditor.useRoleId ==1003 || auditor.useRoleId ==1002 ) && auditor.managerOrAdminChangeLead) || auditor.reviwerSign || auditor.reviwerLogged || ob.audSignature || auditor.carUpdateStatus" >
+						 </select>
+						 <label for="type">Type</label>
+					</span>
+					
+				</div>
+				
+				
+				
+				
+				<div ng-show="auditor.auditTypeId != auditor.AppConstant.IHM_TYPE_ID" class="form-group  col-xs-offset-0 col-xs-11  col-sm-offset-0 col-sm-12 col-md-offset-0 col-md-3 col-lg-offset-0 col-lg-3">
+					<span class="has-float-label " >
+						 <select class="form-control col-xs-12 col-sm-12 col-md-12 col-lg-12 input-height" ng-model="ob.auditRoleID" 
+						    ng-change="auditor.checkReviewer(ob.auditRoleID,$index); " id="type"   
+						 	ng-options="aud.auditRoleId as aud.auditRoleDesc disable when ( ( auditor.leadSign && (auditor.useRoleId ==1003 || auditor.useRoleId ==1002)  && aud.auditRoleId!=auditor.AppConstant.AUDIT_REVIEWER_ROLE_ID ))  for aud in auditor.audObsTypeOptions"
+						 	ng-disabled="ob.audLeadStatus || auditor.auditStatusId == auditor.AppConstant.VOID_AUDIT_STATUS || auditor.reviewStatus == auditor.AppConstant.INITIATE_REVIEW_STATUS ||  ( auditor.notLead && auditor.useRoleId !=1003 && auditor.useRoleId != auditor.AppConstant.ADMIN_ROLE_ID ) || ( (auditor.useRoleId ==1003 || auditor.useRoleId ==1002 ) && auditor.managerOrAdminChangeLead) || auditor.reviwerSign || auditor.reviwerLogged || ob.audSignature || auditor.carUpdateStatus" >
+						 </select>
+						 <label for="type">Type</label>
+					</span>
+					
+					
+					
+					
+				</div>
+				
+				
+				<!-- (aud.auditRoleId==auditor.AppConstant.AUDIT_AUDITOR_ROLE_ID && $index>0 && ( auditor.auditTypeId==auditor.AppConstant.SSP_TYPE_ID ||auditor.auditTypeId==auditor.AppConstant.DMLC_TYPE_ID ) ||  -->
+				<div ng-if="ob.auditRoleID!=1002 && ob.auditRoleID!=1003" class="form-group col-xs-offset-1 col-xs-11 col-sm-offset-0 col-sm-12 col-md-offset-0 col-md-3 col-lg-offset-0 col-lg-3"><!-- ob.userId='';  -->
+					<span class="has-float-label"> 
+						<input class="form-control col-xs-12 col-sm-12 col-md-12 col-lg-12 input-height" ng-model="ob.auditorName" ng-change="auditor.setOldId(ob.userId,$index);" id="name" type="text" autocomplete="off" 
+							 data-toggle="tooltip" data-original-title="{{ob.auditorName}}" tooltip data-placement="bottom"
+							 uib-typeahead="aud as aud.firstName+' '+aud.lastName for aud in auditor.auditorAndReviwerNameArray | filter:$viewValue" alpha-numeric
+							 ng-blur="_.validateTypeAheadName(auditor.auditAuditorDetail,$index,'auditorName','userId'); auditor.validateObserverReviwer(ob.auditRoleID)"
+							 typeahead-on-select="auditor.setAudObsId($item,$index)" typeahead-editable="false"
+							 ng-readonly= "!(auditor.lockStatus==auditor.AppConstant.OPENFORCAR && ob.auditRoleID==auditor.AppConstant.AUDIT_REVIEWER_ROLE_ID) && (auditor.reviewStatus == auditor.AppConstant.INITIATE_REVIEW_STATUS || auditor.auditStatusId == auditor.AppConstant.VOID_AUDIT_STATUS || !(ob.auditRoleID) || (ob.audLeadStatus && ob.audSignature) ||
+							 				 (auditor.useRoleId != auditor.AppConstant.ADMIN_ROLE_ID &&  ((ob.audLeadStatus && auditor.useRoleId != 1003 && auditor.useRoleId != 1006 && auditor.useRoleId != 1007) || (auditor.useRoleId != auditor.AppConstant.ADMIN_ROLE_ID && auditor.lockStatus==auditor.AppConstant.RETRIEVE_STATUS &&  auditor.useRoleId != 1003 && auditor.useRoleId != 1006 && auditor.useRoleId != 1007)))  ||  ( (auditor.useRoleId ==1003 || auditor.useRoleId ==1002 ) && auditor.managerOrAdminChangeLead) || auditor.reviwerSign || auditor.reviwerLogged || (auditor.useRoleId != 1007 && auditor.useRoleId !=1003 && auditor.useRoleId != 1006 && auditor.useRoleId !=1002 && auditor.notLead) || ob.audSignature) ||  (auditor.useRoleId ==1001 && auditor.carUpdateStatus) || (auditor.certGenrateStatus && !auditor.useRoleId ==1001 && ob.audLeadStatus!=1) || (auditor.certGenrateStatus &&  ob.audLeadStatus==1)"
+							 				 />
+							 <label  for="name">Name</label>
+					</span>
+				</div>
+				
+					<div ng-if="ob.auditRoleID==1002" class="form-group col-xs-offset-1 col-xs-11 col-sm-offset-0 col-sm-12 col-md-offset-0 col-md-3 col-lg-offset-0 col-lg-3"><!-- ob.userId='';  -->
+					<span class="has-float-label"> 
+						<input class="form-control col-xs-12 col-sm-12 col-md-12 col-lg-12 input-height" ng-model="ob.auditorName" ng-change="auditor.setOldId(ob.userId,$index);" id="name" type="text" autocomplete="off" 
+							 data-toggle="tooltip" data-original-title="{{ob.auditorName}}" tooltip data-placement="bottom"
+							 uib-typeahead="aud as aud.firstName+' '+aud.lastName for aud in auditor.observerNameArray | filter:$viewValue" alpha-numeric
+							 ng-blur="_.validateTypeAheadName(auditor.auditAuditorDetail,$index,'auditorName','userId'); auditor.validateObserverReviwer(ob.auditRoleID)"
+							 typeahead-on-select="auditor.setAudObsId($item,$index)"  
+							 ng-readonly= "auditor.reviewStatus == auditor.AppConstant.INITIATE_REVIEW_STATUS || auditor.auditStatusId == auditor.AppConstant.VOID_AUDIT_STATUS || !(ob.auditRoleID) || (ob.audLeadStatus && ob.audSignature) ||
+							 				 (auditor.useRoleId != auditor.AppConstant.ADMIN_ROLE_ID &&  (ob.audLeadStatus || (auditor.useRoleId != auditor.AppConstant.ADMIN_ROLE_ID && auditor.lockStatus==auditor.AppConstant.RETRIEVE_STATUS))) || ob.audLeadStatus==1 ||  ( (auditor.useRoleId ==1003 || auditor.useRoleId ==1002 ) && auditor.managerOrAdminChangeLead) || auditor.reviwerSign || auditor.reviwerLogged || (auditor.useRoleId != 1007 && auditor.useRoleId !=1003 && auditor.useRoleId !=1002 && auditor.notLead) || ob.audSignature || (auditor.useRoleId ==1001 && auditor.carUpdateStatus)"/>
+							 <label  for="name">Name</label>
+					</span>
+				</div>
+				
+				
+				<div ng-if="ob.auditRoleID==1003" class="form-group col-xs-offset-1 col-xs-11 col-sm-offset-0 col-sm-12 col-md-offset-0 col-md-3 col-lg-offset-0 col-lg-3"><!-- ob.userId='';  -->
+				<span class="has-float-label"> 
+					<input class="form-control col-xs-12 col-sm-12 col-md-12 col-lg-12 input-height" ng-model="ob.auditorName" ng-change="auditor.setOldId(ob.userId,$index);" id="name" type="text" autocomplete="off" 
+						 data-toggle="tooltip" data-original-title="{{ob.auditorName}}" tooltip data-placement="bottom"
+						 uib-typeahead="aud as aud.firstName+' '+aud.lastName for aud in auditor.auditorAndReviwerNameArrayCopy | filter:$viewValue" alpha-numeric
+						 ng-blur="_.validateTypeAheadName(auditor.auditAuditorDetail,$index,'auditorName','userId'); auditor.validateObserverReviwer(ob.auditRoleID)"
+						 typeahead-on-select="auditor.setAudObsId($item,$index)" 
+						 ng-readonly= "!(auditor.lockStatus==auditor.AppConstant.OPENFORCAR && ob.auditRoleID==auditor.AppConstant.AUDIT_REVIEWER_ROLE_ID) && (auditor.reviewStatus == auditor.AppConstant.INITIATE_REVIEW_STATUS || auditor.auditStatusId == auditor.AppConstant.VOID_AUDIT_STATUS || !(ob.auditRoleID) || (ob.audLeadStatus && ob.audSignature) ||
+						 				 (auditor.useRoleId != auditor.AppConstant.ADMIN_ROLE_ID &&  ((ob.audLeadStatus && auditor.useRoleId != 1003 && auditor.useRoleId != 1007) || (auditor.useRoleId != auditor.AppConstant.ADMIN_ROLE_ID && auditor.lockStatus==auditor.AppConstant.RETRIEVE_STATUS &&  auditor.useRoleId != 1003 && auditor.useRoleId != 1007)))  ||  ( (auditor.useRoleId ==1003 || auditor.useRoleId ==1002 ) && auditor.managerOrAdminChangeLead) || auditor.reviwerSign || auditor.reviwerLogged || (auditor.useRoleId !=1003 && auditor.useRoleId !=1002 && auditor.notLead && auditor.useRoleId != 1007) || ob.audSignature) || (ob.audLeadStatus == 1 &&  auditor.userRoleId != auditor.AppConstant.MANAGER_ROLE_ID)"/>
+						 <label  for="name">Name </label>
+				</span>
+			</div>
+				
+				<div class="form-group col-xs-offset-1 col-xs-11 col-sm-offset-0 col-sm-12 col-md-offset-0 col-md-3 col-lg-offset-0 col-lg-3">
+					<span class="has-float-label ">
+						<input class="form-control col-xs-12 col-sm-12 col-md-12 col-lg-12 input-height"   id="id" ng-model="ob.seqNo" 
+						  data-toggle="tooltip" data-original-title="{{ob.seqNo}}" tooltip data-placement="bottom"
+							type="text" autocomplete="off"  readonly/> 
+						<label  for="id">ID</label>
+					</span>
+				</div>
+				
+				<div class="form-group col-xs-offset-1 col-xs-11 col-sm-offset-0 col-sm-12 col-md-offset-0 col-md-3 col-lg-offset-0 col-lg-2 pull-left"  ng-show="ob.auditRoleID==auditor.AppConstant.AUDIT_AUDITOR_ROLE_ID">
+					<input type="radio" name="leadVal" ng-value="1" ng-model="ob.audLeadStatus" ng-disabled="auditor.leadSign  || auditor.lockStatus==auditor.AppConstant.RETRIEVE_STATUS || auditor.auditStatusId != auditor.AppConstant.COMMENCED_AUDIT_STATUS || (auditor.loginUserId!= ob.userId && !auditor.notLead && auditor.useRoleId !=1003 && auditor.useRoleId != auditor.AppConstant.ADMIN_ROLE_ID ) || auditor.reviewStatus == auditor.AppConstant.INITIATE_REVIEW_STATUS || auditor.certGenrateStatus || auditor.useRoleId==det.AppConstant.OBSERVER_ROLE_ID || auditor.reviwerLogged || auditor.additionalAuditoorsSign || ( (auditor.loginUserId!= ob.userId && ob.userId!=auditor.orgLead && ob.userId!=auditor.orgLeadDb) && auditor.useRoleId !=1003 && auditor.useRoleId != auditor.AppConstant.ADMIN_ROLE_ID ) || auditor.ltrStatus || det.auditDetails.certificateDetails[0].generateStatus==0 || ob.delegateSign==1 || auditor.certGenrateStatus || auditor.carUpdateStatus"  ng-change="auditor.checkLead($index)"> Lead<br>
+				</div>
+					
+			</div>
+			
+			</div>
+			</div>
+			
+</div>
+				
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 modal-footer">
+				<div class="col-xs-offset-8 col-xs-4  col-sm-offset-8  col-sm-4 col-md-offset-10  col-md-2 col-lg-offset-10 col-lg-2">
+               		<button type="button" ng-click="auditor.save()" class="btn btn-primary btnclass fix-but-width" >Add</button>
+				</div>	
+            	 
+            </div>
+</div>
+</div>
+</form>
+</div>

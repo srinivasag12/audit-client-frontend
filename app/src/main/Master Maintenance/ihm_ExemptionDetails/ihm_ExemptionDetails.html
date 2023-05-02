@@ -1,0 +1,121 @@
+<form name="exemp.exempForm" autocomplete="off">
+<div style="height: 90.5vh !important; max-height: 90.5vh !Important;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull auditscroll scroll">
+<div class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12 rep">
+	
+			<div class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 accordion-toggle1"
+				data-toggle="collapse" data-target="#exemp">
+				<div class="col-xs-12 col-sm-10 col-md-12 col-lg-12 containerfull">
+					<div
+						class="caption font-blue-sharp col-xs-9 col-sm-3 col-md-3 col-lg-3 containerfull">
+						<span class="caption-subject bold uppercase pull-left">Exemption Attachments</span>
+
+					</div>
+				</div>
+			</div>
+			
+<div id="exemp" style="border-bottom: 1px solid #065050 !important;" class="portlet-body collapse in col-xs-12 col-sm-12 col-md-12 col-lg-12 padcontainer">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull">
+
+           <div  class="search_table_bordered auditSearch " style="margin-top: 60px !important; display: inline-block;float: left;">
+		        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-offset-1 col-lg-10 mobilesizecontainer dataTables_wrapper no-footer"> 
+                     <div class="table-responsive "  >
+                           <table class="table table-bordered table-hover containerfull">
+                                  <thead>
+                                    <tr style="display:table;width:100%;table-layout:fixed; background: #364150;color: white;border-top-right-radius: 15px !important;border-top-left-radius: 15px !important;">
+                                          <th class="center">Exemption Certificate </th>
+                                          <th class="center">Active</th>
+                                          <th class="center" >Updated On</th>
+                                          
+                                    </tr>
+                                  </thead>
+                                       <tbody style="display:block;max-height:200px;overflow:auto">
+                                          <tr  ng-if="!exemp.addNewExempt ==1 "style="display:table;width:100%;table-layout:fixed;" ng-repeat="exemp in exempdet.exempData | orderBy:'reasonId'">
+                                        	<td class="center" style="max-width: 140px !Important; overflow: auto;word-break: break-all;" ng-class="{default:!exemp.fileName}" >
+ 												
+ 									            	{{exemp.ecGrantedReason}} 
+ 									            	 
+ 									        </td>
+                                   		<td class="center">
+                                           <div>
+                         						<select class="col-xs-2 col-sm-2 col-md-2 col-lg-2 txt-input" 
+                         							ng-model="exemp.activeStatus"   ng-disabled=" exemp.reasonId ==1"
+                         							
+                         							id="mandatoryId"  ng-options="type.id as type.value for type in  exempdet.yesOrNoOptions" ng-change="exempdet.onChangeActiveStatus(exemp.reasonId,exemp.activeStatus);" ng-class="{'changed':	exempdet.activeStatus}"> </select>
+					                        </div>
+                                         </td> 
+                                         <td class="center">
+                                               {{exemp.updatedOn}}
+                                        </td>
+                                        
+                                        
+                                              
+                                     </tbody>
+                        	</table>
+                      </div>
+                   </div>
+                 </div>
+                 
+                 
+                  <div  class="search_table_bordered reportDetails " ng-if="exempdet.addExempt" >
+		        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-offset-1 col-lg-10 mobilesizecontainer dataTables_wrapper no-footer"> 
+                     <div class="table-responsive "  >
+                           <table class="table table-bordered table-hover containerfull">
+                                  <thead>
+                                    <tr style="display:table;width:100%;table-layout:fixed;border-top-right-radius: 15px !important;border-top-left-radius: 15px !important;">
+                                          <th class="center"></th>
+                                          <th class="center"></th>
+                                          <th class="center" ></th>
+                                          
+                                    </tr>
+                                  </thead>
+                                       <tbody style="display:block;max-height:200px;overflow:auto">
+                                          <tr  ng-if="exemp.addNewExempt ==1" style="display:table;width:100%;table-layout:fixed;" ng-repeat="exemp in exempdet.exempData">
+                                        	<td class="center" style="max-width: 140px !Important; overflow: auto;word-break: break-all;" ng-class="{default:!exemp.fileName}">
+ 												
+ 									            	{{exemp.ecGrantedReason}} 
+ 									            	  
+ 									        </td>
+                                   		<td class="center">
+                                           <div>
+                         						<select class="col-xs-2 col-sm-2 col-md-2 col-lg-2 txt-input" 
+                         							ng-model="exemp.activeStatus"   
+                         							
+                         							id="mandatoryId"  ng-options="type.id as type.value for type in  exempdet.yesOrNoOptions" ng-change="exempdet.onChangeActiveStatus(exemp.reasonId);" ng-class="{'changed':	exempdet.activeStatus}"> </select>
+					                        </div>
+                                         </td> 
+                                       
+                                        
+                                         <td class="center"  > 
+                                                    <div  ng-if="exemp.showUpdateFlag==1" class="col-xs-12 col-sm-12 col-md-12 col-lg-offset-9 col-lg-3"   style="margin-left: 140px !important;">
+														<button style="padding:1px 6px !important;width:34px !important;" class="buttontrash btn btn-info btnclass" ng-click="exempdet.updateExemptCert(exemp);">
+				 										<i class="fa fa-edit" aria-hidden="true" title="Edit"></i>
+														</button>
+													</div>
+                                         </td>
+                                              
+                                     </tbody>
+                        	</table>
+                      </div>
+                   </div>
+                 </div>
+        </div>
+          
+    	<div  class="col-xs-12 col-sm-12 col-md-12 col-lg-offset-0 tdpad col-lg-12 search audsrcpad">		
+			
+				<div  class="col-xs-4 col-sm-offset-2 col-sm-3 col-md-offset-4 col-md-2 col-lg-offset-3 col-lg-2" style="margin-left: 440px !important;">
+				<button type="button" class="effect effect btn btn-primaryclr btnsize btnclass fix-but-width font-add" ng-click="exempdet.addNewExemptCert();">NEW</button>
+				</div>
+			
+				<div  class="col-xs-4 col-sm-offset-2 col-sm-3 col-md-offset-4 col-md-2 col-lg-offset-3 col-lg-2" style="margin-left: 10px !important;">
+				<button type="button" class="effect effect btn btn-primaryclr btnsize btnclass fix-but-width font-add" ng-click="exempdet.saveOrUpdateEcGrantedReason();">SUBMIT</button>
+				</div>
+			
+				<!-- <div class="col-xs-4 col-sm-offset-0  col-sm-3 col-md-offset-0 col-md-2 col-lg-offset-0 col-lg-2" style="margin-left: 10px !important;">
+				<button type="button" class="effect effect btn btn-primaryclr btnsize btnclass fix-but-width font-clear" ng-click="exempdet.clearExemptCert();">CLEAR</button>
+				</div> -->
+		</div>
+	
+	</div>  
+</div>
+</div>
+</form>

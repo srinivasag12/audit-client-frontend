@@ -1,0 +1,70 @@
+.dashboard{
+	    margin: 50px 0px 0px 0px !Important;
+}
+
+.dashboard1{
+	    margin: 20px 0px 0px 0px !Important;
+}
+.first1 {
+    font-weight: bold;
+    bottom: -10px;
+    font-size: large;
+    left: 515px;
+    margin-top: 1vh !important;
+    margin-bottom: -4vh !important;
+}
+
+/* .dashboard.first > div:nth-child(1), .dashboard.second > div:nth-child(1){
+	margin-left:4vw !Important;
+}    */ 
+
+.dashboard.admin{
+	margin-top: 28vh !Important;
+}
+
+/* Extra Large Screens */
+
+@media (min-width: 1515px){
+.first{
+	margin-top:8vh !important;
+	margin-bottom:10vh !important;
+}}
+@media (min-width: 1200px){
+.first{
+	margin-top:10vh !important;
+	margin-bottom:6vh !important;
+}}
+/*Double Extra Large Screens */
+
+@media (min-width: 1920px){
+	.first{
+	margin-top:10vh !important;
+	margin-bottom:10vh !important;
+}}
+
+
+
+/*Extra Small Screens (Portriat Mode)*/
+@media (min-width:320px) and (max-width: 575px){
+
+.dashboard {
+    margin: 0px 0px !Important;
+}
+
+.dashboard.first{
+	 margin: 10px 0px 0px 0px !Important;
+}
+
+.dashboard.second{
+	 margin: 0px 0px 10px 0px !Important;
+}
+
+.dashboard.admin{
+	margin-top: 0vh !Important;
+}
+
+.dashboard.admin > .child{
+	margin-top: 10vh !Important;
+}
+
+}

@@ -1,0 +1,249 @@
+<div class="modal fade reportprev" data-keyboard="false"
+	ng-disabled="vesselHistoryPopup.vesselHistory.length < 0"
+	data-backdrop="static" ng-class="{'officeClass':officeClass}">
+
+	<div class="modal-dialog-vessel-history">
+		<div style="background-color: #e5e5e5;">
+			<div class="modal-header" style="padding-bottom: 0px !important;">
+				<button type="button" class="close" ng-click="close('Cancel')"
+					aria-hidden="true">&times;</button>
+				<!--  <div ng-repeat="item in  vesselHistoryPopup.vesselHistory|limitTo:1"     style="font-weight: bold;" >
+					CompanyImo No : {{item.COMPANY_IMO_NO}}</div>-->
+				<h4 class="modal-title">Vessel History</h4>
+			</div>
+			<div class="modal-body-vessel-history">
+				<div class="table-wrapper"
+					ng-if="vesselHistoryPopup.vesselHistory.length <= 10">
+					<table class="fl-table table-responsive" ng-style="vesselObj">
+						<thead>
+							<tr class="head">
+								<th class="mgmntcmpny"><label class="alignCenter"><b>Vessel
+											Name</b></label></th>
+								<th class="mgmntcmpny"><label class="alignCenter"><b>Vessel
+											Type</b></label></th>
+								<th class="mgmntcmpny"><label class="alignCenter"><b>Company
+											Imo No.</b></label></th>
+								<th class="mgmntcmpny"><label class="alignCenter"><b>Company
+											 Name</b></label></th>
+								<th class="mgmntcmpny"><label class="alignCenter"><b>Company
+										 Address </b></label></th>
+								<th class="mgmntcmpny"><label class="alignCenter"><b>Updated
+											Date</b></label></th>
+								<th class="mgmntcmpny"><label class="alignCenter"><b>Date
+											of registry</b></label></th>
+								<th class="mgmntcmpny"><label class="alignCenter"><b>Doc
+											Expiry</b></label></th>
+								<th class="mgmntcmpny"><label class="alignCenter"><b>Doc
+											Issuer</b></label></th>
+								<th class="mgmntcmpny"><label class="alignCenter"><b>GRT</b></label></th>
+								<th class="mgmntcmpny"><label class="alignCenter"><b>Keel
+											Laid Date</b></label></th>
+								<th class="mgmntcmpny"><label class="alignCenter"><b>Reg
+											Company Name</b></label></th>
+								<th class="mgmntcmpny"><label class="alignCenter"><b>Reg
+											Company Address</b></label></th>
+								<th class="mgmntcmpny"><label class="alignCenter"><b>IMO
+											Regd owner ID No.</b></label></th>
+								<th class="mgmntcmpny"><label class="alignCenter"><b>Port
+											of Registry</b></label></th>
+							</tr>
+
+							<tr class="detail"
+								ng-repeat="history in vesselHistoryPopup.vesselHistory">
+
+								<td class="mgmntcmpny" 
+								ng-style="vesselHistoryPopup.vesselHistory[$index].vNameClr == true ?  {'color':'#0a75d2'} : {'color':'#333333'}"><span style="white-space: pre;">{{history.VESSEL_NAME}}
+								</span></td>
+
+								<td class="mgmntcmpny "
+									ng-style="vesselHistoryPopup.vesselHistory[$index].vTypeClr == true ? {'color':'#0a75d2'} : {'color':'#333333'}"><span style="white-space: pre;">{{history.VESSEL_TYPE}}
+								</span></td>
+
+
+								<td class="mgmntcmpny "
+									ng-style="vesselHistoryPopup.vesselHistory[$index].cImoClr == true ? {'color':'#0a75d2'} : {'color':'#333333'}"><span style="white-space: pre;">{{history.COMPANY_IMO_NO}}
+								</span></td>
+
+
+								<td class="mgmntcmpny "
+									ng-style="vesselHistoryPopup.vesselHistory[$index].vcNameClr == true ? {'color':'#0a75d2'} : {'color':'#333333'}"><span style="white-space: pre;">{{history.VESSEL_COMPANY_NAME}}
+								</span></td>
+								
+								<td class="mgmntcmpny "
+									ng-style="vesselHistoryPopup.vesselHistory[$index].vcAddressClr == true ? {'color':'#0a75d2'} : {'color':'#333333'}"><label>{{history.VESSEL_COMPANY_ADDRESS}}
+								</label></td>
+
+
+								<td class="mgmntcmpny "
+									ng-style="vesselHistoryPopup.vesselHistory[$index].dInsClr == true ? {'color':'#0a75d2'} : {'color':'#333333'}"><span style="white-space: pre;">{{history.DATE_INS}}
+								</span></td>
+
+
+								<td class="mgmntcmpny "
+									ng-style="vesselHistoryPopup.vesselHistory[$index].dRegistryClr == true ? {'color':'#0a75d2'} : {'color':'#333333'}"><span style="white-space: pre;">{{history.DATE_OF_REGISTRY}}
+								</span></td>
+
+
+								<td class="mgmntcmpny "
+									ng-style="vesselHistoryPopup.vesselHistory[$index].dExpiryClr == true ? {'color':'#0a75d2'} : {'color':'#333333'}"><span style="white-space: pre;">{{history.DOC_EXPIRY}}
+								</span></td>
+
+
+								<td class="mgmntcmpny "
+									ng-style="vesselHistoryPopup.vesselHistory[$index].dIssuerClr == true ? {'color':'#0a75d2'} : {'color':'#333333'}"><span style="white-space: pre;">{{history.DOC_ISSUER}}
+								</span></td>
+
+
+								<td class="mgmntcmpny "
+									ng-style="vesselHistoryPopup.vesselHistory[$index].gRTClr == true ? {'color':'#0a75d2'} : {'color':'#333333'}"><span style="white-space: pre;">{{history.GRT}}
+								</span></td>
+
+
+								<td class="mgmntcmpny "
+									ng-style="vesselHistoryPopup.vesselHistory[$index].kDateClr == true ? {'color':'#0a75d2'} : {'color':'#333333'}"><span style="white-space: pre;">{{history.KEEL_LAID_DATE}}
+								</span></td>
+								
+								<td class="mgmntcmpny "
+									ng-style="vesselHistoryPopup.vesselHistory[$index].rCompanyNameClr == true ? {'color':'#0a75d2'} : {'color':'#333333'}"><span style="white-space: pre;">{{history.REGISTERED_COMPANY_ADDRESS}}
+								</span></td>
+								
+								
+								<td class="mgmntcmpny "
+									ng-style="vesselHistoryPopup.vesselHistory[$index].rCompanyAddClr== true ? {'color':'#0a75d2'} : {'color':'#333333'}"><label>{{history.REGISTERED_COMPANY_NAME}}
+								</label></td>
+								
+
+								<td class="mgmntcmpny "
+									ng-style="vesselHistoryPopup.vesselHistory[$index].rImonumClr == true ? {'color':'#0a75d2'} : {'color':'#333333'}"><span style="white-space: pre;">{{history.REG_OWNED_IMO_NUMBER}}
+								</span></td>
+
+
+								<td class="mgmntcmpny "
+									ng-style="vesselHistoryPopup.vesselHistory[$index].pRegClr == true ? {'color':'#0a75d2'} : {'color':'#333333'}"><span style="white-space: pre;">{{history.PORT_OF_REGISTRY}}
+								</span></td>
+
+
+							</tr>
+						</thead>
+					</table>
+				</div>
+				<div class="vessel-wrapper"
+					ng-if="vesselHistoryPopup.vesselHistory.length > 10">
+					<table class="fl-table table-responsive" ng-style="vesselObj">
+						<thead
+							class="col-xs-12 col-sm-12 col-md-12 col-lg-12 vesselheadScroll">
+							<tr class="head">
+								<th class="mgmntcmpny"><label class="alignCenter"><b>Vessel
+											Name</b></label></th>
+								<th class="mgmntcmpny"><label class="alignCenter"><b>Vessel
+											Type</b></label></th>
+								<th class="mgmntcmpny"><label class="alignCenter"><b>Company
+											Imo No.</b></label></th>
+								<th class="mgmntcmpny"><label class="alignCenter"><b>Company
+											 Name</b></label></th>
+								<th class="mgmntcmpny"><label class="alignCenter"><b>Company
+										 Address </b></label></th>
+								<th class="mgmntcmpny"><label class="alignCenter"><b>Updated
+											Date</b></label></th>
+								<th class="mgmntcmpny"><label class="alignCenter"><b>Date
+											of registry</b></label></th>
+								<th class="mgmntcmpny"><label class="alignCenter"><b>Doc
+											Expiry</b></label></th>
+								<th class="mgmntcmpny"><label class="alignCenter"><b>Doc
+											Issuer</b></label></th>
+								<th class="mgmntcmpny"><label class="alignCenter"><b>GRT</b></label></th>
+								<th class="mgmntcmpny"><label class="alignCenter"><b>Keel
+											Laid Date</b></label></th>
+								<th class="mgmntcmpny"><label class="alignCenter"><b>Reg
+											Company Name</b></label></th>
+								<th class="mgmntcmpny"><label class="alignCenter"><b>Reg
+											Company Address</b></label></th>
+								<th class="mgmntcmpny"><label class="alignCenter"><b>IMO
+											Regd owner ID No.</b></label></th>
+								<th class="mgmntcmpny"><label class="alignCenter"><b>Port
+											of Registry</b></label></th>
+							</tr>
+
+							<tr class="detail"
+								ng-repeat="history in vesselHistoryPopup.vesselHistory">
+
+								<td class="mgmntcmpny" 
+								ng-style="vesselHistoryPopup.vesselHistory[$index].vNameClr == true ?  {'color':'#0a75d2'} : {'color':'#333333'}"><span style="white-space: pre;">{{history.VESSEL_NAME}}
+								</span></td>
+
+								<td class="mgmntcmpny "
+									ng-style="vesselHistoryPopup.vesselHistory[$index].vTypeClr == true ? {'color':'#0a75d2'} : {'color':'#333333'}"><span style="white-space: pre;">{{history.VESSEL_TYPE}}
+								</span></td>
+
+
+								<td class="mgmntcmpny "
+									ng-style="vesselHistoryPopup.vesselHistory[$index].cImoClr == true ? {'color':'#0a75d2'} : {'color':'#333333'}"><span style="white-space: pre;">{{history.COMPANY_IMO_NO}}
+								</span></td>
+
+
+								<td class="mgmntcmpny "
+									ng-style="vesselHistoryPopup.vesselHistory[$index].vcNameClr == true ? {'color':'#0a75d2'} : {'color':'#333333'}"><span style="white-space: pre;">{{history.VESSEL_COMPANY_NAME}}
+								</span></td>
+								
+								<td class="mgmntcmpny "
+									ng-style="vesselHistoryPopup.vesselHistory[$index].vcAddressClr == true ? {'color':'#0a75d2'} : {'color':'#333333'}"><label>{{history.VESSEL_COMPANY_ADDRESS}}
+								</label></td>
+
+
+								<td class="mgmntcmpny "
+									ng-style="vesselHistoryPopup.vesselHistory[$index].dInsClr == true ? {'color':'#0a75d2'} : {'color':'#333333'}"><span style="white-space: pre;">{{history.DATE_INS}}
+								</span></td>
+
+
+								<td class="mgmntcmpny "
+									ng-style="vesselHistoryPopup.vesselHistory[$index].dRegistryClr == true ? {'color':'#0a75d2'} : {'color':'#333333'}"><span style="white-space: pre;">{{history.DATE_OF_REGISTRY}}
+								</span></td>
+
+
+								<td class="mgmntcmpny "
+									ng-style="vesselHistoryPopup.vesselHistory[$index].dExpiryClr == true ? {'color':'#0a75d2'} : {'color':'#333333'}"><span style="white-space: pre;">{{history.DOC_EXPIRY}}
+								</span></td>
+
+
+								<td class="mgmntcmpny "
+									ng-style="vesselHistoryPopup.vesselHistory[$index].dIssuerClr == true ? {'color':'#0a75d2'} : {'color':'#333333'}"><span style="white-space: pre;">{{history.DOC_ISSUER}}
+								</span></td>
+
+
+								<td class="mgmntcmpny "
+									ng-style="vesselHistoryPopup.vesselHistory[$index].gRTClr == true ? {'color':'#0a75d2'} : {'color':'#333333'}"><span style="white-space: pre;">{{history.GRT}}
+								</span></td>
+
+
+								<td class="mgmntcmpny "
+									ng-style="vesselHistoryPopup.vesselHistory[$index].kDateClr == true ? {'color':'#0a75d2'} : {'color':'#333333'}"><span style="white-space: pre;">{{history.KEEL_LAID_DATE}}
+								</span></td>
+								
+								<td class="mgmntcmpny "
+									ng-style="vesselHistoryPopup.vesselHistory[$index].rCompanyNameClr== true ? {'color':'#0a75d2'} : {'color':'#333333'}"><span style="white-space: pre;">{{history.REGISTERED_COMPANY_ADDRESS}}
+								</span></td>
+								
+								
+								<td class="mgmntcmpny "
+									ng-style="vesselHistoryPopup.vesselHistory[$index].rCompanyAddClr == true ? {'color':'#0a75d2'} : {'color':'#333333'}"><label>{{history.REGISTERED_COMPANY_NAME}}
+								</label></td>
+								
+
+								<td class="mgmntcmpny "
+									ng-style="vesselHistoryPopup.vesselHistory[$index].rImonumClr == true ? {'color':'#0a75d2'} : {'color':'#333333'}"><span style="white-space: pre;">{{history.REG_OWNED_IMO_NUMBER}}
+								</span></td>
+
+
+								<td class="mgmntcmpny "
+									ng-style="vesselHistoryPopup.vesselHistory[$index].pRegClr == true ? {'color':'#0a75d2'} : {'color':'#333333'}"><span style="white-space: pre;">{{history.PORT_OF_REGISTRY}}
+								</span></td>
+
+
+							</tr>
+						</thead>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

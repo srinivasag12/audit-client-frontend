@@ -1,0 +1,228 @@
+<form name="config.configform">
+	<div
+		class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12 config">
+		<div
+			class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12  accordion-toggle1"
+			data-toggle="collapse" data-target="#config">
+			<div
+				class="caption font-blue-sharp col-xs-12 col-sm-12 col-md-12 col-lg-2">
+				<span class="caption-subject bold uppercase pull-left">User
+					Configuration</span>
+			</div>
+
+
+
+			<div
+				class="col-xs-8 col-sm-offset-5 col-sm-3 col-md-offset-3 col-md-3 col-lg-offset-2 col-lg-3">
+				<div class=" col-xs-4 col-sm-6 col-md-5 col-lg-5">
+					<label class="imolabel">USER ID</label>
+				</div>
+				<div class=" col-xs-4 col-sm-6 col-md-7 col-lg-7 mob">
+					<input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 imoval"
+						readonly ng-model="config.userId" id="userid"
+						ng-click="$event.stopPropagation();" name="userId" type="text" />
+				</div>
+			</div>
+
+
+
+		</div>
+
+
+
+
+		<div id="config"
+			class="portlet-body collapse in col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+
+
+			<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 containerfull">
+
+
+
+				<div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 txt-sec">
+					<select style="resize: none !important;"
+						class="col-xs-6 col-sm-6 col-md-6 col-lg-6 txt-input "
+						ng-model="config.searchResults" id="searchResults" type="text"
+						name="searchResults"
+						ng-options="type.searchResults as type.searchResults for type in config.searchCount"
+						ng-class="{'changed':config.searchResults}">
+					</select> <label for="searchResults">Search Results</label>
+
+				</div>
+
+
+
+
+
+
+
+				<div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 txt-sec"">
+					<select class="col-xs-6 col-sm-6 col-md-6 col-lg-6 txt-input"
+						ng-options="type.screenId as type.screenData  disable when (config.roldeId == 1001 && (type.screenId == 'app.master.auditCode')) || (config.roldeId == 1002 && (type.screenId == 'app.vesselStatement' || type.screenId == 'app.carMaintenance.carSearch'))  || (config.roldeId == 1003 && (type.screenId == 'app.master.auditCode' || type.screenId == 'app.carMaintenance.carSearch')) for type in config.screenArray"
+						ng-model="config.homeScreen" id="homeScreen" type="text"
+						name="homeScreen" ng-class="{'changed':config.homeScreen}">
+					</select> <label for="homeScreen">Default Home Screen</label>
+
+				</div>
+
+
+
+
+
+
+
+				<div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 txt-sec">
+					<input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input "
+						ng-model="config.role" id="role" type="text" name="role"
+						ng-class="{'changed':config.role}" readonly /> <label
+						for="role">Role </label>
+
+				</div>
+
+
+				<div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 txt-sec">
+					<input style="text-transform: uppercase" max-len=50
+						class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input "
+						letters-input ng-model="config.displayname" id="displayname"
+						type="text" name="displayname"
+						ng-class="{'changed':config.displayname}" /> <label
+						for="displayname">DisplayName </label>
+
+				</div>
+
+				<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2 txt-sec">
+					<input type="color"
+						class="col-xs-12 col-sm-12 col-md-6 col-lg-6 txt-input changed"
+						ng-model="config.headerColor" id="headerColor" type="text"
+						name="headerColor" ng-click="config.hederColour();" /> <label
+						for="headerColor">Header Colour </label>
+
+				</div>
+
+
+				<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2 txt-sec">
+					<input type="color"
+						class="col-xs-12 col-sm-12 col-md-6 col-lg-6 txt-input changed"
+						ng-model="config.backgroundColor" id="backgroundColor" type="text"
+						name="backgroundColor" /> <label for="role">Background
+						Colour </label>
+
+				</div>
+
+
+				<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2 txt-sec">
+					<input type="color"
+						class="col-xs-12 col-sm-12 col-md-6 col-lg-6 txt-input changed"
+						ng-model="config.fontColor" id="fontColor" type="text"
+						name="fontColor" /> <label for="fontColor">Font
+						Colour </label>
+
+
+				</div>
+
+				<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2 txt-sec">
+					<input type="color"
+						class="col-xs-12 col-sm-12 col-md-6 col-lg-6 txt-input changed"
+						ng-model="config.buttonColor" id="buttoncolor" type="text"
+						name="buttonColor" /> <label for="buttoncolor">Button
+						Colour </label>
+
+
+				</div>
+
+				<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2 txt-sec">
+					<input type="color"
+						class="col-xs-12 col-sm-12 col-md-6 col-lg-6 txt-input changed"
+						ng-model="config.headerFontColor" id="headerFontcolor" type="text"
+						name="headerFontColor" /> <label for="headerfontcolor">Header
+						Font Colour </label>
+
+
+				</div>
+
+			</div>
+			<div class="col-xs-offset-1 col-xs-9 col-sm-offset-0  col-sm-9 col-md-offset-0  col-md-3 col-lg-offset-0 col-lg-3">
+				<div  class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padcontainer txt-sec UserProfilePicConfig">
+					<button ng-if="config.closeIcon == true" style="position: absolute;right: 28px;" class="close" ng-click="config.removeImage();"></button>
+				 <input type="text"
+						class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input pad-left-sign input-user-address hidden changed"
+						id="profilePic" ng-model="config.userProfilePic" /> 
+						
+				 <img class="photo-size" ng-src="data:image/png;base64,{{photoImage}}" id="image-id" name='profile' /> 
+				 <label class="pad-left-sign" for="profilePic">Upload Your Photo</label>
+				
+				</div>
+
+				<div class="fixedProfilePic col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull">
+					<input type="file"
+						class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input pad-left-sign input-user-address hidden"
+						id="profilePicture" name='profile'
+						ngf-accept="image/x-png,image/gif,image/jpeg/.jfif" file-read-pho
+						ng-model="config.userProfilePic" required /> <label
+						for="profilePicture" class="btnclass btn fixedProfBut"> <i
+						class="fa fa-picture-o" aria-hidden="true" title="Attachments"></i>
+					</label>
+				</div>
+
+
+
+			</div> 
+			<div ng-hide="config.userRoleId==1002">
+			<div> Certified </div>
+		<!-- 	user Authorosation ism ihm isps mlc start -->
+		
+              <div ng-show="config.userRoleId !=1006" class="form-group col-xs-offset-0 col-xs-1 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-md-3 col-lg-offset-0 col-lg-1">
+					<input id="ismAuthorisation" type="checkbox"  ng-true-value=1 ng-false-value=0 ng-init="config.authorisation.ismreview" ng-model="config.authorisation.ismreview"
+					ng-disabled="true" />
+					<label for="ismAuthorisation" >ISM</label>
+				</div>
+				
+				 <div ng-show="config.userRoleId !=1006" class="form-group col-xs-offset-0 col-xs-1 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-md-3 col-lg-offset-0 col-lg-1">
+					<input id="ispsAuthorisation" type="checkbox" ng-true-value=1 ng-false-value=0 ng-init="config.authorisation.ispsReview"  ng-model="config.authorisation.ispsReview"
+					ng-disabled="true" />
+					<label for="ispsAuthorisation" >ISPS</label>
+				</div>
+				 <div ng-show="config.userRoleId !=1006" class="form-group col-xs-offset-0 col-xs-1 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-md-3 col-lg-offset-0 col-lg-1">
+					<input id="mlcAuthorisation" type="checkbox"  ng-true-value=1 ng-false-value=0 ng-init="config.authorisation.mlcreview" ng-model="config.authorisation.mlcreview" 
+					ng-disabled="true" />
+					<label for="mlcAuthorisation" >MLC  </label>
+				</div>
+				 <div  ng-show="config.ihmUser" class="form-group col-xs-offset-0 col-xs-1 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-md-3 col-lg-offset-0 col-lg-1">
+					<input id="ihmAuthorisation" type="checkbox" ng-true-value=1 ng-false-value=0 ng-init="config.authorisation.ihmreview"  ng-model="config.authorisation.ihmreview"
+					ng-disabled="true" />
+					<label for="ihmAuthorisation" >IHM</label>
+				</div>
+				<div  ng-show="config.planApprovalUser" class="form-group col-xs-offset-0 col-xs-1 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-md-3 col-lg-offset-0 col-lg-2">
+					<input id="planApprovalAuthorisation" type="checkbox" ng-true-value=1 ng-false-value=0 ng-init="config.authorisation.planApprovalReview"  ng-model="config.authorisation.planApprovalReview"
+					ng-disabled="true" />
+					<label for="planApprovalAuthorisation" >PLAN APPROVAL</label>
+				</div>
+				</div>
+				</div>
+				
+<!-- 	user Authorosation ism ihm isps mlc end  -->
+
+
+			<div
+				class="col-xs-12 col-sm-12 col-md-12 col-lg-12 makeCenter containerfull">
+				<div
+					class="col-xs-offset-1 col-xs-5 col-sm-offset-0 col-sm-5 col-md-offset-4 col-md-2 col-lg-offset-4 col-lg-2">
+
+					<button type="button"
+						class="effect effect btnclass btn btn-primaryclr fix-but-width font-save"
+						ng-click="config.submit()">Save</button>
+
+				</div>
+				<div class="col-xs-5 col-sm-5 col-md-2 col-lg-2">
+
+					<button type="button"
+						class="effect effect btnclass btn btn-primaryclr fix-but-width font-save"
+						ng-click="config.defaultColor()">Default Color</button>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+</form>

@@ -1,0 +1,203 @@
+<form name="vesdet.vesselDetailsForm" autocomplete="off">
+	<div
+		class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12 vesdet">
+		<div
+			class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 accordion-toggle1"
+			data-toggle="collapse" data-target="#vesdet">
+			<div
+				class="caption font-blue-sharp col-xs-12 col-sm-12 col-md-6 col-lg-6">
+				<span class="caption-subject bold uppercase pull-left">Vessel
+					Details</span>
+			</div>
+			<div class="tools"></div>
+
+		</div>
+
+		<div class="switch-container">
+			<label class="switch" data-toggle="tooltip"
+				data-original-title="{{vesdet.lockMessage}}" tooltip
+				data-placement="left"> <input type="checkbox"
+				ng-model="vesdet.enabled" ng-change="vesdet.changeCallback()">
+				<span class="slider round"> <i
+					class="fa fa-plus-square-o icon-lock-position"
+					ng-if="vesdet.enabled"></i> <i
+					class="fa fa-pencil-square-o icon-unlock-position"
+					ng-if="!vesdet.enabled"></i>
+			</span>
+			</label>
+		</div>
+
+		<div id="vesdet"
+			class="portlet-body collapse in col-xs-12 col-sm-12 col-md-12 col-lg-12 padcontainer">
+
+			<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 txt-sec"
+				ng-if="vesdet.enabled == true">
+				<input max-len=7 numeric
+					class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+					ng-model="vesdet.imonumber" ng-focus="vesdet.toasterClear()"
+					ng-blur="vesdet.checkImoNo(vesdet.imonumber)" name="vslImo"
+					id="imonumber" type="text" ng-class="{'changed':vesdet.imonumber}"
+					required /> <label for="imonumber">IMO Number</label>
+
+			</div>
+
+
+
+			<div class="txt-sec col-xs-12 col-sm-12 col-md-3 col-lg-3"
+				ng-if="vesdet.enabled == false">
+				<input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12"
+					ng-model="vesdet.imonumber" id="imonumber"
+					uib-typeahead="ves as ves.vesselImoNo for ves in vesdet.vessellImoTypeahead($viewValue)|limitTo:9"
+					numeric max-len=7 typeahead-no-results="showNoResults"
+					name="vslImo" custom-tooltip="{{showNoResults}}" type="text"
+					ng-change="vesdet.disable(vesdet.imonumber)"
+					ng-blur="vesdet.validateTypeahead(vesdet.imonumber,'IMONO')"
+					autocomplete="off"
+					typeahead-on-select="vesdet.focusSuccessive($item)"
+					ng-class="vesdet.imonumber.vesselImoNo ? {'changed':vesdet.imonumber.vesselImoNo||vesdet.imonumber}:{'changed':vesdet.imonumber}"
+					required /> <label for="imonumber">IMO Number</label>
+
+			</div>
+
+			<div class="txt-sec col-xs-12 col-sm-12 col-md-3 col-lg-3"
+				ng-if="vesdet.enabled == true">
+				<input letter-spcl max-len=100 style="text-transform: uppercase"
+					class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+					name="vslName" ng-model="vesdet.vesselname" id="vesselname"
+					type="text" ng-class="{'changed':vesdet.vesselname}" required /> <label
+					for="vesselname">Vessel Name</label>
+
+			</div>
+
+
+
+			<div class="txt-sec col-xs-12 col-sm-12 col-md-3 col-lg-3"
+				ng-if="vesdet.enabled == false">
+				<input style="text-transform: uppercase" letter-spcl max-len=100
+					class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+					ng-disabled="!vesdet.imonumber && vesdet.vesnam"
+					ng-model="vesdet.vesselname" id="vesselname" type="text"
+					name="vslName" ng-class="{'changed':vesdet.vesselname}" required />
+				<label for="vesselname">Vessel Name</label>
+
+			</div>
+
+
+
+
+
+			<div class="txt-sec col-xs-12 col-sm-12 col-md-3 col-lg-3">
+				<input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12"
+					ng-model="vesdet.vesseltype" id="vesseltype" type="text"
+					ng-disabled="!vesdet.imonumber && vesdet.vestyp" name="vslType"
+					ng-class="{'changed':vesdet.vesseltype}" required /> 
+					<label for="vesseltype">Vessel Type</label>
+
+			</div>
+
+
+
+
+
+
+
+
+
+
+			<div class="txt-sec col-xs-12 col-sm-12 col-md-3 col-lg-3">
+				<input class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12"
+					ng-model="vesdet.cmpnyimono" id="companyimono" type="text"
+					uib-typeahead="ves as ves.companyImoNo for ves in vesdet.companyImoTypeahead($viewValue) | limitTo:9"
+					max-len=7 numeric typeahead-no-results="showNoResults"
+					custom-tooltip="{{showNoResults}}" name="companyImo"
+					ng-blur="vesdet.validateTypeahead(vesdet.cmpnyimono,'IMO')"
+					id="imonumber" type="text"
+					ng-disabled="!vesdet.imonumber && vesdet.cmp"
+					ng-class="vesdet.cmpnyimono.companyImoNo ? {'changed':vesdet.cmpnyimono.companyImoNo||vesdet.cmpnyimono} : {'changed':vesdet.cmpnyimono} "
+					required /> <label for="companyimono">Company IMO No.</label>
+
+			</div>
+
+
+
+			<div class="txt-sec col-xs-12 col-sm-12 col-md-3 col-lg-3">
+				<input max-len=15 numeric
+					class="txt-input col-xs-12 col-sm-12 col-md-12 col-lg-12"
+					ng-model="vesdet.officialnumber" id="officialnumber" type="text"
+					name="offno" ng-disabled="!vesdet.imonumber && vesdet.offno"
+					ng-class="{'changed':vesdet.officialnumber}" required /> <label
+					for="officialnumber">Official Number</label>
+
+			</div>
+
+
+
+			<div class="txt-sec col-xs-12 col-sm-12 col-md-3 col-lg-3">
+				<input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+					ng-model="vesdet.grt" id="grt" max-len=9 numeric type="text"
+					name="grt" ng-disabled="!vesdet.imonumber && vesdet.gr"
+					ng-class="{'changed':vesdet.grt}" required /> <label for="grt">GRT(MT)</label>
+
+			</div>
+			
+			<div class="txt-sec col-xs-12 col-sm-12 col-md-3 col-lg-3">
+				<input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+					ng-model="vesdet.vesselid" id="vslid" max-len=15 numeric type="text"
+					name="vslid" ng-disabled="!vesdet.imonumber && vesdet.vslid"
+					ng-class="{'changed':vesdet.vesselid}" required /> <label for="vslid">VESSEL_ID</label>
+
+			</div>
+			
+			<div class="txt-sec col-xs-12 col-sm-12 col-md-3 col-lg-3">
+				<input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+					ng-model="vesdet.uk" id="uk" max-len=15 numeric type="text"
+					name="uk" ng-disabled="!vesdet.imonumber && vesdet.vsluk"
+					ng-class="{'changed':vesdet.uk}" required /> <label for="uk">VESSEL_UK</label>
+
+			</div>
+			<div class="txt-sec col-xs-12 col-sm-12 col-md-3 col-lg-3">
+				<input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+					ng-model="vesdet.pk" id="pk" max-len=15 numeric type="text"
+					name="pk" ng-disabled="!vesdet.imonumber && vesdet.vslpk"
+					ng-class="{'changed':vesdet.pk}" required /> <label for="pk">VESSEL_PK</label>
+
+			</div>
+
+			<div style="padding-top: 25px !important;"
+				class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+				<input id="vesdetstatus" type="checkbox" ng-model="vesdet.status"
+					name="statid" ng-true-value=1 ng-false-value=0
+					ng-init="vesdet.status=0" required /> <label for="vesdetstatus"
+					class="containerhght">Active Status</label>
+			</div>
+			
+			<div style="padding-top: 25px !important;"
+				class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+				<input id="tcstatus" type="checkbox" ng-model="vesdet.tcApprovalStatus"
+					name="statid" ng-true-value=1 ng-false-value=0
+					ng-init="vesdet.tcApprovalStatus=0" required /> <label for="tcstatus"
+					class="containerhght">Tc Approval Status</label>
+			</div>
+
+			<div style="padding-top: 25px !important;"
+				ng-if="!vesdet.enabled && vesdet.imonumber.vesselImoNo"
+				class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+				<a id="history"
+					ng-click="vesdet.showHistory(vesdet.imonumber.vesselImoNo)">History</a>
+			</div>
+
+
+
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 makeCenter">
+				<div
+					class="col-xs-offset-6 col-xs-6 col-sm-offset-6 col-sm-6 col-md-offset-10 col-md-12 col-lg-offset-10 col-lg-2 masterScreenBut">
+					<button type="button"
+						class="effect effect btnclass btn btn-primaryclr fix-but-width font-create"
+						ng-disabled="!vesdet.imonumber || !vesdet.vesselname || !vesdet.vesseltype || !vesdet.cmpnyimono || !vesdet.officialnumber || !vesdet.grt "
+						ng-click="vesdet.submit(vesdet.createedit)">{{vesdet.createedit}}</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</form>

@@ -1,0 +1,53 @@
+.stat.search_table_bordered p{
+	margin-top:5px !important;
+	margin-bottom:5px !important;
+}
+
+.stat.search_table_bordered .tableheader{
+	padding-top:0px !important;
+	padding-bottom:0px !important;
+	
+}
+
+
+.stat.search_table_bordered .tablealign{
+    vertical-align: middle;
+}
+
+.stat .mgmntcmpny{
+    border: 1px groove #065050;
+    border-right: 0px;
+    height: 30px;
+    vertical-align: middle;
+}
+.stat .mgmntcmpny > .alignCenter{
+	margin-top:4px;
+}
+.stat .detail > .mgmntcmpny{
+	border-top:0px;
+	max-width: none !important;
+	text-align:center !Important;
+}
+.stat .detail > .mgmntcmpny:last-child{
+	border-right: 1px groove #065050;
+}
+.stat .head > .mgmntcmpny:last-child{
+	border-right: 1px groove #065050;
+}
+
+.stat .detail > .detail > .mgmntcmpny:last-child{
+	border-right: 0px;
+}
+.stat .head > .head > .mgmntcmpny:last-child{
+	border-right: 0px;
+}
+.stat .head .mgmntcmpny{
+	background-color:#2b3643;
+	color:#36c6d3;
+	min-width: 50px !important;
+    text-align: center !important;
+}
+
+.table td.mgmntcmpny.audit-plc {
+    max-width: 25vw !important;
+}

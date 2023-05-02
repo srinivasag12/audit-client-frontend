@@ -1,0 +1,161 @@
+<div style="height: 90.5vh !important; max-height: 90.5vh !Important;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull auditscroll scroll">
+<div class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12 history">
+			<div class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 accordion-toggle" data-toggle="collapse" data-target="#carsearch">
+				<div class="caption font-blue-sharp col-xs-12 col-sm-12 col-md-10 col-lg-10">
+					<span class="caption-subject bold uppercase pull-left">Car Search</span>
+				</div>
+				<!-- <div class="tools">
+					<a href="" class="collapse"> </a>
+				</div> -->
+			</div>
+			
+				<div id="carsearch" style="border-bottom: 1px solid #065050 !important;" class="portlet-body collapse in  col-xs-12 col-sm-12 col-md-12 col-lg-12 padcontainer">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull">
+				<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 txt-sec">
+					
+						 <input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" ng-model="carsrch.searchCriteria.vesselImoNo" id=carsrchimo"  type="text" 
+						 uib-typeahead="ship as ship.vesselImoNo for ship in _.getLatestVesselImo($viewValue,carsrch.LatestAuditArray,carsrch.vesselArray)" type="text"  
+						 typeahead-on-select="carsrch.setVesselName($item)"
+						 typeahead-no-results="noVesselImo" custom-tooltip="{{noVesselImo}}" numeric max-len="7"
+						 ng-blur="carsrch.validateVessel(carsrch.searchCriteria.vesselImoNo,'IMO')"
+						 ng-change="carsrch.searchCriteria.vesselName=''" ng-class="{'changed':carsrch.searchCriteria.vesselImoNo}"/> 
+						 <label for="historyimo">Vessel IMO No</label> 
+					
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 txt-sec">
+					
+						<input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" 
+							ng-model="carsrch.searchCriteria.vesselName" id="historyvslname" type="text" characters-only 
+							uib-typeahead="ship as ship.vesselName for ship in _.getVesselName($viewValue,carsrch.vesselArray)"
+							ng-blur="carsrch.validateVessel(carsrch.searchCriteria.vesselName,'VES')"
+							typeahead-on-select="carsrch.setVesselImo($item)"typeahead-no-results="noVesselImo" custom-tooltip="{{noVesselName}}"
+						    ng-change="carsrch.searchCriteria.vesselImoName=''"  data-toggle="tooltip" data-original-title="{{carsrch.searchCriteria.vesselName.vesselName}}" ng-class="{'changed':carsrch.searchCriteria.vesselName}" 
+							
+                          tooltip data-placement="bottom"/> 
+						<label  for="historyvslname">Vessel Name</label>
+					
+				</div>
+				
+							<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 txt-sec">
+								
+									<select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" ng-model="carsrch.searchCriteria.auditmodtype" id="audittype" 
+									 ng-init="carsrch.auditmodtype = carsrch.audtype[0].auditTypeId"
+									 ng-options="autype.auditTypeId as autype.auditTypeDesc for autype in carsrch.audtype"
+									 ng-change="carsrch.getAuditData(carsrch.searchCriteria.auditmodtype)" ng-class="{'changed':carsrch.searchCriteria.auditmodtype}"></select>
+								 	<label for="audittype">Type</label>
+								
+							</div>
+				<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 txt-sec">
+					
+						 <select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" ng-model="carsrch.searchCriteria.audsubmodtype" id="audsubtypes" ng-disabled="!(carsrch.searchCriteria.auditmodtype)"
+						 ng-options="type.auditSubtypeId as type.auditSubtypeDesc for type in carsrch.audsubtype" ng-class="{'changed':carsrch.searchCriteria.audsubmodtype}"></select>
+						 <label for="audsubtypes">Sub Type</label>
+					
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 txt-sec">
+					
+						 <select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" ng-model="carsrch.searchCriteria.findingStatus" id="audstatus" 
+						 ng-options="stat.findingsStatusId as stat.findingstStatusDesc for stat in carsrch.findingStatus" ng-class="{'changed':carsrch.searchCriteria.findingStatus}"></select>
+						 <label for="audstatus">Finding Status</label>
+					
+				</div>	
+				
+				
+				<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 txt-sec">
+					
+						 <select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" ng-model="carsrch.searchCriteria.findingCategory " id="audcategory" 
+						 ng-options="stat.findingsCategoryId as stat.findingsCategoryDesc for stat in carsrch.findingCategory " 
+						 ng-class="{'changed':carsrch.searchCriteria.findingCategory}" ng-disabled="!carsrch.searchCriteria.auditmodtype"></select>
+						 <label for="audcategory">Finding Category</label>
+					
+				</div> 
+				
+				
+				
+				<!-- ng-init="carsrch.searchCriteria.findingStatus = carsrch.findingStatus[0].findingsStatusId" -->
+					
+					</div>  
+				<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 txt-sec">
+					
+						 <input class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input" 
+							ng-model="carsrch.searchCriteria.leadAuditorName" id="leadAuditorName" type="text" characters-only 
+							
+							uib-typeahead="aud.firstName+' '+aud.lastName as aud.firstName+' '+aud.lastName for aud in carsrch.leadAuditorNames | filter:$viewValue"
+							typeahead-on-select="carsrch.searchCriteria.leadAuditorUserId=$item.emailId"
+							custom-tooltip="{{noName}}"
+						    data-toggle="tooltip"
+						    data-original-title="{{carsrch.searchCriteria.leadAuditorName}}"
+						    ng-class="{'changed':carsrch.searchCriteria.leadAuditorName}" 
+						    ng-change="carsrch.searchCriteria.leadAuditorUserId=''"
+							tooltip data-placement="bottom"/> 
+							 <label for="audstatus">By Lead Name</label>
+					
+				</div>
+				<!-- data-original-title="{{carsrch.searchCriteria.leadAuditorName.firstName+''+carsrch.searchCriteria.leadAuditorName.lastName}}"
+				 -->
+				</div>
+			
+		</div>
+		
+<div  class="col-xs-12 col-sm-12  col-md-12  tdpad col-lg-12 history audsrcpad">		
+			
+			<div class="col-xs-4 col-sm-3  col-md-2 col-lg-offset-3 col-lg-2">
+				<button type="button" class="effect effect btnclass btn btn-primaryclr fix-but-width font-home" ng-click="carsrch.back()">Home</button>
+			</div>
+			<div class="col-xs-4 col-sm-3 col-md-2 col-lg-2">
+				<button type="button" class="effect effect btnclass btn btn-primaryclr fix-but-width font-search" ng-click="carsrch.search(0)">Search</button>
+			</div>
+			<div class="col-xs-4 col-sm-3 col-md-2 col-lg-2">
+				<button type="button" class="effect effect btnclass btn btn-primaryclr fix-but-width font-clear" ng-click="carsrch.clear()">Clear</button>
+			</div>
+			<!-- <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+				<button type="button" class="btnclass btn btn-primaryclr" ng-click="carsrch.report('pdf')">Pdf</button>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+				<button type="button" class="btnclass btn btn-primaryclr" ng-click="carsrch.report('excel')">Excel</button>
+			</div> -->
+
+</div>
+
+<div ng-if="carsrch.showBlock" class="search_table_bordered auditSearch">
+		<!--Changed by @Ramya for Jira id -IRI-5006-->
+	<table datatable="" dt-options="carsrch.dtOptions" dt-columns="carsrch.dtColumns" dt-instance="carsrch.dtInstance" class="table table-responsive datatables" ></table>
+	<nav ng-if="carsrch.pagination" class="pagination pagination-sm pagination_position searchpagination"  >
+		<li ng-class="{ disabled : pagination.current === 0 ||  pagination.current === 1}">
+			<a href="" ng-click="(pagination.current === 0 || pagination.current === 1)?null:carsrch.search(0,'start')">&larrb;</a>
+		</li>
+		<li ng-class="{ disabled : pagination.ShowPagesMax < 10 ||  carsrch.pageInitialCount == 1}">
+			<a href="" ng-click="(pagination.current === 0 || pagination.current === 1)?null:carsrch.search(0,'back')">&laquo;</a>
+		</li>
+		<li ng-class="{ disabled : pagination.current === 0 || pagination.current === 1}">
+			<a href="" ng-click="(pagination.current === 0 || pagination.current === 1)?null:carsrch.search(pagination.current-2)">&lsaquo;</a>
+		</li>
+		<li ng-repeat="n in range(pagination.ShowPagesMin,pagination.ShowPagesMax)" ng-class="{active:pagination.current===n}"> 
+			<a href="#" ng-click="carsrch.search(n-1)" ng-bind="n">n</a>
+		</li>
+		<li ng-class="{ disabled : pagination.current === pagination.last}">
+			<a href="" ng-click="(pagination.current === pagination.last)?null:carsrch.search(pagination.current)">&rsaquo;</a>
+		</li>
+		<li ng-class="{ disabled :  pagination.current === pagination.last || pagination.ShowPagesMax>pagination.totalPages}">
+			<a href="" ng-click="(pagination.current === pagination.last || pagination.ShowPagesMax>pagination.totalPages )?null:carsrch.search(pagination.last-1,'front')">&raquo;</a>
+		</li>
+		<li ng-class="{ disabled : pagination.current === pagination.last || pagination.ShowPagesMax>pagination.totalPages}">
+			<a href="" ng-click="(pagination.current === pagination.last || pagination.ShowPagesMax>pagination.totalPages)?null:carsrch.search(pagination.last-1,'end')">&rarrb;</a>
+		</li>
+		
+	</nav>
+
+</div>
+<!--added by @Ramya for Jira id -IRI-5006-->
+<div ng-if="carsrch.pagination" class="search_table_bordered" >
+<div class="displayCountRecords">
+Showing {{carsrch.from}} to {{carsrch.to}} of {{carsrch.total}} entries
+</div>	
+</div>
+
+
+
+</div>
+ 
+ 
+ 

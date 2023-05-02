@@ -1,0 +1,107 @@
+<div style="height: 90.5vh !important; max-height: 90.5vh !Important;"
+	class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull auditscroll scroll">
+	<div
+		class="portlet light bordered col-xs-12 col-sm-12 col-md-12 col-lg-12 search">
+		<div
+			class="portlet-title col-xs-12 col-sm-12 col-md-12 col-lg-12 accordion-toggle1"
+			data-toggle="collapse" data-target="#search">
+			<div
+				class="caption font-blue-sharp col-xs-6 col-sm-6 col-md-2 col-lg-2">
+				<span class="caption-subject bold uppercase pull-left">Support
+					Search Criteria</span>
+			</div>
+
+		</div>
+
+		 <div id="search" style="border-bottom: 1px solid #065050 !important;"
+			class="portlet-body collapse in col-xs-12 col-sm-12 col-md-12 col-lg-12 padcontainer">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 containerfull">
+				
+
+				<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 txt-sec">
+
+					<select class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-input"
+						ng-model="supSearch.supSearchCriteria.tableId" id="audittype"
+						ng-class="{'changed':supSearch.supportCriteria.tableId}"
+						ng-options="autype.tableId as autype.tableDesc for autype in supSearch.auditType"
+						ng-init="supSearch.supportCriteria.auditTypeId=0"
+						
+						></select>
+					<label for="audittype">Select Table</label>
+
+				</div>
+				
+				
+				
+			</div>
+	
+		</div>
+	
+ </div>
+
+	 <div
+		class="col-xs-12 col-sm-12 col-md-12 col-lg-offset-0 tdpad col-lg-12 search audsrcpad">
+
+		
+		<div
+			class="col-xs-4 col-sm-offset-0  col-sm-3 col-md-offset-0  col-md-2 col-lg-offset-0 col-lg-2">
+			<button type="button"
+				class="effect effect btn btn-primaryclr btnsize btnclass fix-but-width font-search"
+				ng-click="supSearch.search(0)">Search</button>
+		</div>
+		
+			<div class="col-xs-4 col-sm-offset-0  col-sm-3 col-md-offset-0  col-md-2 col-lg-offset-0 col-lg-2">
+			<button type="button"
+				class="effect effect btn btn-primaryclr btnsize btnclass fix-but-width font-search"
+				ng-click="supSearch.clear();">Clear </button>
+		    </div>
+		    
+		    <div class="col-xs-4 col-sm-offset-0  col-sm-3 col-md-offset-0  col-md-2 col-lg-offset-0 col-lg-2">
+			<button type="button"
+				class="effect effect btn btn-primaryclr btnsize btnclass fix-but-width font-search"
+				ng-click="supSearch.back();">Back </button>
+		    </div>
+
+			
+
+	 </div>
+ 
+	<div ng-if="supSearch.showBlock"
+		class="search_table_bordered auditSearch supportSearch">
+		<table datatable="" dt-options="supSearch.dtOptions"
+			dt-columns="supSearch.dtColumns" dt-instance="supSearch.dtInstance"
+			class="table table-responsive datatables"></table>
+		<nav ng-if="supSearch.pagination"
+			class="pagination pagination-sm pagination_position searchpagination">
+			<li
+				ng-class="{ disabled : pagination.current === 0 ||  pagination.current === 1}">
+				<a href=""
+				ng-click="(pagination.current === 0 || pagination.current === 1)?null:supSearch.search(0)">&laquo;</a>
+			</li>
+			<li
+				ng-class="{ disabled : pagination.current === 0 || pagination.current === 1}">
+				<a href=""
+				ng-click="(pagination.current === 0 || pagination.current === 1)?null:supSearch.search(pagination.current-2)">&lsaquo;</a>
+			</li>
+			<li ng-repeat="n in range(pagination.totalPages)"
+				ng-class="{active:pagination.current===n}"><a href="#"
+				ng-click="supSearch.search(n-1)" ng-bind="n">n</a></li>
+			<li ng-class="{ disabled : pagination.current === pagination.last }">
+				<a href=""
+				ng-click="(pagination.current === pagination.last)?null:supSearch.search(pagination.current)">&rsaquo;</a>
+			</li>
+			<li ng-class="{ disabled : pagination.current === pagination.last }">
+				<a href=""
+				ng-click="(pagination.current === pagination.last)?null:supSearch.search(pagination.last-1)">&raquo;</a>
+			</li>
+		</nav>
+
+	</div>
+
+
+	<div ng-if="support.pagination" class="search_table_bordered">
+		<div class="displayCountRecords">Showing {{support.from}} to
+			{{support.to}} of {{support.total}} entries</div>
+	</div>
+
+</div>
